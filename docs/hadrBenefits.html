@@ -1,0 +1,135 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
+  <meta name="description" content="">
+  <meta name="author" content="">
+
+  <title>Db2 HADR Wiki - HADR Benefits</title>
+
+  <!-- Bootstrap core CSS -->
+  <link href="vendor/bootstrap/css/bootstrap.min.css" rel="stylesheet">
+
+  <!-- Custom styles for this template -->
+  <link href="css/simple-sidebar.css" rel="stylesheet">
+
+</head>
+
+<body>
+
+  <div class="d-flex" id="wrapper">
+
+    <!-- Sidebar -->
+    <div class="bg-light border-right" id="sidebar-wrapper">
+      <div class="sidebar-heading">Menu</div>
+      <div class="list-group list-group-flush">
+        <a href="/" class="list-group-item list-group-item-action bg-light">Welcome</a>
+        <a href="#" class="list-group-item list-group-item-action bg-light"><strong>> HADR Benefits</strong></a>
+        <a href="#" class="list-group-item list-group-item-action bg-light">Feature History</a>
+        <a href="#" class="list-group-item list-group-item-action bg-light">HADR Tutorial</a>
+        <a href="#" class="list-group-item list-group-item-action bg-light">TCP Tuning</a>
+        <a href="#" class="list-group-item list-group-item-action bg-light">Perf Tuning</a>
+      </div>
+    </div>
+    <!-- /#sidebar-wrapper -->
+
+    <!-- Page Content -->
+    <div id="page-content-wrapper">
+
+      <nav class="navbar navbar-expand-lg navbar-light bg-light border-bottom">
+        <button class="btn btn-primary" id="menu-toggle">Toggle Menu</button>
+
+        <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarSupportedContent" aria-controls="navbarSupportedContent" aria-expanded="false" aria-label="Toggle navigation">
+          <span class="navbar-toggler-icon"></span>
+        </button>
+
+        <div class="collapse navbar-collapse" id="navbarSupportedContent">
+          <ul class="navbar-nav ml-auto mt-2 mt-lg-0">
+            <li class="nav-item active">
+              <a class="nav-link" href="/">Home <span class="sr-only">(current)</span></a>
+            </li>
+            <li class="nav-item">
+              <a class="nav-link" href="#">Link</a>
+            </li>
+            <li class="nav-item dropdown">
+              <a class="nav-link dropdown-toggle" href="#" id="navbarDropdown" role="button" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
+                Dropdown
+              </a>
+              <div class="dropdown-menu dropdown-menu-right" aria-labelledby="navbarDropdown">
+                <a class="dropdown-item" href="#">Action</a>
+                <a class="dropdown-item" href="#">Another action</a>
+                <div class="dropdown-divider"></div>
+                <a class="dropdown-item" href="#">Something else here</a>
+              </div>
+            </li>
+          </ul>
+        </div>
+      </nav>
+
+      <div class="container-fluid">
+        <h1 class="mt-4">HADR Benefits</h1>
+        <p>HADR is the preferred solution for HA and DR on Db2 LUW. It has the following benefits:
+        <ul>
+        <li>Universal solution</li>
+          <ul>
+          <li>HADR is integrated in Db2 LUW. It is available wherever Db2 is.</li>
+          <li>TCP is used for primary and standby connection. No special hardware or software is needed.</li>
+          <li>No limitation on distance between primary and standby.</li>
+          <li>Deploy standby locally in the same room for HA, or remotely across the continent for DR</li>
+          <li>Deploy both local and remote standbys for HA and DR at the same time, using multiple standby (starting in Db2 V10.1).</li>
+          </ul>
+        <li>Ease of use</li>
+          <ul>
+          <li>Setup only requires a few configuration parameters (primary/standby network address, and hadr_syncmode)</li>
+          <li>Whole database replication. All logged activities in database are replicated (DDL and DML).</li>
+          <li>Only 3 commands to manage: start/stop/takeover HADR</li>
+          <li>One command does it all for failover (or role switch). Just say "takeover HADR"</li>
+          </ul>
+        <li>Choice of protection levels</li>
+          <ul>
+          <li>Choose the best sync mode for your business need: sync, nearSync, async, superAsync</li>
+          <li>Zero data loss protection available via patented IBM technology peer window.</li>
+          </ul>
+        <li>Performance</li>
+          <ul>
+          <li>Physical replay for best performance. Standby knows exactly which page, which row slot to update. Replay is simple and fast. Standby is exact clone of the primary.</li>
+          <li>Parallel replay on the standby. It uses the same mechanism as high performance parallel recovery.</li>
+          </ul>
+        <li>Automation</li>
+          <ul>
+          <li>Automated failover supported by integrated cluster manager.</li>
+          <li>Automatic client reroute after failover or role switch.</li>
+          <li>Automatic reconfiguration after failover or role switch in multiple standby. All standbys are auto reconfigured to connect to the new primary.</li>
+          </ul>
+        <li>Versatile</li>
+          <ul>
+          <li>Reads on standby can be enabled. Make full use of standby hardware.</li>
+          <li>Delayed replay (starting in Db2 V10.1) guards against errant transactions.</li>
+          <li>Rolling update achieves no down time for system upgrade.</li>
+          </ul>
+        </ul></p>
+      </div>
+    </div>
+    <!-- /#page-content-wrapper -->
+
+  </div>
+  <!-- /#wrapper -->
+
+  <!-- Bootstrap core JavaScript -->
+  <script src="vendor/jquery/jquery.min.js"></script>
+  <script src="vendor/bootstrap/js/bootstrap.bundle.min.js"></script>
+
+  <!-- Menu Toggle Script -->
+  <script>
+    $("#menu-toggle").click(function(e) {
+      e.preventDefault();
+      $("#wrapper").toggleClass("toggled");
+    });
+  </script>
+
+</body>
+
+</html>
