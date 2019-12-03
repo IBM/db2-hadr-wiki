@@ -1,0 +1,365 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
+  <meta name="description" content="">
+  <meta name="author" content="">
+
+  <title>Db2 HADR Wiki</title>
+
+  <!-- Bootstrap core CSS -->
+  <link href="vendor/bootstrap/css/bootstrap.min.css" rel="stylesheet">
+
+  <!-- Custom styles for this template -->
+  <link href="css/simple-sidebar.css" rel="stylesheet">
+
+</head>
+
+<body>
+
+  <div class="d-flex" id="wrapper">
+
+    <!-- Sidebar -->
+    <div class="bg-light border-right" id="sidebar-wrapper">
+      <div class="sidebar-heading">Menu</div>
+      <div class="list-group list-group-flush">
+        <a href="hadrBenefits.html" class="list-group-item list-group-item-action bg-light">HADR Benefits</a>
+        <a href="featureHistory.html" class="list-group-item list-group-item-action bg-light">Feature History</a>
+        <a href="hadrTutorial.html" class="list-group-item list-group-item-action bg-light">HADR Tutorial</a>
+        <a href="tcpTuning.html" class="list-group-item list-group-item-action bg-light">TCP Tuning</a>
+        <a href="perfTuning.html" class="list-group-item list-group-item-action bg-light">Perf Tuning</a>
+        <a href="hadrSimulator.html" class="list-group-item list-group-item-action bg-light"><strong>> HADR Simulator</strong></a>
+        <a href="simulatorOptions.html" class="list-group-item list-group-item-action bg-light">HADR Simulator Options</a>
+        <a href="simulatorOutput.html" class="list-group-item list-group-item-action bg-light">HADR Simulator Output</a>
+        <a href="simulatorParams.html" class="list-group-item list-group-item-action bg-light">HADR Simulator Params</a>
+        <a href="db2logscan.html" class="list-group-item list-group-item-action bg-light">db2logscan</a>
+        <a href="hadrConfig.html" class="list-group-item list-group-item-action bg-light">HADR Config</a>
+        <a href="hadrSyncMode.html" class="list-group-item list-group-item-action bg-light">HADR Sync Mode</a>
+        <a href="hadrTakeover.html" class="list-group-item list-group-item-action bg-light">HADR Takeover</a>
+        <a href="hadrMonitoring.html" class="list-group-item list-group-item-action bg-light">HADR Monitoring</a>
+        <a href="hadrCommands.html" class="list-group-item list-group-item-action bg-light">HADR Commands</a>
+        <a href="hadrLogShipping.html" class="list-group-item list-group-item-action bg-light">HADR Log Shipping</a>
+        <a href="hadrPerf.html" class="list-group-item list-group-item-action bg-light">HADR Perf</a>
+        <a href="diagConnect.html" class="list-group-item list-group-item-action bg-light">Diag Connect</a>
+        <a href="db2diag.html" class="list-group-item list-group-item-action bg-light">db2diag.log</a>
+        <a href="clusterManagers.html" class="list-group-item list-group-item-action bg-light">Cluster Managers</a>
+        <a href="clientReroute.html" class="list-group-item list-group-item-action bg-light">Client Reroute</a>
+        <a href="hadrPureScale.html" class="list-group-item list-group-item-action bg-light">HADR on PureScale</a>
+        <a href="faq.html" class="list-group-item list-group-item-action bg-light">FAQ</a>
+        <a href="db2fmtlog.html" class="list-group-item list-group-item-action bg-light">db2fmtlog replayonlywindow</a>
+      </div>
+    </div>
+    <!-- /#sidebar-wrapper -->
+
+    <!-- Page Content -->
+    <div id="page-content-wrapper">
+
+      <nav class="navbar navbar-expand-lg navbar-light bg-light border-bottom">
+        <button class="btn btn-primary" id="menu-toggle">Toggle Menu</button>
+
+        <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarSupportedContent" aria-controls="navbarSupportedContent" aria-expanded="false" aria-label="Toggle navigation">
+          <span class="navbar-toggler-icon"></span>
+        </button>
+
+        <div class="collapse navbar-collapse" id="navbarSupportedContent">
+          <ul class="navbar-nav ml-auto mt-2 mt-lg-0">
+            <li class="nav-item">
+              <a class="nav-link" href="index.html">Home</a>
+            </li>
+            <li class="nav-item">
+              <a class="nav-link" href="contact.html">Contact</a>
+            </li>
+            <li class="nav-item">
+              <a class="nav-link" href="contribute.html">Contribute</a>
+            </li>
+          </ul>
+        </div>
+      </nav>
+
+      <div class="container-fluid">
+        <p dir="ltr" style="text-align:center"><span style="font-size:24px">IBM DB2 High Availability Disaster Recovery (HADR) Simulator</span></p>
+
+        <p dir="ltr"><strong>Table of Contents</strong></p>
+
+        <ul dir="ltr">
+        	<li><a href="#Introduction">Introduction</a></li>
+        	<li><a href="#Download">Download</a></li>
+        	<li><a href="#Running_the_Simulator">Running the Simulator</a>
+        	<ul>
+        		<li><a href="#Simulating_Single_Standby_Systems">Simulating Single Standby Systems</a></li>
+        		<li><a href="#Simulating_Multiple_Standbys">Simulating Multiple Standbys</a></li>
+        		<li><a href="#Simulating_pureScale_Systems">Simulating pureScale Systems</a></li>
+        		<li><a href="#32_vs__64_Bit_Binary">32 vs. 64 Bit Binary</a></li>
+        		<li><a href="#OS_and_Endian_Compatibility">OS and Endian Compatibility</a></li>
+        	</ul>
+        	</li>
+        	<li><a href="#Command_Line_Options">Command Line Options</a></li>
+        	<li><a href="#Interpreting_simulator_output">Interpreting simulator output</a></li>
+        	<li><a href="#Simulation_Parameters_and_Scenarios">Simulation Parameters and Scenarios</a></li>
+        	<li><a href="#HADR_Configuration_and_Performance_Tuning">HADR Configuration and Performance Tuning</a></li>
+        </ul>
+
+        <p dir="ltr"><strong>&nbsp;&nbsp;</strong></p>
+
+        <h1 dir="ltr"><a name="Introduction">Introduction</a></h1>
+
+        <p dir="ltr">HADR (High Availability Disaster Recovery) is a DB2 feature that provides high availability and disaster recovery protection. When enabled, transaction log records from the primary database are shipped to the standby database in real time as the records are written to disk on the primary database. The standby database continuously replays the received logs, thus staying in synch with the primary database. Should the primary fail, the standby takes over to provide continued service.<br />
+        <br />
+        HADR is easy to use. It is fully integrated in DB2. Setup only requires a few database configuration parameters. It uses standard TCP interface to connect the primary and standby databases. It requires no special hardware or software.<br />
+        <br />
+        With <em>IBM DB2 High Availability Disaster Recovery (HADR) Simulator</em>, HADR planning and deployment is even easier. You can estimate HADR performance under various conditions without even starting any database. HADR simulator simulates DB2 log write and HADR log shipping. It can</p>
+
+        <ul dir="ltr">
+        	<li>Estimate HADR performance under different sync modes.</li>
+        	<li>Measure disk performance.</li>
+        	<li>Measure network performance using HADR specific workload.</li>
+        	<li>Experiment with hypothetical disk speed.</li>
+        	<li>Experiment with various network tuning options.</li>
+        </ul>
+
+        <p dir="ltr">The simulator helps the user to plan, measure and diagnose HADR quickly. The simulator is very light weight. It consists of one process running on the primary host and one process running on the standby host. No setup or installation is needed. All configuration is passed as command line argument. The simulator itself is a standalone executable. No installation of DB2 or any other software packages is needed. You can run it on any machine and get result in seconds, without even starting the database.<br />
+        <br />
+        The simulator arguments closely match HADR configuration, using parameters like local host, local port, remote host, remote port, tcp socket send/recv buffer. Tuning result from the simulator can be straight forward applied to real HADR.</p>
+
+        <p dir="ltr">Together with <a href="db2logscan.html">DB2 Log Scanner</a> and <a href="db2logscan.html#HADR_Calculator">HADR&nbsp;Calculator</a>, you can quantitatively compute HADR performance based on your workload. See <a href="perfTuning.html">step by step guide</a> on using these tools for HADR performance tuning.</p>
+
+        <h1 dir="ltr"><a name="Download">Download - Db2 v11.5</a></h1>
+
+        <p dir="ltr">As of Db2 v11.5, the "HADR Toolkit" suite of tools including db2logscan (Db2 Log Scanner), simhadr (HADR Simulator), and hadrCalculator (HADR Calculator) are available as part of your Db2 installation sqllib/bin (db2logscan, simhadr) and sqllib/bin/samples (hadrCalculator.pl), and do not need to be downloaded separately.</p>
+
+        <h1 dir="ltr"><a name="Download">Download - Older releases</a></h1>
+
+        <p dir="ltr">The HADR simulator executable (simhadr) is stand-alone. It does not need any DB2 libraries. You can run it on machines without DB2 installation. Binaries for selected platforms are pre-built. The OS version listed here is the version where the binary is built. Generally, the binary can also run on newer OS versions, but not older versions. If you need the simulator on other platforms, email db2hadr@wwpdl.vnet.ibm.com</p>
+
+        <p dir="ltr"><strong>IBM DB2 HADR Simulator is provided free of charge to current and potential IBM customers. They are provided as is, with no explicit or implicit warranty. Read licensing terms at </strong><strong><a href="http://www-03.ibm.com/software/sla/sladb.nsf/byformnum/2B774D84D92F8C80002574DE00460309?opendocument">IBM&nbsp;Software&nbsp;License</a> before you proceed. Download only if you agree on the license terms.</strong></p>
+
+        <table border="2" dir="ltr">
+        	<tbody>
+        		<tr>
+        			<th>File name</th>
+        			<th>OS</th>
+        			<th>&nbsp;OS version&nbsp;</th>
+        			<th>&nbsp;Bit size&nbsp;</th>
+        			<th>&nbsp;Architecture&nbsp;</th>
+        		</tr>
+        		<tr>
+        			<td><a href="https://www.ibm.com/developerworks/mydeveloperworks/files/app?lang=en#/person/060001YK71/file/a6defec2-dbf6-4491-a949-19d656c88f4b">simhadr_aix</a></td>
+        			<td style="text-align:center">AIX</td>
+        			<td style="text-align:center">6.1</td>
+        			<td style="text-align:center">64</td>
+        			<td style="text-align:center">powerpc</td>
+        		</tr>
+        		<tr>
+        			<td><a href="https://www.ibm.com/developerworks/mydeveloperworks/files/app?lang=en#/person/060001YK71/file/bee7bac2-48fa-45b8-aca0-04ef5900741e">simhadr_aix53</a></td>
+        			<td style="text-align:center">AIX</td>
+        			<td style="text-align:center">5.3</td>
+        			<td style="text-align:center">64</td>
+        			<td style="text-align:center">powerpc</td>
+        		</tr>
+        		<tr>
+        			<td><a href="https://www.ibm.com/developerworks/mydeveloperworks/files/app?lang=en#/person/060001YK71/file/c72ccc8c-8b9e-483d-8cd2-ef5cf3027ed9">simhadr_hpia</a></td>
+        			<td style="text-align:center">HP-UX</td>
+        			<td style="text-align:center">11.31</td>
+        			<td style="text-align:center">64</td>
+        			<td style="text-align:center">IA64</td>
+        		</tr>
+        		<tr>
+        			<td><a href="https://www.ibm.com/developerworks/mydeveloperworks/files/app?lang=en#/person/060001YK71/file/f9020e8f-a677-44ef-9e54-8ceda504bcef">simhadr_linux</a></td>
+        			<td style="text-align:center">Linux</td>
+        			<td style="text-align:center">2.6</td>
+        			<td style="text-align:center">64</td>
+        			<td style="text-align:center">x86_64</td>
+        		</tr>
+        		<tr>
+        			<td><a href="https://www.ibm.com/developerworks/mydeveloperworks/files/app?lang=en#/person/060001YK71/file/9296b4d5-2eef-4eb2-a668-850f2fc312dc">simhadr_linux32</a></td>
+        			<td style="text-align:center">Linux</td>
+        			<td style="text-align:center">2.6</td>
+        			<td style="text-align:center">32</td>
+        			<td style="text-align:center">x86</td>
+        		</tr>
+        		<tr>
+        			<td><a href="https://www.ibm.com/developerworks/mydeveloperworks/files/app?lang=en#/person/060001YK71/file/4a79ec2f-e19a-427c-a42d-6e2f7bf25702">simhadr_linux_z</a></td>
+        			<td style="text-align:center">Linux</td>
+        			<td style="text-align:center">2.6</td>
+        			<td style="text-align:center">64</td>
+        			<td style="text-align:center">s390x</td>
+        		</tr>
+        		<tr>
+        			<td><a href="https://www.ibm.com/developerworks/community/files/app?lang=en#/file/9f7ea1c5-06b2-40c7-aaf0-8985f51c9a74">simhadr_linuxppc</a></td>
+        			<td style="text-align:center">Linux</td>
+        			<td style="text-align:center">2.6</td>
+        			<td style="text-align:center">64</td>
+        			<td style="text-align:center">powerpc</td>
+        		</tr>
+        		<tr>
+        			<td><a href="https://www.ibm.com/developerworks/mydeveloperworks/files/app?lang=en#/person/060001YK71/file/2ebf407a-4443-44df-bd8b-1504132269c9">simhadr_sun</a></td>
+        			<td style="text-align:center">SunOS</td>
+        			<td style="text-align:center">5.10</td>
+        			<td style="text-align:center">64</td>
+        			<td style="text-align:center">sparc</td>
+        		</tr>
+        		<tr>
+        			<td><a href="https://www.ibm.com/developerworks/mydeveloperworks/files/app?lang=en#/person/060001YK71/file/ac3befc9-ac69-44ce-8563-bab63d8f913e">simhadr_sunx86</a></td>
+        			<td style="text-align:center">SunOS</td>
+        			<td style="text-align:center">5.10</td>
+        			<td style="text-align:center">64</td>
+        			<td style="text-align:center">x86</td>
+        		</tr>
+        		<tr>
+        			<td><a href="https://www.ibm.com/developerworks/mydeveloperworks/files/app?lang=en#/person/060001YK71/file/5594833f-f146-4237-bd06-73ba5741a4b9">simhadr_win.exe</a></td>
+        			<td style="text-align:center">Windows</td>
+        			<td style="text-align:center">(N/A)</td>
+        			<td style="text-align:center">32</td>
+        			<td style="text-align:center">x86</td>
+        		</tr>
+        		<tr>
+        			<td><a href="https://www.ibm.com/developerworks/mydeveloperworks/files/app?lang=en#/person/060001YK71/file/690d540c-5de2-411f-8d5e-f058a36fb5ec">simhadr_win64.exe</a></td>
+        			<td style="text-align:center">Windows</td>
+        			<td style="text-align:center">(N/A)</td>
+        			<td style="text-align:center">64</td>
+        			<td style="text-align:center">x86</td>
+        		</tr>
+        	</tbody>
+        </table>
+
+        <p dir="ltr"><br />
+        You may also find simhadr file listing on IBM developerWorks file sharing using the <a href="https://www.ibm.com/developerworks/mydeveloperworks/files/app?lang=en#/person/060001YK71?sort=name&amp;tag=simhadr">simhadr tag</a>.</p>
+
+        <h3 dir="ltr"><a name="Version_history">Version history</a></h3>
+
+        <ul dir="ltr">
+        	<li>2012 Version 2.1, support superAsync mode and add testing both disk read and write.</li>
+        	<li>2008 Version 2. Initial public release</li>
+        </ul>
+
+        <p dir="ltr">Running simhadr with no argument will return version number, bit size, and help messages.</p>
+
+        <p dir="ltr">&nbsp;</p>
+
+        <h1 dir="ltr"><a name="Running_the_Simulator">Running the Simulator</a></h1>
+
+        <p dir="ltr">This section describes how to run the simulator for various HADR configurations. For details on all command line options. See next section "Command line options".</p>
+
+        <h2 dir="ltr"><a name="Simulating_Single_Standby_Systems">Simulating Single Standby Systems</a></h2>
+
+        <p dir="ltr">On the primary host, run simhadr as primary via "-role primary" option. On the standby host, run with "-role standby". Starting either process first is fine. The two processes will connect to each other and start log shipping. You may use -n (number of flushes) or -t (number of seconds) on primary to specify the length of the run. You can also interrupt a run any time by sending an "interrupt signal" (SIGINT, usually sent via control-C on keyboard) to the primary process. Upon end of run (including interrupted runs), both primary and standby will print out performance statistics to stdout.</p>
+
+        <p dir="ltr">Simulator only accepts numerical port numbers. It does not accept service names. This applies to -lport and -rport options.<br />
+        For -lhost and -rhost options, both host name and IP address (such as 1.2.3.4) are accepted, just like real HADR.</p>
+
+        <p dir="ltr">Example:<br />
+        - primary host is <span style="font-family:'courier new' , 'courier' , monospace">portland.ibm.com</span>, HADR port is 4000<br />
+        - standby host is <span style="font-family:'courier new' , 'courier' , monospace">sanfrancisco.ibm.com</span>. HADR port is 5000.<br />
+        - Sync mode is ASYNC (default is NEARSYNC)<br />
+        - Run length is 60 seconds (default is 4 seconds)</p>
+
+        <p dir="ltr">On primary host <span style="font-family:'courier new' , 'courier' , monospace">portland.ibm.com</span>, run:<br />
+        <span style="font-family:'courier new' , 'courier' , monospace">simhadr_linux -lhost portland.ibm.com -lport 4000 -rhost sanfrancisco.ibm.com -rport 5000 -role primary -syncmode ASYNC -t 60</span><br />
+        <br />
+        On standby host <span style="font-family:'courier new' , 'courier' , monospace">sanfrancisco.ibm.com</span>, run:<br />
+        <span style="font-family:'courier new' , 'courier' , monospace">simhadr_linux -lhost sanfrancisco.ibm.com -lport 5000 -rhost portland.ibm.com -rport 4000 -role standby</span></p>
+
+        <h2 dir="ltr"><a name="Simulating_Multiple_Standbys">Simulating Multiple Standbys</a></h2>
+
+        <p dir="ltr">To simulate multiple standbys (supported in DB2 starting V10.1), start multiple pairs of primary-standby concurrently, with all primary processes on the primary host. In real HADR, each standby is served by a dedicated thread in the primary database. So the simulation is realistic in terms of data flow. In simulator, the primary processes are independent of each other. Each must be assigned a different local port. The standbys can have the same port because they run on different hosts. In real HADR, only one primary thread listens on the hadr_local_svc port of the primary database. All standbys connect to this port. After connection, the listener thread passes the connection over to the dedicated HADR thread (this is common TCP server design).</p>
+
+        <p dir="ltr">It is important to run the pairs concurrently to test if the primary can ship logs to multiple standbys at the same time. It is possible that one pair gets a lot more share of network bandwidth than the other. You may use -target option to limit the bandwidth a pair uses.</p>
+
+        <p dir="ltr">Multiple standby example:<br />
+        - primary host is <span style="font-family:'courier new' , 'courier' , monospace">portland.ibm.com</span>, HADR port is 4000 and 4001<br />
+        - standby 1 host is <span style="font-family:'courier new' , 'courier' , monospace">sanfrancisco.ibm.com</span>. HADR port is 5000. Sync mode is NEARSYNC<br />
+        - standby 2 host is <span style="font-family:'courier new' , 'courier' , monospace">newyork.ibm.com</span>. HADR port is 6000. Sync mode is SUPERASYNC.</p>
+
+        <p dir="ltr">On primary host <span style="font-family:'courier new' , 'courier' , monospace">portland.ibm.com</span>, run:<br />
+        <span style="font-family:'courier new' , 'courier' , monospace">simhadr_linux -lhost portland.ibm.com -lport 4000 -rhost sanfrancisco.ibm.com -rport 5000 -role primary -syncmode NEARSYNC -t 60</span><br />
+        and<br />
+        <span style="font-family:'courier new' , 'courier' , monospace">simhadr_linux -lhost portland.ibm.com -lport 4001 -rhost newyork.ibm.com -rport 6000 -role primary -syncmode SUPERASYNC -t 60</span></p>
+
+        <p dir="ltr">On standby 1 host <span style="font-family:'courier new' , 'courier' , monospace">sanfrancisco.ibm.com</span>, run:<br />
+        <span style="font-family:'courier new' , 'courier' , monospace">simhadr_linux -lhost sanfrancisco.ibm.com -lport 5000 -rhost portland.ibm.com -rport 4000 -role standby</span></p>
+
+        <p dir="ltr">On standby 2 host <span style="font-family:'courier new' , 'courier' , monospace">newyork.ibm.com</span>, run (note that it connects to port 4001 on primary):<br />
+        <span style="font-family:'courier new' , 'courier' , monospace">simhadr_linux -lhost newyork.ibm.com -lport 6000 -rhost portland.ibm.com -rport 4001 -role standby</span></p>
+
+        <h2 dir="ltr"><a name="Simulating_pureScale_Systems">Simulating pureScale Systems</a></h2>
+
+        <p dir="ltr">To simulate HADR on pureScale systems (supported in DB2 starting V10.5), start multiple pairs of primary-standby concurrently, with each primary processes on a pureScale member host and all standby processes on the standby replay member host. In real HADR, all primary members connect to the standby replay member, where a dedicated thread serves each primary member. This is like the reverse of multiple standbys (multiple standby: one to many log shipping. pureScale: many to one log shipping).</p>
+
+        <p dir="ltr">It is important to run the pairs concurrently to test if the standby can receive logs from multiple primary members at the same time. It is possible that one pair gets a lot more share of network bandwidth than the other. You may use -target option to limit the bandwidth a pair uses.</p>
+
+        <p dir="ltr">pureScale example:<br />
+        - primary member 0 host is <span style="font-family:'courier new' , 'courier' , monospace">portland_0.ibm.com</span>, HADR port is 4000<br />
+        - primary member 1 host is <span style="font-family:'courier new' , 'courier' , monospace">portland_1.ibm.com</span>, HADR port is 4000<br />
+        - standby replay member host is <span style="font-family:'courier new' , 'courier' , monospace">sanfrancisco.ibm.com</span>. HADR port is 5000 and 5001.<br />
+        - Sync mode is ASYNC</p>
+
+        <p dir="ltr">On primary host <span style="font-family:'courier new' , 'courier' , monospace">portland_0.ibm.com</span>, run:<br />
+        <span style="font-family:'courier new' , 'courier' , monospace">simhadr_linux -lhost portland_0.ibm.com -lport 4000 -rhost sanfrancisco.ibm.com -rport 5000 -role primary -syncmode ASYNC -t 60</span></p>
+
+        <p dir="ltr">On primary host <span style="font-family:'courier new' , 'courier' , monospace">portland_1.ibm.com</span>, run:<br />
+        <span style="font-family:'courier new' , 'courier' , monospace">simhadr_linux -lhost portland_1.ibm.com -lport 4000 -rhost </span><span style="font-family:'courier new' , 'courier' , monospace">sanfrancisco</span><span style="font-family:'courier new' , 'courier' , monospace">.ibm.com -rport 5001 -role primary -syncmode ASYNC -t 60</span></p>
+
+        <p dir="ltr">On standby replay host <span style="font-family:'courier new' , 'courier' , monospace">sanfrancisco.ibm.com</span>, run:<br />
+        <span style="font-family:'courier new' , 'courier' , monospace">simhadr_linux -lhost sanfrancisco.ibm.com -lport 5000 -rhost portland_0.ibm.com -rport 4000 -role standby</span><br />
+        and<br />
+        <span style="font-family:'courier new' , 'courier' , monospace">simhadr_linux -lhost </span><span style="font-family:'courier new' , 'courier' , monospace">sanfrancisco</span><span style="font-family:'courier new' , 'courier' , monospace">.ibm.com -lport 5001 -rhost portland_1.ibm.com -rport 4000 -role standby</span></p>
+
+        <h2 dir="ltr"><a name="32_vs__64_Bit_Binary">32 vs. 64 Bit Binary</a></h2>
+
+        <p dir="ltr">DB2 HADR simulator can be compiled into either 32 or 64 bit applications. The bit size is shown in simhadr help message. Normally, there is little performance difference between the bit sizes. For best result, it is recommended that you run simhadr with the same bit size as your DB2 installation.</p>
+
+        <h2 dir="ltr"><a name="OS_and_Endian_Compatibility">OS and Endian Compatibility</a></h2>
+
+        <p dir="ltr">Real HADR requires the primary and standby host machines to be of the same OS type and machine architecture. The simulator has no requirement on OS type, or machine architecture (primary and standby can be on machines of different endian). This allows you to experiment on mixed platforms.</p>
+
+        <p dir="ltr">&nbsp;</p>
+
+        <h1 dir="ltr"><a name="Command_Line_Options">Command Line Options</a></h1>
+
+        <p dir="ltr">See <a href="simulatorOptions.html">Command line options</a></p>
+
+        <p dir="ltr">&nbsp;</p>
+
+        <h1 dir="ltr"><a name="Interpreting_simulator_output">Interpreting simulator output</a></h1>
+
+        <p dir="ltr">See <a href="simulatorOutput.html">HADR simulator output</a></p>
+
+        <p dir="ltr">&nbsp;</p>
+
+        <h1 dir="ltr"><a name="Simulation_Parameters_and_Scenarios">Simulation Parameters and Scenarios</a></h1>
+
+        <p dir="ltr">Flush size, Sync mode, Disk speed, Send and receive buffer sizes, etc.<br />
+        See <a href="simulatorParams.html">HADR simulator parameters</a></p>
+
+        <p dir="ltr">&nbsp;</p>
+
+        <h1 dir="ltr"><a name="HADR_Configuration_and_Performance_Tuning">HADR Configuration and Performance Tuning</a></h1>
+
+        <p dir="ltr">Together with <a href="db2logscan.html">DB2 Log Scanner</a> and <a href="db2logscan.html#HADR_Calculator">HADR&nbsp;Calculator</a>, you can quantitatively compute HADR performance based on your workload.</p>
+
+        <p dir="ltr">See <a href="perfTuning.html">step by step guide</a> on using these tools for HADR performance tuning.</p>
+      </div>
+    </div>
+    <!-- /#page-content-wrapper -->
+
+  </div>
+  <!-- /#wrapper -->
+
+  <!-- Bootstrap core JavaScript -->
+  <script src="vendor/jquery/jquery.min.js"></script>
+  <script src="vendor/bootstrap/js/bootstrap.bundle.min.js"></script>
+
+  <!-- Menu Toggle Script -->
+  <script>
+    $("#menu-toggle").click(function(e) {
+      e.preventDefault();
+      $("#wrapper").toggleClass("toggled");
+    });
+  </script>
+
+</body>
+
+</html>

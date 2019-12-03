@@ -66,10 +66,10 @@
 
         <div class="collapse navbar-collapse" id="navbarSupportedContent">
           <ul class="navbar-nav ml-auto mt-2 mt-lg-0">
-            <li class="nav-item active">
+            <li class="nav-item">
               <a class="nav-link" href="index.html">Home</a>
             </li>
-            <li class="nav-item">
+            <li class="nav-item active">
               <a class="nav-link" href="contact.html">Contact</a>
             </li>
             <li class="nav-item">
@@ -88,120 +88,6 @@
         <br />
         This site is maintained by the Db2 HADR development team. It is information directly from the lab. It is intended for HADR education, knowledge sharing, and product support. It provides valuable advices built up from years of development and support work. You can reach us at: <br><strong>db2hadr@wwpdl.vnet.ibm.com</strong></p>
 
-        <p><span style="font-size:18px">Site Map</span></p>
-
-        <ul>
-        	<li>Introduction
-        	<ul>
-        		<li>
-        		<p><a href="hadrBenefits.html">Why use HADR?</a>&nbsp; Benefits and feature highlight of HADR.</p>
-        		</li>
-        		<li>
-        		<p><a href="featureHistory.html">Feature history</a>: List of new HADR features since original release in Db2 V8.2.</p>
-
-        		<ul>
-        			<li>
-        			<p>What's new:&nbsp; V10.5: <a href="hadrPureScale.html">pureScale support</a>.&nbsp;&nbsp; V10.1: <a href="http://www.ibm.com/developerworks/data/library/long/dm-1206hadrmultiplestandby/index.html">Multiple&nbsp;Standby</a>.&nbsp;&nbsp; V97fp1: <a href="http://publib.boulder.ibm.com/infocenter/db2luw/v9r7/topic/com.ibm.db2.luw.admin.ha.doc/doc/c0054257.html">Reads&nbsp;on&nbsp;standby</a></p>
-        			</li>
-        		</ul>
-        		</li>
-        	</ul>
-        	</li>
-        	<li>Tutorials and General Info
-        	<ul>
-        		<li>
-        		<p><a href="hadrTutorial.html">HADR Tutorial</a>&nbsp; General tutorial focusing on the base case (single standby, non-pureScale)</p>
-        		</li>
-        		<li>
-        		<p><a href="faq.html">HADR Frequently Asked Questions (FAQ)</a></p>
-        		</li>
-        		<li>
-        		<p><a target="_blank" href="https://community.ibm.com/community/user/hybriddatamanagement/viewdocument/db2-101hadr-multiple-standbys?CommunityKey=b5b60ace-5eb2-4444-a961-d9edb6f39bd8">HADR multiple standby</a>&nbsp;&nbsp; White paper. Comprehensive writing on multiple standby</p>
-        		</li>
-        		<li>
-        		<p><a href="hadrPureScale.html">HADR on pureScale</a>&nbsp;&nbsp; Tutorial for HADR in pureScale environment.</p>
-
-        		<ul>
-        			<li>
-        			<p><a target="_blank" href="https://community.ibm.com/community/user/hybriddatamanagement/viewdocument/implementing-disaster-recovery-in-i?CommunityKey=b5b60ace-5eb2-4444-a961-d9edb6f39bd8">HADR in IBM&nbsp;PureData System for Transactions</a>&nbsp; White paper specifically for the PureData appliance.</p>
-        			</li>
-        		</ul>
-        		</li>
-        		<li>
-        		<p><a href="FIXME">Simplify&nbsp;Db2&nbsp;HADR&nbsp;with&nbsp;IBM&nbsp;PureApplication&nbsp;System</a>&nbsp; HADR is even easier on pureApplication systems.</p>
-        		</li>
-        		<li>
-        		<p><a href="FIXME">HADR&nbsp;best&nbsp;practices</a>&nbsp;&nbsp; Best Practice white paper.</p>
-        		</li>
-        		<li>
-        		<p><a target="_blank" href="https://community.ibm.com/community/user/hybriddatamanagement/viewdocument/get-the-most-from-the-db2-hadr-stan?CommunityKey=b5b60ace-5eb2-4444-a961-d9edb6f39bd8">Reads&nbsp;on&nbsp;Standby</a>&nbsp;&nbsp; Reads on Standby tutorial</p>
-        		</li>
-        	</ul>
-        	</li>
-        	<li>HADR Tool Box
-        	<ul>
-        		<li>
-        		<p><a href="perfTuning.html">Step by Step Guide</a>&nbsp; to configure TCP and HADR sync mode for optimal performance.</p>
-        		</li>
-        		<p><li><a href="hadrSimulator.html">HADR Simulator</a>&nbsp; simulates HADR workload on the network and disk.</li></p>
-        		<li>
-        		<p><a href="db2logscan.html">Db2 Log Scanner</a>&nbsp; scans log files to analyze workload.</p>
-        		</li>
-        	</ul>
-        	</li>
-        	<li>HADR Configuration and Tuning
-        	<ul>
-        		<li><p><a href="hadrConfig.html">HADR&nbsp;Configuration</a></li></p>
-        		<li>
-        		<p><a href="hadrSyncMode.html">HADR sync mode</a></p>
-        		</li>
-        		<li>
-        		<p><a href="tcpTuning.html">TCP Tuning</a></p>
-        		</li>
-        	</ul>
-        	</li>
-        	<li>
-        	Specific Topics
-        	<ul>
-        		<li><p><a href="hadrCommands.html">HADR commands</a>,&nbsp; Start/stop/takeover HADR, role change, HADR database startup/shutdown</li></p>
-        		<li>
-        		<p><a href="hadrMonitoring.html">HADR monitoring </a>&nbsp; What to look for in monitor output and db2diag.log.</p>
-        		</li>
-        		<li>
-        		<p><a href="hadrLogShipping.html">HADR log shipping</a> How does HADR ship logs? What are the HADR states?</p>
-        		</li>
-        		<li>
-        		<p><a href="hadrTakeover.html">HADR takeover</a>: Role switch, failover, primary reintegration</p>
-        		</li>
-        	</ul>
-        	</li>
-        	<li>
-        	Automated Failover and Client Reroute
-        	<ul>
-        		<li>
-        		<p><a href="clusterManagers.html">Automating HADR failover</a>, how to use HADR with cluster managers</p>
-        		</li>
-        		<li>
-        		<p><a href="clientReroute.html">Client Reroute</a>, Automatic Client Reroute (ACR) and other reroute methods</p>
-        		</li>
-        	</ul>
-        	</li>
-        	<li>
-        	Performance and Diagnostics
-        	<ul>
-        		<li>
-        		<p><a href="hadrPerf.html">HADR Performance Tuning and Diagnostics</a></p>
-        		</li>
-        		<li>
-        		<p><a href="diagConnect.html">HADR primary and standby cannot connect to each other</a></p>
-        		</li>
-        		<li>
-        		<p><a href="db2diag.html">db2diag.log</a>&nbsp; What to look for in db2diag.log for HADR.</p>
-        		</li>
-        	</ul>
-        	</li>
-        </ul>
-        </div>
         </div>
 
         <p dir="ltr">&nbsp;</p>

@@ -1,0 +1,262 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
+  <meta name="description" content="">
+  <meta name="author" content="">
+
+  <title>Db2 HADR Wiki</title>
+
+  <!-- Bootstrap core CSS -->
+  <link href="vendor/bootstrap/css/bootstrap.min.css" rel="stylesheet">
+
+  <!-- Custom styles for this template -->
+  <link href="css/simple-sidebar.css" rel="stylesheet">
+
+</head>
+
+<body>
+
+  <div class="d-flex" id="wrapper">
+
+    <!-- Sidebar -->
+    <div class="bg-light border-right" id="sidebar-wrapper">
+      <div class="sidebar-heading">Menu</div>
+      <div class="list-group list-group-flush">
+        <a href="hadrBenefits.html" class="list-group-item list-group-item-action bg-light">HADR Benefits</a>
+        <a href="featureHistory.html" class="list-group-item list-group-item-action bg-light">Feature History</a>
+        <a href="hadrTutorial.html" class="list-group-item list-group-item-action bg-light">HADR Tutorial</a>
+        <a href="tcpTuning.html" class="list-group-item list-group-item-action bg-light">TCP Tuning</a>
+        <a href="perfTuning.html" class="list-group-item list-group-item-action bg-light">Perf Tuning</a>
+        <a href="hadrSimulator.html" class="list-group-item list-group-item-action bg-light">HADR Simulator</a>
+        <a href="simulatorOptions.html" class="list-group-item list-group-item-action bg-light">HADR Simulator Options</a>
+        <a href="simulatorOutput.html" class="list-group-item list-group-item-action bg-light">HADR Simulator Output</a>
+        <a href="simulatorParams.html" class="list-group-item list-group-item-action bg-light"><strong>> HADR Simulator Params</strong></a>
+        <a href="db2logscan.html" class="list-group-item list-group-item-action bg-light">db2logscan</a>
+        <a href="hadrConfig.html" class="list-group-item list-group-item-action bg-light">HADR Config</a>
+        <a href="hadrSyncMode.html" class="list-group-item list-group-item-action bg-light">HADR Sync Mode</a>
+        <a href="hadrTakeover.html" class="list-group-item list-group-item-action bg-light">HADR Takeover</a>
+        <a href="hadrMonitoring.html" class="list-group-item list-group-item-action bg-light">HADR Monitoring</a>
+        <a href="hadrCommands.html" class="list-group-item list-group-item-action bg-light">HADR Commands</a>
+        <a href="hadrLogShipping.html" class="list-group-item list-group-item-action bg-light">HADR Log Shipping</a>
+        <a href="hadrPerf.html" class="list-group-item list-group-item-action bg-light">HADR Perf</a>
+        <a href="diagConnect.html" class="list-group-item list-group-item-action bg-light">Diag Connect</a>
+        <a href="db2diag.html" class="list-group-item list-group-item-action bg-light">db2diag.log</a>
+        <a href="clusterManagers.html" class="list-group-item list-group-item-action bg-light">Cluster Managers</a>
+        <a href="clientReroute.html" class="list-group-item list-group-item-action bg-light">Client Reroute</a>
+        <a href="hadrPureScale.html" class="list-group-item list-group-item-action bg-light">HADR on PureScale</a>
+        <a href="faq.html" class="list-group-item list-group-item-action bg-light">FAQ</a>
+        <a href="db2fmtlog.html" class="list-group-item list-group-item-action bg-light">db2fmtlog replayonlywindow</a>
+      </div>
+    </div>
+    <!-- /#sidebar-wrapper -->
+
+    <!-- Page Content -->
+    <div id="page-content-wrapper">
+
+      <nav class="navbar navbar-expand-lg navbar-light bg-light border-bottom">
+        <button class="btn btn-primary" id="menu-toggle">Toggle Menu</button>
+
+        <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarSupportedContent" aria-controls="navbarSupportedContent" aria-expanded="false" aria-label="Toggle navigation">
+          <span class="navbar-toggler-icon"></span>
+        </button>
+
+        <div class="collapse navbar-collapse" id="navbarSupportedContent">
+          <ul class="navbar-nav ml-auto mt-2 mt-lg-0">
+            <li class="nav-item">
+              <a class="nav-link" href="index.html">Home</a>
+            </li>
+            <li class="nav-item">
+              <a class="nav-link" href="contact.html">Contact</a>
+            </li>
+            <li class="nav-item">
+              <a class="nav-link" href="contribute.html">Contribute</a>
+            </li>
+          </ul>
+        </div>
+      </nav>
+
+      <div class="container-fluid">
+        <p dir="ltr" style="text-align:center"><span style="font-size:20px">HADR Simulation Parameters and Scenarios</span></p>
+
+        <p dir="ltr"><strong>Table of Contents</strong></p>
+
+        <ul dir="ltr">
+        	<li>HADR Simulation Parameters and Scenarios
+        	<ul>
+        		<li><a href="#Flush_Size">Flush Size</a></li>
+        		<li><a href="#HADR_Sync_Mode">HADR Sync Mode</a></li>
+        		<li><a href="#Disk_speed">Disk speed</a></li>
+        		<li><a href="#Socket_Buffer_Size">Socket Buffer Size</a></li>
+        		<li><a href="#Simulator__hadrBufSize_option">Simulator -hadrBufSize option</a></li>
+        		<li><a href="#Non_blocking_IO_and_sender_congestion">Non-blocking IO and sender congestion</a>
+        		<ul>
+        			<li><a href="#Non_blocking_IO">Non-blocking IO</a></li>
+        			<li><a href="#Sender_congestion">Sender congestion</a></li>
+        			<li><a href="#Primary_blocking_without_congestion">Primary blocking without congestion</a></li>
+        		</ul>
+        		</li>
+        		<li><a href="#Diagnosing_Intermittent_Network_Problems">Diagnosing Intermittent Network Problems</a></li>
+        	</ul>
+        	</li>
+        	<li><a href="#Known_TCP_issues">Known TCP issues</a>
+        	<ul>
+        		<li><a href="#Windows_bug_for_non_blocking_send">Windows bug for non-blocking send</a></li>
+        		<li><a href="#AIX_Interface_Specific_Network_Options">AIX Interface Specific Network Options</a></li>
+        	</ul>
+        	</li>
+        </ul>
+
+        <p dir="ltr"><strong>&nbsp;&nbsp;</strong></p>
+
+        <h2 dir="ltr"><a name="Flush_Size">Flush Size</a></h2>
+
+        <p dir="ltr">HADR simulator provides a -flushSize option. DB2 flush size (log write size) is dynamic. See&nbsp;<a href="db2logscan.html#DB2_Logging_Performance">DB2&nbsp;Logging&nbsp;Performance</a> for more info on flush size. For rough estimate of HADR performance, use the default flush size (16 pages). For detailed analysis of workload and logging metrics, see <a href="perfTuning.html">step by step guide</a> on HADR performance tuning.</p>
+
+        <p dir="ltr">&nbsp;</p>
+
+        <h2 dir="ltr"><a name="HADR_Sync_Mode">HADR Sync Mode</a></h2>
+
+        <p dir="ltr">HADR provides 4 synchronization modes:</p>
+
+        <ul dir="ltr">
+        	<li>SYNC - Transactions on primary will commit only after relevant logs have been written to disk on both primary and standby.</li>
+        	<li>NEARSYNC - Transactions on primary will commit only after relevant logs have been written to disk on primary and received into memory on standby.</li>
+        	<li>ASYNC - Transactions on primary will commit only after relevant logs have been written to local disk and sent to standby.</li>
+        	<li>SUPERASYNC - Transactions on primary does not wait for replication of logs to the standby.</li>
+        </ul>
+
+        <p dir="ltr">For SYNC and NEARSYNC modes, the primary will wait for an ack message from the standby to confirm that the logs have been received and written to disk on standby (SYNC mode), or have been received on the standby (NEARSYNC mode). For ASYNC mode, primary will consider replication done as soon as the logs are delivered to the TCP layer of the primary host machine. For SUPERASYNC mode, primary log writing is independent of log replication.<br />
+        <br />
+        The simulator sends and receives log pages and ack messages with actual size, although the messages contain dummy content. Disk writes are simulated using sleep(). No data is actually written. The network workload generated by simhadr is identical to that of real HADR. By running the simulator, you can preview the performance of various sync modes and test your network before you deploy HADR.</p>
+
+        <p dir="ltr">SYNC and NEARSYNC modes are typically used on LAN. ASYNC and SUPERASYNC modes are typically used over WAN. See <a href="hadrSyncMode.html">HADR sync mode</a> for more info.</p>
+
+        <p dir="ltr">&nbsp;</p>
+
+        <h2 dir="ltr"><a name="Disk_speed">Disk speed</a></h2>
+
+        <p dir="ltr">Simhadr can measure disk speed and simulate disk IO.<br />
+        <br />
+        To measure disk speed, use "-read" or "-write" option. To specify disk speed to simulation runs, use the "-disk" option.<br />
+        <br />
+        When testing disk write, simhadr issues synchronous write (write() does not return until data is on disk), just like log writing in real DB2. Simhadr does not remove the temp file created for disk testing. You may examine, then delete the file. For example, you may want to examing the content of the file, or the degree of sector fragmentation on the file, or feed the file back to read test.<br />
+        <br />
+        See <a href="perfTuning.html#Step_2__Know_Your_Disks">Know&nbsp;Your&nbsp;Disks</a> on measuring disk speed using HADR simulator.<br />
+        <br />
+        Once you have the disk speed parameters, you may feed it back to simhadr using -disk option. For RCU and SUPERASYNC mode primary side, use the slower of read/write speed, because the primary needs to read and write logs. For all other cases, use write speed (both primary and standby write logs). When disk speed is specified, simhadr will compute the time needed to read or write a log flush and use sleep() to simulate the IO. No actual data is read or written. This allows you to use hypothetical disk speed for "what if" questions like "what if my disk is faster?".</p>
+
+        <p dir="ltr">See also <a href="perfTuning">step by step guide</a> on using disk speed, network speed, and workload information together for HADR performance tuning.</p>
+
+        <p dir="ltr">&nbsp;</p>
+
+        <h2 dir="ltr"><a name="Socket_Buffer_Size">Socket Buffer Size</a></h2>
+
+        <p dir="ltr">Beginning in DB2 V8fp17, V91fp5 and V95fp2, you can use registry variable DB2_HADR_SOSNDBUF and DB2_HADR_SORCVBUF to set HADR socket send and receive buffer size. For older releases, you need to set socket buffer size at system level (setting is applicable to all applications on the machine).</p>
+
+        <p dir="ltr">In simhadr, these options are set via -sockSndBuf and -sockRcvBuf options. Simhadr allows you to experiment with various sizes to find out the optimal setting. Simhadr reports socket buffer sizes upon socket creation, buffer resizing, and connection. These numbers are very useful for tuning the network. The size upon socket creation is the system default. In some cases (AIX interface specific network option), the size may change upon connection (more info below).<br />
+        <br />
+        See <a href="tcpTuning.html">TCP Tuning</a> for more info.<br />
+        &nbsp;</p>
+
+        <h2 dir="ltr"><a name="Simulator__hadrBufSize_option">Simulator -hadrBufSize option</a></h2>
+
+        <p dir="ltr">-hadrBufSize option sets standby recv buffer size in the simulator. The default is 4 times flush size. It is useful only when standby socket receive buffer size is large, and flush size is small, and sync mode is ASYNC, SUPERASYNC, or remote catchup is specified. In these cases, primary can keep sending flushes one after another without waiting for ack message from standby. Multiple flushes can accumulate in socket buffer. Larger -hadrBufSize may allow the standby to receive more flushes at once, potentially improving performance.<br />
+        <br />
+        On most systems, changing -hadrBufSize will have little impact on performance. It is useful only when you suspect that the system is not performing because standby is receiving data in too many small pieces. Depending on network speed and how aggressively the OS combines multiple packets for receive calls, changing -hadrBufSize may not result in larger receive size. It only allows HADR to call recv with a larger buffer. It's still up to the OS to decide how much to fill the buffer before the recv call returns.</p>
+
+        <p dir="ltr">&nbsp;</p>
+
+        <h2 dir="ltr"><a name="Non_blocking_IO_and_sender_congestion">Non-blocking IO and sender congestion</a></h2>
+
+        <h3 dir="ltr"><a name="Non_blocking_IO">Non-blocking IO</a></h3>
+
+        <p dir="ltr">HADR uses non-blocking send and receive. The process sets non blocking flag on the socket. Thus send calls may return before all requested data has been send. For receive, recv may return no data. HADR calls recv only if select() indicates that there is data to receive to avoid futile recv calls. In contrast, many applications use blocking send/recv, where the application is blocked until all requested data has been sent, or for receive, at least some data has been received. The main reason of HADR using nonblocking IO is that the HADR thread does multi tasking. If the thread is blocked on IO, it cannot process other tasks.<br />
+        <br />
+        Some systems may not handle non-blocking send/recv effeciently. Thus simhadr provides a -block option to test network performance using blocking send and recv. Normally, blocking and non-blocking IO gives nearly identical performance. If -block gives much better throughput, then the system has a problem processing non-blocking IO. OS tuning or patching will be needed.<br />
+        <br />
+        Note: Primary and standby need not have the same -block option. You can use blocking IO on one side and nonblocking on the other.</p>
+
+        <h3 dir="ltr"><a name="Sender_congestion">Sender congestion</a></h3>
+
+        <p dir="ltr">With blocking IO, a send call is blocked until all requested data is sent. For nonblocking IO, it may return before all data is sent. In particular, it may send zero bytes and return an error code indicating "resource temporarily unavailable". If HADR (real and simulator) encounters this return code, it stops calling send until select() indicates that the socket is writable again. While it is waiting, it considers the network "congested". The simulator keeps statistics on number of congestions and congestion duration. In real HADR, "congested" is returned by the "connect status" field in monitoring when the HADR thread is congested.<br />
+        <br />
+        Encountering short congestion is normal in HADR. It is a normal part of flow control. On many systems, if the system cannot copy the requested data into socket buffer (buffer is full), it returns congestion to caller. As soon as some space is available in the buffer, the OS will notify the process of the availability of the socket via select(). This may seem inefficient compared to blocking send, but allows the process to multi-task, therefore reducing the number of processes and context switching among the processes.<br />
+        <br />
+        Theoretically, the OS can reopen the socket for send as soon as there is one byte of free space in socket buffer. In practice, it may choose to wait until a certain amount of space is available, just to avoid thrashing.<br />
+        <br />
+        Windows behaves differently from the Unix systems. Windows will accept all requested data even if the the socket is nonblocking and send size is larger than TCP socket buffer. The send call returns quickly. Windows copies the data into an intermediate buffer. The next send call will return "resource temporarily not available" if the previous send has not completely drained. "select()" will return only when the previous send is drained. Then the next send() can go out. Thus for large sends, you will see alternate congestion and send. In contrast, there are a lot more short congestions on Unix systems.<br />
+        <br />
+        There is another kind of longer congestion in real HADR. If the standby log replay rate is slower than primary log generation rate, eventually standby log receive buffer (or log spool, if spooling is enabled) will be full and standby will stop receiving. Primary can keep sending until the network pipeline fills up. Then primary send will hit congestion. In peer state, such congestion will block transactions on primary. The congestion will last until standby replay makes progress and the standby receives logs again.<br />
+        <br />
+        For both pipeline full congestion and transient network flow control congestion, the OS returns the same "resource not available" code to the primary. The primary can not differentiate the two kinds of congestions. It just reports "congestion" as connection status.<br />
+        <br />
+        The duration of the congestion may help the user to differentiate the two kinds of congestions. When congestion is reported, HADR reports a "congested since" time. The duration of the congestion is the monitoring snapshot time minus the "congested since" time. If the duration is relatively long, such as more than a few seconds, then it is more likely to be a pipeline full congestion. If the duration is short, then it can be either kind.<br />
+        <br />
+        A more reliable way is to issue the "db2pd -hadr -db dbName" command on standby to check standby buffer use percentage. If it's full (100%), then the congestion is caused by standby not receiving data, rather than network flow control. The buffer use percentage field is new beginning in DB2 V8fp17, V91fp5 and V95fp2. In older releases, you need to contact IBM tech support to retrieve the field via db2pd internal options.<br />
+        <br />
+        Differentiating two kinds of congestions is important. For pipeline full congestion, you need to tune standby replay performance. For network throttling congestion, you need to tune the network if more throughput is needed.<br />
+        <br />
+        Note: The simulator does not simulate replay speed. Any received logs are instantly consumed on the standby. Thus it will not encounter pipeline full congestion.</p>
+
+        <h3 dir="ltr"><a name="Primary_blocking_without_congestion">Primary blocking without congestion</a></h3>
+
+        <p dir="ltr">In SYNC and NEARSYNC mode, primary logging can be blocked even if network status is not reported as congested. When standby receive buffer is full, in many cases, the primary can still send out one more flush. This flush will be buffered in the network pipeline between primary and standby. Standby can not fully receive it because its buffer is full. So standby can not ack. Thus primary will be stuck waiting for the ack message. When primary transactions are stuck, check standby receive buffer usage. If it is full (100%), then the cause is slow standby replay. Tuning or upgrading standby will be needed.</p>
+
+        <p dir="ltr">&nbsp;</p>
+
+        <h2 dir="ltr"><a name="Diagnosing_Intermittent_Network_Problems">Diagnosing Intermittent Network Problems</a></h2>
+
+        <p dir="ltr">If your HADR system is experiencing intermittent transaction slow down and the network is suspect, you can specify a target log rate via -target option on simhadr to test the stability of the network. The target option throttles simhadr so that it does not flood your network during the test. You can then run the simulator for a sustained time like several days. You can specify the duration via -t option or just use a very long -t time and stop the simulation manually via SIGINT (usually by pressing Control-C) to the primary process. The primary and standby will stop and print out the usual statistics upon the interrupt.<br />
+        <br />
+        Then you may analyze the statistics for anything suspicious. Look for numbers far away from average in the statistics.</p>
+
+        <p dir="ltr">&nbsp;</p>
+
+        <h1 dir="ltr"><a name="Known_TCP_issues">Known TCP issues</a></h1>
+
+        <h2 dir="ltr"><a name="Windows_bug_for_non_blocking_send">Windows bug for non-blocking send</a></h2>
+
+        <p dir="ltr">Windows uses delayed ack for non-blocking TCP traffic. The receiving end does not ack immediately. The default delay is 200ms. When send size is larger than TCP socket buffer, sender may experience 200ms waiting on select(). This causes serious problem for HADR. The solution is to disable delayed ack on Windows.<br />
+        <br />
+        See<br />
+        <a href="http://support.microsoft.com/kb/823764">http://support.microsoft.com/kb/823764</a> , "Slow performance using nonblocking socket on Windows"<br />
+        <a href="http://support.microsoft.com/kb/311833">http://support.microsoft.com/kb/311833</a> , "TcpDelAckTicks not working on some Windows versions"<br />
+        <a href="http://support.microsoft.com/kb/321098">http://support.microsoft.com/kb/321098</a> , "Possible side effect of TcpDelAckTicks"<br />
+        <br />
+        Note: Changing TCP socket buffer size will only help with sends smaller than the buffer size. Thus the recommended fix is to disable delayed ack via Windows registry.</p>
+
+        <h2 dir="ltr"><a name="AIX_Interface_Specific_Network_Options">AIX Interface Specific Network Options</a></h2>
+
+        <p dir="ltr">AIX supports Interface Specific Network Options (ISNO). This allows setting of interface specific options to override system level network options. So a machine with multiple network interfaces can have different options for different interfaces. See also <a href="http://publib.boulder.ibm.com/infocenter/systems/index.jsp?topic=/com.ibm.aix.commadmn/doc/commadmndita/interfaces_options.htm">http://publib.boulder.ibm.com/infocenter/systems/index.jsp?topic=/com.ibm.aix.commadmn/doc/commadmndita/interfaces_options.htm</a><br />
+        <br />
+        When ISNO is enabled, a socket is assigned system level options upon creation. When the connection is established, the OS may reassign certain options based on the actual interface used for the connection. With simhadr, you will see socket properties changing upon connection.<br />
+        <br />
+        When you set socket buffer size in real HADR or simhadr, the OS honors the requested size. The adjustment upon connection will grant a buffer no smaller than the requested size.<br />
+        <br />
+        By default ISNO is enabled on AIX. Check ISNO setting if system level config does not seem to work. With ISNO enabled, system level config may be overridden by interface level config.</p>
+      </div>
+    </div>
+    <!-- /#page-content-wrapper -->
+
+  </div>
+  <!-- /#wrapper -->
+
+  <!-- Bootstrap core JavaScript -->
+  <script src="vendor/jquery/jquery.min.js"></script>
+  <script src="vendor/bootstrap/js/bootstrap.bundle.min.js"></script>
+
+  <!-- Menu Toggle Script -->
+  <script>
+    $("#menu-toggle").click(function(e) {
+      e.preventDefault();
+      $("#wrapper").toggleClass("toggled");
+    });
+  </script>
+
+</body>
+
+</html>

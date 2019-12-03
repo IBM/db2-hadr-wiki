@@ -1,0 +1,173 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
+  <meta name="description" content="">
+  <meta name="author" content="">
+
+  <title>Db2 HADR Wiki</title>
+
+  <!-- Bootstrap core CSS -->
+  <link href="vendor/bootstrap/css/bootstrap.min.css" rel="stylesheet">
+
+  <!-- Custom styles for this template -->
+  <link href="css/simple-sidebar.css" rel="stylesheet">
+
+</head>
+
+<body>
+
+  <div class="d-flex" id="wrapper">
+
+    <!-- Sidebar -->
+    <div class="bg-light border-right" id="sidebar-wrapper">
+      <div class="sidebar-heading">Menu</div>
+      <div class="list-group list-group-flush">
+        <a href="hadrBenefits.html" class="list-group-item list-group-item-action bg-light">HADR Benefits</a>
+        <a href="featureHistory.html" class="list-group-item list-group-item-action bg-light">Feature History</a>
+        <a href="hadrTutorial.html" class="list-group-item list-group-item-action bg-light">HADR Tutorial</a>
+        <a href="tcpTuning.html" class="list-group-item list-group-item-action bg-light">TCP Tuning</a>
+        <a href="perfTuning.html" class="list-group-item list-group-item-action bg-light">Perf Tuning</a>
+        <a href="hadrSimulator.html" class="list-group-item list-group-item-action bg-light">HADR Simulator</a>
+        <a href="simulatorOptions.html" class="list-group-item list-group-item-action bg-light">HADR Simulator Options</a>
+        <a href="simulatorOutput.html" class="list-group-item list-group-item-action bg-light">HADR Simulator Output</a>
+        <a href="simulatorParams.html" class="list-group-item list-group-item-action bg-light">HADR Simulator Params</a>
+        <a href="db2logscan.html" class="list-group-item list-group-item-action bg-light">db2logscan</a>
+        <a href="hadrConfig.html" class="list-group-item list-group-item-action bg-light">HADR Config</a>
+        <a href="hadrSyncMode.html" class="list-group-item list-group-item-action bg-light"><strong>> HADR Sync Mode</strong></a>
+        <a href="hadrTakeover.html" class="list-group-item list-group-item-action bg-light">HADR Takeover</a>
+        <a href="hadrMonitoring.html" class="list-group-item list-group-item-action bg-light">HADR Monitoring</a>
+        <a href="hadrCommands.html" class="list-group-item list-group-item-action bg-light">HADR Commands</a>
+        <a href="hadrLogShipping.html" class="list-group-item list-group-item-action bg-light">HADR Log Shipping</a>
+        <a href="hadrPerf.html" class="list-group-item list-group-item-action bg-light">HADR Perf</a>
+        <a href="diagConnect.html" class="list-group-item list-group-item-action bg-light">Diag Connect</a>
+        <a href="db2diag.html" class="list-group-item list-group-item-action bg-light">db2diag.log</a>
+        <a href="clusterManagers.html" class="list-group-item list-group-item-action bg-light">Cluster Managers</a>
+        <a href="clientReroute.html" class="list-group-item list-group-item-action bg-light">Client Reroute</a>
+        <a href="hadrPureScale.html" class="list-group-item list-group-item-action bg-light">HADR on PureScale</a>
+        <a href="faq.html" class="list-group-item list-group-item-action bg-light">FAQ</a>
+        <a href="db2fmtlog.html" class="list-group-item list-group-item-action bg-light">db2fmtlog replayonlywindow</a>
+      </div>
+    </div>
+    <!-- /#sidebar-wrapper -->
+
+    <!-- Page Content -->
+    <div id="page-content-wrapper">
+
+      <nav class="navbar navbar-expand-lg navbar-light bg-light border-bottom">
+        <button class="btn btn-primary" id="menu-toggle">Toggle Menu</button>
+
+        <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarSupportedContent" aria-controls="navbarSupportedContent" aria-expanded="false" aria-label="Toggle navigation">
+          <span class="navbar-toggler-icon"></span>
+        </button>
+
+        <div class="collapse navbar-collapse" id="navbarSupportedContent">
+          <ul class="navbar-nav ml-auto mt-2 mt-lg-0">
+            <li class="nav-item">
+              <a class="nav-link" href="index.html">Home</a>
+            </li>
+            <li class="nav-item">
+              <a class="nav-link" href="contact.html">Contact</a>
+            </li>
+            <li class="nav-item">
+              <a class="nav-link" href="contribute.html">Contribute</a>
+            </li>
+          </ul>
+        </div>
+      </nav>
+
+      <div class="container-fluid">
+        <h1 dir="ltr"><a name="HADR_Sychronization_Mode">HADR Sychronization Mode</a></h1>
+
+        <p dir="ltr"><strong>Table of Contents</strong></p>
+
+        <ul dir="ltr">
+        	<li>HADR Sychronization Mode
+        	<ul>
+        		<li><a href="#Description_of_the_Modes">Description of the Modes</a>
+
+        		<ul>
+        			<li><a href="#SYNC_mode">SYNC mode</a></li>
+        			<li><a href="#NEARSYNC_mode">NEARSYNC mode</a></li>
+        			<li><a href="#ASYNC_mode">ASYNC mode</a></li>
+        			<li><a href="#SUPERASYNC_mode">SUPERASYNC mode</a></li>
+        		</ul>
+        		</li>
+        		<li><a href="#Choosing_a_Synchronization_Mode">Choosing a Synchronization Mode</a></li>
+        	</ul>
+        	</li>
+        </ul>
+
+        <h2 dir="ltr"><a name="Description_of_the_Modes">Description of the Modes</a></h2>
+
+        <p dir="ltr">HADR synchronization mode is controlled by the database configuration parameter hadr_syncmode. See also <a href="http://pic.dhe.ibm.com/infocenter/db2luw/v10r1/index.jsp?topic=%2Fcom.ibm.db2.luw.admin.ha.doc%2Fdoc%2Fc0011724.html">DB2&nbsp;Info&nbsp;Center&nbsp;V10.1</a></p>
+
+        <p dir="ltr">HADR provides 4 synchronization modes to suit a diverse range of operational environment. Database configuration parameter hadr_syncmode can be set to one of SYNC, NEARSYNC, ASYNC, or SUPERASYNC.</p>
+
+        <ul dir="ltr">
+        	<li>SYNC - Transactions on primary will commit only after relevant logs have been written to disk on both primary and standby.</li>
+        	<li>NEARSYNC - Transactions on primary will commit only after relevant logs have been written to disk on primary and received into memory on standby.</li>
+        	<li>ASYNC - Transactions on primary will commit only after relevant logs have been written to local disk and sent to standby.</li>
+        	<li>SUPERASYNC - Transactions on primary does not wait for replication of logs to the standby.</li>
+        </ul>
+
+        <p dir="ltr">For SYNC and NEARSYNC modes, the primary will wait for an ack message from the standby to confirm that the logs have been received and written to disk on standby (SYNC mode) or have been received on the standby (NEARSYNC mode). For ASYNC mode, primary will consider replication done as soon as the logs are delivered to the TCP layer of the primary host machine. For SUPERASYNC mode, primary log writing is independent of log replication.<br />
+        <br />
+        SYNC and NEARSYNC modes are typically used on LAN. ASYNC and SUPERASYNC modes are typically used over WAN.</p>
+
+        <p dir="ltr">&nbsp;</p>
+
+        <p dir="ltr"><strong><img alt="Sync mode diagram" lconnattachedresourcetype="page" lconnresourcetype="attachment" src="https://www.ibm.com/support/knowledgecenter/SSEPGG_10.5.0/com.ibm.db2.luw.admin.ha.doc/doc/00058723.gif" /></strong></p>
+
+        <h3 dir="ltr"><a name="SYNC_mode">SYNC mode</a></h3>
+
+        <p dir="ltr">SYNC mode gives best protection of data. Two on-disk copies of data are required for transaction commit. The cost is the extra time for writing on standby and sending the ack message back to primary.<br />
+        <br />
+        In SYNC mode, logs are sent to standby only after they are written to primary disk. Log write and replication events happen sequentially. The total time for a log write is the sum of (primary_log_write + log_send + standby_log_write + ack_message). The cost of replication is significantly higher than that of other modes.</p>
+
+        <h3 dir="ltr"><a name="NEARSYNC_mode">NEARSYNC mode</a></h3>
+
+        <p dir="ltr">NEARSYNC mode is nearly as good as SYNC, at significantly less cost. Standby sends ack message as soon as it receives the logs in memory. Furthermore, sending logs to standby and writing logs to primary disk are done in parallel. On a fast network, log replication causes no or little overhead to primary log writing.<br />
+        <br />
+        In NEARSYNC mode, you will lose data if primary fails and the standby fails before it has a chance to write received logs to disk. This is a relatively rare "double failure" scenario. Thus NEARSYNC is a good choice for many applications, providing near synch protection at far less performance cost.</p>
+
+        <h3 dir="ltr"><a name="ASYNC_mode">ASYNC mode</a></h3>
+
+        <p dir="ltr">In ASYNC mode, sending logs to standby and writing logs to primary disk are done in parallel, just like NEARSYNC mode. Because ASYNC mode does not wait for ack messages from the standby, primary system throughput is min(log write rate, log send rate). ASYNC mode is well suited for WAN application. Network transmission delay does not impact performance in this mode. But if the primary database fails, there is a higher chance that logs in transit are lost (not replicated to standby).</p>
+
+        <h3 dir="ltr"><a name="SUPERASYNC_mode">SUPERASYNC mode</a></h3>
+
+        <p dir="ltr">In SUPERASYNC mode, log writing and replication are independent. HADR never enters peer state. Log shipping only uses remote catchup state. Log writing will never be slowed down. But primary-standby log gap can grow. In a failover, data in the gap will be lost. You should monitor the gap closely. This mode provides the least impact on primary, at the cost of the least data protection. It is typically used on unreliable networks.</p>
+
+        <p dir="ltr">While in other sync modes, a non-forced takeover is allowed only in peer state, where primary and standby log positions are close, in superAsync mode, non-forced takeover is allowed in remote catchup state. If there is a large gap, the takeover will take a long time, because after stopping transactions on the primary, HADR will still need to ship all logs in the gap to the standby and replay them before takeover can complete. You need to check the gap before issuing a non-forced takeover in superAysnc mode.</p>
+
+        <h2 dir="ltr"><a name="Choosing_a_Synchronization_Mode">Choosing a Synchronization Mode</a></h2>
+
+        <p dir="ltr">You will need to consider your business needs and system performance to decide on a sync mode.</p>
+
+        <p dir="ltr">A set of tools have been created by IBM to help you make the decision. Using the combination of HADR simulator, DB2 Log Scanner, and HADR Calculator, you can preview database performance before you deploy HADR, or tuning HADR performance after you have deployed it. See&nbsp;<a href="perfTuning.html">HADR&nbsp;Performance&nbsp;Tuning</a> for details</p>
+      </div>
+    </div>
+    <!-- /#page-content-wrapper -->
+
+  </div>
+  <!-- /#wrapper -->
+
+  <!-- Bootstrap core JavaScript -->
+  <script src="vendor/jquery/jquery.min.js"></script>
+  <script src="vendor/bootstrap/js/bootstrap.bundle.min.js"></script>
+
+  <!-- Menu Toggle Script -->
+  <script>
+    $("#menu-toggle").click(function(e) {
+      e.preventDefault();
+      $("#wrapper").toggleClass("toggled");
+    });
+  </script>
+
+</body>
+
+</html>

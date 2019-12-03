@@ -1,0 +1,215 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
+  <meta name="description" content="">
+  <meta name="author" content="">
+
+  <title>Db2 HADR Wiki</title>
+
+  <!-- Bootstrap core CSS -->
+  <link href="vendor/bootstrap/css/bootstrap.min.css" rel="stylesheet">
+
+  <!-- Custom styles for this template -->
+  <link href="css/simple-sidebar.css" rel="stylesheet">
+
+</head>
+
+<body>
+
+  <div class="d-flex" id="wrapper">
+
+    <!-- Sidebar -->
+    <div class="bg-light border-right" id="sidebar-wrapper">
+      <div class="sidebar-heading">Menu</div>
+      <div class="list-group list-group-flush">
+        <a href="hadrBenefits.html" class="list-group-item list-group-item-action bg-light">HADR Benefits</a>
+        <a href="featureHistory.html" class="list-group-item list-group-item-action bg-light">Feature History</a>
+        <a href="hadrTutorial.html" class="list-group-item list-group-item-action bg-light">HADR Tutorial</a>
+        <a href="tcpTuning.html" class="list-group-item list-group-item-action bg-light">TCP Tuning</a>
+        <a href="perfTuning.html" class="list-group-item list-group-item-action bg-light">Perf Tuning</a>
+        <a href="hadrSimulator.html" class="list-group-item list-group-item-action bg-light">HADR Simulator</a>
+        <a href="simulatorOptions.html" class="list-group-item list-group-item-action bg-light">HADR Simulator Options</a>
+        <a href="simulatorOutput.html" class="list-group-item list-group-item-action bg-light">HADR Simulator Output</a>
+        <a href="simulatorParams.html" class="list-group-item list-group-item-action bg-light">HADR Simulator Params</a>
+        <a href="db2logscan.html" class="list-group-item list-group-item-action bg-light">db2logscan</a>
+        <a href="hadrConfig.html" class="list-group-item list-group-item-action bg-light">HADR Config</a>
+        <a href="hadrSyncMode.html" class="list-group-item list-group-item-action bg-light">HADR Sync Mode</a>
+        <a href="hadrTakeover.html" class="list-group-item list-group-item-action bg-light">HADR Takeover</a>
+        <a href="hadrMonitoring.html" class="list-group-item list-group-item-action bg-light">HADR Monitoring</a>
+        <a href="hadrCommands.html" class="list-group-item list-group-item-action bg-light"><strong>> HADR Commands</strong></a>
+        <a href="hadrLogShipping.html" class="list-group-item list-group-item-action bg-light">HADR Log Shipping</a>
+        <a href="hadrPerf.html" class="list-group-item list-group-item-action bg-light">HADR Perf</a>
+        <a href="diagConnect.html" class="list-group-item list-group-item-action bg-light">Diag Connect</a>
+        <a href="db2diag.html" class="list-group-item list-group-item-action bg-light">db2diag.log</a>
+        <a href="clusterManagers.html" class="list-group-item list-group-item-action bg-light">Cluster Managers</a>
+        <a href="clientReroute.html" class="list-group-item list-group-item-action bg-light">Client Reroute</a>
+        <a href="hadrPureScale.html" class="list-group-item list-group-item-action bg-light">HADR on PureScale</a>
+        <a href="faq.html" class="list-group-item list-group-item-action bg-light">FAQ</a>
+        <a href="db2fmtlog.html" class="list-group-item list-group-item-action bg-light">db2fmtlog replayonlywindow</a>
+      </div>
+    </div>
+    <!-- /#sidebar-wrapper -->
+
+    <!-- Page Content -->
+    <div id="page-content-wrapper">
+
+      <nav class="navbar navbar-expand-lg navbar-light bg-light border-bottom">
+        <button class="btn btn-primary" id="menu-toggle">Toggle Menu</button>
+
+        <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarSupportedContent" aria-controls="navbarSupportedContent" aria-expanded="false" aria-label="Toggle navigation">
+          <span class="navbar-toggler-icon"></span>
+        </button>
+
+        <div class="collapse navbar-collapse" id="navbarSupportedContent">
+          <ul class="navbar-nav ml-auto mt-2 mt-lg-0">
+            <li class="nav-item">
+              <a class="nav-link" href="index.html">Home</a>
+            </li>
+            <li class="nav-item">
+              <a class="nav-link" href="contact.html">Contact</a>
+            </li>
+            <li class="nav-item">
+              <a class="nav-link" href="contribute.html">Contribute</a>
+            </li>
+          </ul>
+        </div>
+      </nav>
+
+      <div class="container-fluid">
+        <p dir="ltr" style="text-align:center"><span style="font-size:24px">HADR Commands</span></p>
+
+        <p dir="ltr"><strong>Table of Contents</strong></p>
+
+        <ul dir="ltr">
+        	<li><a href="#HADR_role_change__a_">HADR role change</a></li>
+        	<li><a href="#HADR_database_startup_shutdown__a_">HADR database startup/shutdown</a>
+        	<ul>
+        		<li>
+        		<ul>
+        			<li><a href="#Split_brain_prevention__a_">Split brain prevention</a></li>
+        			<li><a href="#Primary_standby_startup_and_shutdown_order__a_">Primary/standby startup and shutdown order</a></li>
+        		</ul>
+        		</li>
+        	</ul>
+        	</li>
+        </ul>
+
+        <p dir="ltr"><strong>&nbsp; </strong></p>
+
+        <h1 dir="ltr"><a name="HADR_role_change__a_">HADR role change</a></h1>
+
+        <p dir="ltr">As shown in the diagram below, the start/stop/takeover HADR commands change database role among standard (non-HADR), primary, and standby.<br />
+        <br />
+        <img src="/developerworks/community/wikis/form/api/wiki/e7a20a94-a11a-4e65-bc01-ddc92f0329ed/page/655781d6-ad1a-40b8-8338-71fdb8e6344f/attachment/9fc4ed6e-b6a3-46a5-bb33-c480fe8e1917/media/hadr%20commands.png?preventCache=1570216134150" /></p>
+
+        <p dir="ltr">Notes:<br />
+        &nbsp;</p>
+
+        <ul dir="ltr">
+        	<li>"Start HADR ... as primary" command changes the role of a database from standard to primary.
+        	<ul>
+        		<li>The database can be offline or online when the command is issued.</li>
+        	</ul>
+        	</li>
+        	<li>"Start HADR ... as standby" command changes the role of a database from standard to standby.
+        	<ul>
+        		<li>The database must be offline when the command is issued.</li>
+        		<li>The database must be in rollforward pending or in-progress state when the command is issued.</li>
+        	</ul>
+        	</li>
+        	<li>"Start HADR" command (as primary or as standby) brings the database online if it is offline.</li>
+        </ul>
+
+        <ul dir="ltr">
+        	<li>"Stop HADR" command changes the role of a database from primary or standby to standard.
+        	<ul>
+        		<li>When issued on a primary database, the database can be offline or online when the command is issued.</li>
+        		<li>When issued on a standby database, the database must be offline when the command is issued.</li>
+        		<li>When issued on a standby database, the database is changed back into standard role with rollforward pending state set.</li>
+        	</ul>
+        	</li>
+        </ul>
+
+        <p dir="ltr">&nbsp;</p>
+
+        <ul dir="ltr">
+        	<li>Non forced takeover command switches role of primary and standby</li>
+        	<li>Forced takeover (failover) command only changes the standby to primary</li>
+        	<li>After a failover, the old primary can be converted into a new standby via the "start HADR ... as standby" command. This is known as "primary reintegration". See <a href="hadrTakeover.html">HADR takeover</a> for more info on takeover and primary reintegration.</li>
+        </ul>
+
+        <p dir="ltr">HADR role is persistent. Once set to primary or standby role, a database will perform log shipping and log replaying according to the role. Database activation/deactivation does not change the role. Only the HADR commands can change the role. A database can repeatedly go through role change using the commands.<br />
+        <br />
+        The current role is reported by HADR monitoring. If the database is offline, the role can still be shown through the "HADR database role" field from "db2 get db cfg for &lt;dbname&gt;" output.<br />
+        <br />
+        Start/stop HADR can be issued on the primary dynamically (while database is online). This means you can enable/disable HADR without down time on the primary. Starting in DB2 V10.1, dynamic start on HADR also picks up updated HADR database configuration parameters. See section "Refreshing HADR configuration" in <a href="hadrConfig.html">HADR config</a> for more info.<br />
+        <br />
+        Start/stop HADR can only be issued on the standby while database is offline. A standard database must be in rollforward pending or in-progress state to allow "start HADR as standby". When "stop HADR" changes the database back into standard role, the database is marked as rollforward pending, so that it can allow the next "start HADR as standby".<br />
+        <br />
+        Regular "rollforward" command can be used to replay logs on a standard database before "start HADR as standby", or after "stop HADR". Rollforward does not preclude the next "start HADR as standby", as long as the rollforward does not end (no "stop") and database stays in rollforward pending or in progress state. However, it is recommended to always let HADR manage log shipping and log replay. Mixed rollforward and HADR replay is not recommended.<br />
+        If you would like to convert a standby database into normal state to accept client connections, run "rollforward to end of logs and stop" after "stop HADR". The database is then no longer in rollforward state. However, the database can not be converted back into a standby.<br />
+        &nbsp;</p>
+
+        <h1 dir="ltr"><a name="HADR_database_startup_shutdown__a_">HADR database startup/shutdown</a></h1>
+
+        <p dir="ltr">An HADR primary database can be started by one of the following methods:</p>
+
+        <ul dir="ltr">
+        	<li>"Activate db" command</li>
+        	<li>Client connection</li>
+        	<li>"Start HADR ... as primary" command</li>
+        </ul>
+
+        <p dir="ltr">An HADR standby database can be started by one of the following methods:</p>
+
+        <ul dir="ltr">
+        	<li>"Activate db" command</li>
+        	<li>"Start HADR ... as standby" command</li>
+        </ul>
+
+        <p dir="ltr">Client connection cannot start a standby database, even if reads on standby is enabled.<br />
+        <br />
+        Once an HADR primary or standby database is started (by any means), database activation flag is set, as if the database was started by the "activate db" command. Database does not shut down when the last client disconnects. Explicit "deactivate db" command is needed to shutdown HADR databases (primary or standby).<br />
+        <br />
+        Use "activate db" and "deactivate db" command to activate and deactivate primary and standby, even though "start hadr" command implicitly activates a database. Use "start hadr" command only if you need HADR specific functionality such as changing role, or starting primary by force. Avoiding unnecessary use of HADR commands minimizes the risk of unintentional role change.<br />
+        <br />
+        "Stop hadr" command does not deactivate database. In fact, it is not even allowed on an online standby database. On a primary database, it stops HADR operations, changes role to standard, but leave the database online. There is no impact to client transactions.</p>
+
+        <h3 dir="ltr"><a name="Split_brain_prevention__a_">Split brain prevention</a></h3>
+
+        <p dir="ltr">When a primary database starts, it waits for up to hadr_timeout seconds for the standby to connect to it. If no standby connects, it will timeout and startup will fail. This is intended to prevent split brain. If the standby has taken over and become a new primary, it won't connect to the old primary, then the old primary couldn't come up. In a multiple standby system, the primary only waits for the principal standby. So if any auxiliary standby takes over, the old primary can still come up. Thus in multiple standby environment, user must ensure that the old primary is down and remains down when failing over to an auxiliary standby.<br />
+        <br />
+        The "by force" option on "start hadr as primary" command allows a primary to start without connection to the standby. This is useful when you know that the standby is offline or primary/standby network is not functioning.</p>
+
+        <h3 dir="ltr"><a name="Primary_standby_startup_and_shutdown_order__a_">Primary/standby startup and shutdown order</a></h3>
+
+        <p dir="ltr">Standby database startup does not wait for a connection to the primary. Thus it is recommended to start the standby first, then the primary.<br />
+        <br />
+        It is recommended to shutdown primary database first, then the standby database, so that all primary data will be replicated to the standby.<br />
+        &nbsp;</p>
+      </div>
+    </div>
+    <!-- /#page-content-wrapper -->
+
+  </div>
+  <!-- /#wrapper -->
+
+  <!-- Bootstrap core JavaScript -->
+  <script src="vendor/jquery/jquery.min.js"></script>
+  <script src="vendor/bootstrap/js/bootstrap.bundle.min.js"></script>
+
+  <!-- Menu Toggle Script -->
+  <script>
+    $("#menu-toggle").click(function(e) {
+      e.preventDefault();
+      $("#wrapper").toggleClass("toggled");
+    });
+  </script>
+
+</body>
+
+</html>

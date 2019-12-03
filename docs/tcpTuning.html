@@ -1,0 +1,295 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
+  <meta name="description" content="">
+  <meta name="author" content="">
+
+  <title>Db2 HADR Wiki</title>
+
+  <!-- Bootstrap core CSS -->
+  <link href="vendor/bootstrap/css/bootstrap.min.css" rel="stylesheet">
+
+  <!-- Custom styles for this template -->
+  <link href="css/simple-sidebar.css" rel="stylesheet">
+
+</head>
+
+<body>
+
+  <div class="d-flex" id="wrapper">
+
+    <!-- Sidebar -->
+    <div class="bg-light border-right" id="sidebar-wrapper">
+      <div class="sidebar-heading">Menu</div>
+      <div class="list-group list-group-flush">
+        <a href="hadrBenefits.html" class="list-group-item list-group-item-action bg-light">HADR Benefits</a>
+        <a href="featureHistory.html" class="list-group-item list-group-item-action bg-light">Feature History</a>
+        <a href="hadrTutorial.html" class="list-group-item list-group-item-action bg-light">HADR Tutorial</a>
+        <a href="tcpTuning.html" class="list-group-item list-group-item-action bg-light"><strong>> TCP Tuning</strong></a>
+        <a href="perfTuning.html" class="list-group-item list-group-item-action bg-light">Perf Tuning</a>
+        <a href="hadrSimulator.html" class="list-group-item list-group-item-action bg-light">HADR Simulator</a>
+        <a href="simulatorOptions.html" class="list-group-item list-group-item-action bg-light">HADR Simulator Options</a>
+        <a href="simulatorOutput.html" class="list-group-item list-group-item-action bg-light">HADR Simulator Output</a>
+        <a href="simulatorParams.html" class="list-group-item list-group-item-action bg-light">HADR Simulator Params</a>
+        <a href="db2logscan.html" class="list-group-item list-group-item-action bg-light">db2logscan</a>
+        <a href="hadrConfig.html" class="list-group-item list-group-item-action bg-light">HADR Config</a>
+        <a href="hadrSyncMode.html" class="list-group-item list-group-item-action bg-light">HADR Sync Mode</a>
+        <a href="hadrTakeover.html" class="list-group-item list-group-item-action bg-light">HADR Takeover</a>
+        <a href="hadrMonitoring.html" class="list-group-item list-group-item-action bg-light">HADR Monitoring</a>
+        <a href="hadrCommands.html" class="list-group-item list-group-item-action bg-light">HADR Commands</a>
+        <a href="hadrLogShipping.html" class="list-group-item list-group-item-action bg-light">HADR Log Shipping</a>
+        <a href="hadrPerf.html" class="list-group-item list-group-item-action bg-light">HADR Perf</a>
+        <a href="diagConnect.html" class="list-group-item list-group-item-action bg-light">Diag Connect</a>
+        <a href="db2diag.html" class="list-group-item list-group-item-action bg-light">db2diag.log</a>
+        <a href="clusterManagers.html" class="list-group-item list-group-item-action bg-light">Cluster Managers</a>
+        <a href="clientReroute.html" class="list-group-item list-group-item-action bg-light">Client Reroute</a>
+        <a href="hadrPureScale.html" class="list-group-item list-group-item-action bg-light">HADR on PureScale</a>
+        <a href="faq.html" class="list-group-item list-group-item-action bg-light">FAQ</a>
+        <a href="db2fmtlog.html" class="list-group-item list-group-item-action bg-light">db2fmtlog replayonlywindow</a>
+      </div>
+    </div>
+    <!-- /#sidebar-wrapper -->
+
+    <!-- Page Content -->
+    <div id="page-content-wrapper">
+
+      <nav class="navbar navbar-expand-lg navbar-light bg-light border-bottom">
+        <button class="btn btn-primary" id="menu-toggle">Toggle Menu</button>
+
+        <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarSupportedContent" aria-controls="navbarSupportedContent" aria-expanded="false" aria-label="Toggle navigation">
+          <span class="navbar-toggler-icon"></span>
+        </button>
+
+        <div class="collapse navbar-collapse" id="navbarSupportedContent">
+          <ul class="navbar-nav ml-auto mt-2 mt-lg-0">
+            <li class="nav-item">
+              <a class="nav-link" href="index.html">Home</a>
+            </li>
+            <li class="nav-item">
+              <a class="nav-link" href="contact.html">Contact</a>
+            </li>
+            <li class="nav-item">
+              <a class="nav-link" href="contribute.html">Contribute</a>
+            </li>
+          </ul>
+        </div>
+      </nav>
+
+      <div class="container-fluid">
+        <p dir="ltr"><span style="font-size:24px">HADR Socket Buffer Size Tuning</span></p>
+
+        <p dir="ltr"><strong>Table of Contents</strong></p>
+
+        <ul dir="ltr">
+        	<li><a href="#Introduction">Introduction</a></li>
+        	<li><a href="#Maximizing_TCP_throughput">Maximizing TCP throughput</a>
+        	<ul>
+        		<li><a href="#TCP_Window_Size_Formula">TCP Window Size Formula</a></li>
+        		<li><a href="#TCP_Window_Scaling">TCP Window Scaling</a></li>
+        		<li><a href="#Using_HADR_simulator_to_determine_optimal_TCP_window_size">Using HADR simulator to determine optimal TCP window size</a></li>
+        	</ul>
+        	</li>
+        	<li><a href="#Buffering_for_HADR_Log_Shipping">Buffering for HADR Log Shipping</a>
+        	<ul>
+        		<li><a href="#Sender_Side">Sender Side</a></li>
+        		<li><a href="#Receiver_Side">Receiver Side</a></li>
+        		<li><a href="#ASYNC_mode_considerations">ASYNC mode considerations</a></li>
+        	</ul>
+        	</li>
+        	<li><a href="#Monitoring_TCP_Buffer_Size">Monitoring TCP Buffer Size</a></li>
+        	<li><a href="#Best_practice_for_HADR_TCP_buffer_size">Summary: Best practice for HADR TCP buffer size</a></li>
+        </ul>
+
+        <p dir="ltr"><strong>&nbsp;&nbsp;</strong></p>
+
+        <h2 dir="ltr"><a name="Introduction">Introduction</a></h2>
+
+        <p dir="ltr">DB2 registry variables DB2_HADR_SOSNDBUF and DB2_HADR_SORCVBUF (first available in V8fp17, V91fp5 and V95fp2) specify socket send and receive buffer sizes for the HADR TCP connection. They allow tuning TCP window size (controlled via socket buffer size on most systems) for HADR connection without impact on other TCP connections on the system. These parameters are applicable on both primary and standby.<br />
+        <br />
+        The host machine may round up the requested size to certain sizes like power of two or multiple of network packet size, or cap the requested size at system limit without returning an error (observed on Linux). DB2 does not fail HADR startup if actual size is smaller than requested size. It is important that you verify the actual size against the requested size. See <a href="#Monitoring_TCP_Buffer_Size">monitoring&nbsp;socket&nbsp;buffer&nbsp;size</a><br />
+        <br />
+        There are two major aspects when setting socket buffer size on HADR systems:<br />
+        <br />
+        - Maximizing TCP throughput<br />
+        - Buffering for HADR log shipping<br />
+        <br />
+        This article will discuss the two aspects.</p>
+
+        <h2 dir="ltr"><a name="Maximizing_TCP_throughput">Maximizing TCP throughput</a></h2>
+
+        <h3 dir="ltr"><a name="TCP_Window_Size_Formula">TCP Window Size Formula</a></h3>
+
+        <p dir="ltr">Because HADR is network dependent, properly tuned network is very important. TCP window size is an important parameter for optimal TCP performance. The general rule is<br />
+        <br />
+        TCP window size = send_rate * round_trip_time<br />
+        <br />
+        The reason is that TCP is a reliable protocol. It guarantees delivery of data submitted by applications (via the send() call). The submitted data is copied to OS TCP buffer (this is the socket buffer on most systems). The sender's TCP layer can not release a portion of the TCP send buffer until if has received an ack message from the receiver that data in this portion of the buffer has been received. If it does not receive the ack message (within a timeout), it will resend the data. Consider the following sequence:<br />
+        <br />
+        - Sender sends data onto the network.<br />
+        - First part of the data to arrives on the receiver. (one way network travel time)<br />
+        - Receiver sends back an ack message.<br />
+        - Ack message arrives on sender. (one way network travel time)<br />
+        - Sender releases buffer holding the first part.<br />
+        <br />
+        This sequence takes network round trip time (excluding sender and receiver processing time, which is usually very short compared to network delay). While sender is waiting for the ack message (wait time is round trip time), it needs to keep sending more data, at the maximal send rate, to fully utilize the network bandwidth. The amount of data it can send (and must buffer) during the wait is send_rate * round_trip_time. This is the reason behind the TCP window size formula.<br />
+        <br />
+        The formula is a theoretical one. In reality, the window usually needs to be bigger, because the receiver will not ack until it receives the "first part", whose size is system dependent. It takes time for the "first part" to be fully shipped to the receiver. To maximize throughput, "send rate" in the formula should be the maximal rate (this matters more on systems capable of burst send) and round trip time should be the worst case (on WAN, the time is likely to vary more than on LAN, due to all the relay systems involved on the network path).<br />
+        <br />
+        Note that we are talking about the OS socket buffer and TCP ack message, which are different from the HADR buffer DB2 maintains and the HADR ack message DB2 sends. HADR buffer and messages are on a higher layer in the network stack.<br />
+        <br />
+        On LAN, the system default is usually large enough because round trip time is short. Example: 1000Mbit/second * .1 ms = 12500 bytes. Most systems have a default larger than 12500 bytes.<br />
+        <br />
+        For WAN, the system default is often not large enough because of longer round trip time. Example: 10Mbit/second * 100ms = 125 KB. Many systems have a default smaller than 125 KB. Such systems would require setting TCP window size. Setting a large size at the system level would consume a large amount of memory if there are many connections on the system, as is the case of many client/server connections. Thus setting windows size for HADR only is desirable.<br />
+        <br />
+        When window size is too small, the network will not be able to fully utilize its bandwidth. Applications like HADR will experience throughput lower than the nominal bandwidth. A larger than necessary size usually causes no harm other than consuming more memory.<br />
+        <br />
+        It is recommended that send and receive size be set to the same value and applied to both primary and standby databases. It has been observed that setting sender side buffer size alone is not enough to increase throughput on Windows systems. The recommendation is to use a single size for all 4 parameters:<br />
+        <br />
+        - Primary side send buf size<br />
+        - Primary side receive buf size<br />
+        - Standby side send buf size<br />
+        - Standby side receive buf size</p>
+
+        <h3 dir="ltr"><a name="TCP_Window_Scaling">TCP Window Scaling</a></h3>
+
+        <p dir="ltr">Larger than 64k bytes TCP windows require TCP scaling. Some systems automatically enable window scaling when TCP buffer size is larger than 64k bytes. Some require explicit enablement. Window scaling is also known as RFC1323. When window size is greater than 64k bytes, check if you need to explicitly enable window scaling.</p>
+
+        <h3 dir="ltr"><a name="Using_HADR_simulator_to_determine_optimal_TCP_window_size">Using HADR simulator to determine optimal TCP window size</a></h3>
+
+        <p dir="ltr">In the TCP window size formula<br />
+        <br />
+        TCP window size = send_rate * round_trip_time<br />
+        <br />
+        Send rate is the nominal bandwidth. For example, if you have a giga bit ethernet, the nominal rate is 1 GigaBit/second. If you lease a WAN line from a telecom vendor, the vendor should be able to tell you the speed of the line. Round trip time can be easily measured via the ping command. Just run ping the standby host from the primary host and vice versa. The result should be close. If not, investigate.<br />
+        <br />
+        In reality, some DBA's do not actually know the nominal rate of the primary-standby network. It is common in large corporations that another department manages the network and the DBA's are not familiar with details of the network. This is not a problem with the simulator. We can easily find out the rate with incremental search. You can start from 64KB buffer and double the buffer size until the throughput no longer improves. The highest throughput you get is the bandwidth.<br />
+        <br />
+        When send rate and round trip time are known, the incremental search procedure is still recommended. The window size formula is only a general guide. Actual test via the simulator should be used to determine the window size to be deployed.</p>
+
+        <p dir="ltr">See <a href="hadrSimulator.html">HADR simulator</a> page for full documentation of the simulator.<br />
+        <br />
+        Run the test when the network has no other workload, or at least no other heavy load. The test will stress the network. Recommended time for each run is 60 seconds. Use default flush size (this test is not sensitive to flush size). <strong>You must use ASYNC mode for this test. </strong>Sample command (for 64KB buffer):<br />
+        <br />
+        On primary host portland.ibm.com (Note the "-syncmode ASYNC" option):<br />
+        <span style="font-family:'courier new' , 'courier' , monospace">simhadr_linux -lhost portland.ibm.com -lport 4000 -rhost sanfrancisco.ibm.com -rport 4000 -sockSndBuf 65536 -sockRcvBuf 65536 -role primary -syncmode ASYNC -t 60</span><br />
+        <br />
+        On standby host sanfrancisco.ibm.com:<br />
+        <span style="font-family:'courier new' , 'courier' , monospace">simhadr_linux -lhost sanfrancisco.ibm.com -lport 4000 -rhost portland.ibm.com -rport 4000&nbsp; -sockSndBuf 65536 -sockRcvBuf 65536 -role standby</span><br />
+        <br />
+        In the output, look for the "MBytes/sec" field as shown below. For your convenience, this line is produced on both primary and standby side. It starts with the sync mode (this test requires ASYNC mode). It is the HADR log shipping rate (primary sends logs to the standby). This line does not say "send" or "receive" because it is the send rate on primary and receive rate on the standby. HADR traffic is heavily asymmetric. Standby to primary traffic is much lighter. For this test, we only care about the primary to standby log shipping traffic.<br />
+        <br />
+        <span style="font-family:'courier new' , 'courier' , monospace"><span style="background-color:#ffff00">ASYNC</span>: Total 2097152 bytes in 12.460158 seconds, <span style="background-color:#ffff00">0.168309 MBytes/sec</span></span><br />
+        <br />
+        <strong>Note</strong>: When buffer is large, you may notice that the throughput reported by the primary is higher than that from the standby. This is because primary considers send done when send() call returns (data is copied to TCP send buffer, but may not have reached standby). While standby counts data as received only when it actually gets the data. So the standby side number is more accurate. "Large" here is relative to total amount of data shipped. In the below 1MB buffer example, 289 MB of data was sent in 60 seconds (at 4.8 MB/sec), so 1MB is relatively very small and should not cause much discrepancy in primary and standby numbers. When buffer is large, you can use longer test runs to increase total amount of data shipped to make the buffer relatively small.<br />
+        <br />
+        Below is actual result between IBM labs in Portland, Oregon, and San Francisco, California. The physical distance is about 600 miles. This is a WAN example. The impact of socket buffer size on network throughput is significant.</p>
+
+        <p dir="ltr"><span style="font-family:'courier new' , 'courier' , monospace">Buffer&nbsp; Throughput<br />
+        64k &nbsp; &nbsp; 1.554048 MBytes/sec<br />
+        128k &nbsp;&nbsp; 3.347476 MBytes/sec<br />
+        256k&nbsp;&nbsp;&nbsp; 4.734673 MBytes/sec<br />
+        512k&nbsp;&nbsp;&nbsp; 4.834047 MBytes/sec<br />
+        1M&nbsp;&nbsp; &nbsp;&nbsp; 4.821998 MBytes/sec</span><br />
+        <br />
+        As seen above, throughput peaks at 4.8 MB/sec. This indicates that send rate is 4.8 MB/sec. Round trip time (measured by "ping") is .032 seconds (normal for this distance). The computed TCP window size is<br />
+        <br />
+        4.8 MB/sec * .032 second = 153 KB<br />
+        <br />
+        In reality, we see throughput leveling off from 256 KB. To be safe (a few MB of memory is really nothing nowadays), 512KB is recommended as minimal socket buffer size. DB2 log flush size may require larger buffer and we will use the larger size between TCP and flush size requirements.<br />
+        <br />
+        The search procedure starts from 64KB. Smaller sizes are not recommended in any case, regardless of network requirement, due to the other aspect of buffer size: to buffer DB2 log shipping.</p>
+
+        <h2 dir="ltr"><a name="Buffering_for_HADR_Log_Shipping">Buffering for HADR Log Shipping</a></h2>
+
+        <p dir="ltr">The other function of socket buffer in HADR systems is to buffer HADR log shipping.</p>
+
+        <h3 dir="ltr"><a name="Sender_Side">Sender Side</a></h3>
+
+        <p dir="ltr">On the sender side, a TCP send buffer size greater than send() size will minimize number of send calls. On Unix systems, when TCP send buffer size is smaller than send() size, TCP layer cannot copy all data into buffer. It will only send (copy) part of the requested data and ask the application to call send() again for remaining data. On Windows, data is copied into an intermediate buffer (application has no control on the intermediate buffer's size) first, then to the socket buffer. But it's still good to config socket buffer size to be greater than send size on Windows.</p>
+
+        <p dir="ltr">In HADR peer state, log writer flush size is HADR send() size. The same piece of log buffer is passed to write() for disk and send() for network. In HADR remote catchup state, HADR reads from disk and sends to network in 64KB unit. Thus we want a minimal send buffer size of 64KB.</p>
+
+        <p dir="ltr">DB2 log flush size is dynamic. To measure the max flush size, first scan log files using <a href="db2logscan.html">DB2 log scanner</a>, then run the scanner output through <a href="db2logscan.html#HADR_Calculator">HADR&nbsp;calculator</a>. See <a href="perfTuning.html#Step_4__Know_Your_Sync_Modes">HADR&nbsp;performance&nbsp;tuning</a> procedure for details.</p>
+
+        <h3 dir="ltr"><a name="Receiver_Side">Receiver Side</a></h3>
+
+        <p dir="ltr">On the receiver side, the HADR thread in DB2 receives log data from the TCP layer, then write the data to disk, in the same thread. While the thread is writing, OS can continue to copy more incoming data into the TCP buffer (socket buffer). Typical write size is one flush. Thus a socket receive buffer at least the size of a flush will maximize the effect of parallel log write and receive.</p>
+
+        <h3 dir="ltr"><a name="ASYNC_mode_considerations">ASYNC mode considerations</a></h3>
+
+        <p dir="ltr">For ASYNC mode, when there is intermittent network hiccup such that the primary is unable to send out log data, larger (larger than one flush) TCP send buffer may help. You may set the size to buffer primary work load for a certain amount of time. For example, 30MB to buffer 10 seconds of work load at 3MB/sec. A hiccup shorter than this duration will not block primary logging. This setup does not help SYNC and NEARSYNC mode because even if the log data can be buffered in TCP send buffer, until the standby receives it and acks back, primary logging is blocked.</p>
+
+        <p dir="ltr">However, larger send buffer in ASYNC mode increases the potential data loss in a failure. Should the primary host crash, any data in its send buffer not yet sent out will be lost.</p>
+
+        <h2 dir="ltr"><a name="Monitoring_TCP_Buffer_Size">Monitoring TCP Buffer Size</a></h2>
+
+        <p dir="ltr"><a name="Monitoring">On DB2 V10.1</a> and later, the following fields in db2pd -hadr or MON_GET_HADR table function can be used to monitor socket buffer size.</p>
+
+        <ul dir="ltr">
+        	<li>SOCK_SEND_BUF_REQUESTED&nbsp; (Value from DB2_HADR_SOSNDBUF, 0 if this registry variable is not set)</li>
+        	<li>SOCK_RECV_BUF_REQUESTED&nbsp; (Value from DB2_HADR_SORCVBUF, 0 if this registry variable is not set)</li>
+        	<li>SOCK_SEND_BUF_ACTUAL</li>
+        	<li>SOCK_RECV_BUF_ACTUAL</li>
+        </ul>
+
+        <p dir="ltr">The host machine may round up the requested size to certain sizes like power of two or multiple of network packet size, or cap the requested size at system limit without returning an error (observed on Linux). Therefore actual size does not always match requested size. DB2 does not fail HADR startup if actual size is smaller than requested size. It is important that you verify the actual size against the requested size.</p>
+
+        <p dir="ltr">Some OS may assign a buffer size on socket creation, then adjust the size upon connection, to optimize the size for the particular connection when remote end information becomes available. The SOCK_SEND_BUF_ACTUAL and SOCK_RECV_BUF_ACTUAL fields returned before connection reflect the initial size on socket creation. The values returned after connection will reflect the adjusted size.</p>
+
+        <p dir="ltr">In older releases, look for these messages from db2diag.log:</p>
+
+        <p dir="ltr">If DB2_HADR_SOSNDBUF or DB2_HADR_SORCVBUF is&nbsp; not set (system default is used):<br />
+        <br />
+        <span style="font-family:'courier new' , 'courier' , monospace">HADR Socket send buffer size, SO_SNDBUF: X bytes<br />
+        HADR Socket receive buffer size, SO_RCVBUF: X bytes</span><br />
+        <br />
+        If DB2_HADR_SOSNDBUF or DB2_HADR_SORCVBUF is set:<br />
+        <br />
+        <span style="font-family:'courier new' , 'courier' , monospace">HADR Socket send buffer size, SO_SNDBUF: Requested X bytes, Actual Y bytes<br />
+        HADR Socket receive buffer size, SO_RCVBUF: Requested X bytes, Actual Y bytes</span><br />
+        <br />
+        The above messages show buffer size at socket creation. Some OS may adjust buffer size upon connection, the final size used will be printed as (this message is printed whether the registry variables are set or not):<br />
+        <br />
+        <span style="font-family:'courier new' , 'courier' , monospace">HADR Socket send buffer size adjusted to, SO_SNDBUF: X bytes<br />
+        HADR Socket receive buffer size adjusted to, SO_RCVBUF: X bytes</span><br />
+        <br />
+        &nbsp;</p>
+
+        <h2 dir="ltr"><a name="Best_practice_for_HADR_TCP_buffer_size">Summary: Best practice for HADR TCP buffer size</a></h2>
+
+        <ul dir="ltr">
+        	<li>Use HADR simulator to find out TCP requirement</li>
+        	<li>Use DB2 log scanner and HADR calculator to find out flush size</li>
+        	<li>Use a minimum of 64KB</li>
+        	<li>Consider larger size to buffer network hiccup if you are using ASYNC mode</li>
+        	<li>Use same number for primary and standby.</li>
+        	<li>Use same number for send and receive buffer size</li>
+        	<li>Test new size with HADR simulator before you apply it to database</li>
+        	<li>Monitor actual size to verify that requested size is being used.</li>
+        </ul>
+      </div>
+    </div>
+    <!-- /#page-content-wrapper -->
+
+  </div>
+  <!-- /#wrapper -->
+
+  <!-- Bootstrap core JavaScript -->
+  <script src="vendor/jquery/jquery.min.js"></script>
+  <script src="vendor/bootstrap/js/bootstrap.bundle.min.js"></script>
+
+  <!-- Menu Toggle Script -->
+  <script>
+    $("#menu-toggle").click(function(e) {
+      e.preventDefault();
+      $("#wrapper").toggleClass("toggled");
+    });
+  </script>
+
+</body>
+
+</html>

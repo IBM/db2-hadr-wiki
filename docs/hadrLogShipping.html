@@ -1,0 +1,198 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
+  <meta name="description" content="">
+  <meta name="author" content="">
+
+  <title>Db2 HADR Wiki</title>
+
+  <!-- Bootstrap core CSS -->
+  <link href="vendor/bootstrap/css/bootstrap.min.css" rel="stylesheet">
+
+  <!-- Custom styles for this template -->
+  <link href="css/simple-sidebar.css" rel="stylesheet">
+
+</head>
+
+<body>
+
+  <div class="d-flex" id="wrapper">
+
+    <!-- Sidebar -->
+    <div class="bg-light border-right" id="sidebar-wrapper">
+      <div class="sidebar-heading">Menu</div>
+      <div class="list-group list-group-flush">
+        <a href="hadrBenefits.html" class="list-group-item list-group-item-action bg-light">HADR Benefits</a>
+        <a href="featureHistory.html" class="list-group-item list-group-item-action bg-light">Feature History</a>
+        <a href="hadrTutorial.html" class="list-group-item list-group-item-action bg-light">HADR Tutorial</a>
+        <a href="tcpTuning.html" class="list-group-item list-group-item-action bg-light">TCP Tuning</a>
+        <a href="perfTuning.html" class="list-group-item list-group-item-action bg-light">Perf Tuning</a>
+        <a href="hadrSimulator.html" class="list-group-item list-group-item-action bg-light">HADR Simulator</a>
+        <a href="simulatorOptions.html" class="list-group-item list-group-item-action bg-light">HADR Simulator Options</a>
+        <a href="simulatorOutput.html" class="list-group-item list-group-item-action bg-light">HADR Simulator Output</a>
+        <a href="simulatorParams.html" class="list-group-item list-group-item-action bg-light">HADR Simulator Params</a>
+        <a href="db2logscan.html" class="list-group-item list-group-item-action bg-light">db2logscan</a>
+        <a href="hadrConfig.html" class="list-group-item list-group-item-action bg-light">HADR Config</a>
+        <a href="hadrSyncMode.html" class="list-group-item list-group-item-action bg-light">HADR Sync Mode</a>
+        <a href="hadrTakeover.html" class="list-group-item list-group-item-action bg-light">HADR Takeover</a>
+        <a href="hadrMonitoring.html" class="list-group-item list-group-item-action bg-light">HADR Monitoring</a>
+        <a href="hadrCommands.html" class="list-group-item list-group-item-action bg-light">HADR Commands</a>
+        <a href="hadrLogShipping.html" class="list-group-item list-group-item-action bg-light"><strong>> HADR Log Shipping</strong></a>
+        <a href="hadrPerf.html" class="list-group-item list-group-item-action bg-light">HADR Perf</a>
+        <a href="diagConnect.html" class="list-group-item list-group-item-action bg-light">Diag Connect</a>
+        <a href="db2diag.html" class="list-group-item list-group-item-action bg-light">db2diag.log</a>
+        <a href="clusterManagers.html" class="list-group-item list-group-item-action bg-light">Cluster Managers</a>
+        <a href="clientReroute.html" class="list-group-item list-group-item-action bg-light">Client Reroute</a>
+        <a href="hadrPureScale.html" class="list-group-item list-group-item-action bg-light">HADR on PureScale</a>
+        <a href="faq.html" class="list-group-item list-group-item-action bg-light">FAQ</a>
+        <a href="db2fmtlog.html" class="list-group-item list-group-item-action bg-light">db2fmtlog replayonlywindow</a>
+      </div>
+    </div>
+    <!-- /#sidebar-wrapper -->
+
+    <!-- Page Content -->
+    <div id="page-content-wrapper">
+
+      <nav class="navbar navbar-expand-lg navbar-light bg-light border-bottom">
+        <button class="btn btn-primary" id="menu-toggle">Toggle Menu</button>
+
+        <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarSupportedContent" aria-controls="navbarSupportedContent" aria-expanded="false" aria-label="Toggle navigation">
+          <span class="navbar-toggler-icon"></span>
+        </button>
+
+        <div class="collapse navbar-collapse" id="navbarSupportedContent">
+          <ul class="navbar-nav ml-auto mt-2 mt-lg-0">
+            <li class="nav-item">
+              <a class="nav-link" href="index.html">Home</a>
+            </li>
+            <li class="nav-item">
+              <a class="nav-link" href="contact.html">Contact</a>
+            </li>
+            <li class="nav-item">
+              <a class="nav-link" href="contribute.html">Contribute</a>
+            </li>
+          </ul>
+        </div>
+      </nav>
+
+      <div class="container-fluid">
+        <p dir="ltr" style="text-align:center"><span style="font-size:24px">HADR Log Shipping</span></p>
+
+        <p dir="ltr"><strong>Table of Contents</strong></p>
+
+        <ul dir="ltr">
+        	<li><a href="#HADR_State_Transition">HADR State Transition</a></li>
+        	<li><a href="#HADR_Data_Flow">HADR Data Flow</a></li>
+        	<li><a href="#Log_writing_on_primary">Log writing on primary</a></li>
+        	<li><a href="#HADR_synchronization_mode">HADR synchronization mode</a></li>
+        	<li><a href="#Log_file_management_on_standby">Log file management on standby</a></li>
+        </ul>
+
+        <p dir="ltr"><strong>&nbsp;&nbsp;</strong></p>
+
+        <h2 dir="ltr"><a name="HADR_State_Transition">HADR State Transition</a></h2>
+
+        <p dir="ltr">HADR log shipping has different path in different HADR states. The state is reported as "HADR_STATE" in <a href="hadrMonitoring.html">HADR monitoring</a>. There are rules for transition from one state to another. If you are not already familiar with HADR states, see DB2 Info Center:</p>
+
+        <ul dir="ltr">
+        	<li><a href="http://pic.dhe.ibm.com/infocenter/db2luw/v10r1/topic/com.ibm.db2.luw.admin.ha.doc/doc/c0011748.html">HADR state transition in DB2 V10.1</a></li>
+        	<li><a href="http://publib.boulder.ibm.com/infocenter/db2luw/v9r7/topic/com.ibm.db2.luw.admin.ha.doc/doc/c0011748.html">HADR state transition in DB2 V9.7</a></li>
+        </ul>
+
+        <p dir="ltr">DB2 V10.1 has enhanced support for shared archive between primary and standby. The standby will retrieve from log archive on each reconnection to the primary. Standby retrieving from archive reduces load on the primary machine and HADR network. In V9.7 and earlier, archive retrieval is only done once on each standby activation, at end of local catchup state.</p>
+
+        <p dir="ltr">&nbsp;</p>
+
+        <h2 dir="ltr"><a name="HADR_Data_Flow">HADR Data Flow</a></h2>
+
+        <p dir="ltr">The diagram below shows HADR data flow.</p>
+
+        <p dir="ltr"><img id="1516849469402_0" src="/developerworks/community/wikis/form/api/wiki/e7a20a94-a11a-4e65-bc01-ddc92f0329ed/page/c619083f-a6bf-45b6-b75f-e221201ad50b/attachment/fd04290a-fe37-4b58-a72d-badfa4b4f222/media/image.png?preventCache=1570216088705" /><br />
+        <br />
+        Each rectangle in the diagram represents a thread (also known as EDU (Engine Dispatchable Unit)) in DB2 engine. Threads relevant to HADR are:</p>
+
+        <ul dir="ltr">
+        	<li>db2agent: Thread that serves SQL client connection. Multiple threads per database.</li>
+        	<li>db2loggw: Thread that writes log records to log files. One per database.</li>
+        	<li>db2hadrp: HADR primary side edu. One per database.</li>
+        	<li>db2hadrs: HADR standby side edu. One per database.</li>
+        	<li>db2lfr: LFR (Log File Reader) thread. One per database.</li>
+        	<li>db2shred: Shredder edu. Shreds log pages into log records. One per database.</li>
+        	<li>db2redom: Redo (replay) master thread. One per database.</li>
+        	<li>db2redow: Redo (replay) worker thread. Multiple threads per database.</li>
+        </ul>
+
+        <p dir="ltr">You can list the edu's in a DB2 instance via the "db2pd -edus" command. See <a href="http://pic.dhe.ibm.com/infocenter/db2luw/v10r1/topic/com.ibm.db2.luw.admin.perf.doc/doc/c0008930.html">DB2 process model</a> for description of all edu types.<br />
+        <br />
+        On the primary side, the agents inserts log records into log buffer, whose size is controlled by database configuration parameter LOGBUFSZ. The db2loggw edu (logger) writes the records into log files. Log records are of variable size. They are packaged into fixed 4kB log pages for log writing, reading and shipping.<br />
+        <br />
+        In peer state, HADR (the db2hadrp edu) directly sends log pages from logger buffer. It does not make a copy. In remote catchup state, HADR reads log pages from log files via the db2lfr (log file reader) edu. Again, HADR directly sends log pages from LFR output buffer.<br />
+        <br />
+        HADR sends log pages via a TCP connection. On the standby side, HADR (the db2hadrs edu) receives the pages into its own buffer, whose size is controlled by registry variable DB2_HADR_BUF_SIZE. The default buffer size is two times primary's LOGBUFSZ. This is also the minimal. Any DB2_HADR_BUF_SIZE setting smaller than this is ignored. The HADR edu writes the received pages into log files. To protect against crash, log records must be written to disk before they can be replayed.<br />
+        <br />
+        To replay logs, the db2shred edu (shredder) "shreds" log pages into log records, then passes the records to replay master (db2redom), who dispatches the records to multiple replay workers (db2redow).<br />
+        <br />
+        When <a href="http://pic.dhe.ibm.com/infocenter/db2luw/v10r1/topic/com.ibm.db2.luw.admin.ha.doc/doc/c0060147.html">log spooling</a> (first available in DB2 V10.1) is disabled, when the standby is receiving logs from the primary (peer and remote catchup state), the shredder only reads directly from HADR receive buffer. This is more efficient than reading from disk. But a buffer page cannot be released for receive again until it has been fed to shredder for replay. If replay is slow, incoming pages will fill up the buffer and HADR will have to stop receiving, eventually blocking log write on the primary if HADR is in peer state. In other states, such as local catchup, shredder can read from disk via LFR (db2lfr edu).<br />
+        <br />
+        When spooling is enabled, shredder reads from HADR receive buffer if data is available in the buffer, otherwise, it reads from disk. HADR edu will release a buffer page for re-receive after it has been written to disk, even if it has not been fed to shredder. Shredder will read it back from disk later. HADR will stop receiving only when spooling device (the logging device) is full or configured hadr_spool_limit is reached.<br />
+        <br />
+        See also "hadr_spool_limit" section in <a href="hadrConfig.html">HADR config</a>.</p>
+
+        <p dir="ltr">&nbsp;</p>
+
+        <h2 dir="ltr"><a name="Log_writing_on_primary">Log writing on primary</a></h2>
+
+        <p dir="ltr">db2loggw (logger) writes log pages to disk when its periodical check on log buffer shows that there are pages ready to be written (pages filled with log records), or when an agent explicitly requests an immediate write for transaction commit. Each write is called a "flush". The number of pages in a flush is non-deterministic. The logger writes out all ready pages in the buffer. The logger is designed to be self tuning. While the logger is writing, agents are concurrently inserting more records into the buffer. So if a flush takes longer time, the next flush will be bigger. Larger flush increases I/O throughput, especially on hard drive based devices (less so on SSD (Solid State Disk) devices).</p>
+
+        <p dir="ltr">Standard (non HADR) databases use the same log write algorithm.<br />
+        <br />
+        See also <a href="db2logscan.html#DB2_Logging_Performance" id="wikiLink1401478732514">DB2&nbsp;logging&nbsp;performance</a>.</p>
+
+        <p dir="ltr">&nbsp;</p>
+
+        <h2 dir="ltr"><a name="HADR_synchronization_mode">HADR synchronization mode</a></h2>
+
+        <p dir="ltr">In HADR peer state, db2loggw requests db2hadrp to send the flush to standby when it writes the flush. For efficiency, HADR edu does not make a copy of the data. It directly passes the address of the buffer to TCP send() call. In nearSync and async modes, log writing and sending are performed in parallel, while in sync mode, log pages are written to disk first, then sent. Even if a flush is physically written to disk, it is not considered "written" by SQL agents (agents cannot commit the transaction) until db2loggw receives notification from db2hadrp that log replication for the flush is complete. For sync and nearSync modes, db2hadrp notifies db2loggw when the ack message comes back from the standby. For async mode, db2hadrp notifies db2loggw when all data has been delivered to TCP layer.</p>
+
+        <p dir="ltr">HADR has no direct impact to log writing in other state. SuperAsync mode never enters peer state, so it has no direct impact to log writing. But it may have indirect impact such as adding log read load to log device (it stays in remote catchup state), competing with log write.<br />
+        <br />
+        See also <a href="hadrSyncMode.html">HADR sync mode</a></p>
+
+        <p dir="ltr">&nbsp;</p>
+
+        <h2 dir="ltr"><a name="Log_file_management_on_standby">Log file management on standby</a></h2>
+
+        <p dir="ltr">HADR automatically manages log files on the standby. Received log pages are written to log files. Standby log page to file mapping is kept identical to that of the primary. Thus log files by the same name are interchangeable on the primary and standby. The files may not be identical byte by byte, due to different log file meta data versioning on the primary and standby, but they are logically identical.</p>
+
+        <p dir="ltr">For crash recovery purposes, a log record is replayed only after it has been written to disk. Once replay has closed (committed or rolled back) transactions associated to log records in a file (the file falls out of active transaction window. ie. File is older than "First active log file" from "get db cfg"), and the file has been archived on the primary, the standby will reclaim the file. If both logarchmeth1 and logarchmeth2 are configured on the primary, the standby does not reclaim a file until the primary has archived the file using both methods. Reclaim may rename an old file into a new file, to avoid initializing the new file, or delete an old file if number of files in log path exceeds sum of logprimary and logsecond. The "archived on primary" requirement ensures that if a takeover (forced or not forced) happens, a file not yet archived on the old primary can be archived on the new primary (no file is missed in the archive).</p>
+
+        <p dir="ltr">Note: The standby never archives log files, even if an archive method is configured. It will start archiving only when it changes role into a primary.</p>
+
+        <p dir="ltr">If archiving is not enabled on the primary (It is using logretain), then the standby will not reclaim any log files. All files will be kept on both primary and standby. Users are responsible to manage the files. Generally, files older than "First active log file" from "get db cfg" can be removed. "First active file" should be read and used for file management on primary and standby separately. Standby's first active file can be older than the primary's because replay on standby can fall behind primary's transaction processing.<br />
+        &nbsp;</p>
+      </div>
+    </div>
+    <!-- /#page-content-wrapper -->
+
+  </div>
+  <!-- /#wrapper -->
+
+  <!-- Bootstrap core JavaScript -->
+  <script src="vendor/jquery/jquery.min.js"></script>
+  <script src="vendor/bootstrap/js/bootstrap.bundle.min.js"></script>
+
+  <!-- Menu Toggle Script -->
+  <script>
+    $("#menu-toggle").click(function(e) {
+      e.preventDefault();
+      $("#wrapper").toggleClass("toggled");
+    });
+  </script>
+
+</body>
+
+</html>

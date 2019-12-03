@@ -1,0 +1,199 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
+  <meta name="description" content="">
+  <meta name="author" content="">
+
+  <title>Db2 HADR Wiki</title>
+
+  <!-- Bootstrap core CSS -->
+  <link href="vendor/bootstrap/css/bootstrap.min.css" rel="stylesheet">
+
+  <!-- Custom styles for this template -->
+  <link href="css/simple-sidebar.css" rel="stylesheet">
+
+</head>
+
+<body>
+
+  <div class="d-flex" id="wrapper">
+
+    <!-- Sidebar -->
+    <div class="bg-light border-right" id="sidebar-wrapper">
+      <div class="sidebar-heading">Menu</div>
+      <div class="list-group list-group-flush">
+        <a href="hadrBenefits.html" class="list-group-item list-group-item-action bg-light">HADR Benefits</a>
+        <a href="featureHistory.html" class="list-group-item list-group-item-action bg-light">Feature History</a>
+        <a href="hadrTutorial.html" class="list-group-item list-group-item-action bg-light">HADR Tutorial</a>
+        <a href="tcpTuning.html" class="list-group-item list-group-item-action bg-light">TCP Tuning</a>
+        <a href="perfTuning.html" class="list-group-item list-group-item-action bg-light">Perf Tuning</a>
+        <a href="hadrSimulator.html" class="list-group-item list-group-item-action bg-light">HADR Simulator</a>
+        <a href="simulatorOptions.html" class="list-group-item list-group-item-action bg-light"><strong>> HADR Simulator Options</strong></a>
+        <a href="simulatorOutput.html" class="list-group-item list-group-item-action bg-light">HADR Simulator Output</a>
+        <a href="simulatorParams.html" class="list-group-item list-group-item-action bg-light">HADR Simulator Params</a>
+        <a href="db2logscan.html" class="list-group-item list-group-item-action bg-light">db2logscan</a>
+        <a href="hadrConfig.html" class="list-group-item list-group-item-action bg-light">HADR Config</a>
+        <a href="hadrSyncMode.html" class="list-group-item list-group-item-action bg-light">HADR Sync Mode</a>
+        <a href="hadrTakeover.html" class="list-group-item list-group-item-action bg-light">HADR Takeover</a>
+        <a href="hadrMonitoring.html" class="list-group-item list-group-item-action bg-light">HADR Monitoring</a>
+        <a href="hadrCommands.html" class="list-group-item list-group-item-action bg-light">HADR Commands</a>
+        <a href="hadrLogShipping.html" class="list-group-item list-group-item-action bg-light">HADR Log Shipping</a>
+        <a href="hadrPerf.html" class="list-group-item list-group-item-action bg-light">HADR Perf</a>
+        <a href="diagConnect.html" class="list-group-item list-group-item-action bg-light">Diag Connect</a>
+        <a href="db2diag.html" class="list-group-item list-group-item-action bg-light">db2diag.log</a>
+        <a href="clusterManagers.html" class="list-group-item list-group-item-action bg-light">Cluster Managers</a>
+        <a href="clientReroute.html" class="list-group-item list-group-item-action bg-light">Client Reroute</a>
+        <a href="hadrPureScale.html" class="list-group-item list-group-item-action bg-light">HADR on PureScale</a>
+        <a href="faq.html" class="list-group-item list-group-item-action bg-light">FAQ</a>
+        <a href="db2fmtlog.html" class="list-group-item list-group-item-action bg-light">db2fmtlog replayonlywindow</a>
+      </div>
+    </div>
+    <!-- /#sidebar-wrapper -->
+
+    <!-- Page Content -->
+    <div id="page-content-wrapper">
+
+      <nav class="navbar navbar-expand-lg navbar-light bg-light border-bottom">
+        <button class="btn btn-primary" id="menu-toggle">Toggle Menu</button>
+
+        <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarSupportedContent" aria-controls="navbarSupportedContent" aria-expanded="false" aria-label="Toggle navigation">
+          <span class="navbar-toggler-icon"></span>
+        </button>
+
+        <div class="collapse navbar-collapse" id="navbarSupportedContent">
+          <ul class="navbar-nav ml-auto mt-2 mt-lg-0">
+            <li class="nav-item">
+              <a class="nav-link" href="index.html">Home</a>
+            </li>
+            <li class="nav-item">
+              <a class="nav-link" href="contact.html">Contact</a>
+            </li>
+            <li class="nav-item">
+              <a class="nav-link" href="contribute.html">Contribute</a>
+            </li>
+          </ul>
+        </div>
+      </nav>
+
+      <div class="container-fluid">
+        <h1 dir="ltr">HADR Simulator Command Line Options</h1>
+
+        <p dir="ltr">Run simhadr with no argument for a brief description of command line options. Options and keywords (such as "-role", "-flushSize", SYNC, NEARSYNC) are case insensitive. Case is used in documentation for ease of reading (for example: "-sockSndBuf").<br />
+        &nbsp;</p>
+
+        <h3 dir="ltr">Required Options</h3>
+
+        <ul dir="ltr">
+        	<li>-role option specifies the role of the process. Start primary process on primary host machine and start standby process on standby host machine. The two processes will connect to each other via TCP. You can start either process first.</li>
+        </ul>
+
+        <ul dir="ltr">
+        	<li>-lhost, -lport, -rhost, -rport are equivalent to DB2 configuration parameters HADR_LOCAL_HOST, HADR_LOCAL_SVC, HADR_REMOTE_HOST and HADR_REMOTE_SVC. These are the TCP addresses of primary and standby. Note that while the simulator accepts both host name and IP address for host argument, it accepts only port number for port argument (Real HADR accepts both port number and service name).</li>
+        </ul>
+
+        <h3 dir="ltr">Basic Options</h3>
+
+        <ul dir="ltr">
+        	<li>-n and -t arguments control the length of the simulation run. They are accepted only on the primary. You can control the length by number of flushes (-n), or by time (-t). Once primary reaches the limit, it will disconnect from the standby and end the run. Standby will detect the disconnection and end its run too. The default is 4 seconds of time limit and unlimited number of flushes.</li>
+        </ul>
+
+        <p dir="ltr">During a run, you may send SIGINT (usually by pressing Control-C) to the primary any time to stop the simulation. Upon the signal, the primary will stop the run and the usual simulation result will be printed on both primary and standby. Note: SIGINT and Control-C works on both Unix and Windows.<br />
+        &nbsp;</p>
+
+        <ul dir="ltr">
+        	<li>-syncmode specifies the HADR sychronization mode. It is equivalent to DB2 configuration parameter HADR_SYNCMODE. Syncmode, remote catchup (RCU), and flush size are propagated from primary to standby. They are accepted only on the primary side.</li>
+        </ul>
+
+        <ul dir="ltr">
+        	<li>-rcu tells simhadr to simulate remote catchup (RCU) state log shipping. The default behavior is to simulate peer state, using the specified sync mode, unless the mode is superAsync. Specifying "-syncmode superAsync" is identical to specifying "-rcu" because superAsync mode always runs in RCU state.</li>
+        </ul>
+
+        <ul dir="ltr">
+        	<li>-flushSize specifies size of log flushes in unit of 4k byte log pages. Default is 16 for peer state and 16 for remote catchup. See "flush size" section in <a href="simulatorParams.html">Simulation Parameters and Scenarios</a> for more info.</li>
+        </ul>
+
+        <ul dir="ltr">
+        	<li>-hadrBufSize sets standby recv buffer size in unit of 4k byte log pages. Default is 4 times flush size.</li>
+        </ul>
+
+        <ul dir="ltr">
+        	<li>-target sets target log rate to specified MBytes/sec. Default infinity. This is useful when you want to throttle the log rate. For example, you are testing network stability rather than throughput. Applicable on the primary only.</li>
+        </ul>
+
+        <ul dir="ltr">
+        	<li>-verbose gives you detailed info for each write, send, recv, and congestion. In most cases (especially when simhadr is writing to a terminal), the extra info will significantly slow down the simulation. Do not use -verbose for performance runs. Use only for per message debugging.</li>
+        </ul>
+
+        <h3 dir="ltr">Network Options</h3>
+
+        <ul dir="ltr">
+        	<li>-sockSndBuf and -sockRcvBuf set socket send or recv buffer size. These parameters are equivalent to DB2 registry variable DB2_HADR_SOSNDBUF and DB2_HADR_SORCVBUF. The default is system assigned size.</li>
+        </ul>
+
+        <ul dir="ltr">
+        	<li>-nagle turns on nagle (combining send requests). In real HADR, nagle is always disabled. Nagle reduces total amount of network traffic, at the cost of application response time. This option lets you experiment on the impact of nagle.</li>
+        </ul>
+
+        <ul dir="ltr">
+        	<li>-block tells the simulator to use blocking send and receive. Real HADR always uses nonblocking send and receive. This option lets you test network throughput in blocking mode. On properly configured systems, there should be little difference between blocking and nonblocking mode. Note: Primary and standby need not have the same -block option. You can use -block only on one side.</li>
+        </ul>
+
+        <ul dir="ltr">
+        	<li>-bind, By default, the simulator does not bind standby socket's local end when it connects to the primary. Thus while the remote end of the socket is bound on the primary's local host and port (because primary listens on the address and standby connects to it), the socket's local end address is assigned by the standby host machine. Normally, the standby machine assigns a local IP that is on the best route to the primary end. The assigned IP may not be the canonical address of the standby machine. In most cases, it will be the address of the standby's HADR_LOCAL_HOST, because that address should be the best local end to reach the primary. In rare cases, such as misconfigured routing table, the assigned local end may cause inefficient network routing. You may use -bind option to force the standby to bind its local end to the local host argument of standby. Note: This option is for diagnostics only. Real HADR has no option to force standby local binding.</li>
+        </ul>
+
+        <h3 dir="ltr">Disk Options</h3>
+
+        <ul dir="ltr">
+        	<li>-write Creates, then writes to a file with specified name (name can include path) to test disk write performance. No network operations are done. Network options are ignored. As in real DB2, synchronous write is used (write() does not return until data is on disk). Write size can be controlled via -flushSize option. Simulation run time can be controlled via -n or -t option. If -verbose is on, a message will be printed on each write. Upon completion, the file is left for user inspection and removal.</li>
+        </ul>
+
+        <ul dir="ltr">
+        	<li>-read Reads a file with specified name (name can include path) to test disk read performance. No network operations are done. Network options are ignored. Read size can be controlled via -flushSize option. Simulation run time can be controlled via -n or -t option. If -verbose is on, a message will be printed on each read. Typically, "-write" is used first to create a file, then "-read" is used to read the file. Read will stop when EOF is reached or -n/-t limit is reached.</li>
+        </ul>
+
+        <ul dir="ltr">
+        	<li>-cache Enables file system caching for read/write test. By default, direct IO (no caching) is used. Special file systems such as virtual file system (/tmp on some Unix systems) may require -cache option because they do not support direct IO. In real DB2, registry variable DB2_LOGGER_NON_BUFFERED_IO controls logger caching behavior. The -cache option generally has little impact on write performance, but has big impact on read performance. Recommended setting for simhadr is to use default (disable caching).</li>
+        </ul>
+
+        <ul dir="ltr">
+        	<li>-disk specifies disk speed using two parameters: data rate in MBytes/sec and per IO overhead in seconds. The default is infinitely fast disk (disk read/write takes no time). Thus if you do not specify -disk option, the simulation will only reflect network bottleneck (disk is usually not the bottleneck in log shipping). For RCU and SUPERASYNC mode primary side, use the slower of read/write speed, because the primary needs to read and write logs. For all other cases, use write speed (both primary and standby write logs).</li>
+        </ul>
+
+        <h3 dir="ltr">Simulator Timing Options</h3>
+
+        <ul dir="ltr">
+        	<li>-spin tells simhadr to use specified spin time to compensate for sleep overhead. Default measures sleep overhead on the system. Simhadr uses sleep (actually, its variation of nanosleep() on Unix and Sleep() (millisecond sleep) on Windows) to simulate write time. However, the OS only guarantees that the process will sleep no less than requested time. Actual sleep time is usually longer. When the OS wakes up the process, it may take some time for the process to actually run on a CPU. For accurate timing, simhadr will request less sleep time and top off the sleep time with CPU spinning. The auto measured sleep overhead usually works well. If you see too many warnings from simhadr about actual sleep time longer than requested time, increase spin time.</li>
+        </ul>
+
+        <ul dir="ltr">
+        	<li>-testSleep tests accuracy of specified sleep time. It tests how well the sleep-and-spin method works. This options is used to test -spin settings.</li>
+        </ul>
+
+        <p dir="ltr">&nbsp;</p>
+      </div>
+    </div>
+    <!-- /#page-content-wrapper -->
+
+  </div>
+  <!-- /#wrapper -->
+
+  <!-- Bootstrap core JavaScript -->
+  <script src="vendor/jquery/jquery.min.js"></script>
+  <script src="vendor/bootstrap/js/bootstrap.bundle.min.js"></script>
+
+  <!-- Menu Toggle Script -->
+  <script>
+    $("#menu-toggle").click(function(e) {
+      e.preventDefault();
+      $("#wrapper").toggleClass("toggled");
+    });
+  </script>
+
+</body>
+
+</html>

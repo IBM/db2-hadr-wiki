@@ -1,0 +1,230 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
+  <meta name="description" content="">
+  <meta name="author" content="">
+
+  <title>Db2 HADR Wiki</title>
+
+  <!-- Bootstrap core CSS -->
+  <link href="vendor/bootstrap/css/bootstrap.min.css" rel="stylesheet">
+
+  <!-- Custom styles for this template -->
+  <link href="css/simple-sidebar.css" rel="stylesheet">
+
+</head>
+
+<body>
+
+  <div class="d-flex" id="wrapper">
+
+    <!-- Sidebar -->
+    <div class="bg-light border-right" id="sidebar-wrapper">
+      <div class="sidebar-heading">Menu</div>
+      <div class="list-group list-group-flush">
+        <a href="hadrBenefits.html" class="list-group-item list-group-item-action bg-light">HADR Benefits</a>
+        <a href="featureHistory.html" class="list-group-item list-group-item-action bg-light">Feature History</a>
+        <a href="hadrTutorial.html" class="list-group-item list-group-item-action bg-light">HADR Tutorial</a>
+        <a href="tcpTuning.html" class="list-group-item list-group-item-action bg-light">TCP Tuning</a>
+        <a href="perfTuning.html" class="list-group-item list-group-item-action bg-light">Perf Tuning</a>
+        <a href="hadrSimulator.html" class="list-group-item list-group-item-action bg-light">HADR Simulator</a>
+        <a href="simulatorOptions.html" class="list-group-item list-group-item-action bg-light">HADR Simulator Options</a>
+        <a href="simulatorOutput.html" class="list-group-item list-group-item-action bg-light">HADR Simulator Output</a>
+        <a href="simulatorParams.html" class="list-group-item list-group-item-action bg-light">HADR Simulator Params</a>
+        <a href="db2logscan.html" class="list-group-item list-group-item-action bg-light">db2logscan</a>
+        <a href="hadrConfig.html" class="list-group-item list-group-item-action bg-light">HADR Config</a>
+        <a href="hadrSyncMode.html" class="list-group-item list-group-item-action bg-light">HADR Sync Mode</a>
+        <a href="hadrTakeover.html" class="list-group-item list-group-item-action bg-light">HADR Takeover</a>
+        <a href="hadrMonitoring.html" class="list-group-item list-group-item-action bg-light">HADR Monitoring</a>
+        <a href="hadrCommands.html" class="list-group-item list-group-item-action bg-light">HADR Commands</a>
+        <a href="hadrLogShipping.html" class="list-group-item list-group-item-action bg-light">HADR Log Shipping/a>
+        <a href="hadrPerf.html" class="list-group-item list-group-item-action bg-light">HADR Perf</a>
+        <a href="diagConnect.html" class="list-group-item list-group-item-action bg-light"><strong>> Diag Connect</strong></a>
+        <a href="db2diag.html" class="list-group-item list-group-item-action bg-light">db2diag.log</a>
+        <a href="clusterManagers.html" class="list-group-item list-group-item-action bg-light">Cluster Managers</a>
+        <a href="clientReroute.html" class="list-group-item list-group-item-action bg-light">Client Reroute</a>
+        <a href="hadrPureScale.html" class="list-group-item list-group-item-action bg-light">HADR on PureScale</a>
+        <a href="faq.html" class="list-group-item list-group-item-action bg-light">FAQ</a>
+        <a href="db2fmtlog.html" class="list-group-item list-group-item-action bg-light">db2fmtlog replayonlywindow</a>
+      </div>
+    </div>
+    <!-- /#sidebar-wrapper -->
+
+    <!-- Page Content -->
+    <div id="page-content-wrapper">
+
+      <nav class="navbar navbar-expand-lg navbar-light bg-light border-bottom">
+        <button class="btn btn-primary" id="menu-toggle">Toggle Menu</button>
+
+        <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarSupportedContent" aria-controls="navbarSupportedContent" aria-expanded="false" aria-label="Toggle navigation">
+          <span class="navbar-toggler-icon"></span>
+        </button>
+
+        <div class="collapse navbar-collapse" id="navbarSupportedContent">
+          <ul class="navbar-nav ml-auto mt-2 mt-lg-0">
+            <li class="nav-item">
+              <a class="nav-link" href="index.html">Home</a>
+            </li>
+            <li class="nav-item">
+              <a class="nav-link" href="contact.html">Contact</a>
+            </li>
+            <li class="nav-item">
+              <a class="nav-link" href="contribute.html">Contribute</a>
+            </li>
+          </ul>
+        </div>
+      </nav>
+
+      <div class="container-fluid">
+        <h1 dir="ltr" style="text-align:center"><a name="Diagnosing_HADR_Primary_Standby_Connection">Diagnosing HADR Primary-Standby Connection</a></h1>
+
+        <p dir="ltr"><strong>Table of Contents</strong></p>
+
+        <ul dir="ltr">
+        	<li>Diagnosing HADR Primary-Standby Connection
+        	<ul>
+        		<li><a href="#Symptom_of_Primary_Standby_Connection_Problem">Symptom of Primary-Standby Connection Problem</a></li>
+        		<li><a href="#How_does_primary_and_standby_connect_to_each_other_">How does primary and standby connect to each other?</a></li>
+        		<li><a href="#Diagnosing_Connection_Problem">Diagnosing Connection Problem</a></li>
+        		<li><a href="#Testing_HADR_configuration_using_HADR_simulator">Testing HADR configuration using HADR simulator</a></li>
+        		<li><a href="#Testing_TCP_connection_via_telnet">Testing TCP connection via telnet</a></li>
+        		<li><a href="#_Failed_to_connect_to_primary__error_message_in_db2diag_log">"Failed to connect to primary" error message in db2diag.log</a></li>
+        	</ul>
+        	</li>
+        </ul>
+
+        <p dir="ltr"><strong>&nbsp; </strong></p>
+
+        <h2 dir="ltr"><a name="Symptom_of_Primary_Standby_Connection_Problem">Symptom of Primary-Standby Connection Problem</a></h2>
+
+        <p dir="ltr">When primary and standby can not connect to each other, the symptom is that primary database can not start (unless "start hadr as primary by force" is used). Primary startup will hang for hadr_timeout seconds, then return<br />
+        <br />
+        <span style="font-family:'courier new' , 'courier' , monospace">SQL1768N Unable to start HADR. Reason code = 7<br />
+        7 The primary database failed to establish a connection to its standby database within the HADR timeout interval. </span><br />
+        <br />
+        Note that because standby startup does not require a connection, standby database can be started normally, but it will remain disconnected.</p>
+
+        <h2 dir="ltr"><a name="How_does_primary_and_standby_connect_to_each_other_">How does primary and standby connect to each other?</a></h2>
+
+        <p dir="ltr">Primary acts as TCP server. Primary HADR thread listens on its hadr_local_host: hadr_local_svc address. Standby acts as TCP client. If the standby does not already have a connection to the primary, it will try connecting to its hadr_remote_host: hadr_remote_svc address every a few seconds. Once the primary receives the connection request, it will accept the connection. The connection is then established. HADR only uses one long lived TCP connection between a primary-standby pair. Both log data and control messages go through this connection.<br />
+        <br />
+        The primary keeps listening on its hadr_local_host: hadr_local_svc address after a primary-standby connection has been established. When a new connection request comes in, the existing connection is closed. This behavior allows stale connections to be cleared quickly. Starting in DB2 V10.1, the standby also listens on its hadr_local_host: hadr_local_svc address, so that the primary can initiate contact to the standby. The primary initiated connections are transient. They are used only for short admin messages. The main log shipping channel is still initiated by the standby. In earlier releases, the standby does not listen on any address.</p>
+
+        <h2 dir="ltr"><a name="Diagnosing_Connection_Problem">Diagnosing Connection Problem</a></h2>
+
+        <p dir="ltr">When primary/standby connection does not work, check the following :</p>
+
+        <ul dir="ltr">
+        	<li>Check HADR related configuration parameters, especially TCP address parameters: hadr_local_host: hadr_local_svc, hadr_remote_host: hadr_remote_svc, and hadr_target_list (new in DB2 V10.1, for multiple standby support). Make sure that the parameters on primary and standby match up. The hadr_remote_host: hadr_remote_svc address on one database should match the other's hadr_local_host: hadr_local_svc (unless NAT (Network Address Translation) is used, where registry variable DB2_HADR_NO_IP_CHECK is set). For multiple standbys, make sure that hadr_target_list on one database includes the other's hadr_local_host: hadr_local_svc. For address parameters, check the following:
+        	<ul>
+        		<li>Check if full host name (such as "foo.ibm.com") is used instead of short name (such as "foo"). Full name is recommended. Short name can expand to different full names if the same name exists in different domains.</li>
+        		<li>Check that a host name does resolve to the same IP address on primary and standby machines. Misconfigured network or machines can have the same name resolved to different IP address on different machines. On DB2 V9 or later versions, you can find messages like "hadr_local_host foo mapped to 1.2.3.40" and "hadr_remote_host foo2 mapped to 1.2.3.50" in db2diag.log. Check that the mapping is what you expect.</li>
+        		<li>Check that the same service name resolves to the same port number on primary and standby machines. Misconfigured machines can have a service name resolved to different port numbers on different machines.</li>
+        		<li>Do not use "localhost" or its IP equivalent (127.0.0.1 for IP v4) for either hadr_local_host or hadr_remote_host. Such config is error prone. "Localhost" is treated as a virtual NIC, separate from the physical NIC. For example, if primary listens on "localhost", and standby tries to connect to primary's actual hostname, they cannot make the connection.<br />
+        		&nbsp;</li>
+        	</ul>
+        	</li>
+        	<li>Try using numeric host address (such as 1.2.3.4) and/or numeric service port parameters.<br />
+        	&nbsp;</li>
+        	<li>Changes to HADR database config parameters are not picked up until the database is deactivated and reactivated. On exception is that on V10.1 and later, HADR primary database will pick up new values after "stop hadr" and "start hadr". See <a href="hadrConfig.html#Refreshing_HADR_configuration">Refreshing&nbsp;HADR&nbsp;configuration</a><br />
+        	&nbsp;</li>
+        	<li>Check db2diag.log on both primary and standby for hints. A connection will be rejected if the two databases are not compatible. Examples of incompatibilities include different OS type, bit size (32 vs. 64 bit), DB2 version, or HADR config (hadr_syncmode, hadr_timeout), etc.<br />
+        	&nbsp;</li>
+        	<li>If HADR primary and standby are in NAT (Network Address Translation) environment, you need to set registry variable DB2_HADR_NO_IP_CHECK to "ON" to bypass remote/local host IP address cross check. The registry variable should be set on BOTH primary and standby even if only one is under NAT control.<br />
+        	&nbsp;</li>
+        	<li>Make sure that your firewall allows primary and standby to make the TCP connection. Firewall should be configured to allow connection with either database as the primary.</li>
+        </ul>
+
+        <ul dir="ltr">
+        	<li>Make sure that primary and standby database processes have sufficient permission to access the ports. Generally, ports below 1024 require root privilege to listen on. If DB2 is not installed with root set uid, you will have to use a higher port number.</li>
+        </ul>
+
+        <ul dir="ltr">
+        	<li>Start primary, before the command returns (while it's still waiting in hadr_timeout), run "netstat -all" to check if it is really listening on the port ("-all" option is needed to list listening ports). Note, when the command returns, database start has failed and all ports have been released. If you would like more time to check the port, start the primary with "start hadr as primary by force". As long as the primary database is online, it should be listening on the port. Expect a netstat entry like the following:</li>
+        </ul>
+
+        <p dir="ltr"><span style="font-family:'courier new' , 'courier' , monospace">Proto Recv-Q Send-Q Local Address Foreign Address State<br />
+        tcp 0 0 host.ibm.com:hadr_svc *:* LISTEN</span></p>
+
+        <h2 dir="ltr"><a name="Testing_HADR_configuration_using_HADR_simulator">Testing HADR configuration using HADR simulator</a></h2>
+
+        <p dir="ltr">You can try <a href="hadrSimulator.html">HADR simulator</a> on the HADR addresses (note that simulator only accepts port number. It does not accept service name). Simulator gives detailed information on host name resolution. It can also reproduce and isolate problems like firewall, port privilege.</p>
+
+        <h2 dir="ltr"><a name="Testing_TCP_connection_via_telnet">Testing TCP connection via telnet</a></h2>
+
+        <p dir="ltr">We can use telnet as a generic TCP client to test connection to the primary database. First, start primary with "start hadr as primary by force" and verify that it is listening on the port ("netstat -all"). Then run "telnet &lt;primaryHost&gt; &lt;primaryLocalSvcPort&gt;" on the standby machine using the standby instance user id. Telnet will try connecting to the primary address as a TCP client. If telnet fails to connect to the port, it will give an error like<br />
+        <br />
+        <span style="font-family:'courier new' , 'courier' , monospace">telnet: connect to address &lt;primaryHostIP&gt;: Connection refused</span><br />
+        <br />
+        "Connection refused" usually indicates that no process is listening on the port.<br />
+        <br />
+        If telnet fails to connect to the primary from the standby machine, you can try telnet from the primary machine. This will verify if a local TCP client can connect. If it can not connect locally, problem is likely to be on the primary machine. If it can, problem is likely to be primary-standby network (such as a firewall between primary and standby).<br />
+        <br />
+        If telnet can connect to the port, you can then type "whatever" and expect the following:<br />
+        <br />
+        <span style="font-family:'courier new' , 'courier' , monospace">Trying &lt;primaryHostIP&gt;...<br />
+        Connected to &lt;primaryHost&gt;.<br />
+        Escape character is '^]'.<br />
+        whatever<br />
+        Connection closed by foreign host.</span><br />
+        <br />
+        On the primary side, you will get the following in db2diag.log:<br />
+        <br />
+        <span style="font-family:'courier new' , 'courier' , monospace">2006-11-12-12.21.49.035929-480 I19209E328 LEVEL: Error<br />
+        PID : 6178 TID : 183039466048PROC : db2hadrp (HADRDB)<br />
+        INSTANCE: myInst NODE : 000<br />
+        FUNCTION: DB2 UDB, High Availability Disaster Recovery, hdrHandleHsAck, probe: 30330<br />
+        MESSAGE : remote connection is not following correct msg format</span><br />
+        <br />
+        This is because "whatever" is not a well formed HADR message. Primary will then close the connection. Telnet will see "Connection closed by foreign host.".<br />
+        <br />
+        If the problem still can not be resolved, contact IBM tech support.</p>
+
+        <h2 dir="ltr"><a name="_Failed_to_connect_to_primary__error_message_in_db2diag_log">"Failed to connect to primary" error message in db2diag.log</a></h2>
+
+        <p dir="ltr">The following error messages will be printed to db2diag.log when standby can not connect to primary:<br />
+        <br />
+        <span style="font-family:'courier new' , 'courier' , monospace">2006-11-13-14.12.25.760666-480 I35290E408 LEVEL: Severe<br />
+        PID : 10148 TID : 183039466048PROC : db2hadrs (HADRDB)<br />
+        INSTANCE: myInst2 NODE : 000<br />
+        FUNCTION: DB2 UDB, High Availability Disaster Recovery, hdrEduAcceptEvent, probe: 20280<br />
+        MESSAGE : Failed to connect to primary. rc:<br />
+        DATA #1 : Hexdump, 4 bytes<br />
+        0x0000007FBFFFADD4 : 1900 0F81 ....<br />
+        <br />
+        2006-11-13-14.12.25.765467-480 I35699E344 LEVEL: Severe<br />
+        PID : 10148 TID : 183039466048PROC : db2hadrs (HADRDB)<br />
+        INSTANCE: myInst2 NODE : 000<br />
+        FUNCTION: DB2 UDB, High Availability Disaster Recovery, hdrEduAcceptEvent, probe: 20280<br />
+        RETCODE : ZRC 0x810F0019 -2129723367 SQLO_CONN_REFUSED "Connection refused"</span><br />
+        <br />
+        Note that the actual ZRC (return code) depends on the specific scenario. SQLO_CONN_REFUSED is shown here only as an example.<br />
+        <br />
+        To avoid filling up db2diag.log file system, but still keep reminding the user of the abnormal condition, the standby database prints these messages every 10 minutes while the condition persists. The frequency of the messages has no relation to the interval at which the standby tries to connect to the primary. Standby always tries to connect to the primary every a few seconds as long as it has no connection to the primary.<br />
+        &nbsp;</p>
+      </div>
+    </div>
+    <!-- /#page-content-wrapper -->
+
+  </div>
+  <!-- /#wrapper -->
+
+  <!-- Bootstrap core JavaScript -->
+  <script src="vendor/jquery/jquery.min.js"></script>
+  <script src="vendor/bootstrap/js/bootstrap.bundle.min.js"></script>
+
+  <!-- Menu Toggle Script -->
+  <script>
+    $("#menu-toggle").click(function(e) {
+      e.preventDefault();
+      $("#wrapper").toggleClass("toggled");
+    });
+  </script>
+
+</body>
+
+</html>

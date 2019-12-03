@@ -1,0 +1,213 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
+  <meta name="description" content="">
+  <meta name="author" content="">
+
+  <title>Db2 HADR Wiki</title>
+
+  <!-- Bootstrap core CSS -->
+  <link href="vendor/bootstrap/css/bootstrap.min.css" rel="stylesheet">
+
+  <!-- Custom styles for this template -->
+  <link href="css/simple-sidebar.css" rel="stylesheet">
+
+</head>
+
+<body>
+
+  <div class="d-flex" id="wrapper">
+
+    <!-- Sidebar -->
+    <div class="bg-light border-right" id="sidebar-wrapper">
+      <div class="sidebar-heading">Menu</div>
+      <div class="list-group list-group-flush">
+        <a href="hadrBenefits.html" class="list-group-item list-group-item-action bg-light">HADR Benefits</a>
+        <a href="featureHistory.html" class="list-group-item list-group-item-action bg-light">Feature History</a>
+        <a href="hadrTutorial.html" class="list-group-item list-group-item-action bg-light">HADR Tutorial</a>
+        <a href="tcpTuning.html" class="list-group-item list-group-item-action bg-light">TCP Tuning</a>
+        <a href="perfTuning.html" class="list-group-item list-group-item-action bg-light"><strong>> Perf Tuning</strong></a>
+        <a href="hadrSimulator.html" class="list-group-item list-group-item-action bg-light">HADR Simulator</a>
+        <a href="simulatorOptions.html" class="list-group-item list-group-item-action bg-light">HADR Simulator Options</a>
+        <a href="simulatorOutput.html" class="list-group-item list-group-item-action bg-light">HADR Simulator Output</a>
+        <a href="simulatorParams.html" class="list-group-item list-group-item-action bg-light">HADR Simulator Params</a>
+        <a href="db2logscan.html" class="list-group-item list-group-item-action bg-light">db2logscan</a>
+        <a href="hadrConfig.html" class="list-group-item list-group-item-action bg-light">HADR Config</a>
+        <a href="hadrSyncMode.html" class="list-group-item list-group-item-action bg-light">HADR Sync Mode</a>
+        <a href="hadrTakeover.html" class="list-group-item list-group-item-action bg-light">HADR Takeover</a>
+        <a href="hadrMonitoring.html" class="list-group-item list-group-item-action bg-light">HADR Monitoring</a>
+        <a href="hadrCommands.html" class="list-group-item list-group-item-action bg-light">HADR Commands</a>
+        <a href="hadrLogShipping.html" class="list-group-item list-group-item-action bg-light">HADR Log Shipping</a>
+        <a href="hadrPerf.html" class="list-group-item list-group-item-action bg-light">HADR Perf</a>
+        <a href="diagConnect.html" class="list-group-item list-group-item-action bg-light">Diag Connect</a>
+        <a href="db2diag.html" class="list-group-item list-group-item-action bg-light">db2diag.log</a>
+        <a href="clusterManagers.html" class="list-group-item list-group-item-action bg-light">Cluster Managers</a>
+        <a href="clientReroute.html" class="list-group-item list-group-item-action bg-light">Client Reroute</a>
+        <a href="hadrPureScale.html" class="list-group-item list-group-item-action bg-light">HADR on PureScale</a>
+        <a href="faq.html" class="list-group-item list-group-item-action bg-light">FAQ</a>
+        <a href="db2fmtlog.html" class="list-group-item list-group-item-action bg-light">db2fmtlog replayonlywindow</a>
+      </div>
+    </div>
+    <!-- /#sidebar-wrapper -->
+
+    <!-- Page Content -->
+    <div id="page-content-wrapper">
+
+      <nav class="navbar navbar-expand-lg navbar-light bg-light border-bottom">
+        <button class="btn btn-primary" id="menu-toggle">Toggle Menu</button>
+
+        <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarSupportedContent" aria-controls="navbarSupportedContent" aria-expanded="false" aria-label="Toggle navigation">
+          <span class="navbar-toggler-icon"></span>
+        </button>
+
+        <div class="collapse navbar-collapse" id="navbarSupportedContent">
+          <ul class="navbar-nav ml-auto mt-2 mt-lg-0">
+            <li class="nav-item">
+              <a class="nav-link" href="index.html">Home</a>
+            </li>
+            <li class="nav-item">
+              <a class="nav-link" href="contact.html">Contact</a>
+            </li>
+            <li class="nav-item">
+              <a class="nav-link" href="contribute.html">Contribute</a>
+            </li>
+          </ul>
+        </div>
+      </nav>
+
+      <div class="container-fluid">
+        <p dir="ltr" style="text-align:center"><span style="font-size:20px">DB2 HADR Performance Tuning using<br />
+        DB2 Log Scanner, HADR Simulator, and HADR Calculator</span></p>
+
+        <p dir="ltr">This article provides step by step guide for HADR performance tuning. We will use DB2 Log Scanner to analyze database workload, HADR Simulator to measure network and disk speed, and HADR Calculator to estimate performance of various HADR sync modes. Use this easy-to-follow 4 step procedure to tune your network to its full potential and choose the optimal sync mode for HADR.</p>
+
+        <p dir="ltr">For overall discussion on HADR performance, including performance monitoring and diagnostics, see <a href="hadrPerf.html">HADR perf</a></p>
+
+        <p dir="ltr">&nbsp;</p>
+
+        <ul dir="ltr">
+        	<li><a href="#Step_1__Know_Your_Workload">Step 1: Know Your Workload</a></li>
+        	<li><a href="#Step_2__Know_Your_Disks">Step 2: Know Your Disks</a></li>
+        	<li><a href="#Step_3__Know_Your_Network">Step 3: Know Your Network</a></li>
+        	<li><a href="#Step_4__Know_Your_Sync_Modes">Step 4: Know Your Sync Modes</a></li>
+        </ul>
+
+        <h2 dir="ltr"><a name="Step_1__Know_Your_Workload">Step 1: Know Your Workload</a></h2>
+
+        <p dir="ltr">Use <a href="db2logscan.html">DB2 log scanner</a> to scan log files generated in a workload cycle. For example, if you workload cycles each day, then you need to scan log files from a 24 hour period. If you have special processing window such as weekly reporting, or monthly table reorg, scan logs from those windows too.<br />
+        <br />
+        Ideally, you want to do this with HADR disabled, to establish a base line for performance study. But if you already have HADR enabled and your business requires HADR to stay enabled, you can still scan the logs and explore various sync modes and parameters.<br />
+        <br />
+        Scanner command example:<br />
+        <br />
+        <span style="font-family:'courier new' , 'courier' , monospace">db2logscan_linux S0003158.LOG S0003159.LOG ... S0003214.LOG &gt; daily.scan</span><br />
+        <br />
+        You just need to provide the log files as arguments. A single scanner binary can scan files from any DB2 version and any endian. The scanner will auto detect endian and DB2 version where the files are generated. Scanner writes output to stdout. Therefore we redirect stdout to a file.</p>
+
+        <p dir="ltr">To scan a large number of files, you can create a file with the file names in it, one per line, then feed the file to scanner via the -f option. If some files need to be retrieved from archive, you can use the <a href="db2logscan.html#Retrieving_Files_from_Log_Archive">-retrieve&nbsp;option</a>.<br />
+        <br />
+        You need not scan all files in one command. As long as you save the output files, you can scan using multiple invocation of the scanner. However, it is recommended that consecutive files be scanned using one command so that the scanner can keep the context across file boundary (process records spanning file boundary and treat files as one continuous stream), and generate <a href="db2logscan.html#Statistical_Distribution_of_Logging_Metrics">distribution&nbsp;data</a> for logging metrics as one set.<br />
+        <br />
+        Please save all output files from the scanner. We will need them in later steps.</p>
+
+        <h2 dir="ltr"><a name="Step_2__Know_Your_Disks">Step 2: Know Your Disks</a></h2>
+
+        <p dir="ltr">Use <a href="hadrSimulator.html">DB2 HADR simulator</a> to measure performance of your logging disks. Disk speed is modeled as:<br />
+        <br />
+        write_time = per_write_overhead + data_amount / transfer_rate<br />
+        <br />
+        On a traditional hard drive, majority of per_write_overhead is spent on the disk head moving to a given sector on a given track (seek time). Once the head reaches the sector, data can be read or written at (more or less) a constant transfer rate. On SSD (Solid State Drive) devices, per_write_overhead will be very small or negligible.<br />
+        <br />
+        We will use a small write and a big write to get the per_write_overhead and transfer rate of a disk. &lt;logPath&gt; in the command is the actual log path of the database. The file "testFile" will be generated by simulator. Simulator does not automatically remove the file (so that you can examine its content or sector layout on disk after the test run if needed). When you are done, remove this file.<br />
+        <br />
+        Command for small write (single page write):<br />
+        <br />
+        <span style="font-family:'courier new' , 'courier' , monospace">simhadr_linux -write &lt;logPath&gt;/testFile -flushSize 1</span><br />
+        <br />
+        Sample output:<br />
+        <br />
+        <span style="font-family:'courier new' , 'courier' , monospace">Total 9409 writes in 4.000160 seconds, <span style="background-color:#ffff00">0.000425</span> sec/write, 1 pages/write<br />
+        Total 38.539264 MBytes written in 4.000160 seconds. 9.634431 MBytes/sec</span><br />
+        <br />
+        This means per_write_overhead is 0.000425 second (from the highlighted "sec/write" field).<br />
+        <br />
+        Command for big write (1000 pages per write):<br />
+        <br />
+        <span style="font-family:'courier new' , 'courier' , monospace">simhadr_linux -write &lt;logPath&gt;/testFile -flushSize 1000</span><br />
+        <br />
+        Sample output:<br />
+        <br />
+        <span style="font-family:'courier new' , 'courier' , monospace">Total 174 writes in 4.014913 seconds, 0.023074 sec/write, 1000 pages/write<br />
+        Total 712.704000 MBytes written in 4.014913 seconds. <span style="background-color:#ffff00">177.514183</span> MBytes/sec</span><br />
+        <br />
+        This means transfer rate is 177.514183 MBytes/sec (from the highlighted "MBytes/sec" field).</p>
+
+        <p dir="ltr">In step 4, you will use "<span style="font-family:'courier new' , 'courier' , monospace">-disk 177.5 0.000425</span>" as disk speed option for HADR calculator, with transfer rate from the 1000 page test and per_write_overhead from the single page test.<br />
+        <br />
+        Theoretically, you can feed the numbers from the two runs into a equation system (linear equation y = a*x + b) to get the two unknowns, but the result will be very close to the simplified method shown above. The error margin of the input (variation from run to run) will be greater than the additional accuracy gained from the formal method. Thus there is no need to do more complicated math.<br />
+        <br />
+        Disk read and write speed are usually close. And we are mostly concerned about write speed. Thus only write test is needed.<br />
+        <br />
+        Run the test only when database is offline or when logging load is zero or very low, as the test will stress the logging disk and slow down database logging.<br />
+        <br />
+        Do the test on both HADR primary and standby hosts. It is recommended that primary and standby have the same hardware. The HADR calculator assumes same disk speed on primary and standby. It only accepts one set of disk speed as argument. The test on primary and standby disks is intended to verify that the disks indeed have same speed. If different disks are used, use the slower speed for HADR calculator.</p>
+
+        <h2 dir="ltr"><a name="Step_3__Know_Your_Network">Step 3: Know Your Network</a></h2>
+
+        <p dir="ltr">In this step, you will measure HADR primary/standby network speed. Network speed is specified by two numbers: send rate and round trip time. Round trip time can be easily measured by the "ping" command. Send rate may be sensitive to socket buffer size. A special procedure is used for the measurement. See&nbsp;<a href="tcpTuning.html#Using_HADR_simulator_to_determine_optimal_TCP_window_size">Using&nbsp;HADR&nbsp;simulator&nbsp;to&nbsp;determine&nbsp;optimal&nbsp;TCP&nbsp;window&nbsp;size</a> for detailed instructions. This step only gives the tentative socket buffer size based on TCP requirement. Final socket buffer size will also depend on the workload and flush size. It will be determined in step 4. Remember to configure DB2 with the chosen socket buffer size. Otherwise, DB2 won't get the send rate from the simulator test. See&nbsp;<a href="tcpTuning.html">TCP Tuning</a> for more info.</p>
+
+        <p dir="ltr">In step 4, use "<span style="font-family:'courier new' , 'courier' , monospace">-network &lt;send_rate&gt; &lt;round_trip_time&gt;</span>" for network speed option for HADR calculator.</p>
+
+        <h2 dir="ltr"><a name="Step_4__Know_Your_Sync_Modes">Step 4: Know Your Sync Modes</a></h2>
+
+        <p dir="ltr">Now feed scanner output from step 1 into <a href="db2logscan.html#HADR_Calculator">HADR&nbsp;calculator</a>. Example:<br />
+        <br />
+        <span style="font-family:'courier new' , 'courier' , monospace">hadrCalculator.pl -disk 200 0.001 -network 10 0.1 &lt;scanOutFile1&gt; ... &lt;scanOutFileN&gt; &gt; daily.scan.calc</span><br />
+        <br />
+        Calculator writes output to stdout. So we redirect its stdout to a file ("daily.scan.calc" in the example).<br />
+        <br />
+        Now look at the calculator output. Look for question mark ("?") in the output. Calculator uses question marks ?, ??, and ??? to indicate small, medium, and heavy impact to applications when HADR is enabled. If no question mark is found, then all is good (expect no impact to applications at all). You may experiment with hypothetical disk or network speed to see the effect of disk or network upgrade.<br />
+        <br />
+        Once you have chosen a sync mode, find the max flush size section at end of calculator output:<br />
+        <br />
+        <span style="font-family:'courier new' , 'courier' , monospace">SYNC&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; Max flush size: predicted 360 pages, workload max 1126 pages<br />
+        NEARSYNC&nbsp;&nbsp; Max flush size: predicted 360 pages, workload max 1126 pages<br />
+        ASYNC&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; Max flush size: predicted&nbsp; 17 pages, workload max 1126 pages</span><br />
+        <br />
+        HADR socket buffer size should be at least the "predicted" size of your chosen sync mode. This is the expected flush size for the given sync mode. Due to variations in workload, a larger size (such as workload max, which happens when log writing is slower than predicted) is preferred. Both predicted and workload max flush sizes are computed from average transaction size of log rate sample intervals. Actual workload may have peak size above the average. Thus a number even higher than workload max is preferred, as long as the size is reasonable (no more than 32MB). In the above example, a 2000 page (8MB) socket buffer size is recommended.<br />
+        <br />
+        Some systems may not perform well with large (over 32MB) socket buffer. It is recommended to cap the size at 32 MB. Most databases wouldn't hit this cap. 32MB (8000 pages) is a very large flush size.<br />
+        <br />
+        For verification, run HADR simulator using the chosen sync mode, socket buffer size, disk speed, and predicted flush size to confirm that the system will perform as expected (compare the throughput from simulator to the line with the same flush size in calculator output). Even though this is simulation, the network is stressed with real data. A simulator run with the final parameters is strongly recommended before applying the parameters to the database.</p>
+
+        <p dir="ltr">&nbsp;</p>
+
+        <h2 dir="ltr"><a name="Step_4__Know_Your_Sync_Modes">Presentations</a></h2>
+
+        <p dir="ltr"><a href="/developerworks/community/wikis/form/api/wiki/e7a20a94-a11a-4e65-bc01-ddc92f0329ed/page/e8a0e40d-fda6-4243-bdf2-0d9afd4f729d/attachment/0ac71ee9-4901-41dc-a51f-22ebeb64293a/media/IDUG%202014%20-%20High%20availability%20disaster%20recovery%20and%20performance.pdf">IDUG 2014 - High availability disaster recovery and performance.pdf</a>, by Dale McInnis and Effi Ofer</p>
+      </div>
+    </div>
+    <!-- /#page-content-wrapper -->
+
+  </div>
+  <!-- /#wrapper -->
+
+  <!-- Bootstrap core JavaScript -->
+  <script src="vendor/jquery/jquery.min.js"></script>
+  <script src="vendor/bootstrap/js/bootstrap.bundle.min.js"></script>
+
+  <!-- Menu Toggle Script -->
+  <script>
+    $("#menu-toggle").click(function(e) {
+      e.preventDefault();
+      $("#wrapper").toggleClass("toggled");
+    });
+  </script>
+
+</body>
+
+</html>

@@ -1,0 +1,494 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
+  <meta name="description" content="">
+  <meta name="author" content="">
+
+  <title>Db2 HADR Wiki</title>
+
+  <!-- Bootstrap core CSS -->
+  <link href="vendor/bootstrap/css/bootstrap.min.css" rel="stylesheet">
+
+  <!-- Custom styles for this template -->
+  <link href="css/simple-sidebar.css" rel="stylesheet">
+
+</head>
+
+<body>
+
+  <div class="d-flex" id="wrapper">
+
+    <!-- Sidebar -->
+    <div class="bg-light border-right" id="sidebar-wrapper">
+      <div class="sidebar-heading">Menu</div>
+      <div class="list-group list-group-flush">
+        <a href="index.html" class="list-group-item list-group-item-action bg-light">Welcome</a>
+        <a href="hadrBenefits.html" class="list-group-item list-group-item-action bg-light">HADR Benefits</a>
+        <a href="featureHistory.html" class="list-group-item list-group-item-action bg-light">Feature History</a>
+        <a href="hadrTutorial.html" class="list-group-item list-group-item-action bg-light">HADR Tutorial</a>
+        <a href="tcpTuning.html" class="list-group-item list-group-item-action bg-light">TCP Tuning</a>
+        <a href="perfTuning.html" class="list-group-item list-group-item-action bg-light">Perf Tuning</a>
+        <a href="hadrSimulator.html" class="list-group-item list-group-item-action bg-light">HADR Simulator</a>
+        <a href="simulatorOptions.html" class="list-group-item list-group-item-action bg-light">HADR Simulator Options</a>
+        <a href="simulatorOutput.html" class="list-group-item list-group-item-action bg-light">HADR Simulator Output</a>
+        <a href="simulatorParams.html" class="list-group-item list-group-item-action bg-light">HADR Simulator Params</a>
+        <a href="db2logscan.html" class="list-group-item list-group-item-action bg-light">db2logscan</a>
+        <a href="hadrConfig.html" class="list-group-item list-group-item-action bg-light">HADR Config</a>
+        <a href="hadrSyncMode.html" class="list-group-item list-group-item-action bg-light">HADR Sync Mode</a>
+        <a href="hadrTakeover.html" class="list-group-item list-group-item-action bg-light">HADR Takeover</a>
+        <a href="hadrMonitoring.html" class="list-group-item list-group-item-action bg-light">HADR Monitoring</a>
+        <a href="hadrCommands.html" class="list-group-item list-group-item-action bg-light">HADR Commands</a>
+        <a href="hadrLogShipping.html" class="list-group-item list-group-item-action bg-light">HADR Log Shipping/a>
+        <a href="hadrPerf.html" class="list-group-item list-group-item-action bg-light">HADR Perf</a>
+        <a href="diagConnect.html" class="list-group-item list-group-item-action bg-light">Diag Connect</a>
+        <a href="db2diag.html" class="list-group-item list-group-item-action bg-light">db2diag.log</a>
+        <a href="clusterManagers.html" class="list-group-item list-group-item-action bg-light">Cluster Managers</a>
+        <a href="clientReroute.html" class="list-group-item list-group-item-action bg-light"><strong>> Client Reroute</strong></a>
+        <a href="hadrPureScale.html" class="list-group-item list-group-item-action bg-light">HADR on PureScale</a>
+        <a href="faq.html" class="list-group-item list-group-item-action bg-light">FAQ</a>
+        <a href="db2fmtlog.html" class="list-group-item list-group-item-action bg-light">db2fmtlog_replayonlywindow</a>
+      </div>
+    </div>
+    <!-- /#sidebar-wrapper -->
+
+    <!-- Page Content -->
+    <div id="page-content-wrapper">
+
+      <nav class="navbar navbar-expand-lg navbar-light bg-light border-bottom">
+        <button class="btn btn-primary" id="menu-toggle">Toggle Menu</button>
+
+        <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarSupportedContent" aria-controls="navbarSupportedContent" aria-expanded="false" aria-label="Toggle navigation">
+          <span class="navbar-toggler-icon"></span>
+        </button>
+
+        <div class="collapse navbar-collapse" id="navbarSupportedContent">
+          <ul class="navbar-nav ml-auto mt-2 mt-lg-0">
+            <li class="nav-item">
+              <a class="nav-link" href="index.html">Home</a>
+            </li>
+            <li class="nav-item">
+              <a class="nav-link" href="contact.html">Contact</a>
+            </li>
+            <li class="nav-item">
+              <a class="nav-link" href="contribute.html">Contribute</a>
+            </li>
+          </ul>
+        </div>
+      </nav>
+
+      <div class="container-fluid">
+        <p dir="ltr" style="text-align:center"><span style="font-size:24px">Client Reroute </span></p>
+
+        <p dir="ltr">When the database fails over from one server to another, it is important to reroute clients to the new server. DB2 provides multiple methods for automated reroute.</p>
+
+        <p dir="ltr"><strong>Table of Contents</strong></p>
+
+        <ul dir="ltr">
+        	<li><a href="#Automatic_Client_Reroute__ACR_">Automatic Client Reroute (ACR)</a>
+
+        	<ul>
+        		<li><a href="#How_does_it_work_">How does it work?</a>
+
+        		<ul>
+        			<li><a href="#Overview">Overview</a></li>
+        			<li><a href="#Alternate_Server_Same_as_Primary_Server">Alternate&nbsp;Server&nbsp;Same&nbsp;as&nbsp;Primary&nbsp;Server</a></li>
+        			<li><a href="#First_Connection_Alternate_Server">First Connection Alternate Server</a></li>
+        			<li><a href="#Alternate_Group">Alternate Group</a></li>
+        			<li><a href="#Client_Affinity">Client Affinity</a></li>
+        		</ul>
+        		</li>
+        		<li><a href="#Info_Center_Topics_for_ACR">Info Center Topics for ACR</a>
+        		<ul>
+        			<li><a href="#Server_Side_Topics">Server Side Topics</a></li>
+        			<li><a href="#Client_Side_Topics">Client Side Topics</a>
+        			<ul>
+        				<li><a href="#Non_Java_Client">Non Java Client</a></li>
+        				<li><a href="#Java_Client">Java Client</a></li>
+        			</ul>
+        			</li>
+        		</ul>
+        		</li>
+        		<li><a href="#Usage_Notes">Usage Notes</a>
+        		<ul>
+        			<li><a href="#HADR_Admin_Commands">HADR Admin Commands</a></li>
+        			<li><a href="#Reads_on_Standby">Reads on Standby</a></li>
+        			<li><a href="#Multiple_Standbys">Multiple Standbys</a></li>
+        			<li><a href="#PureScale_Systems">PureScale Systems</a>
+        			<ul>
+        				<li><a href="#Automatic_Client_Reroute_in_pureSCale">Automatic&nbsp;Client&nbsp;Reroute&nbsp;in&nbsp;pureScale&nbsp;</a></li>
+        				<li><a href="#Workload_Balancing_in_pureScale">Workload&nbsp;Balancing&nbsp;in&nbsp;pureScale</a></li>
+        			</ul>
+        			</li>
+        		</ul>
+        		</li>
+        	</ul>
+        	</li>
+        	<li><a href="#Other_Client_Reroute_Methods">Other Client Reroute Methods</a>
+        	<ul>
+        		<li><a href="#VIP__Virtual_IP_">VIP (Virtual IP)</a></li>
+        		<li><a href="#Multi_home_DNS">Multi-home DNS</a></li>
+        	</ul>
+        	</li>
+        	<li><a href="#Client_Reroute_Best_Practices">Client&nbsp;Reroute&nbsp;Best&nbsp;Practices</a></li>
+        	<li><a href="#More_Readings">More Readings</a></li>
+        </ul>
+
+        <p dir="ltr"><strong>&nbsp;&nbsp;</strong></p>
+
+        <h1 dir="ltr"><a name="Automatic_Client_Reroute__ACR_">Automatic Client Reroute (ACR)</a></h1>
+
+        <p dir="ltr">The DB2 Automatic Client Reroute (ACR) feature automatically reroutes clients to an alternate server when the primary server fails. It is the preferred reroute method.</p>
+
+        <p dir="ltr">ACR can be used between any two servers, not just HADR primary and standby. It is up to the administrator to set up replication to ensure that the two servers have the same data content. Other replication methods, such as Q-rep can be used to sync up the two servers.</p>
+
+        <h2 dir="ltr"><a name="How_does_it_work_">How does it work?</a></h2>
+
+        <h3 dir="ltr"><a name="Overview">Overview</a></h3>
+
+        <ul dir="ltr">
+        	<li>User issues the "<a href="http://pic.dhe.ibm.com/infocenter/db2luw/v10r5/topic/com.ibm.db2.luw.admin.cmd.doc/doc/r0011565.html">update&nbsp;alternate&nbsp;server</a>" command on the primary database, specifying the standby as the alternate server.
+
+        	<ul>
+        		<li>It is recommended that you also issue the "update alternate server" command on the standby database, specifying the primary as the alternate server. This way, ACR will function smoothly after role switch or failover.</li>
+        		<li>Only TCP client-server protocol is supported.
+        		<ul>
+        			<li>The "port" option only accepts port number. It does not accept service name.</li>
+        		</ul>
+        		</li>
+        		<li>The two servers must use the same client authentication method.</li>
+        		<li>Use the server address for client-server communication (server hostname, dbm config parameter svcename) in "update alternate server" command. Do not use the HADR inter-server communication address (hadr_local_host, hadr_local_svc).</li>
+        		<li>The "update alternate server" command is only supported on servers. If issued on a client installation, SQL1889W "The update alternate server request was ignored" message will be returned.</li>
+        		<li>To <strong>clear alternate server</strong>, run the "update alternate server" command with "using hostname NULL port NULL" ("NULL" must be in uppercase).</li>
+        		<li>To <strong>view alternate server</strong>, run the "db2 list database directory" command, you will see lines like (hostname and port will be shown as blank if alternate server is not defined):</li>
+        	</ul>
+        	</li>
+        </ul>
+
+        <p dir="ltr" style="margin-left:80px"><span style="font-family:'courier new' , 'courier' , monospace">&nbsp;Alternate server hostname&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; = gauss<br />
+        &nbsp;Alternate server port number&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; = 1000</span></p>
+
+        <ul dir="ltr">
+        	<li>When a client connects to the primary databases, the alternate server information is propagated to the client.
+        	<ul>
+        		<li>Alternate server info is centrally controlled on the server side, making administration simple.</li>
+        		<li>Client records alternate server info in memory for reconnection after abnormal connection termination.</li>
+        		<li>Client records alternate server info on disk for starting future connections.
+        		<ul>
+        			<li>The recorded info is shared among all client processes on the same host.</li>
+        			<li>When a client starts a connection to a server, it uses on-disk alternate server info to try multiple servers.</li>
+        		</ul>
+        		</li>
+        		<li>See "<a href="#First_Connection_Alternate_Server">First&nbsp;connection&nbsp;Alternate&nbsp;Server</a>" section below for bootstrapping the first connection on client side.</li>
+        	</ul>
+        	</li>
+        	<li>When an established connection ends abnormally, ACR will automatically try to reestablish the connection (no coding in application layer is needed).
+        	<ul>
+        		<li>ACR will alternately attempt to connect to the original server and the alternate server until a connection succeeds or a timeout is reached. Retry interval and number of retries can be configured on client side. See <a href="http://pic.dhe.ibm.com/infocenter/db2luw/v10r5/topic/com.ibm.db2.luw.apdv.cli.doc/doc/c0056195.html">non&nbsp;Java&nbsp;ACR&nbsp;configuration</a> and <a href="http://pic.dhe.ibm.com/infocenter/db2luw/v10r5/topic/com.ibm.db2.luw.apdv.java.doc/src/tpc/imjcc_c0056186.html">Java&nbsp;ACR&nbsp;configuration</a></li>
+        		<li>If connection is reestablished (to original or alternate server), <a href="http://pic.dhe.ibm.com/infocenter/db2luw/v10r5/topic/com.ibm.db2.luw.messages.sql.doc/doc/msql30108n.html">SQL30108N</a> "<em>A connection failed in an automatic client reroute environment. The transaction was rolled back. ...</em>" is returned to application (for Java applications, the error can be exception -4498)</li>
+        		<li>Seamless reroute (no error is returned at all) is possible in certain scenarios. See "<a href="#Info_Center_Topics_for_ACR">Info&nbsp;Center&nbsp;Topics&nbsp;for&nbsp;ACR</a>" below for more info. The main conditions are listed in <a href="http://pic.dhe.ibm.com/infocenter/db2luw/v10r5/topic/com.ibm.db2.luw.apdv.cli.doc/doc/c0056507.html">non Java application&nbsp;programming&nbsp;for&nbsp;ACR</a> and <a href="http://pic.dhe.ibm.com/infocenter/db2luw/v10r5/topic/com.ibm.db2.luw.apdv.java.doc/src/tpc/imjcc_c0056199.html">Java application&nbsp;programming&nbsp;for&nbsp;ACR</a>. Additional info is spread in various topic.</li>
+        		<li>Upon reconnection, the clients updates its alternate server list using a new list from the new server, if the new server also has server side alternate server info.</li>
+        		<li>Transaction context is not preserved upon reconnection. Current transaction is rolled back.
+        		<ul>
+        			<li>Typically, applications resubmit the transaction.</li>
+        			<li>An application may need to query data on the alternate server first before deciding to resubmit the transaction, because there is no guarantee that all transactions committed on the old server have been replicated to the new server (there can be data loss during the failover).</li>
+        			<li>It is also possible that the last transaction before reroute is committed on the new server even if it is never reported as committed on the old server, because the old server or connection to old server can fail right after the transaction has been committed on the old server and replicated to the new server, but before the "commit success" message reaches the client.</li>
+        		</ul>
+        		</li>
+        		<li>ACR treats the two servers as alternate of each other. When failure to one occurs, it tries the other. So if alternate server fails, connections can be redirected back to the original server.
+        		<ul>
+        			<li>There is no automatic fail back (except with client affinity). Client stays with a server as long as connection to the server is good.</li>
+        		</ul>
+        		</li>
+        		<li>If connection cannot be reestablished within timeout, usual connection error <a href="http://pic.dhe.ibm.com/infocenter/db2luw/v10r5/topic/com.ibm.db2.luw.messages.sql.doc/doc/msql30081n.html">SQL30081N</a> "<em>A communication error has been detected</em>" is returned (for Java applications, the error can be exception -4499)</li>
+        	</ul>
+        	</li>
+        	<li>Both non Java and Java clients are supported.
+        	<ul>
+        		<li>While ACR supports both Java type 2 and 4 connections. WLB (<a href="#Workload_Balancing_in_pureScale">workload&nbsp;balancing&nbsp;in&nbsp;pureScale</a>) only supports type 4.</li>
+        	</ul>
+        	</li>
+        	<li>ACR is not supported on Java DriverManager default connection (jdbc:default:connection). With default connection, the client actually runs in server memory space. No server network address (such as host name and port) is needed. Java default connection is not a TCP connection, therefore not supported by ACR.</li>
+        </ul>
+
+        <h3 dir="ltr"><a name="Alternate_Server_Same_as_Primary_Server">Alternate Server Same as Primary Server</a></h3>
+
+        <p dir="ltr">You can define alternate server to have the same address as the primary server. For example, primary server is on myserver.ibm.com, port 4000. You can run "db2 update alternate server for db myDB using hostname myserver.ibm.com port 4000" on the server. Such setup is used in the following scenarios:</p>
+
+        <ul dir="ltr">
+        	<li>Enable auto reconnect for transient network or server failure, even if no failover is involved.</li>
+        	<li>Used in conjunction with <a href="#VIP__Virtual_IP_">virtual&nbsp;IP&nbsp;address</a> (VIP) for enhanced rerouting. For example, myserver.ibm.com is already a VIP, you then define alternate server also on myserver.ibm.com.
+        	<ul>
+        		<li>This enables auto reroute of existing connections at failover time, because ACR will retry the VIP.</li>
+        		<li>This reduces reroute time of new and existing connections, because ACR will not waste time trying the failed server (assuming VIP is remapped to the new server promptly during failover)</li>
+        		<li>VIP with ACR is a recommended setup.</li>
+        	</ul>
+        	</li>
+        	<li>Used in conjunction with <a href="#Multi_home_DNS">multi-home&nbsp;DNS</a> to enable auto reroute of existing connections at failover time.</li>
+        </ul>
+
+        <p dir="ltr">&nbsp;</p>
+
+        <h3 dir="ltr"><a name="First_Connection_Alternate_Server">First Connection Alternate Server</a></h3>
+
+        <p dir="ltr">A client does need to connect to the server once to get the alternate server info. If the client couldn't even connect to the server once, and the server goes down, the client cannot be rerouted to the alternate server. To deal with such scenario, alternate servers can be specified on the client side. Notes:</p>
+
+        <ul dir="ltr">
+        	<li><strong>Client side alternate server is only used for first connection</strong>. First connection is defined as "client explicitly requests connecting to a server", to differentiate from ACR initiated auto reconnection after abnormal connection termination.</li>
+        	<li>Client side alternate server overrides server side alternate server for first connection. During first connection, server side alternate server is ignored if client side alternate server is specified.</li>
+        	<li>Server side alternate server is preferred due to its simplicity.</li>
+        	<li>For reconnection after abnormal connection termination, server side alternate server is always used.</li>
+        </ul>
+
+        <p dir="ltr">To configure client side first connect alternate server:</p>
+
+        <ul dir="ltr">
+        	<li>For non Java clients, use enableAlternateServerListFirstConnect and <span class="ph" id="vcc_sp_span_167" tabindex="121">alternateserverlist fields in the </span><span class="ph filepath" id="vcc_sp_span_124" tabindex="87">db2dsdriver.cfg</span> file. See also <a href="http://pic.dhe.ibm.com/infocenter/db2luw/v10r5/topic/com.ibm.db2.luw.apdv.cli.doc/doc/c0056195.html">non&nbsp;Java&nbsp;ACR&nbsp;configuration</a></li>
+        	<li>For Java clients, use clientRerouteAlternateServerName and clientRerouteAlternatePortNumber properties for the connection. See also <a href="http://pic.dhe.ibm.com/infocenter/db2luw/v10r5/topic/com.ibm.db2.luw.apdv.java.doc/src/tpc/imjcc_c0056186.html">Java&nbsp;ACR&nbsp;configuration</a></li>
+        </ul>
+
+        <h3 dir="ltr"><a name="Alternate_Group">Alternate Group</a></h3>
+
+        <p dir="ltr">Alternate group is extended ACR. With alternate groups, servers are managed in groups. Each group can include multiple servers (multiple host:port addresses). Alternate group is typically used in pureScale and DPF environment, where a group maps to a cluster.</p>
+
+        <ul dir="ltr">
+        	<li>More than one alternate groups can be defined, unless the server is DB2 for z/OS, which supports only one alternate group.</li>
+        	<li>Reconnection favors servers in the same group.</li>
+        	<li>Alternate group is configured on client side. It is harder to manage than standard ACR.</li>
+        </ul>
+
+        <p dir="ltr">See Info Center for</p>
+
+        <ul dir="ltr">
+        	<li><a href="http://pic.dhe.ibm.com/infocenter/db2luw/v10r5/topic/com.ibm.db2.luw.apdv.cli.doc/doc/c0059473.html">Non-Java&nbsp;client&nbsp;configuration</a></li>
+        	<li><a href="http://pic.dhe.ibm.com/infocenter/db2luw/v10r5/topic/com.ibm.db2.luw.apdv.java.doc/src/tpc/imjcc_cjv00009.html">Java&nbsp;client&nbsp;configuration</a></li>
+        </ul>
+
+        <h3 dir="ltr"><a name="Client_Affinity">Client Affinity</a></h3>
+
+        <p dir="ltr">Client affinity is extended ACR. With client affinity:</p>
+
+        <ul dir="ltr">
+        	<li>Multiple alternate servers can be defined.</li>
+        	<li>Preference among the servers can be defined.</li>
+        	<li>Failback to primary server can be optionally enabled.</li>
+        	<li>Client affinity overrides alternate group and standard ACR. When Client Affinity is enabled, alternate groups and server side alternate servers are ignored.</li>
+        	<li>Client affinity is configured on client side. It is harder to manage than standard ACR.</li>
+        </ul>
+
+        <p dir="ltr">See Info&nbsp;Center for</p>
+
+        <ul dir="ltr">
+        	<li><a href="http://pic.dhe.ibm.com/infocenter/db2luw/v10r5/topic/com.ibm.db2.luw.apdv.cli.doc/doc/c0056508.html">Non&nbsp;Java&nbsp;client</a> (expand in navigation pane to see "Configuration" and "Example" sub-topics)</li>
+        	<li><a href="http://pic.dhe.ibm.com/infocenter/db2luw/v10r5/topic/com.ibm.db2.luw.apdv.java.doc/src/tpc/imjcc_c0056256.html">Java&nbsp;client</a> (expand in navigation pane to see "Configuration" and "Example" sub-topics).</li>
+        </ul>
+
+        <h2 dir="ltr"><a name="Info_Center_Topics_for_ACR">Info Center Topics for ACR</a></h2>
+
+        <h3 dir="ltr"><a name="Server_Side_Topics">Server Side Topics</a></h3>
+
+        <p dir="ltr">On server side, you just need to issue the "<a href="http://pic.dhe.ibm.com/infocenter/db2luw/v10r5/topic/com.ibm.db2.luw.admin.cmd.doc/doc/r0011565.html">update&nbsp;alternate&nbsp;server</a>" command. It is recommended to issue the command on both servers to make them alternate of each other.</p>
+
+        <ul dir="ltr">
+        	<li><a href="http://pic.dhe.ibm.com/infocenter/db2luw/v10r5/topic/com.ibm.db2.luw.admin.ha.doc/doc/r0023392.html">ACR Roadmap</a></li>
+        	<li><a href="http://pic.dhe.ibm.com/infocenter/db2luw/v10r5/topic/com.ibm.db2.luw.admin.ha.doc/doc/c0011558.html">Configuring ACR for&nbsp;HADR</a></li>
+        </ul>
+
+        <h3 dir="ltr"><a name="Client_Side_Topics">Client Side Topics</a></h3>
+
+        <p dir="ltr">ACR is enabled by default on client side. Usually, client side configuration is not needed to use ACR. Client side configuration is needed only for:</p>
+
+        <ul dir="ltr">
+        	<li>Disabling ACR for client (do not use ACR even if alternate server is defined on server side)</li>
+        	<li>Fine tuning ACR client behavior (such as connection retry interval and number of retries)</li>
+        	<li>Configuring first connect alternate server.</li>
+        	<li>Configuring alternate group.</li>
+        	<li>Configuring client affinity.</li>
+        </ul>
+
+        <h4 dir="ltr"><a name="Non_Java_Client">Non Java Client</a></h4>
+
+        <ul dir="ltr">
+        	<li><a href="http://pic.dhe.ibm.com/infocenter/db2luw/v10r5/topic/com.ibm.db2.luw.apdv.cli.doc/doc/c0056506.html">Non-Java client connection&nbsp;high&nbsp;availability&nbsp;to&nbsp;DB2&nbsp;LUW</a>&nbsp; Overview of client reroute for non Java clients. To list all sub-topics in Info Center, expand the topic sub-tree&nbsp;by clicking the "+" button of this topic in the navigation pane.<br />
+        	&nbsp;</li>
+        	<li><a href="http://pic.dhe.ibm.com/infocenter/db2luw/v10r5/topic/com.ibm.db2.luw.apdv.cli.doc/doc/c0056195.html">ACR&nbsp;configuration</a>&nbsp; Client side configuration of ACR using the <span style="font-family:'courier new' , 'courier' , monospace">db2dsdriver.cfg</span> file and registry variables.</li>
+        	<li><a href="http://pic.dhe.ibm.com/infocenter/db2luw/v10r5/topic/com.ibm.db2.luw.apdv.cli.doc/doc/c0056196.html">ACR configuration example</a>&nbsp; Example of <span style="font-family:'courier new' , 'courier' , monospace">db2dsdriver.cfg</span> file</li>
+        	<li><a href="http://pic.dhe.ibm.com/infocenter/db2luw/v10r5/topic/com.ibm.db2.luw.apdv.cli.doc/doc/c0056198.html">ACR&nbsp;operation</a>&nbsp; Details of reroute operation</li>
+        	<li><a href="http://pic.dhe.ibm.com/infocenter/db2luw/v10r5/topic/com.ibm.db2.luw.apdv.cli.doc/doc/c0056507.html">Application&nbsp;programming&nbsp;for&nbsp;ACR</a>&nbsp; How to write applications to work with ACR, includes descriptions on seamless and non-seamless reroute.</li>
+        </ul>
+
+        <h4 dir="ltr"><a name="Java_Client">Java Client</a></h4>
+
+        <ul dir="ltr">
+        	<li><a href="http://pic.dhe.ibm.com/infocenter/db2luw/v10r5/topic/com.ibm.db2.luw.apdv.java.doc/src/tpc/imjcc_c0056055.html">Java&nbsp;client connection high&nbsp;availability to&nbsp;DB2 LUW</a>&nbsp; Overview of client reroute for Java clients. To list all sub-topics in Info Center, expand the topic sub-tree&nbsp;by clicking the "+" button of this topic in the navigation pane.<br />
+        	&nbsp;</li>
+        	<li><a href="http://pic.dhe.ibm.com/infocenter/db2luw/v10r5/topic/com.ibm.db2.luw.apdv.java.doc/src/tpc/imjcc_c0056186.html">ACR&nbsp;configuration</a>&nbsp; Java client configuration of ACR</li>
+        	<li><a href="http://pic.dhe.ibm.com/infocenter/db2luw/v10r5/topic/com.ibm.db2.luw.apdv.java.doc/src/tpc/imjcc_c0056193.html">ACR&nbsp;configuration&nbsp;example</a>&nbsp; Example of Java client configuration</li>
+        	<li><a href="http://pic.dhe.ibm.com/infocenter/db2luw/v10r5/topic/com.ibm.db2.luw.apdv.java.doc/src/tpc/imjcc_c0056197.html">ACR&nbsp;operation</a>&nbsp; Details of Java client reroute operation</li>
+        	<li><a href="http://pic.dhe.ibm.com/infocenter/db2luw/v10r5/topic/com.ibm.db2.luw.apdv.java.doc/src/tpc/imjcc_c0056199.html">Application&nbsp;programming&nbsp;for&nbsp;ACR</a>&nbsp; How to write applications to work with ACR, includes descriptions on seamless and non-seamless reroute.</li>
+        </ul>
+
+        <h2 dir="ltr"><a name="Usage_Notes">Usage Notes</a></h2>
+
+        <h3 dir="ltr"><a name="HADR_Admin_Commands">HADR Admin Commands</a></h3>
+
+        <p dir="ltr">The HADR commands (start/stop/takeover HADR) connects to the database via the usual client-server connection. If the database alias used in an HADR command has ACR enabled, you don't have control on whether the command is directed to the primary or the standby. Thus HADR commands should run on a database alias that has no ACR (or any other reroute method). For admin purpose, you may define an alias with ACR for application access, and an alias with no ACR for HADR commands.</p>
+
+        <h3 dir="ltr"><a name="Reads_on_Standby">Reads on Standby</a></h3>
+
+        <p dir="ltr">ACR considers a reads-on-standby enabled standby database "connectable". If ACR is enabled between the primary database and a reads on standby enabled standby database, both databases will appear available and ACR may randomly direct a client to one of databases. Thus in reads on standby environment, do not enable ACR between primary and standby servers. Instead, use VIP (Virtual IP) for client reroute instead. See white paper <a href="http://www-01.ibm.com/support/docview.wss?uid=swg27020912">Enabling continuous access to read on standby databases using Virtual IP addresses</a>, which describes how to setup a VIP for read/write access (primary server) and another VIP for read-only access (standby server).</p>
+
+        <h3 dir="ltr"><a name="Multiple_Standbys">Multiple Standbys</a></h3>
+
+        <p dir="ltr">With ACR, only one alternate server can be specified on server side. In the case of multiple standby HADR systems, the common practice is to configure the primary and the principal standby as alternate server of each other, because failover is more likely to happen between these two servers. Alternatively you may use other reroute methods, such as <a href="#VIP__Virtual_IP_">Virtual&nbsp;IP</a>, <a href="#Multi_home_DNS">multi-home&nbsp;DNS</a>, or client side alternate server configuration for ACR (<a href="#Client_Affinity">client&nbsp;affinity</a>, <a href="#Alternate_Group">alternate&nbsp;group</a>) to support multiple alternate servers.</p>
+
+        <h3 dir="ltr"><a name="PureScale_Systems">PureScale Systems</a></h3>
+
+        <p dir="ltr">The pureScale white papers from <a href="#More_Readings">More&nbsp;Readings</a> are excellent resources for ACR and WLB (workload balancing) on pureScale.</p>
+
+        <h4 dir="ltr"><a name="Automatic_Client_Reroute_in_pureSCale">Automatic Client Reroute in pureScale</a></h4>
+
+        <p dir="ltr"><strong>Reroute within a cluster</strong></p>
+
+        <p dir="ltr">In a pureScale system, you only need to configure a client to connect to one member of the server cluster, using that member's host and port address. When the client connects to the member, the member returns the cluster member list as alternate servers (in the context of ACR, each pureScale member is considered a "server" because it has its own host:port TCP address). If "update alternate server" command was run on the server, the server sends the user specified alternate server in addition to the member list. The member list and user specified alternate server are persisted to disk using the usual ACR alternate server persistence mechanism. Thus subsequent connections will try other members if the configured member is not available. Although <a href="#First_Connection_Alternate_Server">first&nbsp;connection&nbsp;alternate&nbsp;servers</a> can be configured on the client side to list multiple members, server side alternate server is preferred due to its simplicity.</p>
+
+        <p dir="ltr">Because ACR is enabled by default on client side, failover among members on the same cluster will just work without user configuration. ACR reconnection favors members in the same cluster. When connection to a member fails, ACR will first try reconnecting to members in the same cluster. If it cannot connect to any member in the cluster, it will try the user specified alternate server (if defined).</p>
+
+        <p dir="ltr"><strong>Reroute between clusters</strong></p>
+
+        <p dir="ltr">Server side user specified alternate server can only include a single TCP address (host and port pair). If the alternate server is from a pureScale cluster, you can only specify one member's address from that cluster. If the specified member is offline, clients cannot be rerouted to the alternate cluster when the primary cluster fails. Other reroute methods, such as <a href="#VIP__Virtual_IP_">Virtual&nbsp;IP</a>, <a href="#Multi_home_DNS">multi-home&nbsp;DNS</a>, or client side alternate server configuration for ACR (<a href="#Client_Affinity">client&nbsp;affinity</a>, <a href="#Alternate_Group">alternate&nbsp;group</a>) can be used to list multiple members from the alternate cluster. .</p>
+
+        <h4 dir="ltr"><a name="Workload_Balancing_in_pureScale">Workload Balancing in pureScale</a></h4>
+
+        <p dir="ltr">While ACR can redirect clients from a failed member to another member, it does not balance loads on the members. For example, if clients are configured to connect to member 0 of a cluster, clients can be rerouted to other members if member 0 fails. But if member 0 is available, it would be overloaded without load balancing. A related DB2 feature, workload balancing (WLB) balances load across members. With WLB, server sends cluster member load information to the client periodically. The client uses this information to submit workload to less busy members to even the load. Load balancing can happen on connection or transaction level:</p>
+
+        <ul dir="ltr">
+        	<li>Non Java clients support both connection and transaction level balancing
+        	<ul>
+        		<li>Connection level balancing is enabled by default</li>
+        		<li>Transaction level balancing is disabled by default</li>
+        	</ul>
+        	</li>
+        	<li>Java clients only support transaction level balancing
+        	<ul>
+        		<li>Transaction level balancing is disabled by default</li>
+        		<li>Only type 4 connection is supported.</li>
+        	</ul>
+        	</li>
+        </ul>
+
+        <p dir="ltr">Info center topics for WLB:</p>
+
+        <p dir="ltr"><strong>Non Java Client</strong></p>
+
+        <ul dir="ltr">
+        	<li><a href="http://pic.dhe.ibm.com/infocenter/db2luw/v10r5/topic/com.ibm.db2.luw.apdv.cli.doc/doc/c0056506.html">Non-Java client connection&nbsp;high&nbsp;availability&nbsp;to&nbsp;DB2&nbsp;LUW</a>&nbsp; Overview of ACR and WLB. To list all sub-topics in Info Center, expand the topic sub-tree&nbsp;by clicking the "+" button of this topic in the navigation pane.</li>
+        	<li><a href="http://pic.dhe.ibm.com/infocenter/db2luw/v10r5/topic/com.ibm.db2.luw.apdv.cli.doc/doc/c0056583.html">WLB&nbsp;configuration</a></li>
+        	<li><a href="http://pic.dhe.ibm.com/infocenter/db2luw/v10r5/topic/com.ibm.db2.luw.apdv.cli.doc/doc/c0056596.html">WLB&nbsp;Example</a></li>
+        </ul>
+
+        <p dir="ltr"><strong>Java Client</strong></p>
+
+        <ul dir="ltr">
+        	<li><a href="http://pic.dhe.ibm.com/infocenter/db2luw/v10r5/topic/com.ibm.db2.luw.apdv.java.doc/src/tpc/imjcc_c0056055.html">Java&nbsp;client connection high&nbsp;availability to&nbsp;DB2 LUW</a>&nbsp; Overview of ACR and WLB. To list all sub-topics in Info Center, expand the topic sub-tree&nbsp;by clicking the "+" button of this topic in the navigation pane.</li>
+        	<li><a href="http://pic.dhe.ibm.com/infocenter/db2luw/v10r5/topic/com.ibm.db2.luw.apdv.java.doc/src/tpc/imjcc_c0056603.html">WLB&nbsp;configuration</a></li>
+        	<li><a href="http://pic.dhe.ibm.com/infocenter/db2luw/v10r5/topic/com.ibm.db2.luw.apdv.java.doc/src/tpc/imjcc_c0056655.html">WLB&nbsp;Example</a></li>
+        </ul>
+
+        <p dir="ltr"><strong>Member Subsetting</strong></p>
+
+        <p dir="ltr">Starting in DB2 V10.5, pureScale members can be divided into subsets for workload management with finer granularity.</p>
+
+        <ul dir="ltr">
+        	<li><a href="http://pic.dhe.ibm.com/infocenter/db2luw/v10r5/topic/com.ibm.db2.luw.admin.dbobj.doc/doc/c0060914.html">Member&nbsp;subsetting&nbsp;overview</a>. Expand "+" in navigation pane to see related topics.</li>
+        </ul>
+
+        <p dir="ltr">&nbsp;</p>
+
+        <h1 dir="ltr"><a name="Other_Client_Reroute_Methods">Other Client Reroute Methods</a></h1>
+
+        <h2 dir="ltr"><a name="VIP__Virtual_IP_">VIP (Virtual IP)</a></h2>
+
+        <p dir="ltr">In this method, the user defines a virtual IP that maps to the currently available database server. Clients simply connect to this VIP. Upon failover, network configuration is updated to maps the VIP to the new primary server. Clients can then transparently connects to the new primary server using the VIP. DB2 integrated cluster manager (TSA) can automatically update the VIP upon failover. See also white paper <a href="http://www.ibm.com/developerworks/data/library/long/dm-0907hadrdb2haicu/index.html">Automated cluster controlled HADR configuration setup using the IBM DB2 high availability instance configuration utility (db2haicu)</a>, and <a href="clusterManagers.html">cluster managers</a>. Notes:</p>
+
+        <ul dir="ltr">
+        	<li>You must use the same port on all servers as VIP does nothing about port.</li>
+        	<li>After failover, new connections will be rerouted to new primary database.</li>
+        	<li>Unless ACR is also enabled, existing connections at failover time will still get connection failure error (<a href="http://pic.dhe.ibm.com/infocenter/db2luw/v10r5/topic/com.ibm.db2.luw.messages.sql.doc/doc/msql30081n.html">SQL30081N</a> "<em>A communication error has been detected</em>").</li>
+        	<li>Using VIP with ACR together is recommended. This setup supports auto reroute of existing connections at failover time and reduces reroute time. See <a href="#Alternate_Server_Same_as_Primary_Server">Alternate&nbsp;Server&nbsp;Same&nbsp;as&nbsp;Primary&nbsp;Server</a></li>
+        </ul>
+
+        <p dir="ltr">&nbsp;</p>
+
+        <h2 dir="ltr"><a name="Multi_home_DNS">Multi-home DNS</a></h2>
+
+        <p dir="ltr">In this method, a DNS entry is created to list the IP address of a database server and its alternate servers (more than one alternate server can be listed). For example, the entry "myserver.ibm.com" maps to two IP addresses, one for HADR primary database host and one for the standby host. Clients are programmed to connect to "myserver.ibm.com". When a client makes the connection, it will retrieve the IP list from DNS and try the servers one by one until it establishes a TCP connection to one of the listed servers.</p>
+
+        <ul dir="ltr">
+        	<li>Both Java and non Java clients support multi-home DNS for alternate servers.</li>
+        	<li>After failover, new connections will be rerouted to new primary database.</li>
+        	<li>Unless ACR is also enabled, existing connections at failover time will still get connection failure error (<a href="http://pic.dhe.ibm.com/infocenter/db2luw/v10r5/topic/com.ibm.db2.luw.messages.sql.doc/doc/msql30081n.html">SQL30081N</a> "<em>A communication error has been detected</em>").</li>
+        	<li>Using multi-home DNS with ACR together is recommended. This setup supports auto reroute of existing connections at failover time. See <a href="#Alternate_Server_Same_as_Primary_Server">Alternate&nbsp;Server&nbsp;Same&nbsp;as&nbsp;Primary&nbsp;Server</a></li>
+        </ul>
+
+        <p dir="ltr">&nbsp;</p>
+
+        <h1 dir="ltr"><a name="Client_Reroute_Best_Practices">Client Reroute Best Practices</a></h1>
+
+        <ul dir="ltr">
+        	<li>Configure a <a href="#VIP__Virtual_IP_">virtual&nbsp;IP</a> to point to the current primary server.
+
+        	<ul>
+        		<li>In pureScale systems, the VIP can point to an active member on the current primary cluster</li>
+        		<li>VIP makes reroute fast because clients need not waste time trying failed servers</li>
+        		<li>Use <a href="#Alternate_Server_Same_as_Primary_Server">VIP&nbsp;together&nbsp;with&nbsp;ACR</a> to support rerouting existing connections at failover time.</li>
+        	</ul>
+        	</li>
+        	<li>Run "update alternate server" commands on all servers for symmetric configuration.
+        	<ul>
+        		<li>With VIP, just run "update alternate server for db myDB using &lt;VIP&gt; port &lt;serverPort&gt;" on all servers. This setup supports more than one alternate server.</li>
+        	</ul>
+        	</li>
+        	<li>Use reroute enabled database aliases for application access. Use no reroute aliases for admin commands such as start/stop/takeover HADR.</li>
+        </ul>
+
+        <p dir="ltr">&nbsp;</p>
+
+        <h1 dir="ltr"><a name="More_Readings">More Readings</a></h1>
+
+        <ul dir="ltr">
+        	<li><a href="http://www.ibm.com/developerworks/data/library/techarticle/dm-0512zikopoulos/">Automatic&nbsp;Client&nbsp;Reroute&nbsp;Article&nbsp;in&nbsp;DeveloperWorks</a>. December 2005. By Paul C. Zikopoulos. Introduction to ACR.<br />
+        	&nbsp;</li>
+        	<li><a href="http://www.ibm.com/developerworks/data/library/techarticle/dm-1304db2purescalefeature/">&nbsp;DB2&nbsp;pureScale&nbsp;Feature:&nbsp; Workload&nbsp;balancing,&nbsp;automatic&nbsp;client&nbsp;reroute,&nbsp;and&nbsp;client&nbsp;affinities&nbsp;concepts&nbsp;and&nbsp;administration</a> Apr. 2013. By Frankie Sun etc. This paper looks at client reroute from pureScale cluster point of view. Good concept description. Includes trouble shooting section.<br />
+        	&nbsp;</li>
+        	<li><a href="http://www.ibm.com/developerworks/data/library/long/dm-1206purescaleenablement/">DB2&nbsp;pureScale&nbsp;enablement: Workload&nbsp;balancing,&nbsp;automatic&nbsp;client&nbsp;reroute,&nbsp;and&nbsp;client&nbsp;affinities</a>, June, 2012, By Charlie Wang, etc. This paper looks at client reroute from pureScale cluster point of view. It has more operational details, especially on Websphere application server connecting to DB2.
+        	<p class="dw-summary-author">&nbsp;</p>
+        	</li>
+        	<li><a href="http://www.ibm.com/developerworks/data/library/techarticle/dm-1509hadr-purescale/index.html">Configure&nbsp;parameters&nbsp;for&nbsp;IBM&nbsp;Data&nbsp;Server&nbsp;Driver&nbsp;for&nbsp;JDBC&nbsp;and&nbsp;SQLJ&nbsp;against&nbsp;HADR&nbsp;for&nbsp;DB2&nbsp;pureScale</a>, Sep. 2015.&nbsp; By Sujan Ghosh and Vinavak Joshi.<br />
+        	&nbsp;</li>
+        </ul>
+      </div>
+    </div>
+    <!-- /#page-content-wrapper -->
+
+  </div>
+  <!-- /#wrapper -->
+
+  <!-- Bootstrap core JavaScript -->
+  <script src="vendor/jquery/jquery.min.js"></script>
+  <script src="vendor/bootstrap/js/bootstrap.bundle.min.js"></script>
+
+  <!-- Menu Toggle Script -->
+  <script>
+    $("#menu-toggle").click(function(e) {
+      e.preventDefault();
+      $("#wrapper").toggleClass("toggled");
+    });
+  </script>
+
+</body>
+
+</html>

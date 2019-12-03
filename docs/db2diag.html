@@ -1,0 +1,315 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
+  <meta name="description" content="">
+  <meta name="author" content="">
+
+  <title>Db2 HADR Wiki</title>
+
+  <!-- Bootstrap core CSS -->
+  <link href="vendor/bootstrap/css/bootstrap.min.css" rel="stylesheet">
+
+  <!-- Custom styles for this template -->
+  <link href="css/simple-sidebar.css" rel="stylesheet">
+
+</head>
+
+<body>
+
+  <div class="d-flex" id="wrapper">
+
+    <!-- Sidebar -->
+    <div class="bg-light border-right" id="sidebar-wrapper">
+      <div class="sidebar-heading">Menu</div>
+      <div class="list-group list-group-flush">
+        <a href="hadrBenefits.html" class="list-group-item list-group-item-action bg-light">HADR Benefits</a>
+        <a href="featureHistory.html" class="list-group-item list-group-item-action bg-light">Feature History</a>
+        <a href="hadrTutorial.html" class="list-group-item list-group-item-action bg-light">HADR Tutorial</a>
+        <a href="tcpTuning.html" class="list-group-item list-group-item-action bg-light">TCP Tuning</a>
+        <a href="perfTuning.html" class="list-group-item list-group-item-action bg-light">Perf Tuning</a>
+        <a href="hadrSimulator.html" class="list-group-item list-group-item-action bg-light">HADR Simulator</a>
+        <a href="simulatorOptions.html" class="list-group-item list-group-item-action bg-light">HADR Simulator Options</a>
+        <a href="simulatorOutput.html" class="list-group-item list-group-item-action bg-light">HADR Simulator Output</a>
+        <a href="simulatorParams.html" class="list-group-item list-group-item-action bg-light">HADR Simulator Params</a>
+        <a href="db2logscan.html" class="list-group-item list-group-item-action bg-light">db2logscan</a>
+        <a href="hadrConfig.html" class="list-group-item list-group-item-action bg-light">HADR Config</a>
+        <a href="hadrSyncMode.html" class="list-group-item list-group-item-action bg-light">HADR Sync Mode</a>
+        <a href="hadrTakeover.html" class="list-group-item list-group-item-action bg-light">HADR Takeover</a>
+        <a href="hadrMonitoring.html" class="list-group-item list-group-item-action bg-light">HADR Monitoring</a>
+        <a href="hadrCommands.html" class="list-group-item list-group-item-action bg-light">HADR Commands</a>
+        <a href="hadrLogShipping.html" class="list-group-item list-group-item-action bg-light">HADR Log Shipping/a>
+        <a href="hadrPerf.html" class="list-group-item list-group-item-action bg-light">HADR Perf</a>
+        <a href="diagConnect.html" class="list-group-item list-group-item-action bg-light">Diag Connect</a>
+        <a href="db2diag.html" class="list-group-item list-group-item-action bg-light"><strong>> db2diag.log</strong></a>
+        <a href="clusterManagers.html" class="list-group-item list-group-item-action bg-light">Cluster Managers</a>
+        <a href="clientReroute.html" class="list-group-item list-group-item-action bg-light">Client Reroute</a>
+        <a href="hadrPureScale.html" class="list-group-item list-group-item-action bg-light">HADR on PureScale</a>
+        <a href="faq.html" class="list-group-item list-group-item-action bg-light">FAQ</a>
+        <a href="db2fmtlog.html" class="list-group-item list-group-item-action bg-light">db2fmtlog_replayonlywindow</a>
+      </div>
+    </div>
+    <!-- /#sidebar-wrapper -->
+
+    <!-- Page Content -->
+    <div id="page-content-wrapper">
+
+      <nav class="navbar navbar-expand-lg navbar-light bg-light border-bottom">
+        <button class="btn btn-primary" id="menu-toggle">Toggle Menu</button>
+
+        <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarSupportedContent" aria-controls="navbarSupportedContent" aria-expanded="false" aria-label="Toggle navigation">
+          <span class="navbar-toggler-icon"></span>
+        </button>
+
+        <div class="collapse navbar-collapse" id="navbarSupportedContent">
+          <ul class="navbar-nav ml-auto mt-2 mt-lg-0">
+            <li class="nav-item">
+              <a class="nav-link" href="index.html">Home</a>
+            </li>
+            <li class="nav-item">
+              <a class="nav-link" href="contact.html">Contact</a>
+            </li>
+            <li class="nav-item">
+              <a class="nav-link" href="contribute.html">Contribute</a>
+            </li>
+          </ul>
+        </div>
+      </nav>
+
+      <div class="container-fluid">
+        <h1><a name="HADR_Info_in_db2diag_log">HADR Info in db2diag.log</a></h1>
+
+        <p dir="ltr">Db2diag.log is an important DB2 diagnostic tool. It records history of events in DB2. The <a href="http://publib.boulder.ibm.com/infocenter/db2luw/v10r1/topic/com.ibm.db2.luw.admin.cmd.doc/doc/r0011728.html">db2diag</a> tool can be used to parse and filter db2diag.log file. This page describes db2diag.log messages relevant to HADR.</p>
+
+        <p><strong>Table of Contents</strong></p>
+
+        <ul>
+        	<li>HADR Info in db2diag.log
+        	<ul>
+        		<li><a href="#The_HADR_Threads">The HADR Threads</a></li>
+        		<li><a href="#HADR_Role_Change">HADR Role Change</a></li>
+        		<li><a href="#HADR_State_Change">HADR State Change</a></li>
+        		<li><a href="#Connection_ID">Connection ID</a></li>
+        		<li><a href="#HADR_Command_History">HADR Command History</a>
+        		<ul>
+        			<li><a href="#Start_HADR_command">Start HADR command</a></li>
+        			<li><a href="#Stop_HADR_command">Stop HADR command</a></li>
+        			<li><a href="#Takeover_HADR_command">Takeover HADR command</a></li>
+        		</ul>
+        		</li>
+        	</ul>
+        	</li>
+        </ul>
+        <strong>&nbsp; </strong>
+
+        <h2><a name="The_HADR_Threads">The HADR Threads</a></h2>
+
+        <p dir="ltr">One or more threads in the database engine works on HADR tasks. A thread is also known as an EDU (Engine Dispatching Unit). You can use the "db2pd -edus" command to list threads. The HADR threads in a primary database are named "db2hadrp". Those in a standby database are named "db2hadrs". Upon role change ("takeover" command), the threads are renamed to match new role.</p>
+
+        <p dir="ltr"><strong>Log Stream id and Standby id</strong></p>
+
+        <p dir="ltr">In V10.1 and later, log stream id and standby id are appended to HADR edu name, to support pureScale and multiple standby. Standby id is always zero for db2hadrs edus because standby id is assigned by the primary and does not propagate to the standby (similarly, the STANDBY_ID monitor field is always zero when the monitor query is issued on a standby). Example:</p>
+
+        <ul dir="ltr">
+        	<li><span style="font-family:'courier new' , 'courier' , monospace">db2hadrp.0.1</span>&nbsp; is the primary side edu for log stream 0, standby 1. There is a dedicated edu for each standby. So if there are 3 standbys, you will see db2hadrp.0.1, db2hadrp.0.2, and db2hadrp.0.3 on the primary database.</li>
+        	<li><span style="font-family:'courier new' , 'courier' , monospace">db2hadrs.0.0</span>&nbsp; is the standby side edu for log stream 0. In a pureScale environment, there is a dedicated edu for each log stream. So if there are 4 pureScale members in the system, you will see db2hadrs.0.0, db2hadrs.1.0, db2hadrs.2.0, and db2hadrs.3.0 on the standby replay member.</li>
+        </ul>
+
+        <p dir="ltr">The "EDUNAME" field in a db2diag.log message shows the edu who wrote the message. The "DB" field shows the database from which the message comes. DB name is also embedded in the EDUNAME field in parenthesis. When looking at messages, be sure no to confuse messages from different database, standby id, and stream id. The <a href="http://publib.boulder.ibm.com/infocenter/db2luw/v10r1/topic/com.ibm.db2.luw.admin.cmd.doc/doc/r0011728.html">db2diag</a> tool can be used to parse and filter db2diag.log file.</p>
+
+        <h2><a name="HADR_Role_Change">HADR Role Change</a></h2>
+
+        <p dir="ltr">HADR role is changed by an HADR command (start/stop/takeover HADR. See <a href="hadrCommands.html">HADR commands</a>). Look for keyword hdrSetDbRole in V97 and earlier or hdrSetDbRoleAndDbType in V10.1 and later in db2diag.log. Sample messages:</p>
+
+        <p dir="ltr"><strong>V9.7</strong></p>
+
+        <p dir="ltr">"Start HADR as primary" command results in "standard" to "primary" role change:<br />
+        <br />
+        <span style="font-family:'courier new' , 'courier' , monospace">2013-10-07-14.40.35.450719-420 E68393E386&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; LEVEL: Event<br />
+        PID&nbsp;&nbsp;&nbsp;&nbsp; : 4737&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; TID&nbsp; : 46914980538688PROC : db2sysc<br />
+        INSTANCE: zhuge&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; NODE : 000&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; DB&nbsp;&nbsp; : HADRDB<br />
+        EDUID&nbsp;&nbsp; : 524&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; EDUNAME: db2hadrp (HADRDB)<br />
+        FUNCTION: DB2 UDB, High Availability Disaster Recovery, hdrSetDbRole, probe:10010<br />
+        CHANGE&nbsp; : HADR role set to Primary (was Standard)</span></p>
+
+        <p dir="ltr"><strong>V10.1</strong><br />
+        <br />
+        Role switch result in "primary" to "standby" change (shown below) and "standby" to "primary" change (not shown):<br />
+        <br />
+        <span style="font-family:'courier new' , 'courier' , monospace">2013-10-07-14.26.41.918203-420 E132007E1255&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; LEVEL: Event<br />
+        PID&nbsp;&nbsp;&nbsp;&nbsp; : 1562&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; TID : 46916419184960&nbsp; PROC : db2sysc<br />
+        INSTANCE: zhuge&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; NODE : 000&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; DB&nbsp;&nbsp; : HADRDB<br />
+        APPHDL&nbsp; : 0-101&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; APPID: *LOCAL.DB2.131007212657<br />
+        HOSTNAME: zeeman<br />
+        EDUID&nbsp;&nbsp; : 468&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; EDUNAME: db2agent (HADRDB)<br />
+        FUNCTION: DB2 UDB, High Availability Disaster Recovery, hdrSetDbRoleAndDbType, probe:10020<br />
+        CHANGE&nbsp; : HADR DATABASE ROLE/TYPE -<br />
+        HADR database role set to STANDBY (was PRIMARY).<br />
+        HADR database type set to PHYSICAL (was PHYSICAL).</span></p>
+
+        <h2><a name="HADR_State_Change">HADR State Change</a></h2>
+
+        <p dir="ltr"><strong>Internal vs. External HADR States</strong></p>
+
+        <p dir="ltr">The HADR states in db2diag.log is the internal state. It has finer granularity than the external state reported by monitor interfaces. The internal state indicates what the local database (primary or standby) is doing, while the external state indicates what the HADR pair is doing. Internal states have P_ or S_ prefix. The internal states are:</p>
+
+        <ul dir="ltr">
+        	<li>HDR_NO_STATE: Initial state, like a logical "NULL" state.</li>
+        	<li>HDR_P_BOOT and HDR_S_BOOT: HADR primary/standby is starting.</li>
+        	<li>HDR_S_LOC_CATCHUP: Standby is doing local catchup. In V9.7 and earlier, state is HDR_S_LOC_CATCHUP when standby is retrieving logs from archive.</li>
+        	<li>HDR_P_REM_CATCHUP_PENDING and HDR_S_REM_CATCHUP_PENDING: Primary/standby is waiting for remote catchup to start, either because primary and standby are not connected yet, or standby is still doing local catchup. In V10.1 and later, state is HDR_S_REM_CATCHUP_PENDING when standby is retrieving logs from archive.</li>
+        	<li>HDR_P_NPEER and HDR_S_NPEER: Primary/standby is in the transition from remote catchup to peer (nearly peer). Externally, this is reported as remote catchup (not peer yet).</li>
+        	<li>HDR_P_PEER and HDR_S_PEER: Primary and standby are in peer state.</li>
+        	<li>HDR_P_DISCONN_PEER and HDR_S_DISCONN_PEER: Primary/Standby is in disconnected peer state (peer window is enabled and the pair lost connection).</li>
+        </ul>
+
+        <p dir="ltr">For more info on HADR state, see <a href="hadrLogShipping.html">HADR log shipping</a></p>
+
+        <p dir="ltr"><strong>Sample Messages from V9.7</strong></p>
+
+        <p dir="ltr">Entering Peer state:<br />
+        <br />
+        <span style="font-family:'courier new' , 'courier' , monospace">2013-10-07-14.40.36.401196-420 E76255E392&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; LEVEL: Event<br />
+        PID&nbsp;&nbsp;&nbsp;&nbsp; : 4737&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; TID&nbsp; : 46914980538688PROC : db2sysc<br />
+        INSTANCE: zhuge&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; NODE : 000&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; DB&nbsp;&nbsp; : HADRDB<br />
+        EDUID&nbsp;&nbsp; : 524&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; EDUNAME: db2hadrp (HADRDB)<br />
+        FUNCTION: DB2 UDB, High Availability Disaster Recovery, hdrSetHdrState, probe:10000<br />
+        CHANGE&nbsp; : HADR state set to P-Peer (was P-NearlyPeer)</span><br />
+        <br />
+        During a role switch, standby changes into P-Peer state. There is a matching standby to primary role change message (not shown).<br />
+        <br />
+        <span style="font-family:'courier new' , 'courier' , monospace">2013-10-07-14.40.50.329996-420 E81365E448&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; LEVEL: Event<br />
+        PID&nbsp;&nbsp;&nbsp;&nbsp; : 4737&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; TID&nbsp; : 46914993121600PROC : db2sysc<br />
+        INSTANCE: zhuge&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; NODE : 000&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; DB&nbsp;&nbsp; : HADRDB<br />
+        APPHDL&nbsp; : 0-113&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; APPID: *LOCAL.DB2.131007214120<br />
+        EDUID&nbsp;&nbsp; : 553&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; EDUNAME: db2agent (HADRDB)<br />
+        FUNCTION: DB2 UDB, High Availability Disaster Recovery, hdrSetHdrState, probe:10000<br />
+        CHANGE&nbsp; : HADR state set to S-Peer (was P-Peer)</span><br />
+        <br />
+        <strong>Sample Messages from V10.1</strong></p>
+
+        <p dir="ltr">Entering Peer state:<br />
+        <br />
+        <span style="font-family:'courier new' , 'courier' , monospace">2013-10-07-14.26.24.033020-420 E126131E433&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; LEVEL: Event<br />
+        PID&nbsp;&nbsp;&nbsp;&nbsp; : 1562&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; TID : 46916289161536&nbsp; PROC : db2sysc<br />
+        INSTANCE: zhuge&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; NODE : 000&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; DB&nbsp;&nbsp; : HADRDB &nbsp;<br />
+        HOSTNAME: zeeman<br />
+        EDUID&nbsp;&nbsp; : 453&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; EDUNAME: db2hadrp.0.1 (HADRDB)<br />
+        FUNCTION: DB2 UDB, High Availability Disaster Recovery, hdrSetHdrState, probe:10000<br />
+        CHANGE&nbsp; : HADR state set to HDR_P_PEER (was HDR_P_NPEER), connId=1</span></p>
+
+        <h2><a name="Connection_ID">Connection ID</a></h2>
+
+        <p dir="ltr">In V10.1 and later, each time the&nbsp; primary and standby establishes connection, an connection id (<span style="font-family:'courier new' , 'courier' , monospace">connId</span>) is assigned. The connection id is shared on primary and standby (primary and standby negotiate a common id for a particular connection). ConnId is included in all HADR state change messages. You can use this id to match messages on primary and standby. For example, the entering peer messages on primary and standby sharing the same connId are from the same peer session. Previously, you can only use timestamp to match primary and standby messages, which is not reliable, especially when primary and standby hosts have clock skew. Sample messages:</p>
+
+        <p dir="ltr">Primary side:</p>
+
+        <p dir="ltr"><span style="font-family:'courier new' , 'courier' , monospace">2013-10-07-14.26.23.545742-420 I119733E421&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; LEVEL: Info<br />
+        PID&nbsp;&nbsp;&nbsp;&nbsp; : 1562&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; TID : 46916289161536&nbsp; PROC : db2sysc<br />
+        INSTANCE: zhuge&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; NODE : 000&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; DB&nbsp;&nbsp; : HADRDB &nbsp;<br />
+        HOSTNAME: zeeman<br />
+        EDUID&nbsp;&nbsp; : 453&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; EDUNAME: db2hadrp.0.1 (HADRDB)<br />
+        FUNCTION: DB2 UDB, High Availability Disaster Recovery, hdrHandleHsAck, probe:30440<br />
+        DATA #1 : &lt;preformatted&gt;<br />
+        Connection succeeded, connId=1</span></p>
+
+        <p dir="ltr">Standby side message for the same round of handshake (connId is also 1):</p>
+
+        <p dir="ltr"><span style="font-family:'courier new' , 'courier' , monospace">2013-10-07-14.26.23.551195-420 I48195E422&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; LEVEL: Info<br />
+        PID&nbsp;&nbsp;&nbsp;&nbsp; : 2973&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; TID : 46914393336128&nbsp; PROC : db2sysc<br />
+        INSTANCE: zhuge&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; NODE : 000&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; DB&nbsp;&nbsp; : HADRDB &nbsp;<br />
+        HOSTNAME: zernike<br />
+        EDUID&nbsp;&nbsp; : 315&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; EDUNAME: db2hadrs.0.0 (HADRDB)<br />
+        FUNCTION: DB2 UDB, High Availability Disaster Recovery, hdrHandleHsAck, probe:30440<br />
+        DATA #1 : &lt;preformatted&gt;<br />
+        Connection succeeded, connId=1</span><br />
+        &nbsp;</p>
+        </div>
+
+        <h2 dir="ltr"><a name="HADR_Command_History">HADR Command History</a></h2>
+
+        <p dir="ltr">You can find out the history of start/stop/takeover HADR command invocation from db2diag.log.</p>
+
+        <h3 dir="ltr"><a name="Start_HADR_command">Start HADR command</a></h3>
+
+        <p dir="ltr">In V10.1 and later, the following messages are recorded:</p>
+
+        <ul dir="ltr">
+        	<li>For "start HADR as primary":<br />
+        	<span style="font-family:'courier new' , 'courier' , monospace">Received START HADR PRIMARY command.</span></li>
+        	<li>For "start HADR as primary by force":<br />
+        	<span style="font-family:'courier new' , 'courier' , monospace">Received START HADR PRIMARY FORCE command.</span></li>
+        	<li>For "start HADR as standby":<br />
+        	<span style="font-family:'courier new' , 'courier' , monospace">Received START HADR SECONDARY command.</span></li>
+        </ul>
+
+        <p dir="ltr">In V9.7 and earlier, the following message is recorded for all variations of this command:</p>
+
+        <ul dir="ltr">
+        	<li><span style="font-family:'courier new' , 'courier' , monospace">Received START HADR command.</span></li>
+        </ul>
+
+        <p dir="ltr">You may use role and state information to determine which variation of the command was issued.</p>
+
+        <h3 dir="ltr"><a name="Stop_HADR_command">Stop HADR command</a></h3>
+
+        <p dir="ltr">The following message is recorded for this command:</p>
+
+        <ul dir="ltr">
+        	<li><span style="font-family:'courier new' , 'courier' , monospace">Received STOP HADR command.</span></li>
+        </ul>
+
+        <h3 dir="ltr"><a name="Takeover_HADR_command">Takeover HADR command</a></h3>
+
+        <p dir="ltr">The following message is recorded for this command on the standby's db2diag.log:</p>
+
+        <ul dir="ltr">
+        	<li><span style="font-family:'courier new' , 'courier' , monospace">Received TAKEOVER HADR command.</span></li>
+        </ul>
+
+        <p dir="ltr">On the standby, a message following this message indicates which variation of takeover command was issued:</p>
+
+        <ul dir="ltr">
+        	<li>For "takeover HADR" (no "by force" option):<br />
+        	<span style="font-family:'courier new' , 'courier' , monospace">Standby has initiated a takeover.</span></li>
+        	<li>For "takeover HADR by force":<br />
+        	<span style="font-family:'courier new' , 'courier' , monospace">Standby has initiated a takeover by force.</span></li>
+        	<li>For "takeover HADR by force peer window only":<br />
+        	<span style="font-family:'courier new' , 'courier' , monospace">Standby has initiated a takeover by force peer window only.</span></li>
+        </ul>
+
+        <p dir="ltr">On the primary, you can find the following messages:</p>
+
+        <ul dir="ltr">
+        	<li>For "takeover HADR" (no "by force" option):<br />
+        	<span style="font-family:'courier new' , 'courier' , monospace">Primary has started non-forced takeover request.</span></li>
+        	<li>For "takeover HADR by force" (this message is printed only when primary and standby are connected at takeover time. This messages includes the "peer window only" variation):<br />
+        	<span style="font-family:'courier new' , 'courier' , monospace">Primary has started a forced takeover request.</span></li>
+        </ul>
+
+        <p dir="ltr">&nbsp;</p>
+      </div>
+    </div>
+    <!-- /#page-content-wrapper -->
+
+  </div>
+  <!-- /#wrapper -->
+
+  <!-- Bootstrap core JavaScript -->
+  <script src="vendor/jquery/jquery.min.js"></script>
+  <script src="vendor/bootstrap/js/bootstrap.bundle.min.js"></script>
+
+  <!-- Menu Toggle Script -->
+  <script>
+    $("#menu-toggle").click(function(e) {
+      e.preventDefault();
+      $("#wrapper").toggleClass("toggled");
+    });
+  </script>
+
+</body>
+
+</html>

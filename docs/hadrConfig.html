@@ -1,0 +1,439 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
+  <meta name="description" content="">
+  <meta name="author" content="">
+
+  <title>Db2 HADR Wiki</title>
+
+  <!-- Bootstrap core CSS -->
+  <link href="vendor/bootstrap/css/bootstrap.min.css" rel="stylesheet">
+
+  <!-- Custom styles for this template -->
+  <link href="css/simple-sidebar.css" rel="stylesheet">
+
+</head>
+
+<body>
+
+  <div class="d-flex" id="wrapper">
+
+    <!-- Sidebar -->
+    <div class="bg-light border-right" id="sidebar-wrapper">
+      <div class="sidebar-heading">Menu</div>
+      <div class="list-group list-group-flush">
+        <a href="hadrBenefits.html" class="list-group-item list-group-item-action bg-light">HADR Benefits</a>
+        <a href="featureHistory.html" class="list-group-item list-group-item-action bg-light">Feature History</a>
+        <a href="hadrTutorial.html" class="list-group-item list-group-item-action bg-light">HADR Tutorial</a>
+        <a href="tcpTuning.html" class="list-group-item list-group-item-action bg-light">TCP Tuning</a>
+        <a href="perfTuning.html" class="list-group-item list-group-item-action bg-light">Perf Tuning</a>
+        <a href="hadrSimulator.html" class="list-group-item list-group-item-action bg-light">HADR Simulator</a>
+        <a href="simulatorOptions.html" class="list-group-item list-group-item-action bg-light">HADR Simulator Options</a>
+        <a href="simulatorOutput.html" class="list-group-item list-group-item-action bg-light">HADR Simulator Output</a>
+        <a href="simulatorParams.html" class="list-group-item list-group-item-action bg-light">HADR Simulator Params</a>
+        <a href="db2logscan.html" class="list-group-item list-group-item-action bg-light">db2logscan</a>
+        <a href="hadrConfig.html" class="list-group-item list-group-item-action bg-light"><strong>> HADR Config</strong></a>
+        <a href="hadrSyncMode.html" class="list-group-item list-group-item-action bg-light">HADR Sync Mode</a>
+        <a href="hadrTakeover.html" class="list-group-item list-group-item-action bg-light">HADR Takeover</a>
+        <a href="hadrMonitoring.html" class="list-group-item list-group-item-action bg-light">HADR Monitoring</a>
+        <a href="hadrCommands.html" class="list-group-item list-group-item-action bg-light">HADR Commands</a>
+        <a href="hadrLogShipping.html" class="list-group-item list-group-item-action bg-light">HADR Log Shipping</a>
+        <a href="hadrPerf.html" class="list-group-item list-group-item-action bg-light">HADR Perf</a>
+        <a href="diagConnect.html" class="list-group-item list-group-item-action bg-light">Diag Connect</a>
+        <a href="db2diag.html" class="list-group-item list-group-item-action bg-light">db2diag.log</a>
+        <a href="clusterManagers.html" class="list-group-item list-group-item-action bg-light">Cluster Managers</a>
+        <a href="clientReroute.html" class="list-group-item list-group-item-action bg-light">Client Reroute</a>
+        <a href="hadrPureScale.html" class="list-group-item list-group-item-action bg-light">HADR on PureScale</a>
+        <a href="faq.html" class="list-group-item list-group-item-action bg-light">FAQ</a>
+        <a href="db2fmtlog.html" class="list-group-item list-group-item-action bg-light">db2fmtlog replayonlywindow</a>
+      </div>
+    </div>
+    <!-- /#sidebar-wrapper -->
+
+    <!-- Page Content -->
+    <div id="page-content-wrapper">
+
+      <nav class="navbar navbar-expand-lg navbar-light bg-light border-bottom">
+        <button class="btn btn-primary" id="menu-toggle">Toggle Menu</button>
+
+        <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarSupportedContent" aria-controls="navbarSupportedContent" aria-expanded="false" aria-label="Toggle navigation">
+          <span class="navbar-toggler-icon"></span>
+        </button>
+
+        <div class="collapse navbar-collapse" id="navbarSupportedContent">
+          <ul class="navbar-nav ml-auto mt-2 mt-lg-0">
+            <li class="nav-item">
+              <a class="nav-link" href="index.html">Home</a>
+            </li>
+            <li class="nav-item">
+              <a class="nav-link" href="contact.html">Contact</a>
+            </li>
+            <li class="nav-item">
+              <a class="nav-link" href="contribute.html">Contribute</a>
+            </li>
+          </ul>
+        </div>
+      </nav>
+
+      <div class="container-fluid">
+        <p dir="ltr" style="text-align:center"><span style="font-size:24px">HADR Configuration and Tuning</span></p>
+
+        <p dir="ltr"><strong>Table of Contents</strong></p>
+
+        <ul dir="ltr">
+        	<li><a href="#General_Info">General Info</a>
+
+        	<ul>
+        		<li><a href="#Updating_HADR_Configuration">Updating HADR Configuration</a>
+
+        		<ul>
+        			<li><a href="#Background__Static_vs__Dynamic_Database_Configuration_Parameters">Background: Static vs. Dynamic Database Configuration Parameters</a></li>
+        			<li><a href="#HADR_Database_Configuration_Parameters">HADR Database Configuration Parameters</a></li>
+        			<li><a href="#HADR_Registry_Variables">HADR Registry Variables</a></li>
+        		</ul>
+        		</li>
+        		<li><a href="#Self_Tuning_Memory_Manager__STMM__on_the_Standby">Self Tuning Memory Manager (STMM) on the Standby</a></li>
+        	</ul>
+        	</li>
+        </ul>
+
+        <ul dir="ltr">
+        	<li><a href="#HADR_Configuration_Parameters">HADR Configuration Parameters</a>
+
+        	<ul>
+        		<li><a href="#hadr_syncmode___HADR_Synchronization_Mode">hadr_syncmode - HADR Synchronization Mode</a></li>
+        		<li><a href="#hadr_peer_window___HADR_peer_window">hadr_peer_window - HADR peer window</a></li>
+        		<li><a href="#hadr_timeout___HADR_network_timeout">hadr_timeout - HADR network timeout</a></li>
+        		<li><a href="#DB2_HADR_PEER_WAIT_LIMIT___HADR_peer_wait_limit">DB2_HADR_PEER_WAIT_LIMIT - HADR peer wait limit</a>
+        		<ul>
+        			<li><a href="#Relationship_of_Peer_Window__hadr_timeout__and_HADR_peer_wait_limit">Relationship&nbsp;of&nbsp;Peer&nbsp;Window,&nbsp;hadr_timeout,&nbsp;and&nbsp;HADR&nbsp;peer&nbsp;wait&nbsp;limit</a></li>
+        		</ul>
+        		</li>
+        		<li><a href="#hadr_spool_limit___HADR_spool_limit">hadr_spool_limit - HADR spool limit</a></li>
+        		<li><a href="#DB2_HADR_BUF_SIZE___HADR_log_receive_buffer_size">DB2_HADR_BUF_SIZE - HADR log receive buffer size</a></li>
+        		<li><a href="#DB2_HADR_SOSNDBUF_and_DB2_HADR_SORCVBUF___HADR_socket_send_and_receive_buffer_size">DB2_HADR_SOSNDBUF and DB2_HADR_SORCVBUF - HADR socket send and receive buffer size</a></li>
+        	</ul>
+        	</li>
+        </ul>
+
+        <ul dir="ltr">
+        	<li><a href="#Configuration_Parameters_related_to_HADR">Configuration Parameters related to HADR</a>
+
+        	<ul>
+        		<li><a href="#LOGARCHMETH1_and_LOGARCHMETH2___Log_Archive_Device">logarchmeth1 and logarchmeth2 - Log Archive Device</a>
+
+        		<ul>
+        			<li><a href="#Having%20a%20shared%20archive">Sharing&nbsp;archive&nbsp;between&nbsp;primary&nbsp;and&nbsp;standby(s)</a></li>
+        		</ul>
+        		</li>
+        		<li><a href="#LOGINDEXBUILD_and_INDEXREC___Index_logging_and_replaying">logindexbuild and INDEXREC - Index logging and replaying</a>
+        		<ul>
+        			<li><a href="#LOGINDEXBUILD">logindexbuild</a></li>
+        			<li><a href="#INDEXREC">indexrec</a></li>
+        		</ul>
+        		</li>
+        		<li><a href="#DB2_LOAD_COPY_NO_OVERRIDE___Replaying_Load">DB2_LOAD_COPY_NO_OVERRIDE - Replaying Load</a></li>
+        		<li><a href="#BLOCKNONLOGGED___Block_Non_Logged_operations">blocknonlogged - Block Non Logged operations</a></li>
+        		<li><a href="#AUTORESTART">autorestart</a></li>
+        	</ul>
+        	</li>
+        </ul>
+
+        <p dir="ltr"><strong>&nbsp;&nbsp;</strong></p>
+
+        <h1 dir="ltr"><a name="General_Info">General Info</a></h1>
+
+        <h2 dir="ltr"><a name="Updating_HADR_Configuration">Updating HADR Configuration</a></h2>
+
+        <h3 dir="ltr"><a name="Background__Static_vs__Dynamic_Database_Configuration_Parameters">Background: Static vs. Dynamic Database Configuration Parameters</a></h3>
+
+        <p dir="ltr">There are two kinds of DB2 database configuration parameters: static and dynamic (also known as "online" parameters).</p>
+
+        <ul dir="ltr">
+        	<li><strong>Static </strong>parameters are loaded only on database startup. "update db cfg" statement updates the parameter in config file on disk. But the new value does not take effect until the next database startup.</li>
+        	<li><strong>Dynamic </strong>parameters are loaded on database startup. And "update db cfg" statement takes effect immediately when database is online. These parameters are documented as "Configurable Online" in DB2 Info Center.</li>
+        </ul>
+
+        <p dir="ltr">In "db2 get db cfg show detail" command output, the current in-memory value for an online database is shown as "Current Value", the on-disk config file value is shown as "Delayed value".</p>
+
+        <p dir="ltr">In "db2pd -dbcfg" output, the current value is shown as "Memory Value" and delayed value shown as "Disk Value".</p>
+
+        <p dir="ltr">For dynamic parameters, the in memory and on disk values are often the same. There are some exceptions. Some parameters have restrictions for dynamic update (for example, the hadr_target_list parameter cannot be dynamically updated between empty and not empty). An "update db cfg" command can succeed in updating the on disk value, but fail to update the in memory value, resulting in different on disk and in memory values. The command will return success with warning in such cases, with a message like:</p>
+
+        <p dir="ltr"><span style="font-family:'courier new' , 'courier' , monospace">DB20000I The UPDATE DATABASE CONFIGURATION command completed successfully.<br />
+        SQL1363W One or more of the parameters submitted for immediate modification were not changed dynamically. For these configuration parameters, the database must be shutdown and reactivated before the configuration parameter changes become effective.</span></p>
+
+        <h3 dir="ltr"><a name="HADR_Database_Configuration_Parameters">HADR Database Configuration Parameters</a></h3>
+
+        <p dir="ltr">HADR database configuration parameters (the parameters with "hadr_" prefix, such as hadr_local_host, hadr_timeout) are static, with the exception of hadr_target_list (new in DB2 V10.1). Dynamic update of the hadr_target_list parameter has some restrictions. See <a href="http://publib.boulder.ibm.com/infocenter/db2luw/v10r1/topic/com.ibm.db2.luw.admin.config.doc/doc/r0059281.html">http://publib.boulder.ibm.com/infocenter/db2luw/v10r1/topic/com.ibm.db2.luw.admin.config.doc/doc/r0059281.html</a></p>
+
+        <p dir="ltr"><strong>"Semi-dynamic" Update of HADR Parameters</strong></p>
+
+        <p dir="ltr">Starting from DB2 V10.1, the static HADR parameters can take effect "semi-dynamically". The are loaded from disk on database startup, and on HADR startup. Since HADR can be dynamically started and ended on the primary database, you can make the database pick up new configuration by stopping and restarting the HADR component on the database, without shutting down and restarting the database itself. On the standby database, start/stop HADR commands cannot be issued while the database is online, so shutdown and restart is still needed to refresh HADR configuration.</p>
+
+        <p dir="ltr">The semi-dynamic feature allows you to initialize or reconfigure HADR with no downtime on the primary database.</p>
+
+        <h3 dir="ltr"><a name="HADR_Registry_Variables">HADR Registry Variables</a></h3>
+
+        <p dir="ltr">All HADR related registry variables require DB2 instance shutdown and restart to take effect. The HADR registry variables have DB2_HADR_ prefix. Example: DB2_HADR_PEER_WAIT_LIMIT, DB2_HADR_SOSNDBUF and DB2_HADR_SORCVBUF.</p>
+
+        <h2 dir="ltr"><a name="Self_Tuning_Memory_Manager__STMM__on_the_Standby">Self Tuning Memory Manager (STMM) on the Standby</a></h2>
+
+        <p dir="ltr">Self Tuning Memory Manager (STMM) only runs when a database is in the primary role. It does not run on the standby, even if configured as enabled. After a primary database starts, the STMM thread may not start until the first client connects. The thread can be seen by the "db2pd -edus" command. It is listed as "db2stmm". Similarly, after a standby turns into a primary via takeover, the STMM thread may not start until the first client connects.</p>
+
+        <p dir="ltr">You can manually copy the values set by STMM on the primary to the standby, to make the standby ready for changing into primary role. This will make your applications run more smoothly once the standby turns into a primary.</p>
+
+        <p dir="ltr">&nbsp;</p>
+
+        <h1 dir="ltr"><a name="HADR_Configuration_Parameters">HADR Configuration Parameters</a></h1>
+
+        <h2 dir="ltr"><a name="hadr_syncmode___HADR_Synchronization_Mode">hadr_syncmode - HADR synchronization mode</a></h2>
+
+        <p dir="ltr">See&nbsp;<a href="hadrSyncMode.html">HADR sync mode</a>. See also <a href="http://pic.dhe.ibm.com/infocenter/db2luw/v10r1/topic/com.ibm.db2.luw.admin.ha.doc/doc/c0011724.html">Db2 Knowledge Center.</a></p>
+
+        <h2 dir="ltr"><a name="hadr_peer_window___HADR_peer_window">hadr_peer_window - HADR peer window</a></h2>
+
+        <p dir="ltr"><strong>Why peer window? </strong></p>
+
+        <p dir="ltr">With SYNC or NEARSYNC modes, there will be no data loss if the primary fails in peer state. But the primary can fail in other states. Consider this scenario: The primary-standby network fails 2 seconds before the primary machine fails. Upon network failure, the primary will switch to remote catchup pending state. Log writing will be allowed without replication to the standby. Transactions committed during the 2 second window would be lost if a failover is performed. To protect primary data in such scenarios, the peer window feature can be enabled.</p>
+
+        <p dir="ltr"><strong>What is peer window? </strong></p>
+
+        <p dir="ltr">Database configuration parameter <a href="http://pic.dhe.ibm.com/infocenter/db2luw/v10r5/topic/com.ibm.db2.luw.admin.config.doc/doc/r0052656.html">hadr_peer_window</a> allows failover with no data loss if the primary fails within peer window, regardless of primary state at time of failure. When peer window is enabled, the primary will block log writing for the specified number of seconds when its connection to the standby is lost in peer state. This window where logging is blocked is called the peer window. HADR state is reported as "disconnected peer" during a peer window. Peer window protects the primary against data loss, at the cost of blocking log writing for a limited amount of time. If a failover is performed within the window, there will be no data loss.</p>
+
+        <p dir="ltr"><strong>How does peer window work? </strong></p>
+
+        <p dir="ltr">When peer window is enabled (set to non-zero), the primary will send messages to the standby at regular interval in peer state, indicating a "peer window end" timestamp, which is the time until which the primary would block log writing should it lose connection to the standby. The current peer window end is reported via the <span class="resultofText">PEER_WINDOW_END </span>monitoring <span class="resultofText">field on primary and standby (it is shown in db2pd -hadr output only when peer window is enabled). In peer state, this timestamp normally shows a point of time in the future. When primary-standby connection is lost, standby will no longer get update from the primary. The standby side peer window end will be frozen. On the primary side, HADR will fall out of peer state and stop updating peer window end. Primary and standby's final peer window end may not be the same because primary may have updated its local peer window end, but failed to send the update to the standby. But primary's window end is guaranteed to be later than standbys, so as not to break the peer window promise (no log writing before the timestamp sent to the standby). </span></p>
+
+        <p dir="ltr">Note: If the standby is shut down normally, primary does not enter peer window. Primary logging continues after standby is shut down. Peer window blocks primary log writing only when standby goes down abnormally, or the network fails.</p>
+
+        <p dir="ltr"><strong>Peer window behavior on reconnection</strong></p>
+
+        <p dir="ltr">Primary logging is blocked in peer window, until peer window end is reached, or primary and standby reconnect. Upon reconnection, peer window end field is cleared on both primary and standby and primary logging resumes. Thus if peer window was triggered by a transient network problem, primary logging may not be blocked for the full duration of a peer window. Standby keeps retrying connection every 2 seconds. As soon as reconnection succeeds, primary logging resumes.</p>
+
+        <p dir="ltr"><strong>How to use the "peer window end" field?</strong></p>
+
+        <p dir="ltr"><span class="resultofText">If </span>the primary database fails, you can read <span class="resultofText">PEER_WINDOW_END</span> on the standby to see if the primary failed before this point in time. If it did, you can perform a failover with no risk of data loss. If primary failure time is unknown or is later than the peer window end, the primary may (or may not) have committed transactions after peer window has ended; you will need to consider the risk of data loss; instead of failover, you might choose to repair and restart the failed primary.</p>
+
+        <p dir="ltr">The failover decision can be made long after the primary has failed. As long as you have the primary's failure time, and the peer window end reported from the standby, you can make a comparison to judge data loss risk.</p>
+
+        <p dir="ltr"><strong>"Takeover by force peer window only" Command</strong></p>
+
+        <p dir="ltr">For easy integration with cluster managers, a "peer window only" option is added to the "takeover by force" command. With this option, the command will perform a failover only if the current time is earlier than peer window end. Upon detecting primary failure, the cluster manager can issue the "takeover hadr by force peer window only" command to initiate a failover. The "primary failure -&gt; detect failure -&gt; issue takeover command -&gt; peer window end" sequence ensures that primary failure is before peer window end, therefore a failover will not cause data loss.</p>
+
+        <p dir="ltr">The "peer window only" option is recommended for automated failover (the integrated cluster manager in DB2 always uses this option). In such a configuration, peer window should be set to at least the amount of time the cluster manager needs to detect primary failure and react to the failure via failover. Other factors, such as degree of tolerance to data loss, time to detect and react to network partition may require longer peer window. In a TSA environment, you can use TSA parameters to calculate the minimal peer window. See the <a href="http://public.dhe.ibm.com/software/dw/data/dm-1002automateddb2hadr/Automated_long-distance_HADR_configurations.pdf">DB2 system topology and configuration for automated multi-site HA and DR</a> white paper, section "Considerations for configuring the HADR_TIMEOUT and HADR_PEER_WINDOW".</p>
+
+        <p dir="ltr"><strong>Primary-standby Clock Synchronization</strong>: "Peer window end" is based on primary host machine's clock. The standby shows <span class="resultofText">PEER_WINDOW_END as is (of course, after converting to local time zone</span>). If primary and standby clocks are not synchronized, you need to take the clock skew into account when making timestamp based decisions. Automated clock synchronization between primary and standby machines are strongly recommended. Even with synchronized clocks, a 5 second safety margin is recommended when using peer window end to determine the possibility of data loss. When processing "takeover ... by force peer window only" command, DB2 always uses a 5 second safety margin. Takeover is allowed only if the command's issuing time (based on standby's clock) is at least 5 seconds before the peer window end (received from the primary, based on the primary's clock).</p>
+
+        <p dir="ltr"><strong>Tuning Peer Window Setting</strong></p>
+
+        <p dir="ltr">Setting hadr_peer_window is to balance service availability against data loss protection. The default value of hadr_peer_window is zero, which means that the primary will unblock all waiting transaction and resume logging as soon as the connection is broken (peer window feature is disabled). This provides maximal service availability at the risk of losing data during a failover. This parameter can be tuned from zero to as long as years (effectively infinity), allowing the user to fine tune the balance between service availability and risk of data loss. An ultra long peer window is essentially enforcing the rule "transaction commit on primary requires a second copy on standby system".</p>
+
+        <p dir="ltr">There are specific considerations for peer window in cluster manager environment, see "Takeover by force peer window only" Command section above.</p>
+
+        <p dir="ltr">Note: Once peer window is enabled, regardless of how the connection is broken, either from network error, standby failure, hadr_timeout, or DB2_HADR_PEER_WAIT_LIMIT, primary will block transactions for the configured duration. This ensures that "peer window only" failover on standby is safe in all cases. However, if the connection is closed on normal standby shutdown, primary will bypass peer window and resume logging as soon as the connection is closed.</p>
+
+        <p dir="ltr">See also <a href="#Relationship_of_Peer_Window__hadr_timeout__and_HADR_peer_wait_limit">Relationship&nbsp;of&nbsp;Peer&nbsp;Window,&nbsp;hadr_timeout,&nbsp;and&nbsp;HADR&nbsp;peer&nbsp;wait&nbsp;limit</a></p>
+
+        <h2 dir="ltr"><a name="hadr_timeout___HADR_network_timeout">hadr_timeout - HADR network timeout</a></h2>
+
+        <p dir="ltr">HADR allows the user to set database configuration parameter hadr_timeout to configure network timeout. While connected, the two HADR databases exchange heartbeat messages. Heartbeat interval is the smallest of: 1/4 of hadr_timeout, 1/4 of hadr_peer_window (when peer window is enabled), and 30 seconds (the minimal heartbeat interval). If a database does not receive any message from its partner database for the duration of hadr_timeout seconds, it will consider the connection down and close the TCP connection. Heartbeat interval is reported by the HEARTBEAT_INTERVAL monitoring field.</p>
+
+        <p dir="ltr">The default hadr_timeout is 120 seconds, which works well in most cases. A minimum of 60 seconds is recommended.</p>
+
+        <p dir="ltr">If hadr_timeout is too long, HADR will not be able to detect network or partner database failure promptly. The primary can end up waiting too long for log replication attempt, blocking transactions on primary. It it is too short, HADR may get too many false alarms, breaking the connection too often. It can take a few seconds to reestablish a connection. Frequent disconnection wastes resources and leaves the database unprotected (unreplicated) when disconnected. If peer window is enabled, each disconnection will also leave the primary in disconnected peer state for the configured peer window size duration, leaving transactions blocked on the primary.<br />
+        <br />
+        <strong>HADR generally detects network errors and connection loss well before HADR timeout is reached</strong>. hadr_timeout is only the last resort of connection failure detection. Usually, when a database crashes, its host machine will clean up its open connections and notify the remote end of the closure. It's only machine crash that may leave the remote end hanging until timeout. Various network layer may have their own heartbeat mechanism too, detecting connection failure before HADR does. As soon as the failure is reported to the host machine, HADR will detect it because HADR continuously monitors the health of the connection. HADR will disconnect on any network error.<br />
+        <br />
+        When setting hadr_timeout, consider network reliability and machine response time. Use longer timeout if the network has irregular transmission delay. HADR processes send heartbeat messages on regular interval. But send and receive are only as prompt as the processes themselves are scheduled to run on the host machines. Events like swapping can prevent a process from sending or receiving messages on time.</p>
+
+        <p dir="ltr"><strong>hadr_timeout vs. DB2_HADR_PEER_WAIT_LIMIT</strong></p>
+
+        <p dir="ltr">See <a href="#Relationship_of_Peer_Window__hadr_timeout__and_HADR_peer_wait_limit">Relationship&nbsp;of&nbsp;Peer&nbsp;Window,&nbsp;hadr_timeout,&nbsp;and&nbsp;HADR&nbsp;peer&nbsp;wait&nbsp;limit</a></p>
+
+        <h2 dir="ltr"><a name="DB2_HADR_PEER_WAIT_LIMIT___HADR_peer_wait_limit">DB2_HADR_PEER_WAIT_LIMIT - HADR peer wait limit</a></h2>
+
+        <p dir="ltr">DB2_HADR_PEER_WAIT_LIMIT is a registry variable that limits primary logging wait time in peer state. For documentation, search "DB2_HADR_PEER_WAIT_LIMIT" in <a href="http://pic.dhe.ibm.com/infocenter/db2luw/v10r5/topic/com.ibm.db2.luw.admin.regvars.doc/doc/r0005669.html">http://pic.dhe.ibm.com/infocenter/db2luw/v10r5/topic/com.ibm.db2.luw.admin.regvars.doc/doc/r0005669.html</a></p>
+
+        <p dir="ltr">When DB2_HADR_PEER_WAIT_LIMIT is set, HADR primary database will break the HADR connection if logging on the primary database has been blocked for the specified number of seconds in peer state. The limit applies regardless of the reason for the wait. The primary can be waiting to send out the logs (waiting for network congestion to end), or waiting for ack messages to come back from the standby after sending out logs.<br />
+        <br />
+        The default DB2_HADR_PEER_WAIT_LIMIT is 0, meaning no limit.</p>
+
+        <p dir="ltr">Because HADR clock resolution is "second", and OS scheduling may delay a process from running (for example, it can take a little time for a swapped out process to run again), it is recommended that peer wait limit be at least 5 seconds. Smaller number is likely to cause false alarm.</p>
+
+        <p dir="ltr">The main usage of peer wait limit is to guard against standby replay blockage. When standby replay is blocked (for example, replaying reorg of a large table), its receive buffer or spool will fill up and it will stop receiving more logs. This will block primary log sending, and therefore log writing.</p>
+
+        <p dir="ltr">Note: If primary log sending is just slow, but not totally blocked, peer wait limit will not be triggered. For example, each log write is taking 100ms to replicate, instead of the usual 10ms, peer wait limit will not be triggered.</p>
+
+        <p dir="ltr">When peer wait limit is reached, the primary breaks the HADR connection. If peer window is enabled, primary log writing will be blocked for the additional duration of peer window. This behavior ensures the correctness of the peer window feature. If the primary fails after breaking the HADR connection on peer wait limit, but before peer window end is reached, a failover will still result in no data loss.</p>
+
+        <p dir="ltr">Peer wait limit caps primary logging wait time, at the cost of HA/DR protection. Data protection is lost when HADR connection is broken. Usual reconnection logic then kicks in. Assuming network is still good, primary and standby can reconnect within seconds. Upon reconnection, the pair will enter remote catchup state, which does not slow down primary log writing. It can take some time for the pair to reach peer state again. If primary logging rate is higher than log shipping or standby replay speed, the pair may not peer again until primary logging rate goes down.</p>
+
+        <h3 dir="ltr"><a name="Relationship_of_Peer_Window__hadr_timeout__and_HADR_peer_wait_limit">Relationship of hadr_peer_window, hadr_timeout, and DB2_HADR_PEER_WAIT_LIMIT</a></h3>
+
+        <p dir="ltr">In a generic sense, the 3 parameters all define some kind of "timeout". The section provides clarification:</p>
+
+        <ul dir="ltr">
+        	<li>hadr_peer_window defines primary database behavior upon connection loss.
+        	<ul>
+        		<li>Peer window does not deal with cause of connection loss.</li>
+        		<li>Logging is blocked for peer window duration regardless of cause of connection loss.</li>
+        		<li>Peer windows ends and logging resumes when primary and standby reconnect.</li>
+        	</ul>
+        	</li>
+        	<li>hadr_timeout puts a limit on network failure detection time.
+        	<ul>
+        		<li>hadr_timeout does not put a limit on log write wait time. It only deal with network health. As long as network is functional (HADR hearbeat is sent and received normally), hadr_timeout will not be triggered. But primary logging can still be blocked in such a scenario, if standby replay is slow and it runs out of buffer or spool space to receive more logs. Peer wait limit will be needed to unblock the primary in such scenarios.</li>
+        		<li>HADR generally detects network errors well before hadr_timeout is reached. OS and network generally detect and relay network errors to HADR before hadr_timeout is reached. hadr_timeout is only the worst case scenario.</li>
+        	</ul>
+        	</li>
+        	<li>DB2_HADR_PEER_WAIT_LIMIT puts a limit on log write wait time
+        	<ul>
+        		<li>Peer wait limit applies regardless of cause of the wait. Common causes are: Network problem, standby slow replay (spool or buffer fills up).
+        		<ul>
+        			<li>In the case of network problem, hadr_timeout puts a limit on detecting the problem.</li>
+        			<li>hadr_timeout and peer wait limit are monitored concurrently. In the case of network problem, whichever limit is reached first triggers disconnection.</li>
+        		</ul>
+        		</li>
+        		<li>When peer window is enabled, peer window block time is added on top of HADR wait limit. A client can be blocked for <span style="font-family:'courier new' , 'courier' , monospace">DB2_HADR_PEER_WAIT_LIMIT + hadr_peer_window </span>duration.</li>
+        	</ul>
+        	</li>
+        </ul>
+
+        <h2 dir="ltr"><a name="hadr_spool_limit___HADR_spool_limit">hadr_spool_limit - HADR spool limit</a></h2>
+
+        <p dir="ltr">First available in DB2 V10.1. See <a href="http://publib.boulder.ibm.com/infocenter/db2luw/v10r1/topic/com.ibm.db2.luw.wn.doc/doc/c0060144.html">http://publib.boulder.ibm.com/infocenter/db2luw/v10r1/topic/com.ibm.db2.luw.wn.doc/doc/c0060144.html</a></p>
+
+        <p dir="ltr"><strong>Note</strong>: hadr_spool_limit defaults to 0 (spooling disabled) in V10.1. In V10.5, the default is "automatic". DB2 will use (logprimary + logsecond) * logFileSize as spool size for "automatic". The exact value can be seen in the STANDBY_SPOOL_LIMIT monitor field.&nbsp; The new default applies to new databases created in V10.5. For database created in older release, the migration tool will set hadr_spool_limit to "automatic" for pureScale databases. It will NOT change the value on other databases (DPF and non-pureScale).<br />
+        <br />
+        When hadr_spool_limit is set to zero, HADR standby only buffers received log data in memory. Replay directly reads from receive buffer. A piece of buffer can be reused for receive only after it has been replayed. If replay is slow, incoming data will fill up the buffer and receive will stop. This will eventually block primary log send. Buffer size can be tuned via registry variable DB2_HADR_BUF_SIZE.<br />
+        <br />
+        When hadr_spool_limit is set to non zero, the standby can spool received log data to disk and replay from disk. Receive buffer can be reused before it's replayed. This is effectively a large receive buffer. Enabling spooling is preferred over enlarging DB2_HADR_BUF_SIZE, because disk capacity is usually larger and spooling usually does not slow down replay compared to buffering (disk speed is usually higher than replay speed).<br />
+        <br />
+        Max hadr_spool_limit is 2G pages (4KB per page). So the max limit is 8k GB. Note that you can also use "-1" for unlimited (limited only by device capacity).<br />
+        <br />
+        A large standby receive buffer or spool will absorb spikes in primary workload. However, it will not help if the sustained replay rate on standby is slower than the log generation rate on the primary. Note that it is recommended that the standby have the same hardware as the primary. So overall standby replay rate should keep up with primary log generation rate.<br />
+        <br />
+        During a takeover (forced and non forced), the old standby need to finish replay of all spooled logs. Thus a large spool can result in longer takeover time. You should take takeover (role switch and failover) time into consideration when setting spool limit.<br />
+        <br />
+        In DB2 V10.5 and later, the STANDBY_SPOOL_PERCENT monitoring field returns percent of spool space used relative to hadr_spool_limit. If hadr_spool_limit is -1 (unlimited), NULL is returned. In all releases, log pages in spool can be estimated by fields from db2pd -hadr or MON_GET_HADR table function:<br />
+        <br />
+        (STANDBY_LOG_POS - STANDBY_REPLAY_LOG_POS) / 4096 - (STANDBY_RECV_BUF_SIZE * STANDBY_RECV_BUF_PERCENT)<br />
+        <br />
+        The LOG_POS fields are in unit of bytes, while STANDBY_RECV_BUF_SIZE is in unit of pages (4096 bytes per page). The result shows the number of pages currently used by spooling. Compare it to STANDBY_SPOOL_LIMIT and you will know how close spooling is to the limit. Because the numbers are not read atomically, it is possible that the formula returns a negative number, which just means little or no spooling space is used.</p>
+
+        <h2 dir="ltr"><a name="DB2_HADR_BUF_SIZE___HADR_log_receive_buffer_size">DB2_HADR_BUF_SIZE - HADR log receive buffer size</a></h2>
+
+        <p dir="ltr">DB2_HADR_BUF_SIZE is a registry variable for controlling the HADR standby log receive buffer size. The default is 2 times logbufsz of the <strong>primary</strong> database. Any value smaller than the default is ignored, as the default is the minimum size required for the proper function of HADR.<br />
+        <br />
+        A large standby receive buffer will absorb spikes in primary workload. On DB2 V10.1 and later, spooling is preferred over buffering. See hadr_spool_limit above.<br />
+        <br />
+        On 32 bit DB2 instances, buffer size is limited to less than 4GB, because a 32 bit integer is used for its size in byte. DB2_HADR_BUF_SIZE unit is 4KB page. Therefore the maximal number you can set DB2_HADR_BUF_SIZE to is (0xFFFFFFFF / 4096) = 1048575. The exact maximal size is (4G - 4096) bytes.</p>
+
+        <p dir="ltr">On 64 bit DB2 instances, buffer size can go beyond 4GB. The theoretical limit is 8k GB. However, sizes greater than 4GB is rarely used and may not function as expected. Thus 4GB is a recommended soft limit.<br />
+        <br />
+        Buffer use percentage is available as "StandByRcvBufUsed" field from "db2pd -hadr" command on the standby. Starting V10.1, STANDBY_RECV_BUF_PERCENT field from "db2pd -hadr" and MON_GET_HADR table function reports this percentage.<br />
+        <br />
+        When spooling is disabled (hadr_spool_limit is 0), 100% of buffer use indicates that buffer is full and standby cannot receive any more log data. Primary log send will eventually be blocked.<br />
+        <br />
+        When spooling is enabled (hadr_spool_limit is non zero), 100% of buffer use does not indicate a problem, because standby can release buffer when needed, even if it has not been replayed.</p>
+
+        <h2 dir="ltr"><a name="DB2_HADR_SOSNDBUF_and_DB2_HADR_SORCVBUF___HADR_socket_send_and_receive_buffer_size">DB2_HADR_SOSNDBUF and DB2_HADR_SORCVBUF - HADR socket send and receive buffer size</a></h2>
+
+        <p dir="ltr">First available in V8fp17, V91fp5 and V95fp2.<br />
+        <br />
+        DB2_HADR_SOSNDBUF and DB2_HADR_SORCVBUF are registry variables to tune socket send and receive buffer sizes for the HADR TCP connection. See <a href="tcpTuning.html">TCP Tuning</a></p>
+
+        <p dir="ltr">&nbsp;</p>
+
+        <h1 dir="ltr"><a name="Configuration_Parameters_related_to_HADR">Configuration Parameters Related to HADR</a></h1>
+
+        <p dir="ltr">The following parameters are not HADR specific, but they affect HADR operation.</p>
+
+        <h2 dir="ltr"><a name="LOGARCHMETH1_and_LOGARCHMETH2___Log_Archive_Device">logarchmeth1 and logarchmeth2 - Log archive device</a></h2>
+
+        <p dir="ltr">Log archive device is configured via logarchmeth1, logarchmeth1.</p>
+
+        <p dir="ltr">The primary database archives log file as usual. The standby does not archive log files, even if an archive method is configured. During role change, the new primary will start archiving and the old primary will stop archiving. A standby does read from the archive though. It will ask the primary to ship log data only when the data is not found in its local log path, overflow path, or archive.</p>
+
+        <p dir="ltr">As of v11.5, changes to logarchmeth1/2 on an HADR standby will take effect upon HADR startup/re-activation as well as during takeover.</p>
+
+        <h3 dir="ltr"><a id="Having a shared archive" name="Having a shared archive">Sharing archive between primary and standby(s)</a></h3>
+
+        <p dir="ltr">Shared archive between primary and standby will make archive management easy. The shared archive will have all log files. Otherwise, each database's archive will only contain log files generated when it was a primary. This is especially problematic in multiple standby setup. In single standby setup, if a standby cannot find a log file in its local log path, overflow path, or archive, it will just ask the primary to ship this log file to it. The primary will be able to find the file in its local log path, overflow path, or archive, because a file is either on the primary or on the standby. In a multiple standby setup, when a standby takes over, it may not have a log file needed by another standby. For example, primary generated files 0 - 90, then a standby took over and generated files 91 - 100. Another standby is at file 50 when takeover happened. When this standby connects to the new primary, the new primary does not have file 50. The new primary will hit a "file not found" error when it tries to find file 50 to ship to the standby. The workaround is to manually copy these files from the old primary to the new primary (preferred, so that files can be shared by any standby), or to the standby who needs the files.<br />
+        <br />
+        Note that this "missing file" situation happens only when another standby is behind the primary by more than a few files at takeover time, or could not connect to the new primary for extended time after the takeover. The new primary has all the files starting at the takeover point. At takeover time, the new primary is likely to have some files before the takeover point too. Before the takeover, as a standby, the database keeps a number of old log files (even beyond the replay open transaction window) around so that it can quickly rename an old file into a new file instead of creating and initilizing a brand new file. These files will be reclaimed (reused or deleted) only when the new primary writes more logs and reclaims old files. If a standby connects to the new primary soon after takeover, the primary is likely to still have the files the standby needs.<br />
+        <br />
+        A shared archive across all databases (primary and all standbys) solves the "missing file" problem. But this configuration may not be practical when the database sites are geographically distributed. For example, site A hosts the primary, site B hosts a standby. The shared archive is physically on site A, but accessible by the standby from site B. When standby reads from the archive, it's fine, as the bandwidth needed is the same as the standby getting the data from the primary via remote catchup. Assuming archive remote access and HADR connection share the same site A-B network, the load on the network is the same. After a role switch, site B would be the new primary. It will need to write archive remotely to site A. This can double the load on the network because in peer state, a standby always gets log data directly from the primary via the HADR TCP connection. At the same time, the primary needs to send archives to the standby site. If the network is down, primary archive will fail and eventually its log device will be full. Adding the dependency to a remote archiving device reduces the primary's reliability.<br />
+        <br />
+        Share archive for databases at the same site is recommended. For remote sites, you will need to make a decision based on the network speed, reliablity, and ease of management.<br />
+        <br />
+        When using shared archive, be sure to configure it to allow access from all the hosts. You may need to set database configuration parameters LOGARCHOPT1 and LOGARCHOPT2.</p>
+
+        <h2 dir="ltr"><a name="LOGINDEXBUILD_and_INDEXREC___Index_logging_and_replaying">logindexbuild and indexrec - Index logging and replaying</a></h2>
+
+        <h3 dir="ltr"><a name="LOGINDEXBUILD">logindexbuild</a></h3>
+
+        <p dir="ltr">logindexbuild is a database configuration parameter that controls whether index creation, recreation and reorg are logged. It has two possible values, ON and OFF. The recommended value for HADR databases is ON, which allows full replication of indexes (HADR replication is log based; if something is not logged, it is not replicated). If logindexbuild is OFF, an index will be marked invalid when HADR is unable to replicate it. Such indexes may be rebuilt once the HADR standby takes over as primary. The cost of having this parameter ON is log space, log shipping, or log replaying.<br />
+        <br />
+        logindexbuild is a database level configuration parameter. Individual tables may override it via the LOG INDEX BUILD table attribute.</p>
+
+        <h3 dir="ltr"><a name="INDEXREC">indexrec</a></h3>
+
+        <p dir="ltr">indexrec is a database and database manager level parameter that controls what triggers index rebuild and whether index creation/recreation/reorg logs are replayed during rollforward and on HADR standby. The value is one of:<br />
+        <br />
+        ACCESS, ACCESS_NO_REDO, RESTART, RESTART_NO_REDO<br />
+        <br />
+        The string ACCESS vs. RESTART controls what event triggers index rebuild. ACCESS means on first access of the index. RESTART means on restart from a crash, or when an HADR standby database turns into a primary database via takeover.<br />
+        <br />
+        The "NO_REDO" part specifies that index creation/recreation/reorg logs will not be replayed during rollforward and on HADR standby. This designation speeds up log replay, at the cost of future effort to rebuild the indexes.<br />
+        <br />
+        Furthermore, the database level parameter can be set to SYSTEM, meaning the database will use database manager level configuration. Otherwise, database level configuration overrides database manager level configuration.<br />
+        <br />
+        The recommended value for HADR databases is RESTART. With this setting, at end of a takeover, the new primary database will search for all invalid indexes and rebuild them in background. Index rebuild does not prevent clients from connecting to the new primary database.<br />
+        <br />
+        For more info, see <a href="http://publib.boulder.ibm.com/infocenter/db2luw/v9r5/index.jsp?topic=/com.ibm.db2.luw.admin.ha.doc/doc/c0011691.html">http://publib.boulder.ibm.com/infocenter/db2luw/v9r5/index.jsp?topic=/com.ibm.db2.luw.admin.ha.doc/doc/c0011691.html</a></p>
+
+        <h2 dir="ltr"><a name="DB2_LOAD_COPY_NO_OVERRIDE___Replaying_Load">DB2_LOAD_COPY_NO_OVERRIDE - Replaying load</a></h2>
+
+        <p dir="ltr">HADR replicates load with certain restrictions. Because load data is not embedded in the log stream, the standby can only get the data from a load copy. Thus load is replicated only if there is a load copy. The copy must be available to the standby when it replays the load. The standby may attempt to access the copy any time after the primary completes the load. It is recommended that a shared copy device such as NFS is used. If you transfer the copy by means like physically transferring a tape, it is recommended that the standby be stopped ("db2 deactivated database") before the primary starts the load. Once the primary finishes the load and the copy is available to the standby, restart the standby ("db2 activate database"). The standby will then reconnect to the primary and replay the load.<br />
+        <br />
+        When the primary does a load with COPY NO option, by default the load is automatically converted to NONRECOVERABLE. When standby replays the load, the table is marked as invalid. COPY NO loads can be optionally converted to COPY YES via the DB2_LOAD_COPY_NO_OVERRIDE registry variable. See <a href="http://publib.boulder.ibm.com/infocenter/db2luw/v9r5/topic/com.ibm.db2.luw.admin.ha.doc/doc/c0011761.html">http://publib.boulder.ibm.com/infocenter/db2luw/v9r5/topic/com.ibm.db2.luw.admin.ha.doc/doc/c0011761.html</a> for details (Search for "Load operations and HADR" in the Info Center page).</p>
+
+        <h2 dir="ltr"><a name="BLOCKNONLOGGED___Block_Non_Logged_operations">blocknonlogged - Block non logged operations</a></h2>
+
+        <p dir="ltr">First available in V95fp4 and V97.<br />
+        <br />
+        When database parameter blocknonlogged is set to YES (default NO), tables with "not logged initially" attribute or not logged LOB columns can not created, either by create table or alter table statement. See also <a href="http://publib.boulder.ibm.com/infocenter/db2luw/v9r5/topic/com.ibm.db2.luw.admin.config.doc/doc/r0055068.html">http://publib.boulder.ibm.com/infocenter/db2luw/v9r5/topic/com.ibm.db2.luw.admin.config.doc/doc/r0055068.html</a><br />
+        <br />
+        Setting this parameter prevents any new non logged tables and columns to be created in the database. But existing non logged tables and columns are not affected. To ensure all data is replicated to HADR standby, check existing non logged tables and columns, remove or modify as necessary. Then set blocknonlogged to YES.</p>
+
+        <h2 dir="ltr"><a name="AUTORESTART">autorestart</a></h2>
+
+        <p dir="ltr">The <span class="keyword parmname parmname" id="vcc_sp_span_42" tabindex="9"><span class="resultofText">autorestart</span></span> configuration parameter determines if the database manager automatically initiates crash recovery when a user connects to a database that had previously terminated abnormally. If the <span class="keyword parmname parmname" id="vcc_sp_span_43" tabindex="10"><span class="resultofText">autorestart</span></span> configuration parameter is not set, the user must issue an explicit restart database command before they can connect to the database. The recommended value on HADR databases is ON. If you would like to use OFF, see <a href="http://publib.boulder.ibm.com/infocenter/db2luw/v10r5/topic/com.ibm.db2.luw.admin.ha.doc/doc/c0011761.html#c0011761__autorestart">http://publib.boulder.ibm.com/infocenter/db2luw/v10r5/topic/com.ibm.db2.luw.admin.ha.doc/doc/c0011761.html#c0011761__autorestart</a></p>
+      </div>
+    </div>
+    <!-- /#page-content-wrapper -->
+
+  </div>
+  <!-- /#wrapper -->
+
+  <!-- Bootstrap core JavaScript -->
+  <script src="vendor/jquery/jquery.min.js"></script>
+  <script src="vendor/bootstrap/js/bootstrap.bundle.min.js"></script>
+
+  <!-- Menu Toggle Script -->
+  <script>
+    $("#menu-toggle").click(function(e) {
+      e.preventDefault();
+      $("#wrapper").toggleClass("toggled");
+    });
+  </script>
+
+</body>
+
+</html>

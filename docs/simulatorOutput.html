@@ -1,0 +1,228 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
+  <meta name="description" content="">
+  <meta name="author" content="">
+
+  <title>Db2 HADR Wiki</title>
+
+  <!-- Bootstrap core CSS -->
+  <link href="vendor/bootstrap/css/bootstrap.min.css" rel="stylesheet">
+
+  <!-- Custom styles for this template -->
+  <link href="css/simple-sidebar.css" rel="stylesheet">
+
+</head>
+
+<body>
+
+  <div class="d-flex" id="wrapper">
+
+    <!-- Sidebar -->
+    <div class="bg-light border-right" id="sidebar-wrapper">
+      <div class="sidebar-heading">Menu</div>
+      <div class="list-group list-group-flush">
+        <a href="hadrBenefits.html" class="list-group-item list-group-item-action bg-light">HADR Benefits</a>
+        <a href="featureHistory.html" class="list-group-item list-group-item-action bg-light">Feature History</a>
+        <a href="hadrTutorial.html" class="list-group-item list-group-item-action bg-light">HADR Tutorial</a>
+        <a href="tcpTuning.html" class="list-group-item list-group-item-action bg-light">TCP Tuning</a>
+        <a href="perfTuning.html" class="list-group-item list-group-item-action bg-light">Perf Tuning</a>
+        <a href="hadrSimulator.html" class="list-group-item list-group-item-action bg-light">HADR Simulator</a>
+        <a href="simulatorOptions.html" class="list-group-item list-group-item-action bg-light">HADR Simulator Options</a>
+        <a href="simulatorOutput.html" class="list-group-item list-group-item-action bg-light"><strong>> HADR Simulator Output</strong></a>
+        <a href="simulatorParams.html" class="list-group-item list-group-item-action bg-light">HADR Simulator Params</a>
+        <a href="db2logscan.html" class="list-group-item list-group-item-action bg-light">db2logscan</a>
+        <a href="hadrConfig.html" class="list-group-item list-group-item-action bg-light">HADR Config</a>
+        <a href="hadrSyncMode.html" class="list-group-item list-group-item-action bg-light">HADR Sync Mode</a>
+        <a href="hadrTakeover.html" class="list-group-item list-group-item-action bg-light">HADR Takeover</a>
+        <a href="hadrMonitoring.html" class="list-group-item list-group-item-action bg-light">HADR Monitoring</a>
+        <a href="hadrCommands.html" class="list-group-item list-group-item-action bg-light">HADR Commands</a>
+        <a href="hadrLogShipping.html" class="list-group-item list-group-item-action bg-light">HADR Log Shipping</a>
+        <a href="hadrPerf.html" class="list-group-item list-group-item-action bg-light">HADR Perf</a>
+        <a href="diagConnect.html" class="list-group-item list-group-item-action bg-light">Diag Connect</a>
+        <a href="db2diag.html" class="list-group-item list-group-item-action bg-light">db2diag.log</a>
+        <a href="clusterManagers.html" class="list-group-item list-group-item-action bg-light">Cluster Managers</a>
+        <a href="clientReroute.html" class="list-group-item list-group-item-action bg-light">Client Reroute</a>
+        <a href="hadrPureScale.html" class="list-group-item list-group-item-action bg-light">HADR on PureScale</a>
+        <a href="faq.html" class="list-group-item list-group-item-action bg-light">FAQ</a>
+        <a href="db2fmtlog.html" class="list-group-item list-group-item-action bg-light">db2fmtlog replayonlywindow</a>
+      </div>
+    </div>
+    <!-- /#sidebar-wrapper -->
+
+    <!-- Page Content -->
+    <div id="page-content-wrapper">
+
+      <nav class="navbar navbar-expand-lg navbar-light bg-light border-bottom">
+        <button class="btn btn-primary" id="menu-toggle">Toggle Menu</button>
+
+        <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarSupportedContent" aria-controls="navbarSupportedContent" aria-expanded="false" aria-label="Toggle navigation">
+          <span class="navbar-toggler-icon"></span>
+        </button>
+
+        <div class="collapse navbar-collapse" id="navbarSupportedContent">
+          <ul class="navbar-nav ml-auto mt-2 mt-lg-0">
+            <li class="nav-item">
+              <a class="nav-link" href="index.html">Home</a>
+            </li>
+            <li class="nav-item">
+              <a class="nav-link" href="contact.html">Contact</a>
+            </li>
+            <li class="nav-item">
+              <a class="nav-link" href="contribute.html">Contribute</a>
+            </li>
+          </ul>
+        </div>
+      </nav>
+
+      <div class="container-fluid">
+        <h1 dir="ltr">Interpreting HADR simulator output</h1>
+
+        <p dir="ltr">Below is sample output of a primary process. Standby output is similar.<br />
+        &nbsp;</p>
+
+        <pre dir="ltr">
+        + simhadr -role primary -lhost brant -lport 46000 -rhost auklet -rport 46000
+                  -sockSndBuf 64000 -sockRcvBuf 64000 -flushSize 32
+
+        Measured sleep overhead: 0.003608 second, using spin time 0.004329 second.
+        SyncMode = NEARSYNC
+        flushSize = 32 pages
+        Simulation run time = 4 seconds
+
+        Resolving local host brant via gethostbyname()
+        hostname=brant.beaverton.ibm.com
+        alias: brant
+        address_type=2 address_length=4
+        address: 9.47.73.49
+
+        Resolving remote host auklet via gethostbyname()
+        hostname=auklet.beaverton.ibm.com
+        alias: auklet
+        address_type=2 address_length=4
+        address: 9.47.73.42
+
+        Socket property upon creation
+        BlockingIO=true
+        NAGLE=true
+        SO_SNDBUF=16384
+        SO_RCVBUF=87380
+        SO_LINGER: onoff=0, length=0
+
+        Calling setsockopt(SO_SNDBUF)
+        Calling setsockopt(SO_RCVBUF)
+        Socket property upon buffer resizing
+        BlockingIO=true
+        NAGLE=true
+        SO_SNDBUF=128000
+        SO_RCVBUF=128000
+        SO_LINGER: onoff=0, length=0
+
+        Binding socket to local address.
+        Listening on local host TCP port 46000
+
+        Connected.
+
+        Calling fcntl(O_NONBLOCK)
+        Calling setsockopt(TCP_NODELAY)
+        Socket property upon connection
+        BlockingIO=false
+        NAGLE=false
+        SO_SNDBUF=128000
+        SO_RCVBUF=128000
+        SO_LINGER: onoff=0, length=0
+
+        Sending handshake message:
+        syncMode=NEARSYNC
+        flushSize=32
+        connTime=2008-07-09_17:12:25_PDT
+
+        Sending log flushes. Press Ctrl-C to stop.
+
+        NEARSYNC: Total 410255360 bytes in 4.000821 seconds, 102.542793 MBytes/sec
+        Total 3130 flushes, 0.001278 sec/flush, 32 pages (131072 bytes)/flush
+
+        Total 410255360 bytes sent in 4.000821 seconds. 102.542793 MBytes/sec
+        Total 10893 send calls, 37.662 KBytes/send,
+        Total 3136 congestions, 0.848714 seconds, 0.000270 second/congestion
+
+        Total 150240 bytes recv in 4.000821 seconds. 0.037552 MBytes/sec
+        Total 3130 recv calls, 0.048 KBytes/recv
+
+        Distribution of log write size (unit is byte):
+        Total 3130 numbers, Sum 410255360, Min 131072, Max 131072, Avg 131072
+        Exactly     131072        3130 numbers
+
+        Distribution of log shipping time (unit is microsecond):
+        Total 3130 numbers, Sum 3989623, Min 1262, Max 1622, Avg 1274
+        From 1024 to 2047               3130 numbers
+
+        Distribution of congestion duration (unit is microsecond):
+        Total 3136 numbers, Sum 848714, Min 208, Max 824, Avg 270
+        From 128 to 255                  120 numbers
+        From 256 to 511                 3011 numbers
+        From 512 to 1023                   5 numbers
+
+        Distribution of send size (unit is byte):
+        Total 10893 numbers, Sum 410255360, Min 752, Max 86880, Avg 37662
+        From 512 to 1023                 192 numbers
+        From 2048 to 4095                  3 numbers
+        From 4096 to 8191               2661 numbers
+        From 8192 to 16383              1777 numbers
+        From 16384 to 32767             2913 numbers
+        From 32768 to 65535              217 numbers
+        From 65536 to 131071            3130 numbers
+
+        Distribution of recv size (unit is byte):
+        Total 3130 numbers, Sum 150240, Min 48, Max 48, Avg 48
+        Exactly         48        3130 numbers</pre>
+
+        <p dir="ltr"><br />
+        <br />
+        Simhadr prints out details of host name resolution. The same function is used in real HADR to resolve host names. The output can be used to debug HADR configuration. For example, you can see the actual IP address a host name is resolved to.<br />
+        <br />
+        Socket property is printed upon creation, buffer resizing and connection. This helps you to track down potential socket problems. In the example, granted socket buffer size is twice as requested. This is normal on Linux. Th OS grants more memory because it takes memory overhead into consideration. On AIX, if Interface Specific Network Option (ISNO) is enabled, socket property may change upon connection because the OS can determine the actual network interface used by the socket only upon connection.<br />
+        <br />
+        The sample ran on a giga bit ethernet. The throughput is 102 MB/second. Note that this is NEARSYNC mode, where round trip messaging is required for each flush (primary needs an ack message from standby). Simhadr reports average log shipping time as 1.3 millisecond. Compared to .1 millisecond round trip time on this network (measured by "ping"), the overhead of ack message is insignificant. Thus NEARSYNC mode throughput is not too far behind the raw bandwidth of the network.<br />
+        <br />
+        On the same system, when running in ASYNC mode, throughput is 115 MB/second, near the full bandwidth of the giga bit network.<br />
+        <br />
+        The distribution of various metrics are printed. For log shipping time, there are 3130 samples (because there are 3130 flushes). Average is 1274 microsecond. All numbers are in the range of 1024 to 2047. The numbers show that log shipping time is very consistent. This is good news to transactions.<br />
+        <br />
+        If a distribution has 8 or fewer distinct values, simhadr prints out the distinct values and their occurance count. For example, receive size has only one distinct value: 48. The ack message from standby to primary is exactly 48 bytes. Because the message is small, it is always received in one recv call.<br />
+        <br />
+        For send, transient congestions are hit because the process can deliver data to TCP layer faster than than TCP can send. TCP throttles the sender by returning "resource temporarily unavailable" error code. Upon receiving this code, simhadr waits on select() until the OS indicates that the socket is writable again. Average send size is 37 KB. So on average, each flush took 3 send calls to complete.<br />
+        <br />
+        For distribution of congestion time, average is 270 microsecond, or .27 millisecond. The numbers are mostly in the range of 256 to 511. This is expected as the round trip time on the network is .1 millisecond. The sending socket can release its buffers for more send only when it receives ack (TCP level ack, not to be confused with HADR ack) from the receiver. Thus the time to get out of congestion is usually in the same order as the round trip time.<br />
+        <br />
+        Transient congestion is normal and expected when using non-blocking socket. There will be more info later in this paper in section "Non-blocking IO and sender congestion". The overhead to handle congestion is insignificant. On the same system, when using larger socket send buffer, congestions are completely avoided, but throughput remains the same.<br />
+        <br />
+        Note that the example did not specify a disk speed. So the numbers reflects network as the sole bottleneck. In the real world, disk throughput is typically between 30-60 MB/second, slower than the sample network. Thus on LAN, HADR log replication usually adds only a small overhead to database logging when NEARSYNC and ASYNC modes are used (these modes use parallel log write and send).<br />
+        <br />
+        &nbsp;</p>
+      </div>
+    </div>
+    <!-- /#page-content-wrapper -->
+
+  </div>
+  <!-- /#wrapper -->
+
+  <!-- Bootstrap core JavaScript -->
+  <script src="vendor/jquery/jquery.min.js"></script>
+  <script src="vendor/bootstrap/js/bootstrap.bundle.min.js"></script>
+
+  <!-- Menu Toggle Script -->
+  <script>
+    $("#menu-toggle").click(function(e) {
+      e.preventDefault();
+      $("#wrapper").toggleClass("toggled");
+    });
+  </script>
+
+</body>
+
+</html>

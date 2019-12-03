@@ -1,0 +1,759 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
+  <meta name="description" content="">
+  <meta name="author" content="">
+
+  <title>Db2 HADR Wiki</title>
+
+  <!-- Bootstrap core CSS -->
+  <link href="vendor/bootstrap/css/bootstrap.min.css" rel="stylesheet">
+
+  <!-- Custom styles for this template -->
+  <link href="css/simple-sidebar.css" rel="stylesheet">
+
+</head>
+
+<body>
+
+  <div class="d-flex" id="wrapper">
+
+    <!-- Sidebar -->
+    <div class="bg-light border-right" id="sidebar-wrapper">
+      <div class="sidebar-heading">Menu</div>
+      <div class="list-group list-group-flush">
+        <a href="hadrBenefits.html" class="list-group-item list-group-item-action bg-light">HADR Benefits</a>
+        <a href="featureHistory.html" class="list-group-item list-group-item-action bg-light">Feature History</a>
+        <a href="hadrTutorial.html" class="list-group-item list-group-item-action bg-light">HADR Tutorial</a>
+        <a href="tcpTuning.html" class="list-group-item list-group-item-action bg-light">TCP Tuning</a>
+        <a href="perfTuning.html" class="list-group-item list-group-item-action bg-light">Perf Tuning</a>
+        <a href="hadrSimulator.html" class="list-group-item list-group-item-action bg-light">HADR Simulator</a>
+        <a href="simulatorOptions.html" class="list-group-item list-group-item-action bg-light">HADR Simulator Options</a>
+        <a href="simulatorOutput.html" class="list-group-item list-group-item-action bg-light">HADR Simulator Output</a>
+        <a href="simulatorParams.html" class="list-group-item list-group-item-action bg-light">HADR Simulator Params</a>
+        <a href="db2logscan.html" class="list-group-item list-group-item-action bg-light">db2logscan</a>
+        <a href="hadrConfig.html" class="list-group-item list-group-item-action bg-light">HADR Config</a>
+        <a href="hadrSyncMode.html" class="list-group-item list-group-item-action bg-light">HADR Sync Mode</a>
+        <a href="hadrTakeover.html" class="list-group-item list-group-item-action bg-light">HADR Takeover</a>
+        <a href="hadrMonitoring.html" class="list-group-item list-group-item-action bg-light">HADR Monitoring</a>
+        <a href="hadrCommands.html" class="list-group-item list-group-item-action bg-light">HADR Commands</a>
+        <a href="hadrLogShipping.html" class="list-group-item list-group-item-action bg-light">HADR Log Shipping/a>
+        <a href="hadrPerf.html" class="list-group-item list-group-item-action bg-light"><strong>> HADR Perf</strong></a>
+        <a href="diagConnect.html" class="list-group-item list-group-item-action bg-light">Diag Connect</a>
+        <a href="db2diag.html" class="list-group-item list-group-item-action bg-light">db2diag.log</a>
+        <a href="clusterManagers.html" class="list-group-item list-group-item-action bg-light">Cluster Managers</a>
+        <a href="clientReroute.html" class="list-group-item list-group-item-action bg-light">Client Reroute</a>
+        <a href="hadrPureScale.html" class="list-group-item list-group-item-action bg-light">HADR on PureScale</a>
+        <a href="faq.html" class="list-group-item list-group-item-action bg-light">FAQ</a>
+        <a href="db2fmtlog.html" class="list-group-item list-group-item-action bg-light">db2fmtlog replayonlywindow</a>
+      </div>
+    </div>
+    <!-- /#sidebar-wrapper -->
+
+    <!-- Page Content -->
+    <div id="page-content-wrapper">
+
+      <nav class="navbar navbar-expand-lg navbar-light bg-light border-bottom">
+        <button class="btn btn-primary" id="menu-toggle">Toggle Menu</button>
+
+        <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarSupportedContent" aria-controls="navbarSupportedContent" aria-expanded="false" aria-label="Toggle navigation">
+          <span class="navbar-toggler-icon"></span>
+        </button>
+
+        <div class="collapse navbar-collapse" id="navbarSupportedContent">
+          <ul class="navbar-nav ml-auto mt-2 mt-lg-0">
+            <li class="nav-item">
+              <a class="nav-link" href="index.html">Home</a>
+            </li>
+            <li class="nav-item">
+              <a class="nav-link" href="contact.html">Contact</a>
+            </li>
+            <li class="nav-item">
+              <a class="nav-link" href="contribute.html">Contribute</a>
+            </li>
+          </ul>
+        </div>
+      </nav>
+
+      <div class="container-fluid">
+        <p dir="ltr" style="text-align:center"><span style="font-size:22px">HADR Performance Guide</span></p>
+
+        <h2 dir="ltr">Presentation</h2>
+
+        <p dir="ltr"><strong>Slides for a companion presentation are available at <a href="/developerworks/community/wikis/form/api/wiki/e7a20a94-a11a-4e65-bc01-ddc92f0329ed/page/540cb75a-bb98-4b39-b69d-26b47a318a6c/attachment/87474e73-d473-46ed-8985-8e9622513556/media/HADR_perf.pdf">HADR_perf.pdf</a>.</strong> The presentation is intended as an overview or quick start for HADR performance, while the article below is best for in-depth studying or as handy reference.</p>
+
+        <h2 dir="ltr">Article</h2>
+
+        <p dir="ltr">When the DB2 HADR feature is enabled, the primary database's transaction logs are replicated to one or more standby databases in real time. The replication provides HA and DR protection, at a cost. The replication adds overhead to the primary's log writing. Applications on the primary may exprience slow down. This article will focus on HADR performance specifically.</p>
+
+        <p dir="ltr">This article consists of three main sections:<br />
+        - Configuring HADR for Optimal Performance: Preventive Care<br />
+        - Monitoring HADR Performance: Get early warning of problems<br />
+        - Diagnosing and fixing HADR performance problems: When a problem does occur, how to fix it.<br />
+        <br />
+        <strong>Table of Contents</strong></p>
+
+        <ul dir="ltr">
+        	<li><a href="#Configuring_HADR_for_Optimal_Performance">Configuring HADR for Optimal Performance</a>
+
+        	<ul>
+        		<li><a href="#TCP_Tuning">TCP Tuning</a></li>
+        		<li><a href="#HADR_Synchronization_Mode">HADR Synchronization Mode</a></li>
+        		<li><a href="#Standby_receive_buffer_and_spool_size">Standby receive buffer and spool size</a></li>
+        		<li><a href="#HADR_peer_wait_limit">HADR peer wait limit</a></li>
+        		<li><a href="#Log_Path_on_Primary_and_Standby">Log Path on Primary and Standby</a></li>
+        		<li><a href="#Self_Tuning_Memory_Manager__STMM__on_the_Standby">Self Tuning Memory Manager (STMM) on the Standby</a></li>
+        		<li>&nbsp;</li>
+        	</ul>
+        	</li>
+        	<li><a href="#Monitoring_HADR_Performance">Monitoring HADR Performance</a>
+        	<ul>
+        		<li><a href="#Primary_Database_Logging_Rate">Primary Database Logging Rate</a></li>
+        		<li><a href="#Log_Shipping_Rate">Log Shipping Rate</a></li>
+        		<li><a href="#Log_write_size_and_time">Log write size and time</a>
+        		<ul>
+        			<li><a href="#Primary_vs__Standby_log_write">Primary vs. Standby log write</a></li>
+        			<li><a href="#Log_write_size">Log write size</a></li>
+        			<li><a href="#Log_write_time">Log write time</a></li>
+        		</ul>
+        		</li>
+        		<li><a href="#Alert_Conditions__Impact_to_primary_database_logging">Alert Conditions: Impact to primary database logging</a>
+        		<ul>
+        			<li><a href="#IBM_Data_Studio_Web_Console_Alerts">IBM Data Studio Web Console Alerts</a></li>
+        		</ul>
+        		</li>
+        		<li><a href="#Sender_Congestion">Sender Congestion</a></li>
+        		<li><a href="#Monitoring_Hardware_Resources">Monitoring Hardware Resources</a></li>
+        		<li>&nbsp;</li>
+        	</ul>
+        	</li>
+        	<li><a href="#Diagnosing_and_Fixing_HADR_Performance_Problems">Diagnosing and Fixing HADR Performance Problems</a>
+        	<ul>
+        		<li><a href="#Identifying_Bottleneck">Identifying Bottleneck</a></li>
+        		<li><a href="#Slow_Standby">Slow Standby</a>
+        		<ul>
+        			<li><a href="#Slow_Replay_on_Standby">Slow Replay on Standby</a></li>
+        			<li><a href="#Standby_Log_Device_Full">Standby Log Device Full</a></li>
+        			<li><a href="#Slow_Log_Write_on_Standby">Slow Log Write on Standby</a></li>
+        		</ul>
+        		</li>
+        		<li><a href="#Tuning_Standby_Replay">Tuning Standby Replay</a>
+        		<ul>
+        			<li><a href="#Number_of_Replay_Threads">Number of Replay Threads</a></li>
+        			<li><a href="#Bufferpool_Performance">Bufferpool Performance</a></li>
+        			<li><a href="#Reads_on_Standby">Reads on Standby</a></li>
+        			<li><a href="#Hardware_Utilization">Hardware Utilization</a></li>
+        		</ul>
+        		</li>
+        		<li><a href="#Slow_Network">Slow Network</a>
+        		<ul>
+        			<li><a href="#Network_Tuning">Network Tuning</a></li>
+        			<li><a href="#Network_Bonding">Network Bonding</a><br />
+        			&nbsp;</li>
+        		</ul>
+        		</li>
+        	</ul>
+        	</li>
+        	<li><a href="#Performance_Workaround">Performance&nbsp;Workaround</a>
+        	<ul>
+        		<li><a href="#Using_a_Large_Spool_on_the_Standby">Using&nbsp;a&nbsp;Large&nbsp;Spool&nbsp;on&nbsp;the&nbsp;Standby</a></li>
+        		<li><a href="#HADR_peer_wait_limit2">HADR&nbsp;peer&nbsp;wait&nbsp;limit</a></li>
+        		<li><a href="#Temporarily_Changing_HADR_Sychronization_Mode">Temporarily&nbsp;Changing&nbsp;HADR&nbsp;Sychronization&nbsp;Mode</a><br />
+        		&nbsp;</li>
+        	</ul>
+        	</li>
+        	<li><a href="#Multiple_Standby">Multiple Standby</a>
+        	<ul>
+        		<li><a href="#Network_Requirement">Network Requirement</a></li>
+        		<li><a href="#Log_Device_and_Archive_Requirement">Log Device and Archive Requirement</a></li>
+        		<li><a href="#Remote_Catchup_Log_Read_Optimization">Remote Catchup Log Read Optimization</a></li>
+        		<li>&nbsp;</li>
+        	</ul>
+        	</li>
+        	<li><a href="#HADR_on_pureScale">HADR on pureScale</a>
+        	<ul>
+        		<li><a href="#Network_Requirement2">Network Requirement</a></li>
+        		<li><a href="#Replay_Speed">Replay Speed</a></li>
+        		<li><a href="#Storage_System_Requirement">Storage System Requirement</a></li>
+        	</ul>
+        	</li>
+        </ul>
+
+        <p dir="ltr"><strong>&nbsp;&nbsp;</strong></p>
+
+        <h1 dir="ltr"><a name="Configuring_HADR_for_Optimal_Performance">Configuring HADR for Optimal Performance</a></h1>
+
+        <p dir="ltr">This section discusses how to tune HADR for optimal performance. The tuning steps should be done as part of HADR setup. If you already hit problems, well, better late than never.</p>
+
+        <h2 dir="ltr"><a name="TCP_Tuning">TCP Tuning</a></h2>
+
+        <p dir="ltr">HADR uses TCP to send logs. So TCP performance is critical to HADR. Registry variables DB2_HADR_SOSNDBUF and DB2_HADR_SORCVBUF (socket send and receive buffer size) are important to TCP performance. See <a href="tcpTuning.html">TCP Tuning</a></p>
+
+        <h2 dir="ltr"><a name="HADR_Synchronization_Mode">HADR Synchronization Mode</a></h2>
+
+        <p dir="ltr">HADR overhead on primary database logging varies, depending on the <a href="hadrSyncMode.html">HADR sync mode</a> chosen. Although stronger sync mode provides more HA and DR protection, hardware and network speed may limit your choice.<br />
+        <br />
+        The rule of thumb is to use SYNC or NEARSYNC mode on LAN, and use ASYNC or SUPERASYNC on WAN. With the new HADR tool kit, you can do quantitative analysis of your workload, disk, and network to make an informed choice. The <a href="perfTuning.html">step by step TCP and sync mode configuration</a> procedure is recommended during HADR planning, after HADR deployment (if it was not done during planning), or any time when performance problem is suspected (workload characteristic can change over time).</p>
+
+        <h2 dir="ltr"><a name="Standby_receive_buffer_and_spool_size">Standby receive buffer and spool size</a></h2>
+
+        <p dir="ltr">The standby receive buffer (in memory) and spool (on disk) serve the same purpose: hold received, but not yet replayed log data on the standby. Log receive produces log data in buffer and spool. Log replay consumes the log data. The buffer and spool allows standby to continue to receive log data when replay position is behind receive position, until buffer or spool fills up. This buffering can absorb load peaks in the primary workload. However, if the sustained standby replay speed is slower than primary log generation speed, the buffer or spool will eventually be full and primary log write and send will be blocked.<br />
+        <br />
+        Log spooling is added in DB2 V10.1. Only in-memory buffering is available in older releases. Where both features are available, spooling is preferred, because spooling device can be much larger and the performance difference between buffering in memory and spooling on disk is minimal.<br />
+        <br />
+        There is a side effect of large buffer or spool size. During a takeover (forced and non forced), the old standby need to finish replay of all buffered/spooled log data. Thus a large buffer or spool can result in longer takeover time. You should consider takeover time when setting buffer or spool size.<br />
+        <br />
+        See also <a href="hadrConfig.html#DB2_HADR_BUF_SIZE___HADR_log_receive_buffer_size">buffer&nbsp;size</a>, and <a href="hadrConfig.html#hadr_spool_limit___HADR_spool_limit">spool&nbsp;limit</a> in the configuration page.<br />
+        <br />
+        Note: hadr_spool_limit defaults to 0 (spooling disabled) in V10.1. In V10.5, the default is "automatic". DB2 will use (logprimary + logsecond) * logFileSize as spool size for "automatic". The exact value used by "automatic" can be seen in the STANDBY_SPOOL_LIMIT monitor field.<br />
+        <br />
+        You can experiment on buffer size (spooling is preferred on V10.1 and later). The default is "2 * primary_database_logbufsz". You can double the size with the DB2_HADR_BUF_SIZE registry variable until there is no more positive effect. On large systems, 2 to 4 GB size is not unusual. 4GB is a soft limit. See <a href="hadrConfig.html#DB2_HADR_BUF_SIZE___HADR_log_receive_buffer_size">buffer&nbsp;size</a><br />
+        <br />
+        On V10.1 and later, you can set spool size. Start from 512MB. Double the size until there is no more positive effect. The "automatic" value on V10.5 is a moderate size. It is chosen as a compromise between spooling and takeover time, and also because log device is supposed to have space for at least logprimary + logsecond log files. A larger size often gives better spooling effect, at the cost of takeover time.</p>
+
+        <h2 dir="ltr"><a name="HADR_peer_wait_limit">HADR peer wait limit</a></h2>
+
+        <p dir="ltr">DB2_HADR_PEER_WAIT_LIMIT is a registry variable that limits primary logging wait time in peer state. Normally it is not set (default 0 takes effect, meaning no limit). It limits HADR impact to primary logging, at the cost of HA and DR protection. When the limit is reached, the primary database disconnects from the standby. The standby immediately reconnects. The pair will then start in remote catchup state, where primary logging is not slowed down by log shipping, but HA and DR protection is weaker than peer state. It can take some time for the pair to reach peer state again. If primary logging rate is higher than log shipping or replay speed, the pair may not peer again until primary logging rate goes down.<br />
+        <br />
+        See <a href="hadrConfig.html#DB2_HADR_PEER_WAIT_LIMIT___HADR_peer_wait_limit">peer&nbsp;wait&nbsp;limit</a> for more info</p>
+
+        <h2 dir="ltr"><a name="Log_Path_on_Primary_and_Standby">Log Path on Primary and Standby</a></h2>
+
+        <p dir="ltr">Dedicated device for log path is strongly recommended. Do not share devices between tablespaces and log path. High performance device is recommended as log device because data changes from all transactions on a database member go to a single log stream. Log stream writing can easily become bottleneck, even when HADR is not enabled. This is particularly important for OLTP systems. DB2 log scanner can be used to analyze logger behavior. See <a href="db2logscan.html">db2 log scanner</a>,&nbsp; <a href="db2logscan.html#DB2_Logging_Performance">DB2&nbsp;Logging&nbsp;Performance</a>, and the "<a href="https://www.ibm.com/developerworks/community/wikis/home?lang=en#!/wiki/Wc9a068d7f6a6_4434_aece_0d297ea80ab1/page/Tuning%20and%20Monitoring%20Database%20System%20Performance" id="wikiLink1422037623054">Tuning&nbsp;and&nbsp;Monitoring&nbsp;Database&nbsp;System&nbsp;Performance</a>" white paper.</p>
+
+        <h2 dir="ltr"><a name="Self_Tuning_Memory_Manager__STMM__on_the_Standby">Self Tuning Memory Manager (STMM) on the Standby</a></h2>
+
+        <p dir="ltr">Self Tuning Memory Manager (STMM) only runs when a database is in the primary role. It does not run on the standby, even if configured as enabled. See also <a href="hadrConfig.html#Self_Tuning_Memory_Manager__STMM__on_the_Standby">Self&nbsp;Tuning&nbsp;Memory&nbsp;Manager&nbsp;(STMM)&nbsp;on&nbsp;the&nbsp;Standby</a>. You may manually configure the standby using values set by STMM on the primary, to make replay or reads on standby work better, or to make the standby perform well in primary role right after a takeover.</p>
+
+        <h1 dir="ltr"><a name="Monitoring_HADR_Performance">Monitoring HADR Performance</a></h1>
+
+        <p dir="ltr"><strong>General Notes</strong></p>
+
+        <ul dir="ltr">
+        	<li>The snapshot interface is being deprecated. The MON_* table funtions and db2pd are preferred monitor methods. See <a href="hadrMonitoring.html#Database_Snapshot">Database&nbsp;Snapshot</a></li>
+        	<li>Monitor table functions work on standby only when<a href="http://pic.dhe.ibm.com/infocenter/db2luw/v10r5/topic/com.ibm.db2.luw.admin.ha.doc/doc/c0054257.html">&nbsp;Reads&nbsp;on&nbsp;Standby</a> is enabled. db2pd and the "db2 get snapshot for database" command always work on the standby.</li>
+        	<li>Information about a remote database (for example, STANDBY_LOG_POS field returned from a query against the primary database) can be slightly out of date. For up to date reading, query the the source database directly. See also <a href="hadrMonitoring.html#HADR_monitoring_tips">HADR&nbsp;monitoring&nbsp;tips</a></li>
+        </ul>
+
+        <h2 dir="ltr"><a name="Primary_Database_Logging_Rate">Primary Database Logging Rate</a></h2>
+
+        <p dir="ltr">The LOG_POS (PRIMARY_LOG_POS, STANDBY_LOG_POS, or STANDBY_REPLAY_LOG_POS) field in HADR monitoring is a byte offset in the log stream. So the difference between two log pos is the amount of log data (in bytes) between the two positions. To compute primary logging rate, just take two readings of PRIMARY_LOG_POS, say at t1 and t2, the do<br />
+        <span style="font-family:'courier new' , 'courier' , monospace">(PRIMARY_LOG_POS2 - PRIMARY_LOG_POS1) / (t2 - t1)</span><br />
+        <br />
+        If HADR is not enabled, you can get logging rate from the logger component as follows:</p>
+
+        <ul dir="ltr">
+        	<li>In V10.1 and later, column CURRENT_LSO from table function MON_GET_TRANSACTION_LOG is equivalent to PRIMARY_LOG_POS (they may differ by 1, because one is defined as the "next byte to write" and the other "the last byte written).</li>
+        	<li>In V9.7 and earlier, use the LOG_WRITES (number of log pages written) field from table function SNAP_GET_DB, or the "Log pages written" field from "db2 get snapshot for database" command. Compute logging rate as:<br />
+        	<span style="font-family:'courier new' , 'courier' , monospace">(LOG_WRITES2 - LOG_WRITES1) * 4096 / (t2 - t1)</span></li>
+        </ul>
+
+        <p dir="ltr">You can also scan log files to get historical logging rate and a wealth of logging metrics. See <a href="db2logscan.html">db2logscan</a><br />
+        <br />
+        Obviously, logging rate cannot exceed speed of the slowest device in the processing chain. It is limited by the speed of primary log disk, standby log disk, and the primary-standby network. And it is sensitive to HADR sync mode. If logging rate is close to the speed of any device (or exceeds the speed of a device, when HADR is not enabled), then the device is or will be the bottleneck. See <a href="hadrSyncMode.html">HADR sync mode</a> on the interaction of the factors.</p>
+
+        <h2 dir="ltr"><a name="Log_Shipping_Rate">Log Shipping Rate</a></h2>
+
+        <p dir="ltr">Compute HADR log shipping rate using STANDBY_LOG_POS. Take two readings at t1 and t2, then compute as:<br />
+        <span style="font-family:'courier new' , 'courier' , monospace">(STANDBY_LOG_POS2 - STANDBY_LOG_POS1) / (t2 - t1)</span><br />
+        <br />
+        In remote catchup state, primary log writing and HADR log shipping are independent. So primary logging rate and log shipping rate are independent.<br />
+        <br />
+        In peer state, primary and standby log position cannot be too far away (gap is one flush in SYNC and NEARSYNC mode, and the primary-standby network pipe line size in ASYNC mode). Primary logging rate and HADR log shipping rate will be close (identical over time) in peer state.</p>
+
+        <h2 dir="ltr"><a name="Log_write_size_and_time">Log write size and time</a></h2>
+
+        <p dir="ltr">Due to the access time overhead for each write (on traditional hard drives), larger write size will give you higher throughput on the same disk. See <a href="db2logscan.html#DB2_Logging_Performance">DB2&nbsp;Logging&nbsp;Performance</a>. Loge write size an important logging metric.</p>
+
+        <h3 dir="ltr"><a name="Primary_vs__Standby_log_write">Primary vs. Standby log write</a></h3>
+
+        <p dir="ltr">Both primary and standby database write log files. Primary writes log data submitted by SQL agents. Standby writes received log pages to its local log path, for crash recovery purposes. See also: <a href="hadrLogShipping.html#Log_file_management_on_standby">Log&nbsp;file&nbsp;management&nbsp;on&nbsp;standby</a>. You can monitor primary and standby log write individually. Primary and standby keep track of their own log write monitoring fields. The fields reflect log write activity of the local database only.</p>
+
+        <p dir="ltr">Log write on primary is also known as "log flush", meaning "flush log pages from log buffer onto log disk". The term "log flush" is not used for log write on the standby.<br />
+        <br />
+        <a href="db2logscan.html">Scanning log files</a> always reports log metrics of the primary, even if a file was shipped to the standby, and re-written in the standby's log path, because the standby preserves primary's log metrics when it writes received log pages.</p>
+
+        <h3 dir="ltr"><a name="Log_write_size">Log write size</a></h3>
+
+        <p dir="ltr">To compute log write size, get the LOG_WRITES (number of log pages written since database activation) and NUM_LOG_WRITE_IO (number of write() calls to OS) fields from table function MON_GET_TRANSACTION_LOG (V10.1 and later), or table function SNAP_GET_DB (V9.7 and earlier). Take two readings and calculate average flush size between the two readings as:<br />
+        <span style="font-family:'courier new' , 'courier' , monospace">(LOG_WRITES2 - </span><span style="font-family:'courier new' , 'courier' , monospace">LOG_WRITES1)</span><span style="font-family:'courier new' , 'courier' , monospace"> / (NUM_LOG_WRITE_IO2 - </span><span style="font-family:'courier new' , 'courier' , monospace">NUM_LOG_WRITE_IO1)</span><br />
+        <br />
+        Alternatively, you can use the "db2 get snapshot for database" command. Compute log write size using the<br />
+        <span style="font-family:'courier new' , 'courier' , monospace">"Log pages written" <span style="font-family:'arial' , 'helvetica' , sans-serif">and </span>"Number write log IOs" </span>fields.</p>
+
+        <p dir="ltr">You can also scan log files to get the primary's historical flush size and flush duration. See <a href="db2logscan.html">db2logscan</a>. Pay attention to very large (more than a few hundred) or very long (longer than a few seconds) flushes. See <a href="db2logscan.html#Statistical_Distribution_of_Logging_Metrics">Statistical&nbsp;Distribution&nbsp;of&nbsp;Logging&nbsp;Metrics</a>.<br />
+        <strong>Note: Scanning log files always reports log metrics of the primary</strong>, even if a file was shipped to the standby, and then re-written in the standby's log path.</p>
+
+        <p dir="ltr">Typical log write size on the primary is from a few pages, to a few hundred pages, depending on workload.</p>
+
+        <h3 dir="ltr"><a name="Log_write_time">Log write time</a></h3>
+
+        <p dir="ltr">To compute average log write time per write() call, get the LOG_WRITE_TIME (accumulated log write time since database activation, unit is <strong>millisecond</strong>) and NUM_LOG_WRITE_IO (number of write() calls to OS) fields from table function MON_GET_TRANSACTION_LOG (V10.1 and later), Take two readings and calculate average log write time between the two readings as:<br />
+        <span style="font-family:'courier new' , 'courier' , monospace">(LOG_WRITE_TIME2 - </span><span style="font-family:'courier new' , 'courier' , monospace">LOG_WRITE_TIME1)</span><span style="font-family:'courier new' , 'courier' , monospace"> / (NUM_LOG_WRITE_IO2 - </span><span style="font-family:'courier new' , 'courier' , monospace">NUM_LOG_WRITE_IO1)</span><br />
+        <br />
+        For table function SNAP_GET_DB (V9.7 and earlier), log write time is reported by two fields: LOG_WRITE_TIME_S (the whole "second" part) and LOG_WRITE_TIME_NS (the nanosecond part in addition to the whole second part). Use those fields with NUM_LOG_WRITE_IO field to compute average log write time.<br />
+        <br />
+        Alternatively, you can use the "db2 get snapshot for database" command. Compute average log write time using the<br />
+        <span style="font-family:'courier new' , 'courier' , monospace">"Log write time (sec.ns)" <span style="font-family:'arial' , 'helvetica' , sans-serif">and </span>"Number write log IOs" </span>fields. Log write time is reported as a float point number in unit of second.</p>
+
+        <p dir="ltr">Typical log write time is a few millisecond, for a small write (a few pages).</p>
+
+        <p dir="ltr"><strong>On the primary, log write time from the monitoring fields&nbsp;</strong><strong>does NOT include HADR overhead.&nbsp; </strong>It only includes net time of writing to primary log disk. This applies to MON_GET_TRANSACTION_LOG, SNAP_GET_DB, and "db2 get snapshot for database"<strong>.</strong> For example, in SYNC mode, disk write takes 4ms, then log write thread waits for 6ms for the data to be replicated to the standby (primary sends the data to standby. Ack message from standby arrives 6ms after disk write on primary finishes). Total flush time is 10ms. Net disk write time is 4m. HADR overhead is 6ms.</p>
+
+        <p dir="ltr">HADR overhead is reported via the LOG_HADR_WAIT_* fields (available starting DB2 V10.1). See <a href="hadrMonitoring.html#Impact_to_Primary_database_logging">"Impact&nbsp;to&nbsp;Primary&nbsp;database&nbsp;logging"</a>&nbsp; in monitoring topic. Compare the relative size of net disk write time and HADR overhead to see if HADR overhead is excessive.</p>
+
+        <p dir="ltr">You can also scan log files to get the primary's historical flush size and flush duration. See db2logscan. Pay attention to very large (more than a few hundred) or very long (longer than a few seconds) flushes. See <a href="db2logscan.html#Statistical_Distribution_of_Logging_Metrics">Statistical&nbsp;Distribution&nbsp;of&nbsp;Logging&nbsp;Metrics</a>. "Flush duration" reported by scanner is the total time the primary spent on a flush, including local disk write and replication to the standby (HADR overhead).<br />
+        <strong>Note: Scanning log files always reports log metrics of the primary</strong>, even if a file was shipped to the standby, and then re-written in the standby's log path.</p>
+
+        <h2 dir="ltr"><a name="Alert_Conditions__Impact_to_primary_database_logging">Alert Conditions: Impact to primary database logging</a></h2>
+
+        <p dir="ltr">See also <a href="hadrMonitoring.html#Impact_to_Primary_database_logging">"Impact&nbsp;to&nbsp;Primary&nbsp;database&nbsp;logging"</a> and <a href="hadrMonitoring.html#Standby_receive_blocked__Standby_receive_buffer_and_spool_usage">"Standby&nbsp;receive&nbsp;blocked,&nbsp;Standby&nbsp;receive&nbsp;buffer&nbsp;and&nbsp;spool&nbsp;usage"</a> from monitoring topic.</p>
+
+        <p dir="ltr">You may set up scripts to generate alerts based on monitor fields. The script can have the following logic:<br />
+        (LOG_HADR_WAIT_* fields are available starting DB2 V10.1):</p>
+
+        <ul dir="ltr">
+        	<li>Trigger alert if LOG_HADR_WAIT_CUR is more than 5 seconds. It's just bad for a log write to be stuck for 5 seconds or more. Primary database transaction would be blocked for 5 seconds or more.<br />
+        	&nbsp;</li>
+        	<li>Trigger alert if LOG_HADR_WAIT_RECENT_AVG (available from db2pd only) is more than 20 ms.</li>
+        </ul>
+
+        <p dir="ltr" style="margin-left:40px">A typical log write takes 5 to 10 ms for disk write. If an additional 20 ms (HADR overhead) is added, then log writing will be much slower. An HADR system should have an overhead less than 10 ms. A well tuned system can have 5 ms or less overhead.</p>
+
+        <ul dir="ltr">
+        	<li>Compute average logger HADR wait time in custom interval using LOG_HADR_WAIT_ACCUMULATED and LOG_HADR_WAIT_COUNT (LOG_HADR_WAIT_RECENT_AVG is readily available from db2pd. But you have no control on the interval over which the average is computed). Use this logic to compute you own average:</li>
+        </ul>
+
+        <p dir="ltr" style="margin-left:40px">At time t1, you get LOG_HADR_WAIT_ACCUMULATED1 and LOG_HADR_WAIT_COUNT1<br />
+        At time t2, you get LOG_HADR_WAIT_ACCUMULATED2 and LOG_HADR_WAIT_COUNT2<br />
+        The average HADR wait time per log write between t1 and t2 is<br />
+        <span style="font-family:'courier new' , 'courier' , monospace">(LOG_HADR_WAIT_ACCUMULATED2 - LOG_HADR_WAIT_ACCUMULATED1) / (LOG_HADR_WAIT_COUNT2 - LOG_HADR_WAIT_COUNT1)</span><br />
+        You can trigger alert if the computed average is more than 20 ms.</p>
+
+        <ul dir="ltr">
+        	<li>Alert on the STANDBY_RECV_BLOCKED flag (available on V10.5 and later) from HADR_FLAGS field.</li>
+        </ul>
+
+        <p dir="ltr">In older releases where LOG_HADR_WAIT_* fields are not available, you will have to monitor logging overhead from application side. For example, you can watch application commit time (how long it takes to execute a "commit" request). Application side commit time is the overall cost of commit from the database. When commit time is long, HADR is suspect, but problem could be caused by other database components. In contrast, the LOG_HADR_WAIT_* fields is the net HADR cost in log writing, which is direct evidence of HADR overhead on logging.<br />
+        <br />
+        In older releases where the STANDBY_RECV_BLOCKED flag is not available, you will have to derive the condition using other monitor fields, see <a href="hadrMonitoring.html#Standby_receive_blocked__Standby_receive_buffer_and_spool_usage">Standby&nbsp;receive&nbsp;blocked</a> in monitoring page.<br />
+        <br />
+        Note: Primary and standby exchange monitoring information via heartbeat messages, which is sent periodically. Information about the remote database can be slightly out of date, up to a heartbeat interval. Heartbeat interval itself is reported via the HEARTBEAT_INTERVAL field. Thus it is best to retrieve the LOG_HADR_WAIT_* fields from the primary and the STANDBY_RECV_BLOCKED flag from the standby.</p>
+
+        <h3 dir="ltr"><a name="IBM_Data_Studio_Web_Console_Alerts">IBM Data Studio Web Console Alerts</a></h3>
+
+        <p dir="ltr">IBM Data Studio Web Console version 3.1 has enhanced HADR setup and management. It also provides built-in alerts for HADR. Some built-in alerts are identical to the ones suggested in the "Alert Conditions" section above. See <a href="http://pic.dhe.ibm.com/infocenter/dstudio/v3r1/topic/com.ibm.datatools.db.web.health.install.doc/topics/dshm_configure_alerts.html">http://pic.dhe.ibm.com/infocenter/dstudio/v3r1/topic/com.ibm.datatools.db.web.health.install.doc/topics/dshm_configure_alerts.html</a><br />
+        <br />
+        You may also create custom alerts. See <a href="http://pic.dhe.ibm.com/infocenter/dstudio/v3r1/topic/com.ibm.datatools.db.web.health.install.doc/topics/customalerts_create_and_manage.html">http://pic.dhe.ibm.com/infocenter/dstudio/v3r1/topic/com.ibm.datatools.db.web.health.install.doc/topics/customalerts_create_and_manage.html</a></p>
+
+        <h2 dir="ltr"><a name="Sender_Congestion">Sender Congestion</a></h2>
+
+        <p dir="ltr">If HADR cannot send out data to its partner database because network is congested (think of traffic jam), the HADR_CONNECT_STATUS monitor field will report "CONGESTED", and the HADR_CONNECT_STATUS_TIME will show congestion start time. Congestion duration can be computed as<br />
+        <span style="font-family:'courier new' , 'courier' , monospace">time_when_monitor_data_is_taken - HADR_CONNECT_STATUS_TIME</span><br />
+        <br />
+        For db2pd, the monitor data taken time is reported at beginning of output. Example:<br />
+        <span style="font-family:'courier new' , 'courier' , monospace">Database Member 0 -- Database HADRDB -- Active -- Up 0 days 00:00:36 -- Date 2013-09-13-11.19.42.213563</span><br />
+        <br />
+        For MON_GET_HADR table function, you can include current_timestamp in your query. Example:<br />
+        <br />
+        <span style="font-family:'courier new' , 'courier' , monospace">select HADR_CONNECT_STATUS, HADR_CONNECT_STATUS_TIME, current_timestamp as current_time, current_timestamp - HADR_CONNECT_STATUS_TIME as duration from table (mon_get_hadr(0))<br />
+        <br />
+        HADR_CONNECT_STATUS HADR_CONNECT_STATUS_TIME&nbsp;&nbsp; CURRENT_TIME&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; DURATION&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; &nbsp;<br />
+        ------------------- -------------------------- -------------------------- ----------------------<br />
+        CONNECTED&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; 2013-09-13-11.19.09.974274 2013-09-13-11.30.55.811394&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; 1145.837120<br />
+        <br />
+        &nbsp; 1 record(s) selected.</span><br />
+        <br />
+        Note: Due to race condition, HADR_CONNECT_STATUS_TIME might be a little later than current_timestamp. Just ignore such cases (negative duration).<br />
+        <br />
+        A congestion longer than 1 seconds should be of concern. Shorter congestions are normal. They are part of normal network flow control (think of traffic light). See also <a href="simulatorParams.html#Non_blocking_IO_and_sender_congestion">Non&nbsp;blocking&nbsp;IO</a>. Of course, it is always a fuzzy line between a normal red light and a traffic jam. A long wait at the red light can just become a traffic jam. What really matters is the network throughput and impact to applications. If you are experiencing slower logging rate or application response when HADR is enabled, look for congestion. You may sample the HADR_CONNECT_STATUS and HADR_CONNECT_STATUS_TIME fields periodically (for example, every minute) and look for congestions longer than a few seconds.<br />
+        <br />
+        CONGESTED is most likely to be seen on the primary side. It's less likely to be seen on the standby side because there isn't much data to send to the primary (usually just ack and heartbeat messages).<br />
+        <br />
+        There are two common causes of congestion:</p>
+
+        <ul dir="ltr">
+        	<li>Network is slow. It cannot accept data from the sender fast enough.</li>
+        	<li>Standby is not receiving. Network pipeline from primary to standby becomes full.</li>
+        </ul>
+
+        <p dir="ltr"><br />
+        We will study congestion in more details in the diagnostic section below. A few notes here:</p>
+
+        <ul dir="ltr">
+        	<li>In ASYNC mode, primary logging slow down or stop is typically caused by congestion.<br />
+        	&nbsp;</li>
+        	<li>In SYNC and NEARSYNC mode, primary logging slow down or stop often does not involve congestion. In a typical scenario, standby stops receiving because its receive buffer is full. The primary can still send out one more flush. This flush will be buffered in the network pipeline between primary and standby. Standby can not fully receive it because its buffer is full. So standby can not send ack message back. Thus primary will be stuck waiting for the ack message.<br />
+        	&nbsp;</li>
+        	<li>Congestion, even extended congestion (more than a few seconds) is normal in remote catchup state, where the primary reads log pages from log files and send the pages to the standby. If disk read speed is higher than network send speed or standby replay speed, primary send can hit congestion and be blocked. This is a typical fast producer waiting for slow consumer case. As long as overall log shipping rate (compute using STANDBY_LOG_POS) is reasonable, there is no worry.</li>
+        </ul>
+
+        <h2 dir="ltr"><a name="Monitoring_Hardware_Resources">Monitoring Hardware Resources</a></h2>
+
+        <p dir="ltr">You should monitor hardware resources on both the primary and the standby. A common tools is vmstat. Check CPU, memory, and IO utilization. Look for bottleneck (100% utilization). See the "<a href="https://www.ibm.com/developerworks/community/wikis/home?lang=en#!/wiki/Wc9a068d7f6a6_4434_aece_0d297ea80ab1/page/Tuning%20and%20Monitoring%20Database%20System%20Performance" id="wikiLink1422037623071">Tuning&nbsp;and&nbsp;Monitoring&nbsp;Database&nbsp;System&nbsp;Performance</a>" white paper for more into.</p>
+
+        <p dir="ltr">&nbsp;</p>
+
+        <h1 dir="ltr"><a name="Diagnosing_and_Fixing_HADR_Performance_Problems">Diagnosing and Fixing HADR Performance Problems</a></h1>
+
+        <p dir="ltr">In this section, we will first discuss how to identify bottlenecks in the system, then discuss each bottleneck scenario in details.</p>
+
+        <h2 dir="ltr"><a name="Identifying_Bottleneck">Identifying Bottleneck</a></h2>
+
+        <p dir="ltr">HADR data flow is as follows (see&nbsp;<a href="hadrLogShipping.html">HADR log shipping</a> for a nice picture and details):</p>
+
+        <ul dir="ltr">
+        	<li>Primary produces log pages</li>
+        	<li>Primary sends log pages to the standby</li>
+        	<li>Standby receives log pages</li>
+        	<li>Standby writes received log pages to disk</li>
+        	<li>Standby replays written log pages</li>
+        </ul>
+
+        <p dir="ltr">The operations on the critical path are (each operation depends on the previous one):<br />
+        send - receive - write - replay<br />
+        <br />
+        There are two common bottlenecks along the data flow:</p>
+
+        <ul dir="ltr">
+        	<li>Slow network: Log data is not shipped to standby host fast enough. Standby database often waits for more data.</li>
+        	<li>Slow standby: Standby log processing (usually log replay) is slow or blocked. Standby log receiving is blocked from time to time.</li>
+        </ul>
+
+        <p dir="ltr">The STANDBY_RECV_BLOCKED flag (available on V10.5 and later) from the HADR_FLAGS monitor field directly indicates that the standby log receiving is blocked. If the system repeatedly hits the STANDBY_RECV_BLOCKED condition, then its a slow standby case, otherwise, it's likely a slow network case.</p>
+
+        <p dir="ltr">Note: In older releases, you will have to derive the STANDBY_RECV_BLOCKED condition using other monitor fields, see <a href="hadrMonitoring.html#Standby_receive_blocked__Standby_receive_buffer_and_spool_usage">"Standby&nbsp;receive&nbsp;blocked,&nbsp;Standby&nbsp;receive&nbsp;buffer&nbsp;and&nbsp;spool&nbsp;usage"</a>&nbsp; from monitoring topic. For<span style="font-family:'arial' , 'helvetica' , sans-serif"> STANDBY_LOG_DEVICE_FULL </span>flag, use OS command such as "df" on Unix to monitor standby device capacity.</p>
+
+        <p dir="ltr">The logic below lists causes of HADR performance problems. Use it to identify the bottleneck.</p>
+
+        <p dir="ltr"><span style="font-family:'courier new' , 'courier' , monospace">if (STANDBY_RECV_BLOCKED)<br />
+        {<!-- --><br />
+        &nbsp;&nbsp; this is a slow standby case.<br />
+        <br />
+        &nbsp;&nbsp; if (STANDBY_LOG_DEVICE_FULL)<br />
+        &nbsp;&nbsp;&nbsp;&nbsp;&nbsp; standby log device too small. Enlarge it.<br />
+        &nbsp;&nbsp; else<br />
+        &nbsp;&nbsp;&nbsp;&nbsp;&nbsp; standby replay is too slow. Tune replay or upgrade hardware.<br />
+        }</span><br />
+        <span style="font-family:'courier new' , 'courier' , monospace">else<br />
+        {<!-- --><br />
+        &nbsp;&nbsp; Most likely a slow network case.<br />
+        &nbsp; &nbsp; &nbsp; Measure network speed to confirm.<br />
+        &nbsp; &nbsp; &nbsp;&nbsp;&nbsp;&nbsp; Tune or upgrade network if confirmed.<br />
+        &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; Or use a less demanding HADR sync mode.<br />
+        <br />
+        &nbsp;&nbsp; In a rare case, it's slow standby log write<br />
+        &nbsp;&nbsp;&nbsp;&nbsp;&nbsp; Measure standby disk speed and log write size to confirm.<br />
+        &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; Tune or upgrade disk if confirmed.<br />
+        }</span></p>
+
+        <p dir="ltr">There is no simple flag at DB2 level to differentiate the slow network and slow standby log write cases. Since slow network is the most common case, you should start from there with the following steps:</p>
+
+        <ul dir="ltr">
+        	<li>Find out the time when applications are experiencing slow down, using client side metrics, DB2 metrics such as primary logging rate, log shipping rate, congestion status, LOG_HADR_WAIT_* fields, or <a href="db2logscan.html">db2logscan</a> (look at flush duration, transaction duration, commit interval, etc.)</li>
+        	<li>Measure flush (log write) size on the primary for the slow period, using a method from "Log write size and time" section above.</li>
+        	<li>Run <a href="hadrSimulator.html">HADR simulator</a> using
+        	<ul>
+        		<li>Primary's flush size from the slow period</li>
+        		<li>The actual socket buffer size used by primary and standby databases. If&nbsp; <a href="tcpTuning.html">DB2_HADR_SOSNDBUF (or DB2_HADR_SORCVBUF)</a>&nbsp; is set, use the same number for simulator -sockSndBuf (or -sockRcvBuf) option. Otherwise, do not specify the option (simulator will use system default, just like real HADR).</li>
+        		<li>The actual HADR sync mode of the database</li>
+        	</ul>
+        	</li>
+        </ul>
+
+        <p dir="ltr" style="margin-left:40px">to measure network throughput for the given sync mode. If the resulting throughput is close to the actual throughput of the HADR system, it means network is the bottleneck.</p>
+
+        <p dir="ltr">To check if it's a case of slow standby log write, use these steps:</p>
+
+        <ul dir="ltr">
+        	<li>Find out the time when applications are experiencing slow down.</li>
+        	<li>Measure log write size on the standby for the slow period, using a method from "Log write size and time" section above.</li>
+        	<li>Measure standby log device write throughput using <a href="hadrSimulator.html">HADR simulator</a>, with the following command line:<br />
+        	<span style="font-family:'courier new' , 'courier' , monospace">simhadr -write &lt;logPath&gt;/testFile -flushSize &lt;standbyWriteSize&gt; -t 60</span><br />
+        	<br />
+        	Make sure you have enough space on &lt;logPath&gt; for a 60 second run (estimate data amount by "estimated_throughput * 60 seconds"). Alternatively, you can use shorter run, as long as the result is stable (not sensitive to length of run), or you can use -n option to specify exact number of flushes (total data amount is "flushSize * number_of_flushes").<br />
+        	If the resulting throughput is close to the actual throughput of the HADR system, it means standby log write is the bottleneck.</li>
+        </ul>
+
+        <p dir="ltr">In even more rare cases, both network and standby log write are bottlenecks.</p>
+
+        <p dir="ltr"><strong>Gathering Diagnostic Information</strong></p>
+
+        <p dir="ltr">To gather information for diagnostics, monitor HADR at regular interval (like every minute). Shell script pseudo code below:<br />
+        <br />
+        <span style="font-family:'courier new' , 'courier' , monospace">while :<br />
+        do<br />
+        &nbsp;&nbsp; issue "db2pd -hadr" command on primary<br />
+        &nbsp;&nbsp; record output<br />
+        <br />
+        &nbsp;&nbsp; issue "db2pd -hadr" command on standby<br />
+        &nbsp;&nbsp; record output<br />
+        <br />
+        &nbsp;&nbsp; sleep 60<br />
+        done</span><br />
+        <br />
+        db2pd is preferred over MON_GET_HADR because it is light weight, and can run on standby without reads on standby enabled. Note that even if reads on standby is enabled, if standby is replaying a DDL statement (replay only window), it cannot process queries (MON_GET_HADR cannot run).<br />
+        <br />
+        You may need tools like rsh to run db2pd on primary and standby. HADR primary and standby do exchange monitor info, but only on every heartbeat. So for up to date info, run db2pd directly on primary and standby host, rather than relying on the built-in info exchange.<br />
+        <br />
+        Save full db2pd output, even if you are focusing on a subset of fields like STANDBY_RECV_BLOCKED and CONGESTED. Other fields will be used to get the full picture of system status for a more reliable diagnose.</p>
+
+        <h2 dir="ltr"><a name="Slow_Standby">Slow Standby</a></h2>
+
+        <h3 dir="ltr"><a name="Slow_Replay_on_Standby">Slow Replay on Standby</a></h3>
+
+        <p dir="ltr">There are 3 scenarios of&nbsp; standby log receive blocked:</p>
+
+        <ul dir="ltr">
+        	<li>When log spooling is disabled, standby receive buffer is full (STANDBY_RECV_BUF_PERCENT is 100%).</li>
+        	<li>When log spooling is enabled, spooling has reached configured spool limit (STANDBY_SPOOL_PERCENT is 100%).</li>
+        	<li>The standby logging device is full (STANDBY_LOG_DEVICE_FULL flag from HADR_FLAGS field is set), regardless of buffer and spool percentage.</li>
+        </ul>
+
+        <p dir="ltr">Of the 3 scenarios, standby receive buffer or spool full is the result of slow replay on standby. When replay is slower than receiving, more and more log data will build up in buffer and spool. Eventually, buffer or spool gets full and cannot receive more data. See also <a href="hadrConfig.html#hadr_spool_limit___HADR_spool_limit">spooling&nbsp;</a><br />
+        <br />
+        In addition to STANDBY_RECV_BLOCKED flag, slow replay has the following symptoms:</p>
+
+        <ul dir="ltr">
+        	<li>If spooling is disabled
+        	<ul>
+        		<li>STANDBY_RECV_BUF_PERCENT is close to 100%</li>
+        		<li>(STANDBY_LOG_POS - STANDBY_REPLAY_LOG_POS) / 4096 is close to STANDBY_RECV_BUF_SIZE<br />
+        		&nbsp;</li>
+        	</ul>
+        	</li>
+        	<li>If spooling is enabled
+        	<ul>
+        		<li>STANDBY_SPOOL_PERCENT is close to 100%</li>
+        		<li>(STANDBY_LOG_POS - STANDBY_REPLAY_LOG_POS) / 4096 is close to STANDBY_SPOOL_LIMIT</li>
+        	</ul>
+        	</li>
+        </ul>
+
+        <p dir="ltr">We compute the instantaneous standby recv-replay log gap as<br />
+        <span style="font-family:'courier new' , 'courier' , monospace">(STANDBY_LOG_POS - STANDBY_REPLAY_LOG_POS) / 4096</span><br />
+        "/ 4096" is for unit conversion from byte to page.<br />
+        The STANDBY_RECV_REPLAY_GAP monitor field is a running average. It should not be used for data correlation within a monitor snapshot.</p>
+
+        <p dir="ltr">The "Tuning Standby Replay" section below will discuss replay tuning in details.</p>
+
+        <h3 dir="ltr"><a name="Standby_Log_Device_Full">Standby Log Device Full</a></h3>
+
+        <p dir="ltr">Slow replay is the most common cause of slow standby. STANDBY_LOG_DEVICE_FULL is less common. STANDBY_LOG_DEVICE_FULL (available on V10.5 and later) can be simply confirmed by the flag itself, or from OS command (such as "df" on Unix) on earlier releases.</p>
+
+        <p dir="ltr">The obvious fix for this scenario is to increase the log device capacity. When spooling is enabled, log device capacity should at least match spool limit. Regardless of spooling enable/disable status, standby log device should at least contain the primary's transaction window (logprimary + logsecond log files). A larger size is recommended because replay transaction window can be larger than the primary's transaction window. A file on the standby is reclaimable only when all transactions in it have been replayed. See also <a href="hadrLogShipping.html#Log_file_management_on_standby">Log&nbsp;file&nbsp;management&nbsp;on&nbsp;standby</a></p>
+
+        <h3 dir="ltr"><a name="Slow_Log_Write_on_Standby">Slow Log Write on Standby</a></h3>
+
+        <p dir="ltr">A rare case of slow standby is slow log write on standby. On the standby, all received log pages must be written to disk before being replayed, for crash recovery purpose.<br />
+        <br />
+        With slow log write on standby, you won't see receive buffer or spool full. Primary log writing and shipping is not totally blocked, just slow. In ASYNC mode peer state or remote catchup state of any sync mode, you are likely to see congestion on the primary end. In peer state of other modes, there is likely no congestion on the primary.</p>
+
+        <p dir="ltr">To get to the root cause of slow write on standby, test primary and standby log device using this procedure: <a href="perfTuning.html#Step_2__Know_Your_Disks">Know&nbsp;Your&nbsp;Disks</a> (this should be done in planning phase anyway). If standby disk speed is much slower than that of the primary, consider upgrade. Otherwise, it could be that write size is too small on the standby.<br />
+        <br />
+        In ASYNC and NEARSYNC peer state, standby writes received log pages on the same flush boundary as the primary. Primary sends log pages to standby and writes the pages to local disk in parallel. Standby writes a flush to disk only when it knows that the received flush has been written on primary, using data from heartbeat or upon receiving the next flush (next flush implies that the primary is done with the previous flush). So standby has exactly the same write size as the primary. Assuming same hardware, standby log write should not slow down the primary.<br />
+        <br />
+        In remote catchup state (any sync mode) and SYNC mode peer state, standby write log pages as they are received. The write size is determined by the amount of data returned from each TCP recv() call. Similar to <a href="db2logscan.html#DB2_Logging_Performance">log&nbsp;writing&nbsp;on&nbsp;the&nbsp;primary</a>, auto tuning is in effect. If a log write is slow, more data will build up in OS TCP recv buffer and the next receive and write will be larger, assuming TCP recv buffer is large enough. TCP recv buffer size is controlled by socket recv buffer size and should be at least the size of a large primary log flush. See <a href="tcpTuning.html#Buffering_for_HADR_Log_Shipping">Buffering&nbsp;for&nbsp;HADR&nbsp;Log&nbsp;Shipping</a> in socket buffer size tuning. Reconfigure TCP socket recv buffer size if needed.<br />
+        <br />
+        The actual write size on the standby can be measured using a method from "Log write size and time" section above in "Monitoring HADR Performance". Compare primary and standby log write size and time to see if standby write throughput is caused by small writes.</p>
+
+        <p dir="ltr">You can measure standby write throughput at the actual write size using HADR simulator:<br />
+        <span style="font-family:'courier new' , 'courier' , monospace">simhadr -write &lt;logPath&gt;/testFile -flushSize &lt;standbyWriteSize&gt;</span><br />
+        See also "Identifying Bottleneck" section above</p>
+
+        <p dir="ltr">You can also compute theoretical standby write throughput using measured write size, perWriteOverhead, and transfer rate:<br />
+        <br />
+        <span style="font-family:'courier new' , 'courier' , monospace">timePerWrite = perWriteOverhead + writeSize / transferRate<br />
+        throughput&nbsp;&nbsp; = writeSize / timePerWrite</span><br />
+        <br />
+        Compare the theoretical throughput, throughput from HADR simulator, and actual throughput from the database. They should be close if log write is the bottleneck.</p>
+
+        <p dir="ltr">If standby log write is the bottleneck, consider tuning/upgrading standby log device, or tuning TCP interface to increase recv() size.</p>
+
+        <h2 dir="ltr"><a name="Tuning_Standby_Replay">Tuning Standby Replay</a></h2>
+
+        <p dir="ltr">It is recommended that primary and standby have the same hardware. Normally, with same hardware, replay performance is not a problem because replay just updates data pages based on information from log records. Replay need not parse SQL statements. And read only workload on the primary can further reduce the amount of log records the primary generates (less write workload). But if standby is underpowered, misconfigured, or the workload is unusual (for example, has many serialization points, preventing parallel replay from its full potential), then replay can be slower than log generation.</p>
+
+        <h3 dir="ltr"><a name="Number_of_Replay_Threads">Number of Replay Threads</a></h3>
+
+        <p dir="ltr">Standby uses parallel replay. A replay master thread dispatches log records to multiple worker threads for parallel replay. Number of total threads (workers + master) defaults to number of physical CPUs on the host machine.<br />
+        <br />
+        When there are a large number of CPUs, the default may be too high, creating contention among the threads on shared data structures. Generally, parallel replay scales well up to 8 threads. With 16 and 32 threads, it may or may not be much better than 8, depending on hardware and replay workload (some log records require serialization point that pauses parallel replay). Above 32 threads, generally you see no gain or negative gain.<br />
+        <br />
+        To check the number of threads used, look for lines like this in db2diag.log:<br />
+        <span style="font-family:'courier new' , 'courier' , monospace">Using parallel recovery with 8 agents 3 QSets 21 queues and 0 chunks</span><br />
+        <br />
+        The above line shows 8 threads (workers + master), on an 8 CPU machine.<br />
+        <br />
+        To tune down the number of threads, use DB2 registry variable DB2BPVARS:<br />
+        <br />
+        <span style="font-family:'courier new' , 'courier' , monospace">db2set DB2BPVARS=&lt;path to buffer pool config file&gt;</span><br />
+        <br />
+        In the config file, put this line (Parallel RECovery NUM AGENTS):<br />
+        <br />
+        <span style="font-family:'courier new' , 'courier' , monospace">PREC_NUM_AGENTS=&lt;number of threads&gt;</span><br />
+        <br />
+        Example:<br />
+        <br />
+        <span style="font-family:'courier new' , 'courier' , monospace">db2set DB2BPVARS=/tmp/DB2BPVARS<br />
+        echo PREC_NUM_AGENTS=5 &gt; /tmp/DB2BPVARS<br />
+        db2stop force<br />
+        db2start<br />
+        db2 activate db myDb<br />
+        <br />
+        grep "parallel recovery" $HOME/sqllib/db2dump/db2diag.log<br />
+        Using parallel recovery with 5 agents 3 QSets 12 queues and 0 chunks</span><br />
+        <br />
+        The example above tunes down number of threads from 8 to 5 on an 8 CPU machine.</p>
+
+        <p dir="ltr">You may need to experiment with a few numbers to find out the best one.<br />
+        <br />
+        <strong>Physical vs. Virtual CPU</strong><br />
+        <br />
+        Some machines show 2 virtual processors for each physical processor. These systems include IBM SMT (simultaneous multithreading) and Intel Hyper Threading machines. Some early (before V97) DB2 versions uses virtual processor number for default number of replay threads. This is not optimal. A fix was put in to use physical CPUs. The fix is first available in V8.1 fp17 (aka. V8.2 fp10), V91 fp6, V95 fp3 and V97 GA. Related APARs are IZ03422 (v8), IZ03423 (v91), and IZ32886 (v95).</p>
+
+        <h3 dir="ltr"><a name="Bufferpool_Performance">Bufferpool Performance</a></h3>
+
+        <p dir="ltr">The replay threads apply data page changes to the buffer pool, which writes to tablespace disks periodically. Multiple updates to a page can be combined into one write to disk. On both primary and standby, the buffer pool plays an important role in database performance.</p>
+
+        <p dir="ltr">Buffer pool definitions are treated as DDLs. They are replayed on standby. So the standby has identical buffer pools as the primary. Normally, this is desirable because for each buffer pool, the amount of data change is the same on primary and standby. On primary, the changes are applied by SQL agents. On the standby, they are applied by the replay threads. Any large buffer pool created on the primary side for the benefit of reading data is not useful on the standby though, unless reads on standby is enabled.</p>
+
+        <p dir="ltr">Database configuration parameters are not replicated by HADR. Configuration on the standby needs to be manually maintained. It is recommended that buffer pool related parameters be set to the same on the primary and standby, <span class="keyword parmname parmname" id="vcc_sp_span_66" tabindex="30"><span class="resultofText">assuming the same hardware on primary and standby</span></span>. These include <span class="keyword parmname parmname" id="vcc_sp_span_66" tabindex="30"><span class="resultofText">num_iocleaners, </span></span><span class="keyword parmname parmname" id="vcc_sp_span_55" tabindex="25"><span class="resultofText">page_age_trgt_mcr (starting in V10.5), </span></span><span class="keyword parmname parmname" id="vcc_sp_span_55" tabindex="25"><span class="resultofText">page_age_trgt_gcr</span></span> <span class="keyword parmname parmname" id="vcc_sp_span_55" tabindex="25"><span class="resultofText">(starting in V10.5, applicable to pureScale systems only)</span></span>, and softmax (deprecated as of V10.5).</p>
+
+        <p dir="ltr">See the "<a href="https://www.ibm.com/developerworks/community/wikis/home?lang=en#!/wiki/Wc9a068d7f6a6_4434_aece_0d297ea80ab1/page/Tuning%20and%20Monitoring%20Database%20System%20Performance" id="wikiLink1422037623083">Tuning&nbsp;and&nbsp;Monitoring&nbsp;Database&nbsp;System&nbsp;Performance</a>" white paper for details of monitoring and tuning buffer pools.</p>
+
+        <h3 dir="ltr"><a name="Reads_on_Standby">Reads on Standby</a></h3>
+
+        <p dir="ltr">When reads on standby is enabled, read queries will compete against replay thread for resource. If performance problem is observed, you may temporarily disable reads on standby to see if there is any improvement in performance. If reads on standby is identified as the cause of slow replay, consider reducing read workload, or disable reads on standby.</p>
+
+        <h3 dir="ltr"><a name="Hardware_Utilization">Hardware Utilization</a></h3>
+
+        <p dir="ltr">When replay is slow, check hardware bottleneck on standby. A common tools is vmstat. Check CPU, memory, and IO utilization. Look for bottleneck (100% utilization). See the "<a href="https://www.ibm.com/developerworks/community/wikis/home?lang=en#!/wiki/Wc9a068d7f6a6_4434_aece_0d297ea80ab1/page/Tuning%20and%20Monitoring%20Database%20System%20Performance" id="wikiLink1422037623084">Tuning&nbsp;and&nbsp;Monitoring&nbsp;Database&nbsp;System&nbsp;Performance</a>" white paper for details of monitoring system resources.<br />
+        <br />
+        If standby hardware is less powerful than the primary, consider upgrading to match the primary.</p>
+
+        <h2 dir="ltr"><a name="Slow_Network">Slow Network</a></h2>
+
+        <h3 dir="ltr"><a name="Network_Tuning">Network Tuning</a></h3>
+
+        <p dir="ltr">If network is suspect, first tune socket buffer size using <a href="tcpTuning.html#Using_HADR_simulator_to_determine_optimal_TCP_window_size">this&nbsp;procedure</a>. Check with your network administrator to see if network throughput and round trip time is expected.<br />
+        <br />
+        If possible, disable HADR temporarily to get a base workload. Then run the <a href="perfTuning.html">step by step performance tuning</a> procedure to see if the current sync mode is feasible for the system. If not, consider hardware/network upgrade, or using a less demanding mode. See also <a href="hadrSyncMode.html">HADR sync mode</a><br />
+        <br />
+        If your business requires HADR to stay enabled, you can still use the <a href="perfTuning.html">step by step performance tuning</a> procedure. The calculated HADR logging rate for the mode you are using should be close to your actual logging rate. The calculated rate is usually a little higher because it only considers network and disk in its model. CPU cost such as application interface to disk and network, and inter process/thread communication is ignored (such cost is small compared to disk and network cost). You can look at result of other sync modes to evaluate alternatives.</p>
+
+        <p dir="ltr">Beyond TCP socket buffer, there are many things that can improve network performance. For AIX, see <a href="http://pic.dhe.ibm.com/infocenter/aix/v6r1/index.jsp?topic=%2Fcom.ibm.aix.prftungd%2Fdoc%2Fprftungd%2Ftcp_streaming_workload_tuning.htm">TCP&nbsp;streaming&nbsp;workload&nbsp;tuning</a></p>
+
+        <p dir="ltr">You may need to consult a network expert to further tune your network.</p>
+
+        <p dir="ltr"><strong>Unstable Network</strong></p>
+
+        <p dir="ltr">See <a href="simulatorParams.html#Diagnosing_Intermittent_Network_Problems">Diagnosing&nbsp;Intermittent&nbsp;Network&nbsp;Problems</a></p>
+
+        <h3 dir="ltr"><a name="Network_Bonding">Network Bonding</a></h3>
+
+        <p dir="ltr">You may bond multiple NIC's (Network Interface Controller) into a virtual one and use it for HADR (set hadr_local_host to the bonded address). For both multiple standby and pureScale HADR, the balanced-xor bonding mode is preferred. In this mode, all packets for a given TCP connection are routed through one NIC. This effectively gives each log shipping stream a dedicated NIC, assuming that number of NIC's is equal to or greater than number of log streams.<br />
+        <br />
+        The balanced-rr (round robin) mode spreads packets for one TCP connection over multiple NIC's. Because TCP needs to sort packets on the receiving end, this mode may give worse throughput for each TCP connection. For example, when there is one NIC and two log streams, each stream gets 50% capacity of a NIC. When using two bonded NIC's, with balanced-xor, each stream gets 100% capacity of a NIC; with balanced-rr, each stream may just get 80% capacity of a NIC.</p>
+
+        <p dir="ltr">Besides performance, bonding can also be used for HA purpose. Multiple NIC can be bonded with some configured as active, and some configured as passive backup. If an active NIC fails, a backup can takeover.</p>
+
+        <h1 dir="ltr"><a name="Performance_Workaround">Performance Workaround</a></h1>
+
+        <h2 dir="ltr"><a name="Using_a_Large_Spool_on_the_Standby">Using a Large Spool on the Standby</a></h2>
+
+        <p dir="ltr">See also <a href="#Standby_receive_buffer_and_spool_size">Standby receive buffer and spool size</a> above in section "Configuring HADR for Optimal Performance".</p>
+
+        <p dir="ltr">A large spool (or receive buffer) can absorb a load peak on the primary. Standby just receives the peak and store it in the spool or buffer, while replay catches up. Primary is not slowed down as long as standby log receive-replay gap does not reach the spool or buffer limit. For example, if a load peak generates 30GB of log data, a 64GB spool is likely able to absorb it.</p>
+
+        <p dir="ltr">The main drawback of large spool is that during takeover (forced and non-forced), standby has to complete replay of the spooled data before takeover can complete. So a large spool can slow down takeover.</p>
+
+        <h2 dir="ltr"><a name="HADR_peer_wait_limit2">HADR peer wait limit</a></h2>
+
+        <p dir="ltr">See also "<a href="#HADR_peer_wait_limit">HADR&nbsp;peer&nbsp;wait&nbsp;limit</a>" above in section "Configuring HADR for Optimal Performance".</p>
+
+        <p dir="ltr">As a workaround, you may set <a href="hadrConfig.html#DB2_HADR_PEER_WAIT_LIMIT___HADR_peer_wait_limit">DB2_HADR_PEER_WAIT_LIMIT</a> to limit the HADR impact to primary database logging. Because HADR clock resolution is "second", and OS scheduling may delay a process from running (for example, it can take a little time for a swapped out process to run again), it is recommended that peer wait limit be set to at least 5 seconds. Smaller number is likely to cause false alarm.<br />
+        <br />
+        Peer wait limit works best when primary logging is completely blocked. If each log write is just slow (for example, taking 100ms, instead of 10ms), it won't be triggered.</p>
+
+        <p dir="ltr">Another drawback is that peer wait limit is not triggered until logging has been blocked for the specified seconds. So you already took a performance hit when it is triggered. But having a limit guarantees that application won't be stuck for ever. It can act as the last line of defense against performance problems.</p>
+
+        <p dir="ltr">&nbsp;</p>
+
+        <h2 dir="ltr"><a name="Temporarily_Changing_HADR_Sychronization_Mode">Temporarily Changing HADR Sychronization Mode</a></h2>
+
+        <p dir="ltr">As a workaround, you can temporarily change HADR sync mode to a less demanding mode during heavy load period on the primary. Because the <a href="hadrSyncMode.html#SUPERASYNC_mode">SuperAsync</a> mode doesn't have any impact to primary logging at all (it never enters peer state), it is often used as the temporary sync mode. For example, if reorg on a large table is known to cause performance problem, you can change sync mode to SuperAsynch before the reorg job and change it back to you normal sync mode when the job is done and standby catches up to the primary (both primary-standby log shipping gap (HADR_LOG_GAP in monitoring) and standby receive-replay gap &nbsp; (STANDBY_RECV_REPLAY_GAP in monitoring) are small). The small gaps indicates that logs from the load peak have been shipped to the standby and have been replayed. It can take some time after the load peak for the standby to catchup. If it takes a very long time to catchup or never catches up, then you have a general performance problem, this workaround won't help much.</p>
+
+        <p dir="ltr">Beginning in DB2 V10.1, you can do "<a href="hadrConfig.html#HADR_Database_Configuration_Parameters">semi&nbsp;dynamic</a>" update of HADR config parameters. So changing sync mode requires no down time on the primary. Simply do "stop hadr", "update db cfg ...", "start hadr" on the primary database. If you are using <a href="http://publib.boulder.ibm.com/infocenter/db2luw/v10r1/topic/com.ibm.db2.luw.admin.config.doc/doc/r0059281.html">hadr_target_list</a> on primary and standby to specify the remote databases instead of the hadr_remote_host/hadr_remote_svc parameters, the hadr_syncmode parameter specifies the sync mode used by the primary-standby pair (or the primary-principal standby pair in the case of multiple standbys) when this database is a primary, and hadr_syncmode need not be the same on the primary and standby databases. Thus changing hadr_syncmode on the primary alone is enough to change the operational sync mode. The hadr_target_list parameter supports multiple standbys. It is recommended even when you are just defining one standby. If hadr_target_list is not used, you will need to update hadr_syncmode on the standby too and deactivate and reactivate the standby to pick up the new value.</p>
+
+        <p dir="ltr">Changing sync mode can be done before an expected load surge or when a performance problem has been encountered. The "stop hadr" command breaks the pair out of peer state, therefore unblocks log writing. When HADR is restarted, it will be running in the new sync mode.<br />
+        <br />
+        In DB2 V9.7 and earlier releases, neither hadr_target_list nor semi dynamic parameters are supported. Changing sync mode would require deactivation and reactivation of the primary database. Thus it is not recommended. On these old releases, if primary log writing is slow in peer state, you can do "stop hadr" followed by "start hadr" on the primary to break the connection and take hadr out of peer state. After "start hadr", the pair will reconnect and enter remote catchup state, where primary log writing is not slowed down by the standby. Depending on the workload, it may take a short or a long time for the standby to reenter peer state. Once in peer state, primary can be slowed down again. In contrast, changing sync mode to SuperAsync can hold the pair in remote catchup state until you explicitly change the mode back.</p>
+
+        <p dir="ltr">&nbsp;</p>
+
+        <h1 dir="ltr"><a name="Multiple_Standby">Multiple Standby</a></h1>
+
+        <p dir="ltr">For performance tuning, a multiple standby system can be treated as multiple individual primary-standby pairs, with some special consideration on the network and logging device on the primary.</p>
+
+        <p dir="ltr">For general information on multiple standby, see the <a href="https://community.ibm.com/community/user/hybriddatamanagement/viewdocument/db2-101hadr-multiple-standbys?CommunityKey=b5b60ace-5eb2-4444-a961-d9edb6f39bd8">HADR multiple standby</a> white paper.</p>
+
+        <h2 dir="ltr"><a name="Network_Requirement">Network Requirement</a></h2>
+
+        <p dir="ltr">In a multiple standby system, the primary database sends log data to multiple standbys concurrently. The network interface on the primary host can be stressed. It is recommended that the network be tested with multiple log shipping streams using HADR simulator before deploying multiple standbys. See <a href="hadrSimulator.html#Simulating_Multiple_Standbys">simulating&nbsp;multiple&nbsp;standby</a> with HADR simulator.</p>
+
+        <h2 dir="ltr"><a name="Log_Device_and_Archive_Requirement">Log Device and Archive Requirement</a></h2>
+
+        <p dir="ltr">In a multiple standby system, the primary database's logging and archiving device need to have enough bandwidth to support multiple read streams and one write stream concurrently. Each read stream is used for remote catchup of a standby. The write stream is the active logging workload of the primary. Primary creates a dedicated thread for each standby. In remote catchup, each thread reads from the logging device and sends data to its standby. DB2 does have an optimization to read from the primary's log write buffer when remote catchup position is close to the primary's current log write position (therefore the data needed for remote catchup is likely to be still in the log write buffer). But when the standbys' log positions are far away from the log write position, log shipping will need to read from logging device or archive.</p>
+
+        <p dir="ltr">When the standbys catch up to the currently position of primary, the principle standby enters peer state and the thread serving it reads from the log write buffer, if its syncmode is not superAsync. The auxiliary standbys are all superAsync mode, so they will stay in remote catchup state, even though their log positions are close to primary current log position. The threads serving these standbys will likely to be able to read from primary's log buffer for log shipping too. This greatly reduces load on the primary's logging device.</p>
+
+        <h2 dir="ltr"><a name="Remote_Catchup_Log_Read_Optimization">Remote Catchup Log Read Optimization</a></h2>
+
+        <p dir="ltr">Although an HADR thread in remote catchup state can read from primary's log write buffer, its behavior is different from that of a peer state thread. In peer state, log writing will wait for log shipping, therefore log shipping can slow down log writing. In remote catchup state, log writing does not wait for log shipping. The log shipping thread just peeks at log buffer to opportunistically read from it. When the log pages it needs does not exist in the buffer, it still goes to logging device or archive to get it. This is an optimization to reduce load on the logging device and speed up remote catchup log reading. <strong>The remote catchup optimization is enabled on multiple and single standby systems</strong>.</p>
+
+        <h1 dir="ltr"><a name="HADR_on_pureScale">HADR on pureScale</a></h1>
+
+        <p dir="ltr">In pureScale HADR setup, each primary member has its own log stream. Each primary member connects to the standby replay member via TCP to ship logs. For performance tuning, each log stream can be modeled as an individual primary-standby pair.</p>
+
+        <p dir="ltr">For general information on HADR on pureScale, see <a href="hadrPureScale.html">tutorial of HADR on pureScale</a>.</p>
+
+        <h2 dir="ltr"><a name="Network_Requirement2">Network Requirement</a></h2>
+
+        <p dir="ltr">Since all streams goes to the standby replay member, the network interface on this member can be stressed. It is recommended that the network be tested with multiple log shipping streams using HADR simulator. See <a href="hadrSimulator.html#Simulating_pureScale_Systems">simulating&nbsp;pureScale&nbsp;HADR</a> with HADR simulator.</p>
+
+        <h2 dir="ltr"><a name="Replay_Speed">Replay Speed</a></h2>
+
+        <p dir="ltr">The replay member on standby merges log records from all primary members into a single logical log stream, the replays it. Replay uses SMP parallelism on the replay member. Replay resource is still limited to one member. Replay can become bottleneck. If primary members have higher write to read workload ratio, then the problem can be more serious. In a good case where there are 4 primary members, each with a 25% write workload, total write load is 100% of a member. Since replaying a transaction generally costs less resource, the standby member should be able to handle the replay workload. But if it's 50% write load on primary, then standby replay member is more likely to become bottleneck. Typical "slow replay" symptom (standby receive buffer/spool full, standby stops receive, primary logging blocked) would appear on primary.</p>
+
+        <h2 dir="ltr"><a name="Storage_System_Requirement">Storage System Requirement</a></h2>
+
+        <p dir="ltr">The standby replay member also puts higher write load on its storage devices because it is writing all log streams and replaying workload from all members (during replay, the replay member directly writes to storage, bypassing global buffer pool on the CF). The interface between a standby member and the SAN (mounted as GPFS) needs higher bandwidth than that of a primary member. Because replay member can auto migrate among the standby members, for best result, the higher bandwidth should be supported on all standby members, not just the "preferred" replay member.</p>
+
+        <p dir="ltr">&nbsp;</p>
+      </div>
+    </div>
+    <!-- /#page-content-wrapper -->
+
+  </div>
+  <!-- /#wrapper -->
+
+  <!-- Bootstrap core JavaScript -->
+  <script src="vendor/jquery/jquery.min.js"></script>
+  <script src="vendor/bootstrap/js/bootstrap.bundle.min.js"></script>
+
+  <!-- Menu Toggle Script -->
+  <script>
+    $("#menu-toggle").click(function(e) {
+      e.preventDefault();
+      $("#wrapper").toggleClass("toggled");
+    });
+  </script>
+
+</body>
+
+</html>

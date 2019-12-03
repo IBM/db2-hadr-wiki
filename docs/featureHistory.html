@@ -1,0 +1,290 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
+  <meta name="description" content="">
+  <meta name="author" content="">
+
+  <title>Db2 HADR Wiki</title>
+
+  <!-- Bootstrap core CSS -->
+  <link href="vendor/bootstrap/css/bootstrap.min.css" rel="stylesheet">
+
+  <!-- Custom styles for this template -->
+  <link href="css/simple-sidebar.css" rel="stylesheet">
+
+</head>
+
+<body>
+
+  <div class="d-flex" id="wrapper">
+
+    <!-- Sidebar -->
+    <div class="bg-light border-right" id="sidebar-wrapper">
+      <div class="sidebar-heading">Menu</div>
+      <div class="list-group list-group-flush">
+        <a href="hadrBenefits.html" class="list-group-item list-group-item-action bg-light">HADR Benefits</a>
+        <a href="featureHistory.html" class="list-group-item list-group-item-action bg-light"><strong>> Feature History</strong></a>
+        <a href="hadrTutorial.html" class="list-group-item list-group-item-action bg-light">HADR Tutorial</a>
+        <a href="tcpTuning.html" class="list-group-item list-group-item-action bg-light">TCP Tuning</a>
+        <a href="perfTuning.html" class="list-group-item list-group-item-action bg-light">Perf Tuning</a>
+        <a href="hadrSimulator.html" class="list-group-item list-group-item-action bg-light">HADR Simulator</a>
+        <a href="simulatorOptions.html" class="list-group-item list-group-item-action bg-light">HADR Simulator Options</a>
+        <a href="simulatorOutput.html" class="list-group-item list-group-item-action bg-light">HADR Simulator Output</a>
+        <a href="simulatorParams.html" class="list-group-item list-group-item-action bg-light">HADR Simulator Params</a>
+        <a href="db2logscan.html" class="list-group-item list-group-item-action bg-light">db2logscan</a>
+        <a href="hadrConfig.html" class="list-group-item list-group-item-action bg-light">HADR Config</a>
+        <a href="hadrSyncMode.html" class="list-group-item list-group-item-action bg-light">HADR Sync Mode</a>
+        <a href="hadrTakeover.html" class="list-group-item list-group-item-action bg-light">HADR Takeover</a>
+        <a href="hadrMonitoring.html" class="list-group-item list-group-item-action bg-light">HADR Monitoring</a>
+        <a href="hadrCommands.html" class="list-group-item list-group-item-action bg-light">HADR Commands</a>
+        <a href="hadrLogShipping.html" class="list-group-item list-group-item-action bg-light">HADR Log Shipping</a>
+        <a href="hadrPerf.html" class="list-group-item list-group-item-action bg-light">HADR Perf</a>
+        <a href="diagConnect.html" class="list-group-item list-group-item-action bg-light">Diag Connect</a>
+        <a href="db2diag.html" class="list-group-item list-group-item-action bg-light">db2diag.log</a>
+        <a href="clusterManagers.html" class="list-group-item list-group-item-action bg-light">Cluster Managers</a>
+        <a href="clientReroute.html" class="list-group-item list-group-item-action bg-light">Client Reroute</a>
+        <a href="hadrPureScale.html" class="list-group-item list-group-item-action bg-light">HADR on PureScale</a>
+        <a href="faq.html" class="list-group-item list-group-item-action bg-light">FAQ</a>
+        <a href="db2fmtlog.html" class="list-group-item list-group-item-action bg-light">db2fmtlog replayonlywindow</a>
+      </div>
+    </div>
+    <!-- /#sidebar-wrapper -->
+
+    <!-- Page Content -->
+    <div id="page-content-wrapper">
+
+      <nav class="navbar navbar-expand-lg navbar-light bg-light border-bottom">
+        <button class="btn btn-primary" id="menu-toggle">Toggle Menu</button>
+
+        <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarSupportedContent" aria-controls="navbarSupportedContent" aria-expanded="false" aria-label="Toggle navigation">
+          <span class="navbar-toggler-icon"></span>
+        </button>
+
+        <div class="collapse navbar-collapse" id="navbarSupportedContent">
+          <ul class="navbar-nav ml-auto mt-2 mt-lg-0">
+            <li class="nav-item">
+              <a class="nav-link" href="index.html">Home</a>
+            </li>
+            <li class="nav-item">
+              <a class="nav-link" href="contact.html">Contact</a>
+            </li>
+            <li class="nav-item">
+              <a class="nav-link" href="contribute.html">Contribute</a>
+            </li>
+          </ul>
+        </div>
+      </nav>
+
+      <div class="container-fluid">
+        <h1 dir="ltr"><a name="What_s_new_in_HADR">What's new in HADR</a></h1>
+
+        <p dir="ltr">List of HADR new features since original HADR release in DB2 V82. Sorted by most recent ones first.</p>
+
+        <p dir="ltr"><strong>Table of Contents</strong></p>
+
+        <ul dir="ltr">
+        	<li>What's new in HADR
+        	<ul>
+        		<li><a href="#New%20in%20v11.5">New&nbsp;in&nbsp;v11.5</a></li>
+        		<li><a href="#New%20in%20v11.1">New&nbsp;in&nbsp;v11.1</a>
+        		<ul>
+        			<li><a href="#New%20in%20v11.1.4.4">New&nbsp;in&nbsp;v11.1.4.4</a></li>
+        			<li><a href="#New%20in%20v11.1.3.3">New&nbsp;in&nbsp;v11.1.3.3</a></li>
+        			<li><a href="#New%20in%20v11.1.2.2">New&nbsp;in&nbsp;v11.1.2.2</a></li>
+        			<li><a href="#New%20in%20v11.1.1.1">New&nbsp;in&nbsp;v11.1.1.1</a></li>
+        		</ul>
+        		</li>
+        		<li><a href="#Older%20Releases">Older&nbsp;Releases</a>
+        		<ul>
+        			<li><a href="#V10.5_fp4_Columnar_data_support">V10.5&nbsp;fp4&nbsp;Columnar&nbsp;data&nbsp;support</a></li>
+        			<li><a href="#V10_5_nbsp__pureScale_Support">V10.5&nbsp; pureScale Support</a></li>
+        			<li><a href="#V10_5_nbsp__Monitor_fields_STANDBY_SPOOL_PERCENT_and_HADR_FLAGS">V10.5&nbsp; Monitor fields STANDBY_SPOOL_PERCENT and HADR_FLAGS</a></li>
+        			<li><a href="#V10_1_nbsp__Multiple_standby">V10.1&nbsp; Multiple standby</a></li>
+        			<li><a href="#V10_1_nbsp__Enhanced_HADR_Monitoring">V10.1&nbsp; Enhanced HADR Monitoring</a></li>
+        			<li><a href="#V10_1_Semi_dynamic_HADR_Configuration_Parameters">V10.1&nbsp;Semi-dynamic&nbsp;HADR&nbsp;Configuration&nbsp;Parameters</a></li>
+        			<li><a href="#V10_1_Spooling">V10.1 Spooling</a></li>
+        			<li><a href="#V10_1_nbsp__Delayed_Replay">V10.1&nbsp; Delayed Replay</a></li>
+        			<li><a href="#SuperAsync_mode">SuperAsync mode</a></li>
+        			<li><a href="#Inline_XML_and_LOB_object_support_for_Reads_on_Standby">Inline XML and LOB object support for Reads on Standby</a></li>
+        			<li><a href="#Reads_on_Standby">Reads on Standby</a></li>
+        			<li><a href="#Block_Non_Logged__BLOCKNONLOGGED">Block Non Logged, BLOCKNONLOGGED</a></li>
+        			<li><a href="#HADR_standby_receive_buffer_usage_reported_in_db2pd">HADR standby receive buffer usage reported in db2pd</a></li>
+        			<li><a href="#DB2_HADR_SOSNDBUF_and_DB2_HADR_SORCVBUF">DB2_HADR_SOSNDBUF and DB2_HADR_SORCVBUF</a></li>
+        			<li><a href="#DB2_HADR_PEER_WAIT_LIMIT">DB2_HADR_PEER_WAIT_LIMIT</a></li>
+        			<li><a href="#HADR_peer_window">HADR peer window</a></li>
+        			<li><a href="#DB2_HADR_NO_IP_CHECK">DB2_HADR_NO_IP_CHECK</a></li>
+        		</ul>
+        		</li>
+        	</ul>
+        	</li>
+        </ul>
+
+        <h2 dir="ltr"><a id="New in v11.5" name="New in v11.5">New in v11.5</a></h2>
+
+        <ul dir="ltr">
+        	<li>HADR Reads on Standby new default behaviour – the availability of the standby database to perform SQL queries is significantly enhanced through the avoidance of the replay-only window.</li>
+        	<li>Introduced DB2_HADR_STANDBY_KEEP_UNARCHIVED_LOGS regvar
+        	<ul>
+        		<li>&nbsp;&nbsp;&nbsp; Controls whether standby will keep log files when the corresponding log files on primary are not archived</li>
+        		<li>&nbsp;&nbsp;&nbsp; Set to FALSE on standby, standby will delete log files when the corresponding log files on primary are not archived</li>
+        		<li>&nbsp;&nbsp;&nbsp; DEFAULT: TRUE</li>
+        	</ul>
+        	</li>
+        	<li>HADR now respects SSL_CIPHERSPECS
+        	<ul>
+        		<li>Specifies the cipher suites that the server allows for incoming connection requests when using SSL protocol</li>
+        		<li>Additionally, will now also specify the cipher suites used to communicate between primary and standby</li>
+        	</ul>
+        	</li>
+        	<li>Changes to logarchmeth1/2 on an HADR standby will take effect upon HADR startup/re-activation as well as during takeover.</li>
+        </ul>
+
+        <h2 dir="ltr"><a id="New in v11.1" name="New in v11.1">New in v11.1</a></h2>
+
+        <h3 dir="ltr"><a id="New in v11.1.4.4" name="New in v11.1.4.4">New in v11.1.4.4</a></h3>
+
+        <ul dir="ltr">
+        	<li class="li">In HADR Reads on Standby (ROS) environments, the availability of the standby database to perform SQL queries is significantly enhanced through the avoidance of the replay-only window. See <a class="xref" href="https://www.ibm.com/support/knowledgecenter/SSEPGG_11.1.0/com.ibm.db2.luw.admin.regvars.doc/doc/r0005669.html?view=kc#r0005669__DB2_HADR_ROS_AVOID_REPLAY_ONLY_WINDOW">DB2_HADR_ROS_AVOID_REPLAY_ONLY_WINDOW</a> for details.</li>
+        	<li class="li" id="c0061179__li_p2r_h4p_42b">A new <span class="keyword cmdname">db2fmtlog</span> tool can be used to extract and display information from transaction log files. Information extracted consists of encryption or compression status, log chain information, range of log records, and other metadata. This information is useful in problem determination scenarios. This information can also assist with identifying which log records can trigger 'replay only windows' in HADR Reads-on-Standby environments. For more information, see <a class="xref tipso_style ibm-widget-processed" href="https://www.ibm.com/support/knowledgecenter/SSEPGG_11.1.0/com.ibm.db2.luw.admin.cmd.doc/doc/r0070378.html?view=kc#r0070378">db2fmtlog – Format and display log file information command</a></li>
+        </ul>
+
+        <h3 dir="ltr"><a id="New in v11.1.3.3" name="New in v11.1.3.3">New in v11.1.3.3</a></h3>
+
+        <ul dir="ltr">
+        	<li class="li" id="c0061179__li_em3_czl_pdb">SSL support for the transmission of transaction log data between the HADR primary and standby database servers, previously limited to the Linux Amd64/Intel operating system, is now supported on all Unix and Windows operating systems, excluding <span class="keyword">Db2</span> pureScale environments. Setup instructions are available at <a class="xref tipso_style ibm-widget-processed" href="https://www.ibm.com/support/knowledgecenter/SSEPGG_11.1.0/com.ibm.db2.luw.admin.sec.doc/doc/t0070228.html?view=kc#t0070228" rel="noopener noreferrer" target="_blank">Configuring SSL for the communication between primary and standby HADR servers</a>.</li>
+        	<li class="li" id="c0061179__li_hm3_czl_pdb">In HADR Standby databases with Reads On Standby (ROS) enabled, diagnostic improvements allow for easier identification of operations which cause replay-only windows. For details on the new <span class="ph filepath">db2diag.log</span> messaging see <span class="keyword parmname">DB2_HADR_REPLAY_ONLY_WINDOW_DIAGLEVEL</span> in <a class="xref tipso_style ibm-widget-processed" href="https://www.ibm.com/support/knowledgecenter/SSEPGG_11.1.0/com.ibm.db2.luw.admin.regvars.doc/doc/r0005669.dita?view=kc" rel="noopener noreferrer" target="_blank">Miscellaneous variables</a>. For more information on the new transaction flag of <span class="keyword cmdname">db2pd -transactions</span>, see <a class="xref tipso_style ibm-widget-processed" href="https://www.ibm.com/support/knowledgecenter/SSEPGG_11.1.0/com.ibm.db2.luw.admin.cmd.doc/doc/r0011729.dita?view=kc" rel="noopener noreferrer" target="_blank">db2pd - Monitor and troubleshoot Db2 database command</a>.</li>
+        	<li class="li" id="c0061179__li_im3_czl_pdb">In HADR environments, integrity checking of transaction log data during network transmission between the primary and standby database servers is improved. When an integrity check failure is detected, seamless retransmission of the log data is performed to auto-correct the condition, with no user intervention required.</li>
+        </ul>
+
+        <h3 dir="ltr"><a id="New in v11.1.2.2" name="New in v11.1.2.2">New in v11.1.2.2</a></h3>
+
+        <ul dir="ltr">
+        	<li class="li">Databases can now be configured to allow connectivity during crash recovery. See <a class="xref" href="https://www.ibm.com/support/knowledgecenter/SSEPGG_11.1.0/com.ibm.db2.luw.admin.ha.doc/doc/c0070281.html?view=kc">Database accessibility during backward phase of crash recovery or HADR takeover</a>.</li>
+        	<li class="li">An HADR Standby tablespace can now be recovered without a full database re-initialization, and a new STANDBY_TABLESPACE_ERROR flag for HADR_FLAGS monitor element has been added. See <a class="xref" href="https://www.ibm.com/support/knowledgecenter/SSEPGG_11.1.0/com.ibm.db2.luw.admin.ha.doc/doc/c0070277.html?view=kc">How to recover from tablespace errors on an HADR standby database</a>.</li>
+        </ul>
+
+        <h3 dir="ltr"><a id="New in v11.1.1.1" name="New in v11.1.1.1">New in v11.1.1.1</a></h3>
+
+        <ul dir="ltr">
+        	<li class="li">For <span class="keyword">Db2 pureScale</span> users who want to upgrade from supported <span class="keyword">Db2</span> <span class="keyword">Version 10.5</span> fix packs, or later, refer to the <a class="xref tipso_style ibm-widget-processed" href="http://www-01.ibm.com/support/docview.wss?uid=swg21298716" rel="noopener noreferrer" target="_blank">FAQ technote</a> for supported <span class="keyword">V10.5</span> fix pack levels. High availability disaster recovery (HADR) environments can now be upgraded without the need to reinitialize the standby database after you upgrade the primary database.</li>
+        	<li class="li">SSL is now supported between the HADR primary and standby servers on Linux. However, this SSL support is only present in the Linux Amd64/Intel environment, not in the Linux PPCLE or Linux Z environment. Setup instructions are available at <a class="xref" href="https://www.ibm.com/support/knowledgecenter/SSEPGG_11.1.0/com.ibm.db2.luw.admin.sec.doc/doc/t0070228.html?view=kc#t0070228">Configuring SSL for the communication between primary and standby HADR servers</a>.</li>
+        	<li class="li">HADR Upgrade to <span class="keyword">Db2</span> 11.1.1.1 from <span class="keyword">Db2</span> 10.5 without having to reinitialize the standby with a new backup. Further information refer to <a class="xref tipso_style ibm-widget-processed" href="https://www.ibm.com/support/knowledgecenter/SSEPGG_11.1.0/com.ibm.db2.luw.wn.doc/doc/c0023231.html?view=kc#c0023231.dita">High availability, backup, logging, resiliency, and recovery enhancements</a>.</li>
+        </ul>
+
+        <h2 dir="ltr"><a id="Older Releases" name="Older Releases">Older Releases</a></h2>
+
+        <h3 dir="ltr"><a name="V10.5_fp4_Columnar_data_support">V10.5 fp4 Columnar data support</a></h3>
+
+        <p dir="ltr">First available in V10.5 fp4 (Cancun release)<br />
+        HADR is now supported on databases with columnar tables. Note that reads on standby still cannot query columnar tables.</p>
+
+        <h3 dir="ltr"><a name="V10_5_nbsp__pureScale_Support">V10.5&nbsp; <span style="background-color:#ffff00">pureScale Support</span></a></h3>
+
+        <p dir="ltr">First available in V10.5<br />
+        HADR is now supported on pureScale clusters. See&nbsp; <a href="http://pic.dhe.ibm.com/infocenter/db2luw/v10r5/topic/com.ibm.db2.luw.admin.ha.doc/doc/c0061084.html">http://pic.dhe.ibm.com/infocenter/db2luw/v10r5/topic/com.ibm.db2.luw.admin.ha.doc/doc/c0061084.html</a></p>
+
+        <h3 dir="ltr"><a name="V10_5_nbsp__Monitor_fields_STANDBY_SPOOL_PERCENT_and_HADR_FLAGS">V10.5&nbsp; Monitor fields STANDBY_SPOOL_PERCENT and HADR_FLAGS</a></h3>
+
+        <p dir="ltr">First available in V10.5<br />
+        STANDBY_SPOOL_PERCENT reports spool usage, similar to STANDBY_RECV_BUF_PERCENT.<br />
+        STANDBY_RECV_BLOCKED and STANDBY_LOG_DEVICE_FULL from HADR_FLAGS are very useful warning flags.<br />
+        See also <a href="hadrMonitoring.html#Fields_to_watch_out_in_HADR_monitoring">HADR&nbsp;monitoring</a> and <a href="http://pic.dhe.ibm.com/infocenter/db2luw/v10r5/topic/com.ibm.db2.luw.sql.rtn.doc/doc/r0059275.html">http://pic.dhe.ibm.com/infocenter/db2luw/v10r5/topic/com.ibm.db2.luw.sql.rtn.doc/doc/r0059275.html</a></p>
+
+        <hr dir="ltr" />
+        <h3 dir="ltr"><a name="V10_1_nbsp__Multiple_standby">V10.1&nbsp; <span style="background-color:#ffff00">Multiple standby</span></a></h3>
+
+        <p dir="ltr">First available in V10.1<br />
+        Up to 3 standbys are supported. Now you can provide HA and DR protection to your database with a single technology. See <a href="http://publib.boulder.ibm.com/infocenter/db2luw/v10r1/topic/com.ibm.db2.luw.admin.ha.doc/doc/c0059994.html">http://publib.boulder.ibm.com/infocenter/db2luw/v10r1/topic/com.ibm.db2.luw.admin.ha.doc/doc/c0059994.html</a></p>
+
+        <h3 dir="ltr"><a name="V10_1_nbsp__Enhanced_HADR_Monitoring">V10.1&nbsp; Enhanced HADR Monitoring</a></h3>
+
+        <p dir="ltr">First available in V10.1<br />
+        <a href="http://publib.boulder.ibm.com/infocenter/db2luw/v10r1/topic/com.ibm.db2.luw.admin.ha.doc/doc/c0020950.html">"db2pd&nbsp;-hadr"&nbsp;</a>format is easier to parse. <a href="http://publib.boulder.ibm.com/infocenter/db2luw/v10r1/topic/com.ibm.db2.luw.sql.rtn.doc/doc/r0059275.html">MON_GET_HADR</a> table function available. New fields specifically for performance monitoring: LOG_HADR_WAIT_CUR, LOG_HADR_WAIT_ACCUMULATED, LOG_HADR_WAIT_RECENT_AVG. See also <a href="hadrMonitoring.html#Fields_to_watch_out_in_HADR_monitoring">HADR&nbsp;monitoring</a></p>
+
+        <h3 dir="ltr"><a name="V10_1_Semi_dynamic_HADR_Configuration_Parameters">V10.1 Semi-dynamic HADR Configuration Parameters</a></h3>
+
+        <p dir="ltr">First available in V10.1.<br />
+        Static database configuration parameters for HADR will be refreshed on database startup and on HADR component startup. Therefore "stop HADR" followed by "start HADR" command on a primary database will pickup new values of HADR parameters. This allows initializing and reconfiguring HADR without downtime on the primary database. See also <a href="hadrConfig.html#HADR_Database_Configuration_Parameters">HADR Config - HADR Database Configuration Parameters</a></p>
+
+        <h3 dir="ltr"><a name="V10_1_Spooling">V10.1 Spooling</a></h3>
+
+        <p dir="ltr">First available in V10.1<br />
+        Spooling allows you to specify additional space where logs can be spooled on the standby. This helps avoid back-pressure on the primary caused by sudden spikes in logging activity. See <a href="http://publib.boulder.ibm.com/infocenter/db2luw/v10r1/topic/com.ibm.db2.luw.wn.doc/doc/c0060144.html">http://publib.boulder.ibm.com/infocenter/db2luw/v10r1/topic/com.ibm.db2.luw.wn.doc/doc/c0060144.html</a></p>
+
+        <h3 dir="ltr"><a name="V10_1_nbsp__Delayed_Replay">V10.1&nbsp; Delayed Replay</a></h3>
+
+        <p dir="ltr">First available in V10.1<br />
+        Delayed replay helps prevent data loss due to errant transactions. See <a href="http://publib.boulder.ibm.com/infocenter/db2luw/v10r1/topic/com.ibm.db2.luw.admin.ha.doc/doc/c0060000.html">http://publib.boulder.ibm.com/infocenter/db2luw/v10r1/topic/com.ibm.db2.luw.admin.ha.doc/doc/c0060000.html</a></p>
+
+        <hr dir="ltr" />
+        <h3 dir="ltr"><a name="SuperAsync_mode">SuperAsync mode</a></h3>
+
+        <p dir="ltr">First available in V95fp8 and V97fp5<br />
+        In this new mode, transactions on primary database will never be slowed down or blocked. See <a href="http://publib.boulder.ibm.com/infocenter/db2luw/v9r7/topic/com.ibm.db2.luw.admin.ha.doc/doc/c0011724.html">http://publib.boulder.ibm.com/infocenter/db2luw/v9r7/topic/com.ibm.db2.luw.admin.ha.doc/doc/c0011724.html</a></p>
+
+        <h3 dir="ltr"><a name="Inline_XML_and_LOB_object_support_for_Reads_on_Standby">Inline XML and LOB object support for Reads on Standby</a></h3>
+
+        <p dir="ltr">First available in V97fp5<br />
+        Reads on standby can return inline XML and LOB objects. Queries on non-inline objects will still return error. This allows small LOB/XML objects to be returned by reads on standby.</p>
+
+        <h3 dir="ltr"><a name="Reads_on_Standby">Reads on Standby</a></h3>
+
+        <p dir="ltr">First available in V97fp1 (Dec. 2009)<br />
+        HADR standby database now accepts read-only queries. To enable this feature, set registry variable DB2_HADR_ROS to ON on the standby instance. For details, see <a href="http://publib.boulder.ibm.com/infocenter/db2luw/v9r7/index.jsp?topic=/com.ibm.db2.luw.admin.ha.doc/doc/c0054257.html">http://publib.boulder.ibm.com/infocenter/db2luw/v9r7/index.jsp?topic=/com.ibm.db2.luw.admin.ha.doc/doc/c0054257.html</a></p>
+
+        <h3 dir="ltr"><a name="Block_Non_Logged__BLOCKNONLOGGED">Block Non Logged, BLOCKNONLOGGED</a></h3>
+
+        <p dir="ltr">First available in V95fp4 and V97<br />
+        When database parameter BLOCKNONLOGGED is set to YES (default NO), tables with "not logged initially" attribute or not logged LOB columns can not created, either by create table or alter table statement. See <a href="http://publib.boulder.ibm.com/infocenter/db2luw/v9r5/topic/com.ibm.db2.luw.admin.config.doc/doc/r0055068.html">http://publib.boulder.ibm.com/infocenter/db2luw/v9r5/topic/com.ibm.db2.luw.admin.config.doc/doc/r0055068.html</a></p>
+
+        <h3 dir="ltr"><a name="HADR_standby_receive_buffer_usage_reported_in_db2pd">HADR standby receive buffer usage reported in db2pd</a></h3>
+
+        <p dir="ltr">First available in V8fp17, V91fp5, and V95fp2<br />
+        Db2pd -hadr option will report percentage of HADR standby buffer used. If the percentage frequently hits 100%, consider increasing buffer size. If utilization is low, consider reducing buffer size. Buffer size can be set via registry variable DB2_HADR_BUF_SIZE. For more info, see <a href="http://publib.boulder.ibm.com/infocenter/db2luw/v9r7/topic/com.ibm.db2.luw.admin.ha.doc/doc/c0021056.html">http://publib.boulder.ibm.com/infocenter/db2luw/v9r7/topic/com.ibm.db2.luw.admin.ha.doc/doc/c0021056.html</a></p>
+
+        <h3 dir="ltr"><a name="DB2_HADR_SOSNDBUF_and_DB2_HADR_SORCVBUF">DB2_HADR_SOSNDBUF and DB2_HADR_SORCVBUF</a></h3>
+
+        <p dir="ltr">First available in V8fp17, V91fp5, and V95fp2<br />
+        Registry variable to tune socket buffer size for HADR connections. This allows tuning TCP window size for HADR connection without impact on other TCP connections on the system. For more info, see <a href="http://publib.boulder.ibm.com/infocenter/db2luw/v9r7/topic/com.ibm.db2.luw.admin.ha.doc/doc/c0021056.html">http://publib.boulder.ibm.com/infocenter/db2luw/v9r7/topic/com.ibm.db2.luw.admin.ha.doc/doc/c0021056.html</a></p>
+
+        <h3 dir="ltr"><a name="DB2_HADR_PEER_WAIT_LIMIT">DB2_HADR_PEER_WAIT_LIMIT</a></h3>
+
+        <p dir="ltr">First available in V8fp16, V91fp4, and V95fp1<br />
+        Registry variable for maximal primary logging wait time. Prevents primary logging from blocking because of slow or blocked standby. For more info, see <a href="http://publib.boulder.ibm.com/infocenter/db2luw/v9r7/topic/com.ibm.db2.luw.admin.ha.doc/doc/c0021056.html">http://publib.boulder.ibm.com/infocenter/db2luw/v9r7/topic/com.ibm.db2.luw.admin.ha.doc/doc/c0021056.html</a></p>
+
+        <h3 dir="ltr"><a name="HADR_peer_window">HADR peer window</a></h3>
+
+        <p dir="ltr">First available in V95<br />
+        Database configuration parameter hadr_peer_window allows takeover with no data loss when primary failed within peer window. For more info, see <a href="http://publib.boulder.ibm.com/infocenter/db2luw/v9r7/topic/com.ibm.db2.luw.admin.config.doc/doc/r0052656.html">http://publib.boulder.ibm.com/infocenter/db2luw/v9r7/topic/com.ibm.db2.luw.admin.config.doc/doc/r0052656.html</a></p>
+
+        <h3 dir="ltr"><a name="DB2_HADR_NO_IP_CHECK">DB2_HADR_NO_IP_CHECK</a></h3>
+
+        <p dir="ltr">First available in V8fp15, V91fp3, and V95.<br />
+        Registry variable to bypass IP address cross check in NAT (Network Address Translation) environment. This feature allows HADR to be deployed in NAT environment. For more info, see <a href="http://publib.boulder.ibm.com/infocenter/db2luw/v9r7/topic/com.ibm.db2.luw.admin.ha.doc/doc/c0054092.html">http://publib.boulder.ibm.com/infocenter/db2luw/v9r7/topic/com.ibm.db2.luw.admin.ha.doc/doc/c0054092.html</a><br />
+        &nbsp;</p>
+      </div>
+    </div>
+    <!-- /#page-content-wrapper -->
+
+  </div>
+  <!-- /#wrapper -->
+
+  <!-- Bootstrap core JavaScript -->
+  <script src="vendor/jquery/jquery.min.js"></script>
+  <script src="vendor/bootstrap/js/bootstrap.bundle.min.js"></script>
+
+  <!-- Menu Toggle Script -->
+  <script>
+    $("#menu-toggle").click(function(e) {
+      e.preventDefault();
+      $("#wrapper").toggleClass("toggled");
+    });
+  </script>
+
+</body>
+
+</html>

@@ -1,0 +1,873 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
+  <meta name="description" content="">
+  <meta name="author" content="">
+
+  <title>Db2 HADR Wiki</title>
+
+  <!-- Bootstrap core CSS -->
+  <link href="vendor/bootstrap/css/bootstrap.min.css" rel="stylesheet">
+
+  <!-- Custom styles for this template -->
+  <link href="css/simple-sidebar.css" rel="stylesheet">
+
+</head>
+
+<body>
+
+  <div class="d-flex" id="wrapper">
+
+    <!-- Sidebar -->
+    <div class="bg-light border-right" id="sidebar-wrapper">
+      <div class="sidebar-heading">Menu</div>
+      <div class="list-group list-group-flush">
+        <a href="hadrBenefits.html" class="list-group-item list-group-item-action bg-light">HADR Benefits</a>
+        <a href="featureHistory.html" class="list-group-item list-group-item-action bg-light">Feature History</a>
+        <a href="hadrTutorial.html" class="list-group-item list-group-item-action bg-light">HADR Tutorial</a>
+        <a href="tcpTuning.html" class="list-group-item list-group-item-action bg-light">TCP Tuning</a>
+        <a href="perfTuning.html" class="list-group-item list-group-item-action bg-light">Perf Tuning</a>
+        <a href="hadrSimulator.html" class="list-group-item list-group-item-action bg-light">HADR Simulator</a>
+        <a href="simulatorOptions.html" class="list-group-item list-group-item-action bg-light">HADR Simulator Options</a>
+        <a href="simulatorOutput.html" class="list-group-item list-group-item-action bg-light">HADR Simulator Output</a>
+        <a href="simulatorParams.html" class="list-group-item list-group-item-action bg-light">HADR Simulator Params</a>
+        <a href="db2logscan.html" class="list-group-item list-group-item-action bg-light"><strong>> db2logscan</strong></a>
+        <a href="hadrConfig.html" class="list-group-item list-group-item-action bg-light">HADR Config</a>
+        <a href="hadrSyncMode.html" class="list-group-item list-group-item-action bg-light">HADR Sync Mode</a>
+        <a href="hadrTakeover.html" class="list-group-item list-group-item-action bg-light">HADR Takeover</a>
+        <a href="hadrMonitoring.html" class="list-group-item list-group-item-action bg-light">HADR Monitoring</a>
+        <a href="hadrCommands.html" class="list-group-item list-group-item-action bg-light">HADR Commands</a>
+        <a href="hadrLogShipping.html" class="list-group-item list-group-item-action bg-light">HADR Log Shipping</a>
+        <a href="hadrPerf.html" class="list-group-item list-group-item-action bg-light">HADR Perf</a>
+        <a href="diagConnect.html" class="list-group-item list-group-item-action bg-light">Diag Connect</a>
+        <a href="db2diag.html" class="list-group-item list-group-item-action bg-light">db2diag.log</a>
+        <a href="clusterManagers.html" class="list-group-item list-group-item-action bg-light">Cluster Managers</a>
+        <a href="clientReroute.html" class="list-group-item list-group-item-action bg-light">Client Reroute</a>
+        <a href="hadrPureScale.html" class="list-group-item list-group-item-action bg-light">HADR on PureScale</a>
+        <a href="faq.html" class="list-group-item list-group-item-action bg-light">FAQ</a>
+        <a href="db2fmtlog.html" class="list-group-item list-group-item-action bg-light">db2fmtlog replayonlywindow</a>
+      </div>
+    </div>
+    <!-- /#sidebar-wrapper -->
+
+    <!-- Page Content -->
+    <div id="page-content-wrapper">
+
+      <nav class="navbar navbar-expand-lg navbar-light bg-light border-bottom">
+        <button class="btn btn-primary" id="menu-toggle">Toggle Menu</button>
+
+        <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarSupportedContent" aria-controls="navbarSupportedContent" aria-expanded="false" aria-label="Toggle navigation">
+          <span class="navbar-toggler-icon"></span>
+        </button>
+
+        <div class="collapse navbar-collapse" id="navbarSupportedContent">
+          <ul class="navbar-nav ml-auto mt-2 mt-lg-0">
+            <li class="nav-item">
+              <a class="nav-link" href="index.html">Home</a>
+            </li>
+            <li class="nav-item">
+              <a class="nav-link" href="contact.html">Contact</a>
+            </li>
+            <li class="nav-item">
+              <a class="nav-link" href="contribute.html">Contribute</a>
+            </li>
+          </ul>
+        </div>
+      </nav>
+
+      <div class="container-fluid">
+        <p dir="ltr" style="text-align:center"><span style="font-size:20px">DB2 Logging and HADR Performance Analysis using<br />
+        DB2 Log Scanner and HADR Calculator</span><br />
+        &nbsp;</p>
+
+        <p dir="ltr"><strong>Table of Contents</strong></p>
+
+        <ul dir="ltr">
+        	<li><a href="#DB2_Log_Scanner">DB2 Log Scanner</a>
+
+        	<ul>
+        		<li><a href="#Introduction">Introduction</a></li>
+        		<li><a href="#Download">Download</a></li>
+        		<li><a href="#Command_Line_Options">Command Line Options</a>
+        		<ul>
+        			<li><a href="#Retrieving_Files_from_Log_Archive">Retrieving Files from Log Archive</a></li>
+        			<li><a href="#Compressed_Log_Files">Compressed Log Files</a></li>
+        		</ul>
+        		</li>
+        		<li><a href="#Sample_Output">Sample Output</a>
+        		<ul>
+        			<li><a href="#Logging_Rate">Logging Rate</a></li>
+        			<li><a href="#Info_Level_Option">Info Level Option</a></li>
+        			<li><a href="#Transaction_Level_Option">Transaction Level Option</a></li>
+        			<li><a href="#Statistical_Distribution_of_Logging_Metrics">Statistical Distribution of Logging Metrics</a></li>
+        		</ul>
+        		</li>
+        	</ul>
+        	</li>
+        	<li><a href="#DB2_Logging_Performance">DB2 Logging Performance</a></li>
+        	<li><a href="#HADR_Calculator">HADR Calculator</a>
+        	<ul>
+        		<li><a href="#Introduction2">Introduction</a></li>
+        		<li><a href="#Command_Line_Options2">Command Line Options</a></li>
+        		<li><a href="#Sample_Output2">Sample Output</a>
+        		<ul>
+        			<li><a href="#WAN__Wide_Area_Network__Example">WAN (Wide Area Network) Example</a>
+        			<ul>
+        				<li><a href="#Network_and_Disk_Speed">Network and Disk Speed</a></li>
+        				<li><a href="#Computed_Logging_Rate">Computed Logging Rate</a></li>
+        				<li><a href="#_________________Markers">"?", "??", "???" Markers</a></li>
+        				<li><a href="#Max_Flush_Size">Max Flush Size</a></li>
+        				<li><a href="#Remote_Catchup_Speed">Remote Catchup Speed</a></li>
+        			</ul>
+        			</li>
+        			<li><a href="#MAN__Metropolitan_Area_Network__Example">MAN (Metropolitan Area Network) Example</a></li>
+        			<li><a href="#LAN__Local_Area_Network__Example">LAN (Local Area Network) Example</a></li>
+        		</ul>
+        		</li>
+        	</ul>
+        	</li>
+        	<li><a href="#Summary">Summary</a></li>
+        </ul>
+
+        <p dir="ltr">&nbsp;</p>
+
+        <h1 dir="ltr"><a name="DB2_Log_Scanner">DB2 Log Scanner</a></h1>
+
+        <h2 dir="ltr"><a name="Introduction">Introduction</a></h2>
+
+        <p dir="ltr">DB2 Log Scanner is a tools that scans DB2 LUW transaction log files (such as S0000001.LOG) to analyze logging rate, flush (ie. log write), transaction, and log record characteristics. It supports cross version and cross platform scan. Any db2logscan executable can scan files from DB2 LUW version V9.1 and later, generated on either big or small endian platforms. It is also a high performance scanner. It can scan log files at 600MB/sec on Linux work stations when input files are cached. Thus you are more likely to be IO bound during a scan. DB2 Log Scanner cannot be used on encrypted logs.</p>
+
+        <p dir="ltr"><br />
+        The scanning result can be used to tune logging performance on either standard (non HADR) databases or HADR databases.</p>
+
+        <h2 dir="ltr"><a name="Download">Download - Db2 v11.5</a></h2>
+
+        <p dir="ltr">As of Db2 v11.5, the "HADR Toolkit" suite of tools including db2logscan (Db2 Log Scanner), simhadr (HADR Simulator), and hadrCalculator (HADR Calculator) are available as part of your Db2 installation sqllib/bin (db2logscan, simhadr) and sqllib/bin/samples (hadrCalculator.pl), and do not need to be downloaded separately.</p>
+
+        <h2 dir="ltr"><a name="Download">Download - Older releases</a></h2>
+
+        <p dir="ltr">db2logscan is a stand-alone tool. You only need to download a single binary executable. It has no dependency on DB2 installation. Download from below:</p>
+
+        <table border="2" dir="ltr" style="width:100%">
+        	<tbody>
+        		<tr>
+        			<th>File name</th>
+        			<th>OS</th>
+        			<th>&nbsp;OS version&nbsp;</th>
+        			<th>&nbsp;Bit size&nbsp;</th>
+        			<th>&nbsp;Architecture&nbsp;</th>
+        		</tr>
+        		<tr>
+        			<td><a href="https://www.ibm.com/developerworks/community/files/form/anonymous/api/library/eafa6863-005a-4b50-a851-a89d801cc6fb/document/035d36f1-4c88-4d20-82ab-bbbd50ec69de/media/db2logscan_aix">db2logscan_aix</a></td>
+        			<td style="text-align:center">AIX</td>
+        			<td style="text-align:center">6.1</td>
+        			<td style="text-align:center">64</td>
+        			<td style="text-align:center">powerpc</td>
+        		</tr>
+        		<tr>
+        			<td><a href="https://www.ibm.com/developerworks/community/files/form/anonymous/api/library/eafa6863-005a-4b50-a851-a89d801cc6fb/document/1ff35132-f257-4c8e-bb79-c93b2cf3249c/media/db2logscan_linux">db2logscan_linux</a></td>
+        			<td style="text-align:center">Linux</td>
+        			<td style="text-align:center">3.0</td>
+        			<td style="text-align:center">64</td>
+        			<td style="text-align:center">x86_64</td>
+        		</tr>
+        		<tr>
+        			<td><a href="https://www.ibm.com/developerworks/community/files/app#/file/51e2945e-7d1f-426c-a1af-0b48448a654a">db2logscan_win64.exe</a></td>
+        			<td style="text-align:center">Windows</td>
+        			<td style="text-align:center">(N/A)</td>
+        			<td style="text-align:center">64</td>
+        			<td style="text-align:center">x86</td>
+        		</tr>
+        	</tbody>
+        </table>
+
+        <p dir="ltr">Note: Since db2logscan supports cross platform scanning, a scanner on the same platform as the database server is not required. The OS version listed above is the version where the binary is built. Generally, the binary can also run on newer OS versions, but not older versions. If you need the the scanner on other platforms, email db2hadr@wwpdl.vnet.ibm.com<br />
+        <br />
+        A companion tool, <strong>HADR calculator</strong>, can be downloaded <a href="https://www.ibm.com/developerworks/community/files/app?lang=en#/file/f5141270-8733-41a8-8fc5-9efe373f1d6b">here</a>. HADR calculator is a perl script. On Unix systems, you may run it directly with "x" permission. On Windows, run it as "perl hadrCalculator.pl &lt;arguments&gt;".</p>
+
+        <p dir="ltr"><span style="font-size:14px"><strong>Version History</strong></span></p>
+
+        <ul dir="ltr">
+        	<li>May 24, 2018. Updated Windows executable to parity with other OSes.</li>
+        	<li>Mar. 26, 2018. Added descriptive error message for rejecting encrypted logs on Linux and AIX.</li>
+        	<li>Mar. 12, 2018. Should now be compatible with Db2 v11.1 on Linux and AIX.</li>
+        	<li>Mar. 17, 2014. Version 1.1, Fixed a bug on handling large log records (larger than 60KB).</li>
+        	<li>Sep. 10, 2013. Version 1.0, Initial release.<br />
+        	&nbsp;</li>
+        </ul>
+
+        <h2 dir="ltr"><a name="Command_Line_Options">Command Line Options</a></h2>
+
+        <p dir="ltr">Run db2logscan with no argument or with "-help" argument to get usage:</p>
+
+        <p dir="ltr"><span style="font-family:'courier new' , 'courier' , monospace">+----------------------------------------------------------------------------+<br />
+        |&nbsp; IBM DB2 Log Scanner (db2logscan)&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; |<br />
+        |&nbsp; Version 1.0, 64 bit.&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; |<br />
+        |&nbsp; Licensed Material, Property of IBM.&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; |<br />
+        |&nbsp; Copyright IBM Corp. 2013. All Rights Reserved.&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; |<br />
+        +----------------------------------------------------------------------------+<br />
+        Usage: db2logscan [options] &lt;logFile1&gt; &lt;logFile2&gt; ... &lt;logFileN&gt;<br />
+        <br />
+        db2logscan scans DB2 transaction log files (such as S0000001.LOG) to analyze<br />
+        logging rate, flush (log write), transaction, and log record characteristics.<br />
+        Files from DB2 LUW version V9.1 and later are supported. Option names and<br />
+        keywords are case-insensitive. Options are:<br />
+        <br />
+        -interval &lt;n&gt;&nbsp;&nbsp; Sample logging rate every &lt;n&gt; seconds. 0 for sampling once per<br />
+        &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; log file. Default 60.<br />
+        -checksum&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; Check page checkSum of input files. Detault no check.<br />
+        -infoLevel &lt;s&gt;&nbsp; Logging information display level. Incremental levels are:<br />
+        &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; rate:&nbsp;&nbsp; Show logging rate. Default level.<br />
+        &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; file:&nbsp;&nbsp; Show meta data of each file.<br />
+        &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; flush:&nbsp; Show each flush.<br />
+        &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; page:&nbsp;&nbsp; Show each page.<br />
+        &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; record: Show each record.<br />
+        -transLevel &lt;s&gt; Transaction information display level. Incremental levels are:<br />
+        &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; summary: Just a summary at end of run. Default level.<br />
+        &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; open:&nbsp;&nbsp;&nbsp; Show open tranactions at end of run.<br />
+        &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; all:&nbsp;&nbsp;&nbsp;&nbsp; Show start and end of each transaction during the run.<br />
+        -f &lt;file&gt;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; Read file names from &lt;file&gt;, one per line.<br />
+        -retrieve &lt;cmd&gt; Run "&lt;cmd&gt; fileName" before opening a file to retrieve the file<br />
+        &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; from archive, etc.<br />
+        <br />
+        This machine is small endian. db2logscan auto detects log file endian.<br />
+        It can process log files generated with a different endian.<br />
+        Typically, IBM, Sun, and HP CPUs are big endian and Intel CPUs are small endian.</span><br />
+        <br />
+        -interval option allows you to sample logging rate at arbitrary interval. See sample output below for more info.</p>
+
+        <p dir="ltr">-checksum option is used only when you suspect a file is corrupted.</p>
+
+        <p dir="ltr">-infoLevel can give more detailed info on the input file. You can print file, flush, page, and record level information.</p>
+
+        <p dir="ltr">-transLevel can give more detailed info on transactions. If you need to zoom in onto individual transactions, use this option.<br />
+        <br />
+        -f option gets input file names from a file, instead of command line. This is useful when you need to scan a large number of files. Each line is taken as a file name (with ending newline removed). Spaces at beginning and end of the line are NOT trimmed. Blank lines and comment lines (lines starting with "#") are ignored.</p>
+
+        <h3 dir="ltr"><a name="Retrieving_Files_from_Log_Archive">Retrieving Files from Log Archive</a></h3>
+
+        <p dir="ltr">-retrieve option allows you to specify a command to retrieve log files. It can be used when you need to retrieve log files from archive (or any other repository) and don't want to retrieve all files before running scanner. The retrieve command can include space management to remove old files in the target directory. Only the current file (the one passed as argument to retrieve command) is needed by scanner. With space management, you only need a small amount of space on the target directory. The command is invoked via the system(command line) call. The command line is passed to "/bin/sh -c" on Unix and "cmd.exe /c" on Windows. The command and the log file name are always double quoted, to allow embedded spaces. This means you cannot embed the double quote character (") itself in the command or file name (double quote is not allowed in path on Windows anyway).<br />
+        <br />
+        Unix example for retrieve:<br />
+        <br />
+        <span style="font-family:'courier new' , 'courier' , monospace">shell&gt; db2logscan_linux data/S0000003.LOG -retrieve ./retrieve.sh<br />
+        File "data/S0000003.LOG"<br />
+        system("./retrieve.sh" "data/S0000003.LOG")<br />
+        Found /nfshome/zhuge/proj/logscan/logscan.data/logs.V10.1/S0000003.LOG, copying to data/S0000003.LOG</span><br />
+        <br />
+        The scanner prints the exact string passed to the system() call (note the double quotes). The argument for the retrieve command is log file name given to scanner, including its path. Retrieve command is supposed to parse the file name to get the log file number, then retrieve the file into the location. In the example above, it found the file in the repository /nfshome/zhuge/proj/logscan/logscan.data/logs.V10.1, then copied the file to the target dir "data" (The "Found" line is the output of the retrieve command).<br />
+        <br />
+        Windows example for retrieve:<br />
+        <br />
+        <span style="font-family:'courier new' , 'courier' , monospace">C:\temp&gt; db2logscan_win64.exe "my data\S0000002.LOG" -retrieve "C:\my scripts\retrieve.bat"<br />
+        File "my data\S0000002.LOG"<br />
+        system(""C:\my scripts\retrieve.bat" "my data\S0000002.LOG"")<br />
+        Found C:\home\zhuge\logdata\logs.V10.1\S0000002.LOG, copying to my data\S0000002.LOG</span><br />
+        <br />
+        Note the spaces in paths in the Windows example above. The whole command line passed to system() is quoted so that cmd.exe can correctly parse the quoted command and log file name on the line (just a Windows quirk. See cmd.exe /? for details).</p>
+
+        <h3 dir="ltr"><a name="Compressed_Log_Files">Compressed Log Files</a></h3>
+
+        <p dir="ltr">When log file compression is enabled (via database config parameter <span class="keyword parmname parmname" id="vcc_sp_span_44584375" tabindex="28"><span class="resultofText">log</span>archcompr1</span> or <span class="keyword parmname parmname" id="vcc_sp_span_1560917645" tabindex="29"><span class="resultofText">log</span>archcompr2</span>), archived log files are compressed. db2logscan cannot handle compressed files. You may temporarily disable compression (the config parameters can be changed dynamically) to generate log files for scanner. If you need to scan already generated and compressed files (for example, to debug some system anomaly that already happened), you may contact IBM tech support to decompress these files for you.</p>
+
+        <h2 dir="ltr"><a name="Sample_Output">Sample Output</a></h2>
+
+        <h3 dir="ltr"><a name="Logging_Rate">Logging Rate</a></h3>
+
+        <p dir="ltr">With default infoLevel, you get:<br />
+        <br />
+        <span style="font-size:11px"><span style="font-family:'courier new' , 'courier' , monospace">This machine is small endian.<br />
+        Environment variable TZ is "US/Pacific".<br />
+        Timezone is PST/PDT, 8.0 hours west of GMT, has_daylight_rule=1<br />
+        Current local time is 2013-08-16 13:26:49<br />
+        <br />
+        File "/nfshome/zhuge/proj/logscan/logscan.data/logs.V10.1.aix/S0002534.LOG"<br />
+        FormatVersion 3072 out of range, switching to big endian.<br />
+        <br />
+        2013-02-08 23:56:27&nbsp; 0.113 MB/s, 60 sec,&nbsp;&nbsp; 4.3 pg/f, 0.150000 sec/f,&nbsp;&nbsp; 1.0 pg/tr, 0.034558 sec/tr, 0.032931 sec/cmt, nOpenTrans&nbsp;&nbsp; 0.7<br />
+        2013-02-08 23:57:27&nbsp; 0.097 MB/s, 60 sec,&nbsp;&nbsp; 4.9 pg/f, 0.197368 sec/f,&nbsp;&nbsp; 1.1 pg/tr, 0.045356 sec/tr, 0.043197 sec/cmt, nOpenTrans&nbsp;&nbsp; 0.7<br />
+        2013-02-08 23:58:27&nbsp; 0.792 MB/s, 60 sec,&nbsp; 17.7 pg/f, 0.087083 sec/f,&nbsp;&nbsp; 6.6 pg/tr, 0.038671 sec/tr, 0.032680 sec/cmt, nOpenTrans&nbsp;&nbsp; 0.9<br />
+        2013-02-08 23:59:27&nbsp; 0.415 MB/s, 60 sec,&nbsp; 11.2 pg/f, 0.105448 sec/f,&nbsp;&nbsp; 3.2 pg/tr, 0.035371 sec/tr, 0.030318 sec/cmt, nOpenTrans&nbsp;&nbsp; 0.7<br />
+        ...<br />
+        2013-02-09 01:22:30&nbsp; 2.596 MB/s, 60 sec,&nbsp;&nbsp; 5.8 pg/f, 0.008786 sec/f,&nbsp; 29.4 pg/tr, 0.100666 sec/tr, 0.044412 sec/cmt, nOpenTrans&nbsp; 38.3<br />
+        2013-02-09 01:23:30&nbsp; 1.709 MB/s, 60 sec,&nbsp; 10.0 pg/f, 0.022945 sec/f,&nbsp; 14.8 pg/tr, 2.731225 sec/tr, 0.033879 sec/cmt, nOpenTrans&nbsp; 28.6<br />
+        2013-02-09 01:24:30&nbsp; 0.684 MB/s, 60 sec,&nbsp;&nbsp; 5.7 pg/f, 0.032662 sec/f,&nbsp; 11.9 pg/tr, 0.656532 sec/tr, 0.067568 sec/cmt, nOpenTrans&nbsp;&nbsp; 5.1<br />
+        2013-02-09 01:25:30&nbsp; 0.499 MB/s, 60 sec,&nbsp;&nbsp; 6.4 pg/f, 0.050125 sec/f,&nbsp;&nbsp; 8.6 pg/tr, 0.150000 sec/tr, 0.068182 sec/cmt, nOpenTrans&nbsp;&nbsp; 2.3<br />
+        <br />
+        File "/nfshome/zhuge/proj/logscan/logscan.data/logs.V10.1.aix/S0003158.LOG"<br />
+        2013-02-09 01:25:38&nbsp; 1.469 MB/s,&nbsp; 8 sec,&nbsp;&nbsp; 8.3 pg/f, 0.022161 sec/f,&nbsp; 15.2 pg/tr, 0.061453 sec/tr, 0.044693 sec/cmt, nOpenTrans&nbsp;&nbsp; 2.9<br />
+        WARNING: Non-continuous extent number. Context cleared.<br />
+        2013-02-26 15:32:09&nbsp; 7.307 MB/s, 60 sec,&nbsp; 17.6 pg/f, 0.009435 sec/f,&nbsp; 15.9 pg/tr, 0.186589 sec/tr, 0.008580 sec/cmt, nOpenTrans&nbsp; 22.7<br />
+        2013-02-26 15:33:09&nbsp; 5.703 MB/s, 60 sec,&nbsp;&nbsp; 7.7 pg/f, 0.005297 sec/f,&nbsp; 12.3 pg/tr, 0.179527 sec/tr, 0.008495 sec/cmt, nOpenTrans&nbsp; 23.0<br />
+        2013-02-26 15:34:09&nbsp; 6.787 MB/s, 60 sec,&nbsp;&nbsp; 7.6 pg/f, 0.004354 sec/f,&nbsp; 12.8 pg/tr, 0.177737 sec/tr, 0.007421 sec/cmt, nOpenTrans&nbsp; 24.4<br />
+        2013-02-26 15:35:09&nbsp; 3.943 MB/s, 60 sec,&nbsp;&nbsp; 5.8 pg/f, 0.005725 sec/f,&nbsp;&nbsp; 9.3 pg/tr, 0.254635 sec/tr, 0.009193 sec/cmt, nOpenTrans&nbsp; 25.0<br />
+        2013-02-26 15:36:09&nbsp; 1.363 MB/s, 60 sec,&nbsp;&nbsp; 3.5 pg/f, 0.010018 sec/f,&nbsp;&nbsp; 4.3 pg/tr, 0.102471 sec/tr, 0.012782 sec/cmt, nOpenTrans&nbsp; 32.4<br />
+        2013-02-26 15:37:09&nbsp; 1.988 MB/s, 60 sec,&nbsp;&nbsp; 4.8 pg/f, 0.009497 sec/f,&nbsp;&nbsp; 6.2 pg/tr, 0.104266 sec/tr, 0.012487 sec/cmt, nOpenTrans&nbsp; 40.6<br />
+        2013-02-26 15:38:09&nbsp; 2.399 MB/s, 60 sec,&nbsp;&nbsp; 5.2 pg/f, 0.008453 sec/f,&nbsp;&nbsp; 8.8 pg/tr, 0.081205 sec/tr, 0.014458 sec/cmt, nOpenTrans&nbsp; 44.9<br />
+        2013-02-26 15:39:05&nbsp; 3.280 MB/s, 56 sec,&nbsp;&nbsp; 6.7 pg/f, 0.007984 sec/f,&nbsp; 15.1 pg/tr, 0.102178 sec/tr, 0.017937 sec/cmt, nOpenTrans&nbsp; 45.0<br />
+        <br />
+        transTable: nOpenTran=48 openTranSize=5910673 nBuckets=1024 nAdds=166489 nCollisions=1243 collisionRate=0%<br />
+        <br />
+        Distribution of log write rate (unit is MB/s):<br />
+        ... &lt;See "Statistical Distribution of Logging Metrics" section" below&gt;<br />
+        <br />
+        3906.125 MB scanned in 5.300 seconds, scanning rate 736.941 MB/second</span></span><br />
+        <br />
+        db2logscan retrieves timestamps from log records (mostly from commit record). Time is shown in the local time zone of the scanner. Time zone information is printed at the beginning. If the scanner machine has a default time zone that is different from the database server's, you may want to set the TZ environment variable before running scanner to match the time zone of the database server.<br />
+        <br />
+        <span style="font-family:'courier new' , 'courier' , monospace">This machine is small endian.<br />
+        ...<br />
+        FormatVersion 3072 out of range, switching to big endian.</span><br />
+        <br />
+        Shows that db2logscan detected that the files are generated on an endian different from that of the scanner machine. It auto switches scanning endian to match the database server's.<br />
+        <br />
+        The <span style="font-family:'courier new' , 'courier' , monospace">2013-02-08 23:56:27&nbsp; 0.113 MB/s, 60 sec,&nbsp;&nbsp; 4.3 pg/f, 0.150000 sec/f,&nbsp;&nbsp; 1.0 pg/tr, 0.034558 sec/tr, 0.032931 sec/cmt, nOpenTrans&nbsp;&nbsp; 0.7</span><br />
+        lines shows that at that point in time, in the previous 60 seconds,</p>
+
+        <ul dir="ltr">
+        	<li>Logging rate is 0.113 MB/second</li>
+        	<li>Average flush size is 4.3 page/flush ("pg/f" field)</li>
+        	<li>Average flush duration is 0.150000 second/flush ("sec/f" field)</li>
+        	<li>Average transaction size is 1.0 page/transaction ("pg/tr" field)</li>
+        	<li>Average transaction duration is 0.035 second/transaction ("sec/tr" field). Duration is measured from the start of a transaction (first log record for the transaction is written) to the end of the transaction (commit or rollback record).</li>
+        	<li>Average commit interval is 0.032931 second ("sec/cmt" field). This is computed from elapsed time / number of commit. Commits from all applications are counted. So this is a system level metric. Average commit interval of an individual application is this value multiplied by number of applications.</li>
+        	<li>Average number of open transactions in this period is 0.7. When this number is less than 1, it means that sometimes there is no open transaction at all (system is idle). The number of applications connected to the database can be higher than nOpenTrans because not all apps submit write transactions all the time (read only transactions are not logged and therefore invisible to the scanner).</li>
+        </ul>
+
+        <p dir="ltr"><br />
+        If all things are even (same length transactions evenly spread over), transaction duration = commit interval * nOpenTrans. In other words, nOpenTrans shows how many transactions are overlapping (concurrent). In reality, this formula does not always hold, due to uneven transaction duration and start/end time.<br />
+        <br />
+        Logging rate info is caculated at regular interval. Default is every 60 seconds. You can use arbitrary interval, via the -interval option. Because log files are persistent, you can slice and dice your log data any way you want, without rerunning the workload. For graphical presentation, you can feed the output to plotting tools such as gnuplot.<br />
+        <br />
+        Notes:</p>
+
+        <ul dir="ltr">
+        	<li>DB2 does not log read only transactions. So in the db2logscan output, read only transactions are excluded.</li>
+        	<li>Because DB2 logging timestamp resolution is 1 second, it is recommended that the sample interval be at least 5 seconds, otherwise, you will get skew in the statistics.</li>
+        	<li>The last sampling interval may be smaller than requested interval. The scanner always does a sample at the end, where it's likely to be a partial interval.</li>
+        	<li>Some metrics may be missing when input log data is very short. For example, if input data contains fewer than 2 timestamps, logging rate cannot be computed.</li>
+        	<li>When timestamps (commit records) are sparse in input files (because transactions are big or system is idle), scanner timing can be skewed. This is especially evident when the database is idle or offline for extended period. Scanner will think that the first log write at end of an idle period occurred at the beginning of the idle period. The effects of the skew are:
+        	<ul>
+        		<li>Sampling interval in output may be longer than requested, due to lack of timestamps in the interval.</li>
+        		<li>Reported transaction duration may be longer than actual.</li>
+        		<li>Reported flush time may be longer than actual.</li>
+        	</ul>
+        	</li>
+        </ul>
+
+        <p dir="ltr"><br />
+        Multiple files can be specified on command line. For files in a continuous range, the scanner carries the context from one file to the next (input is treated as one continuous stream). When the scanner detects gap in the input file, context is cleared (a new range is started). In the above example,<br />
+        <br />
+        <span style="font-family:'courier new' , 'courier' , monospace">WARNING: Non-continuous extent number. Context cleared.</span><br />
+        <br />
+        is printed to indicate context being cleared. The scanner does more than just extent (log file) number checking. It looks at meta data stored in the files to determine context. It won't be fooled by seemingly continuous file numbers (as the result of file renaming, or files copied from different log streams).<br />
+        <br />
+        At the end, transaction table state is printed:<br />
+        <br />
+        <span style="font-family:'courier new' , 'courier' , monospace">transTable: nOpenTran=48 openTranSize=5910673 nBuckets=1024 nAdds=166489 nCollisions=1243 collisionRate=0%</span><br />
+        <br />
+        Number of open transactions at end of scan is reported (48 in the example). openTranSize is the sum of size of these open transactions (transaction size is defined as sum of log record size for a transaction, unit is bytes). Transaction table is implemented as a hash table. nBuckets, nAdds, nCollisions, and collisionRate report the hash table statistics. These are used for scanner diagnostic only.</p>
+
+        <h3 dir="ltr"><a name="Info_Level_Option">Info Level Option</a></h3>
+
+        <p dir="ltr">Info level (-infoLevel) option controls logging rate, file, flush, page, and record verbosity.<br />
+        <br />
+        At infoLevel "rate" (default level), you get logging rate for every sample interval, like:<br />
+        <br />
+        <span style="font-family:'courier new' , 'courier' , monospace">2013-02-26 15:32:09&nbsp; 7.307 MB/s, 60 sec,&nbsp; 17.6 pg/f, 0.009435 sec/f,&nbsp; 15.9 pg/tr, 0.186589 sec/tr, 0.008580 sec/cmt, nOpenTrans&nbsp; 22.7</span><br />
+        <br />
+        InfoLevel "file" adds file meta data:<br />
+        <br />
+        <span style="font-family:'courier new' , 'courier' , monospace">File "/nfshome/zhuge/proj/logscan/logscan.data/logs.V10.1.aix/S0003158.LOG"<br />
+        Chk1=200, Chk2=201, using header 2<br />
+        FormatVersion=12 (V10.1), CId=1361847345 (2013-02-25 18:55:45)<br />
+        streamId=0 ExtNum=3158 state=0x38001 ExtSize=499984 PageCount=499984 firstLso=5529742923657 firstLFSInExtent=238909236 lsnBase=0x5E112E20A</span><br />
+        <br />
+        InfoLevel "flush" adds flush meta data:</p>
+
+        <p dir="ltr"><span style="font-family:'courier new' , 'courier' , monospace">Flush 3: size=56 startTime=2013-02-26 15:31:11 endTime=2013-02-26 15:31:11 duration=0sec<br />
+        Flush 4: size=7 startTime=2013-02-26 15:31:11 endTime=2013-02-26 15:31:11 duration=0sec</span><br />
+        <br />
+        InfoLevel "page" adds page meta data:<br />
+        <br />
+        <span style="font-family:'courier new' , 'courier' , monospace">Page 275: byteCount=4076 firstIndex=73 pageFlag=0x0 pageLso=5529744044556<br />
+        Page 276: byteCount=4076 firstIndex=419 pageFlag=0x0 pageLso=5529744048632<br />
+        Page 277: byteCount=4076 firstIndex=237 pageFlag=0x10 pageLso=5529744052708 endOfFlush<br />
+        Page 278: byteCount=4076 firstIndex=53 pageFlag=0x0 pageLso=5529744056784</span><br />
+        <br />
+        End of flush pages are marked.<br />
+        <br />
+        InfoLevel "record" adds record meta data:<br />
+        <br />
+        <span style="font-family:'courier new' , 'courier' , monospace">Record 5: pageOffset=1097 lrecsize=113 lrectype=0x4E lrecflags=0x0 recLfs=238909237 recLsn=0x5E112E20E tid=0x50C3A270<br />
+        Record 6: pageOffset=1210 lrecsize=164 lrectype=0x4E lrecflags=0x0 recLfs=238909237 recLsn=0x5E112E20F tid=0x50C3A0A4 startOfTrans nOpenTrans=2<br />
+        ...<br />
+        Record 1706: pageOffset=3848 lrecsize=128 lrectype=0x4E lrecflags=0x0 recLfs=238909238 recLsn=0x5E112E8B3 tid=0x50C3A2A8<br />
+        Record 1707: pageOffset=3976 lrecsize=48 lrectype=0x84 lrecflags=0x0 recLfs=238909238 recLsn=0x5E112E8B4 tid=0x50C3A0A4 endOfTrans nOpenTrans=13 vts=1361921471.1(2013-02-26 15:31:11)</span><br />
+        <br />
+        Records for start and end of a transaction are marked. "tid" is transaction id. Records with the same tid belong to the same transaction. The last record in a transaction is usually "commit" (lrectype=0x84), which contains a timestamp (vts field).</p>
+
+        <h3 dir="ltr"><a name="Transaction_Level_Option">Transaction Level Option</a></h3>
+
+        <p dir="ltr">Transaction Level (-transLevel) option controls transaction information verbosity. InfoLevel and transLevel options are independent. You can use any combination of the levels.<br />
+        <br />
+        Level "summary" (default level) shows just a summary at end of run:<br />
+        <br />
+        <span style="font-family:'courier new' , 'courier' , monospace">transTable: nOpenTran=48 openTranSize=5910673 nBuckets=1024 nAdds=45488 nCollisions=1070 collisionRate=2%</span><br />
+        <br />
+        Level "open" lists open tranactions at end of run:<br />
+        <br />
+        <span style="font-family:'courier new' , 'courier' , monospace">transTable: nOpenTran=48 openTranSize=5910673 nBuckets=1024 nAdds=45488 nCollisions=1070 collisionRate=2%<br />
+        bkt:0x14 Transaction 29993: tid=0x50C61C14 startTime=2013-02-26 15:35:24 endTime=NULL size=114626 length=0sec<br />
+        bkt:0x1E Transaction 34440: tid=0x50C6801E startTime=2013-02-26 15:36:23 endTime=NULL size=60855 length=0sec<br />
+        ...</span><br />
+        <br />
+        Level "all" adds start and end of each transaction during the run:<br />
+        <br />
+        <span style="font-family:'courier new' , 'courier' , monospace">Transaction 14 start: tid=0x50C3A296 startTime=2013-02-26 15:31:09 endTime=NULL size=375 duration=0sec nOpenTrans=13<br />
+        Transaction 14 end: tid=0x50C3A296 startTime=2013-02-26 15:31:09 endTime=2013-02-26 15:31:09 size=915 duration=0sec nOpenTrans=12</span></p>
+
+        <h3 dir="ltr"><a name="Statistical_Distribution_of_Logging_Metrics">Statistical Distribution of Logging Metrics</a></h3>
+
+        <p dir="ltr">Scanner gathers statistical distribution of certain logging metrics. The distribution section is printed after the logging rate section. Sample distribution section below, with comments added (fixed width font is original text from scanner):<br />
+        <br />
+        <span style="font-family:'courier new' , 'courier' , monospace"><strong>Distribution of log write rate (unit is MB/s):</strong><br />
+        Total 8 numbers, Sum 32.764, Min 1.362, Max 7.306, Avg 4.096<br />
+        Exactly&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; 1.362&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; 1 numbers&nbsp; 12%<br />
+        Exactly&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; 1.987&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; 1 numbers&nbsp; 12%<br />
+        Exactly&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; 2.399&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; 1 numbers&nbsp; 12%<br />
+        Exactly&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; 3.280&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; 1 numbers&nbsp; 12%<br />
+        Exactly&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; 3.942&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; 1 numbers&nbsp; 12%<br />
+        Exactly&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; 5.702&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; 1 numbers&nbsp; 12%<br />
+        Exactly&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; 6.786&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; 1 numbers&nbsp; 12%<br />
+        Exactly&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; 7.306&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; 1 numbers&nbsp; 12%</span><br />
+        <br />
+        Each "log write rate" number comes from a sample interval printed in the logging rate section. The example shows 4.096 MB/s average.<br />
+        <br />
+        <span style="font-family:'courier new' , 'courier' , monospace"><strong>Distribution of flush size (unit is page):</strong><br />
+        Total 68369 numbers, Sum 499984, Min 1, Max 370, Avg 7.3<br />
+        From 1 to 1&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; 18615 numbers&nbsp; 27%<br />
+        From 2 to 3&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; 17843 numbers&nbsp; 26%<br />
+        From 4 to 7&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; 15782 numbers&nbsp; 23%<br />
+        From 8 to 15&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; 9621 numbers&nbsp; 14%<br />
+        From 16 to 31&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; 3847 numbers&nbsp;&nbsp; 5%<br />
+        From 32 to 63&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; 1728 numbers&nbsp;&nbsp; 2%<br />
+        From 64 to 127&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; 753 numbers&nbsp;&nbsp; 1%<br />
+        From 128 to 255&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; 166 numbers&nbsp;&nbsp; 0%<br />
+        From 256 to 511&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; 14 numbers&nbsp;&nbsp; 0%</span><br />
+        <br />
+        Every flush is represented. The example shows 7.3 page/flush average (typical on OLTP systems). Watch out for very large (more than a few hundred pages) flushes. You may use info level "flush" to see individual flushes.<br />
+        <br />
+        <span style="font-family:'courier new' , 'courier' , monospace"><strong>Distribution of flush duration (unit is second):</strong><br />
+        Total 68368 numbers, Sum 476, Min 0, Max 2, Avg 0.006962<br />
+        Exactly&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; 0&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; 67927 numbers&nbsp; 99%<br />
+        Exactly&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; 1&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; 406 numbers&nbsp;&nbsp; 0%<br />
+        Exactly&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; 2&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; 35 numbers&nbsp;&nbsp; 0%</span><br />
+        <br />
+        Every flush is represented. The example shows 6 millisecond/flush average, which is common. Watch out for very long flushes. However, reported long flushes can be the result of sparse timestamps in log stream (actual flush time can be shorter than reported). You may use info level "flush" to see individual flushes and study the long flushes. If the long flushes occurred when system is not idle, then they are likely to be real long flushes, especially if applications are experiencing commit delay around the same time.<br />
+        <br />
+        Because timestamps in log stream are of "second" resolution, reported flush duration is always in whole seconds. For a flush shorter than 1 second, if it started and ended in the same "second" tick, the reported duration will be 0 second. If it happens to span a tick (started in second x and ended in second x+1), then reported duration will be 1 second. With a large number of flushes, the average flush time is still accurate because the overall elapsed time and number of flushes are still accurate.<br />
+        <br />
+        <span style="font-family:'courier new' , 'courier' , monospace"><strong>Distribution of record size (unit is byte):</strong><br />
+        Total 9077093 numbers, Sum 2037934956, Min 48, Max 32840, Avg 225<br />
+        From 32 to 63&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; 112895 numbers&nbsp;&nbsp; 1%<br />
+        From 64 to 127&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; 3360867 numbers&nbsp; 37%<br />
+        From 128 to 255&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; 3914015 numbers&nbsp; 43%<br />
+        From 256 to 511&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; 613774 numbers&nbsp;&nbsp; 6%<br />
+        From 512 to 1023&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; 1037053 numbers&nbsp; 11%<br />
+        From 1024 to 2047&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; 2548 numbers&nbsp;&nbsp; 0%<br />
+        From 2048 to 4095&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; 27943 numbers&nbsp;&nbsp; 0%<br />
+        From 4096 to 8191&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; 6718 numbers&nbsp;&nbsp; 0%<br />
+        From 8192 to 16383&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; 1271 numbers&nbsp;&nbsp; 0%<br />
+        From 16384 to 32767&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; 8 numbers&nbsp;&nbsp; 0%<br />
+        From 32768 to 65535&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; 1 numbers&nbsp;&nbsp; 0%</span><br />
+        <br />
+        Every record scanned is represented.<br />
+        <br />
+        <span style="font-family:'courier new' , 'courier' , monospace"><strong>Distribution of transaction size (unit is byte):</strong><br />
+        Total 45440 numbers, Sum 2032024283, Min 48, Max 2904178, Avg 44719<br />
+        From 32 to 63&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; 12 numbers&nbsp;&nbsp; 0%<br />
+        From 128 to 255&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; 1571 numbers&nbsp;&nbsp; 3%<br />
+        From 256 to 511&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; 11314 numbers&nbsp; 24%<br />
+        From 512 to 1023&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; 22664 numbers&nbsp; 49%<br />
+        From 1024 to 2047&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; 1803 numbers&nbsp;&nbsp; 3%<br />
+        From 2048 to 4095&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; 122 numbers&nbsp;&nbsp; 0%<br />
+        From 4096 to 8191&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; 299 numbers&nbsp;&nbsp; 0%<br />
+        From 8192 to 16383&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; 117 numbers&nbsp;&nbsp; 0%<br />
+        From 16384 to 32767&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; 268 numbers&nbsp;&nbsp; 0%<br />
+        From 32768 to 65535&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; 670 numbers&nbsp;&nbsp; 1%<br />
+        From 65536 to 131071&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; 543 numbers&nbsp;&nbsp; 1%<br />
+        From 131072 to 262143&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; 3090 numbers&nbsp;&nbsp; 6%<br />
+        From 262144 to 524287&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; 2258 numbers&nbsp;&nbsp; 4%<br />
+        From 524288 to 1048575&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; 707 numbers&nbsp;&nbsp; 1%<br />
+        From 2097152 to 4194303&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; 2 numbers&nbsp;&nbsp; 0%</span><br />
+        <br />
+        Every transaction ended in the scanned files is represented. Open transactions at end of scan is excluded.<br />
+        <br />
+        <span style="font-family:'courier new' , 'courier' , monospace"><strong>Distribution of transaction duration (unit is second):</strong><br />
+        Total 45440 numbers, Sum 7310, Min 0, Max 58, Avg 0.160871<br />
+        Zero&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; 42588 numbers&nbsp; 93%<br />
+        From 1 to 1&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; 1903 numbers&nbsp;&nbsp; 4%<br />
+        From 2 to 3&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; 582 numbers&nbsp;&nbsp; 1%<br />
+        From 4 to 7&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; 140 numbers&nbsp;&nbsp; 0%<br />
+        From 8 to 15&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; 146 numbers&nbsp;&nbsp; 0%<br />
+        From 16 to 31&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; 69 numbers&nbsp;&nbsp; 0%<br />
+        From 32 to 63&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; 12 numbers&nbsp;&nbsp; 0%</span><br />
+        <br />
+        Every transaction ended in the scanned files is represented. Open transactions at end of scan is excluded. Similar to flush time, timer resolution is whole second. You will only see whole seconds in reported transaction duration. Reported duration of 0 and 1 second may not be accurate. Overall average is still accurate if there is a large number of transactions.<br />
+        <br />
+        <span style="font-family:'courier new' , 'courier' , monospace"><strong>Distribution of commit interval (unit is second):</strong><br />
+        Total 8 numbers, Sum 0.091349, Min 0.007421, Max 0.017937, Avg 0.011419<br />
+        Exactly&nbsp;&nbsp; 0.007421&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; 1 numbers&nbsp; 12%<br />
+        Exactly&nbsp;&nbsp; 0.008494&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; 1 numbers&nbsp; 12%<br />
+        Exactly&nbsp;&nbsp; 0.008580&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; 1 numbers&nbsp; 12%<br />
+        Exactly&nbsp;&nbsp; 0.009192&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; 1 numbers&nbsp; 12%<br />
+        Exactly&nbsp;&nbsp; 0.012486&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; 1 numbers&nbsp; 12%<br />
+        Exactly&nbsp;&nbsp; 0.012782&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; 1 numbers&nbsp; 12%<br />
+        Exactly&nbsp;&nbsp; 0.014457&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; 1 numbers&nbsp; 12%<br />
+        Exactly&nbsp;&nbsp; 0.017937&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; 1 numbers&nbsp; 12%</span><br />
+        <br />
+        Each "commit interval" number comes from a sample period printed in the logging rate section.<br />
+        <br />
+        <span style="font-family:'courier new' , 'courier' , monospace"><strong>Distribution of number of open transactions:</strong><br />
+        Total 90928 numbers, Sum 2712630, Min 1, Max 55, Avg 29.8<br />
+        From 1 to 1&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; 1 numbers&nbsp;&nbsp; 0%<br />
+        From 2 to 3&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; 2 numbers&nbsp;&nbsp; 0%<br />
+        From 4 to 7&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; 4 numbers&nbsp;&nbsp; 0%<br />
+        From 8 to 15&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; 2072 numbers&nbsp;&nbsp; 2%<br />
+        From 16 to 31&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; 56303 numbers&nbsp; 61%<br />
+        From 32 to 63&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; 32546 numbers&nbsp; 35%</span><br />
+        <br />
+        Each time the number of open transaction changes (a transaction is starting or ending), a sample point is taken.</p>
+
+        <h1 dir="ltr"><a name="DB2_Logging_Performance">DB2 Logging Performance</a></h1>
+
+        <p dir="ltr">Each log stream (in pureScale and DPF, each member has its own stream) is written to disk via a single thread (thread name is db2loggw, threads can be listed via "db2pd -edus" command). The log stream serializes concurrent transactions in the database into a single stream. Log writing of this single stream can be a bottleneck in high volume systems, especially OLTP systems. High performance devices are recommended as logging device.</p>
+
+        <p dir="ltr">DB2 logging is designed to be self tuning. SQL agents write log records into log buffer (buffer size is controlled by database config parameter logbufsz), while log writing thread (db2loggw) writes the records to disk, in unit of pages (4KB per page). While agents are writing log records to one part of the log buffer, log writer can write pages to disk from another part of the buffer in parallel. When log writer is done, it gathers log pages filled with records for the next flush (log write). If log flush is slow, more pages will accumulate when log write thread is writing, resulting in larger flushes. For hard drive based logging device, each write pays a fixed cost (access time), plus data transfer time which is proportional to amount of data written. With larger writes, the fix cost part is spread onto more pages, resulting in higher throughput (effective speed).<br />
+        <br />
+        However, self tuning has its limit. While logger is doing a slow write, agents can only submit so much log data for the next write. Because committing a transaction requires flushing all records for this transaction to disk, an SQL agent issuing a commit request will be blocked (cannot move on to the next transaction), waiting for records of the transaction to be written to disk. The maximal flush size is limited to aggregated size of transactions in the system. In scanner output, average_transaction_size * nOpenTrans is the theoretical max flush size for the given workload at that moment.<br />
+        <br />
+        Larger flush increases throughput, but slows down tranaction commit (an application needs to wait longer on its commit request), because the flush containing the commit record will take longer time. Note that longer flush time needed to write a transaction's log records prior to the commit record does not slow down the application. The database considers a non-commit SQL statement complete as soon as the records are written to in-memory buffer and data changes are applied to data page buffer pool. As long as the log buffer is large enough to buffer these records, slower write to disk does not slow down the application (disk write is effectively asynchronous). Only the commit statement waits for log flush to disk.</p>
+
+        <p dir="ltr">For best performance, log buffer size should be at least several times of the max flush size (transaction_size * nOpenTrans). The buffer is circular. SQL agents write to pages ahead of the log writer's flush position. When agents reach end of buffer, they wrap around to the beginning of the buffer. If they catch up to the log writer's position, buffer is full and agents have to wait for log writer to complete the flush and release the buffer. When log writer reaches end of buffer, it issues a flush to end of buffer, even if there are data ready to be written at beginning of the buffer. A single flush does not wrap around end of buffer, because OS interface only accepts a continuous region in memory for each write call. After flushing to end of buffer, log writer wraps around to the beginning of buffer. Thus the end of buffer flush tends to be smaller.</p>
+
+        <p dir="ltr">In a perfect world (a single write can wrap around the buffer end, and transaction size and number are constant), the buffer only needs to be two times max flush size; one for agents to write log records, and the other for log writer to write records to disk in parallel. In real world, due to smaller flushes at the end of buffer and fluctuating transaction size and number, a larger buffer is needed. Larger buffer also makes transaction roll back faster. If roll back can find the records to undo in the buffer, it can avoid retrieving the records from disk. Thus flush size and rollback are the two main concerns when determining buffer size.</p>
+
+        <p dir="ltr">The <span class="shortdesc" id="vcc_sp_span_38" tabindex="8"><a href="http://pic.dhe.ibm.com/infocenter/db2luw/v10r5/topic/com.ibm.db2.luw.admin.mon.doc/doc/r0011684.html"><span class="resultofText">num_log_buffer_full</span></a> monitor </span>element reports the number of buffer full conditions. Buffer size should be configured to greater than 2* max flush size so that agents never hit buffer full condition. If you see buffer full condition, increase logbufsz. Even in a large system, log buffer wouldn't cost much. For example, 1000 clients, each with 10 page/transaction, aggregated transaction size is 10K page (40MB). A 100MB buffer should cover it.<br />
+        <br />
+        Longer commit time may or may not have significant impact on the application. It all depends on if longer commit will change the commit interval (time between commits) of the application. If commit interval is not changing, then application throughput does not change (it can submit the same number of transactions in a given amount of time). Some applications' commit interval is not sensitive to commit time. For example, an online shopping application where the user spends most of the time browsing and only submits an purchase order from time to time. User order action is not sensitive to order commit time. If the order is taking 200ms to complete, instead of 100ms, the user would barely notice. On the other hand, longer commit time will directly slow down a data injection/loading application. Longer commit time will be added to commit interval. If commit interval is relatively long (say, 10 seconds), impact of commit time going from 100ms to 200ms is still very small (100ms/10second = 1%). On a 1 second commit interval, the same commit time change will have much higher impact (100ms/1second = 10%).<br />
+        <br />
+        The scanner reports commit interval in the "sec/cmt" field. This is the database wide commit interval. The per application interval is the database_commit_interval * number_of_applications. Note that number of applications can be higher than number of database connections, if the applications are not connected to the database all the time. Thus taking a reading of number of connections to the database may not be a good estimate of number of applications. You need to understand the application behavior to estimate number of applications and compute per application commit interval. Once you know application commit interval and application behavior, you can estimate the impact of longer commit time on the application.</p>
+
+        <p dir="ltr">In the next section, "HADR calculator", we will see how the HADR calculator can compute the HADR impact to commit time in various HADR sync modes.</p>
+
+        <h1 dir="ltr"><a name="HADR_Calculator">HADR Calculator</a></h1>
+
+        <h2 dir="ltr"><a name="Introduction2">Introduction</a></h2>
+
+        <p dir="ltr">When HADR (High Availability Disaster Recovery) is enabled on a database, logs on the primary database are replicated to one or more standby databases in real time. Replication can slow down log writing on the primary. The main factors impacting primary database log writing are: HADR sync mode, log device speed on primary and standby databases, and network speed between the primary and standby(s). See&nbsp;<a href="hadrSyncMode.html">HADR sync mode</a> for description of the sync modes, and <a href="perfTuning.html">HADR Performance Tuning</a> on measuring disk and network speed.<br />
+        <br />
+        The HADR calculator (hadrCalculator.pl) estimates HADR performance in various sync modes. It can be downloaded <a href="https://www.ibm.com/developerworks/community/files/app?lang=en#/file/f5141270-8733-41a8-8fc5-9efe373f1d6b">here</a>.</p>
+
+        <p dir="ltr">HADR calculator is a perl script. On Unix systems, you may run it directly with "x" permission. On Windows, run it as "perl hadrCalculator.pl &lt;arguments&gt;".</p>
+
+        <h2 dir="ltr"><a name="Command_Line_Options2">Command Line Options</a></h2>
+
+        <p dir="ltr"><strong>Note on float number arguments</strong>: HADR calculator uses perl library function to parse command line. Some perl packages may require leading 0 for decimals. For example, it may reject ".1", but accept "0.1". Some packages accept both formats. If you get errors like<br />
+        <span style="font-family:'courier new' , 'courier' , monospace">Value ".1" invalid for option network</span><br />
+        try 0.1 instead.</p>
+
+        <p dir="ltr">Run hadrCalculator.pl with no argument or with "-help" argument to get usage:</p>
+
+        <p dir="ltr"><span style="font-family:'courier new' , 'courier' , monospace">+----------------------------------------------------------------------------+<br />
+        |&nbsp; IBM DB2 HADR Calculator V1.0&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; |<br />
+        |&nbsp; Licensed Material, Property of IBM.&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; |<br />
+        |&nbsp; Copyright IBM Corp. 2013. All Rights Reserved.&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; |<br />
+        +----------------------------------------------------------------------------+<br />
+        Usage: hadrCalculator.pl [options] &lt;inputFile1&gt; &lt;inputFile2&gt; ... &lt;inputFileN&gt;<br />
+        <br />
+        HADR calculator annotates db2logscan output with theoretical HADR data rate.<br />
+        When no input file is specified, stdin is read. Output is written to stdout.<br />
+        Options are: (&lt;s&gt; indicates string. &lt;n&gt; indicates integer. &lt;f&gt; indicates float<br />
+        number)<br />
+        <br />
+        -syncmode &lt;s&gt;&nbsp;&nbsp; Specify one or more HADR sync modes. Modes are<br />
+        &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; SYNC, NEARSYNC, ASYNC, or SUPERASYNC (case insensitive).<br />
+        &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; Multiple modes can be specified as comma delimited list.<br />
+        &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; Default "SYNC,NEARSYNC,ASYNC".<br />
+        <br />
+        -network &lt;f1&gt; &lt;f2&gt; Specify primary-standby network speed as &lt;f1&gt; MBytes/sec with<br />
+        &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; round trip time of &lt;f2&gt; second.<br />
+        <br />
+        -disk &lt;f1&gt; &lt;f2&gt;&nbsp;&nbsp;&nbsp; Specify disk write speed as &lt;f1&gt; MBytes/sec with overhead<br />
+        &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; of &lt;f2&gt; second per write.</span></p>
+
+        <p dir="ltr">You provide sync mode, network and log disk speed to the script, it will compute logging rate in the specified sync modes. Primary and standby log disks are assumed to have the same speed. Use HADR simulator to measure network and disk speed using <a href="perfTuning.html">this procedure</a>.</p>
+
+        <p dir="ltr">For SYNC, NEARSYNC, ASYNC modes, calculator computes the logging rate of peer state, where log writing can be slowed down by log shipping. For SUPERASYNC mode, calculator computes logging rate of remote catchup state, because HADR never enters Peer state in this mode. See "Remote Catchup State" section below for more info.</p>
+
+        <h2 dir="ltr"><a name="Sample_Output2">Sample Output</a></h2>
+
+        <h3 dir="ltr"><a name="WAN__Wide_Area_Network__Example">WAN (Wide Area Network) Example</a></h3>
+
+        <p dir="ltr">In this example, a WAN is assumed (10MB/sec, 100ms round trip). Medium to heavy impact to applications is predicted for sync and nearSync modes. No impact is predicted for async mode. This matches the HADR rule of thumb: Use async mode for WAN.</p>
+
+        <p dir="ltr">Command: <span style="font-family:'courier new' , 'courier' , monospace">hadrCalculator.pl -network 10 .1 -disk 200 .001 &lt;inputFile&gt;</span><br />
+        Output:<br />
+        <br />
+        <span style="font-size:11px"><span style="font-family:'courier new' , 'courier' , monospace">hadrCalculator.pl: Network speed 10 MB/s, .1 second round trip time<br />
+        hadrCalculator.pl: Disk speed 200 MB/s, .001 second overhead per write<br />
+        ...<br />
+        <br />
+        2013-02-09 01:25:38&nbsp; 1.469 MB/s,&nbsp; 8 sec,&nbsp;&nbsp; 8.3 pg/f, 0.022161 sec/f,&nbsp; 15.2 pg/tr, 0.061453 sec/tr, 0.044693 sec/cmt, nOpenTrans&nbsp;&nbsp; 2.9<br />
+        actual&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; 1.469 MB/s@&nbsp;&nbsp; 8 pg/f 0.022161 s/f<br />
+        SYNC&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; ???&nbsp;&nbsp; 1.424 MB/s@&nbsp; 44 pg/f 0.120941 s/f, min&nbsp;&nbsp; 0.307 MB/s@&nbsp;&nbsp; 8 pg/f 0.105566 s/f, max&nbsp;&nbsp; 1.424 MB/s@&nbsp; 44 pg/f 0.120941 s/f<br />
+        NEARSYNC&nbsp;&nbsp; ???&nbsp;&nbsp; 1.469 MB/s@&nbsp; 44 pg/f 0.117219 s/f, min&nbsp;&nbsp; 0.314 MB/s@&nbsp;&nbsp; 8 pg/f 0.103242 s/f, max&nbsp;&nbsp; 1.469 MB/s@&nbsp; 44 pg/f 0.117219 s/f<br />
+        ASYNC&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; 10.000 MB/s@&nbsp;&nbsp; 8 pg/f 0.003242 s/f, min&nbsp; 10.000 MB/s@&nbsp;&nbsp; 8 pg/f 0.003242 s/f, max&nbsp; 10.000 MB/s@&nbsp; 44 pg/f 0.017219 s/f<br />
+        ...<br />
+        <br />
+        2013-02-26 15:32:09&nbsp; 7.307 MB/s, 60 sec,&nbsp; 17.6 pg/f, 0.009435 sec/f,&nbsp; 15.9 pg/tr, 0.186589 sec/tr, 0.008580 sec/cmt, nOpenTrans&nbsp; 22.7<br />
+        actual&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; 7.307 MB/s@&nbsp; 17 pg/f 0.009435 s/f<br />
+        SYNC&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; ???&nbsp;&nbsp; 5.484 MB/s@ 360 pg/f 0.257087 s/f, min&nbsp;&nbsp; 0.627 MB/s@&nbsp; 17 pg/f 0.109563 s/f, max&nbsp;&nbsp; 5.484 MB/s@ 360 pg/f 0.257087 s/f<br />
+        NEARSYNC&nbsp;&nbsp; ???&nbsp;&nbsp; 5.850 MB/s@ 360 pg/f 0.240988 s/f, min&nbsp;&nbsp; 0.643 MB/s@&nbsp; 17 pg/f 0.106875 s/f, max&nbsp;&nbsp; 5.850 MB/s@ 360 pg/f 0.240988 s/f<br />
+        ASYNC&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; 10.000 MB/s@&nbsp; 17 pg/f 0.006875 s/f, min&nbsp; 10.000 MB/s@&nbsp; 17 pg/f 0.006875 s/f, max&nbsp; 10.000 MB/s@ 360 pg/f 0.140988 s/f<br />
+        ...<br />
+        <br />
+        2013-02-26 15:36:09&nbsp; 1.363 MB/s, 60 sec,&nbsp;&nbsp; 3.5 pg/f, 0.010018 sec/f,&nbsp;&nbsp; 4.3 pg/tr, 0.102471 sec/tr, 0.012782 sec/cmt, nOpenTrans&nbsp; 32.4<br />
+        actual&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; 1.363 MB/s@&nbsp;&nbsp; 3 pg/f 0.010018 s/f<br />
+        SYNC&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; ??&nbsp;&nbsp;&nbsp; 1.373 MB/s@&nbsp; 42 pg/f 0.120146 s/f, min&nbsp;&nbsp; 0.132 MB/s@&nbsp;&nbsp; 3 pg/f 0.103504 s/f, max&nbsp;&nbsp; 3.362 MB/s@ 139 pg/f 0.161864 s/f<br />
+        NEARSYNC&nbsp;&nbsp; ??&nbsp;&nbsp;&nbsp; 1.370 MB/s@&nbsp; 40 pg/f 0.115874 s/f, min&nbsp;&nbsp; 0.135 MB/s@&nbsp;&nbsp; 3 pg/f 0.101367 s/f, max&nbsp;&nbsp; 3.524 MB/s@ 139 pg/f 0.154422 s/f<br />
+        ASYNC&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; 10.000 MB/s@&nbsp;&nbsp; 3 pg/f 0.001367 s/f, min&nbsp; 10.000 MB/s@&nbsp;&nbsp; 3 pg/f 0.001367 s/f, max&nbsp; 10.000 MB/s@ 139 pg/f 0.054422 s/f<br />
+        ...<br />
+        <br />
+        2013-02-26 15:39:05&nbsp; 3.280 MB/s, 56 sec,&nbsp;&nbsp; 6.7 pg/f, 0.007984 sec/f,&nbsp; 15.1 pg/tr, 0.102178 sec/tr, 0.017937 sec/cmt, nOpenTrans&nbsp; 45.0<br />
+        actual&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; 3.280 MB/s@&nbsp;&nbsp; 6 pg/f 0.007984 s/f<br />
+        SYNC&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; ??&nbsp;&nbsp;&nbsp; 3.283 MB/s@ 134 pg/f 0.159649 s/f, min&nbsp;&nbsp; 0.250 MB/s@&nbsp;&nbsp; 6 pg/f 0.104879 s/f, max&nbsp;&nbsp; 6.737 MB/s@ 679 pg/f 0.393973 s/f<br />
+        NEARSYNC&nbsp;&nbsp; ??&nbsp;&nbsp;&nbsp; 3.280 MB/s@ 124 pg/f 0.148815 s/f, min&nbsp;&nbsp; 0.255 MB/s@&nbsp;&nbsp; 6 pg/f 0.102617 s/f, max&nbsp;&nbsp; 7.263 MB/s@ 679 pg/f 0.365430 s/f<br />
+        ASYNC&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; 10.000 MB/s@&nbsp;&nbsp; 6 pg/f 0.002617 s/f, min&nbsp; 10.000 MB/s@&nbsp;&nbsp; 6 pg/f 0.002617 s/f, max&nbsp; 10.000 MB/s@ 679 pg/f 0.265430 s/f<br />
+        ...<br />
+        Distribution of log write rate (unit is MB/s):<br />
+        Total 8 numbers, Sum 32.764, Min 1.362, Max 7.306, Avg 4.096<br />
+        Average rate&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; 4.096 MB/s<br />
+        REMOTE CATCHUP&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; 10.000 MB/s@&nbsp; 16 pg/f 0.006250 s/f<br />
+        Exactly&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; 1.362&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; 1 numbers&nbsp; 12%<br />
+        Exactly&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; 1.987&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; 1 numbers&nbsp; 12%<br />
+        ...<br />
+        <br />
+        SYNC&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; Max flush size: predicted 360 pages, workload max 1126 pages<br />
+        NEARSYNC&nbsp;&nbsp; Max flush size: predicted 360 pages, workload max 1126 pages<br />
+        ASYNC&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; Max flush size: predicted&nbsp; 17 pages, workload max 1126 pages</span></span><br />
+        &nbsp;</p>
+
+        <h4 dir="ltr"><a name="Network_and_Disk_Speed">Network and Disk Speed</a></h4>
+
+        <p dir="ltr">At the beginning, the calculator prints out network and disk speed as verification of command line arguments:</p>
+
+        <p dir="ltr"><span style="font-size:11px"><span style="font-family:'courier new' , 'courier' , monospace">hadrCalculator.pl: Network speed 10 MB/s, .1 second round trip time<br />
+        hadrCalculator.pl: Disk speed 200 MB/s, .001 second overhead per write</span></span></p>
+
+        <h4 dir="ltr"><a name="Computed_Logging_Rate">Computed Logging Rate</a></h4>
+
+        <p dir="ltr">HADR calculator annotates the logging rate lines from db2logscan with computed rate of various HADR sync modes (other input lines are printed as is). An example:</p>
+
+        <p dir="ltr"><span style="font-size:11px"><span style="font-family:'courier new' , 'courier' , monospace">actual&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; 1.363 MB/s@&nbsp;&nbsp; 3 pg/f 0.010018 s/f<br />
+        SYNC&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; ??&nbsp;&nbsp;&nbsp; 1.373 MB/s@&nbsp; 42 pg/f 0.120146 s/f, min&nbsp;&nbsp; 0.132 MB/s@&nbsp;&nbsp; 3 pg/f 0.103504 s/f, max&nbsp;&nbsp; 3.362 MB/s@ 139 pg/f 0.161864 s/f</span></span></p>
+
+        <p dir="ltr">The "actual" line just reprints selected fields from input, for easy comparison to logging rate of the sync modes. For each sync mode, there are 3 groups of numbers. Each group has its own data rate (MB/s), flush size (pg/f), and flush duration (s/f). Example of a group: <span style="font-family:'courier new' , 'courier' , monospace"><span style="font-size:11px">3.283 MB/s@ 134 pg/f 0.159649 s/f. </span></span>It means that you can get this data rate at this flush size, and each flush takes this amount of time.</p>
+
+        <p dir="ltr">For each sync mode, the first group is the <strong>target rate group</strong>. This group attempts to produce the same logging rate as the actual rate, therefore minimizing impact to applications. Even when the actual rate can be produced, flush size and duration may be different from actual and there may be&nbsp; some impact to application behavior. See "commit time" discussion in "DB2 Logging Performance" section above for more info. There are two special cases for this group:</p>
+
+        <ul dir="ltr">
+        	<li>If the target rate is lower than actual, it means that system throughput will be capped at this rate when HADR is enabled. Target group is a copy of the "max" group. This rate is the best the system can do. This sync mode will be marked by "???".</li>
+        	<li>If the target rate is higher than actual, it means that this mode has room to spare. Target group is a copy of the "min" group. Log writer has idle time in the actual workload (calculator model assumes no idle time). Computed flush duration is shorter than actual. The difference is the idle time. There will be no impact to applications when HADR is enabled :-).</li>
+        </ul>
+
+        <p dir="ltr">The 2nd group is the <strong>"min" group</strong>. It is the minimal performance this mode can produce. It is computed using the actual flush size. If the rate is higher than actual (flush duration is shorter than actual), then this sync mode will not have impact to applications. If the rate is lower than actual (flush duration is longer than actual), then there may still be some impact even if the target rate group can match actual logging rate.<br />
+        <br />
+        The 3rd group is the <strong>"max" group</strong>. It is the maximal logging rate this mode can produce. It is computed using the maximal flush size of "transaction_size * nOpenTrans". If the actual rate is higher than this rate, system will hit performance cap in this mode.</p>
+
+        <h4 dir="ltr"><a name="_________________Markers">"?", "??", "???" Markers</a></h4>
+
+        <p dir="ltr">On an annotation line, the space after sync mode name is&nbsp; a "?", "??", "???" marker column showing degree of&nbsp; impact to applications in the given sync mode:</p>
+
+        <ul dir="ltr">
+        	<li>Blank (no "?" at all): Actual rate is lower than computed "min" rate. No impact to applications is predicted.</li>
+        	<li>"?": Actual rate is lower than 1/4 of computed "max" rate. Small impact to applications is predicted. Expect slightly longer transaction commit time.</li>
+        	<li>"??": Actual rate is between 1/4 and 1/2 of computed "max" rate. Medium impact to applications is predicted. Expect longer transaction commit time.</li>
+        	<li>"???": Actual rate is higher than 1/2 of maximal flush size. Heavy impact to applications is predicted. Expect much longer transaction commit time.</li>
+        </ul>
+
+        <p dir="ltr">When any "?" marks a sync mode, you need to evaluate flush duration, commit wait time, and application commit interval to gauge impact to applications when HADR is enabled.</p>
+
+        <p dir="ltr">Average commit wait time will be 1.5 times of flush duration (on average, a commit request arrives while log writer is in the middle of writing a flush. The commit record gets included in the next flush, and completes at end of the next flush). You may compare computed flush duration against actual flush duration to gauge change of commit wait time.<br />
+        <br />
+        You may compute application commit interval as database_commit_interval * number_of_applications. Then compare application commit interval with the change in commit wait time to gauge impact to applications. Note that applications have varying degree of sensitivity to commit time. See "DB2 Logging Performance" section above for details.</p>
+
+        <h4 dir="ltr"><a name="Max_Flush_Size">Max Flush Size</a></h4>
+
+        <p dir="ltr">At the end of calculator output, max flush size of the "target" group (shown as "predicted") and "max" group (shown as "workload max") over all annotated logging rate lines are printed. See "Computed Logging Rate" section above for more info on the groups. Sample output:</p>
+
+        <p dir="ltr"><span style="font-size:11px"><span style="font-family:'courier new' , 'courier' , monospace">SYNC&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; Max flush size: predicted 360 pages, workload max 1126 pages</span></span></p>
+
+        <p dir="ltr">For best performance, primary database log write buffer (database config parameter LOGBUFSZ) and HADR socket buffer size should be at least of the "predicted" flush size. "Workload max" size is preferred. Other factors for setting socket buffer size are: maximizing TCP throughput, buffering ASYNC mode send, buffering remote catchup send (minimal 64KB). See <a href="tcpTuning.html">TCP Tuning</a> and <a href="perfTuning.html#Step_4__Know_Your_Sync_Modes" id="wikiLink1405120098426">HADR&nbsp;Performance&nbsp;Tuning</a> for more info.</p>
+
+        <h4 dir="ltr"><a name="Remote_Catchup_Speed">Remote Catchup Speed</a></h4>
+
+        <p dir="ltr">In remote catchup state, the primary database log write thread writes logs without waiting for replication to the standby. The primary database HADR thread reads log data from log files and sends it to the standby. Log writing and shipping are independent. Shipping position is behind writing position. Normally, log shipping eventually catches up to current log writing position and the HADR pair enters peer state (assuming sync mode is not superAsync). For more info on HADR state transition, see <a href="hadrLogShipping.html#HADR_states">HADR&nbsp;States</a>.</p>
+
+        <p dir="ltr">HADR calculator models remote catchup state log shipping rate as async mode at fixed 16 page/flush, because HADR thread reads log data from log files in fixed 16 page size and sends log data without ack.</p>
+
+        <p dir="ltr">If remote catchup log shipping rate is slower than the average log writing rate, the standby may never catchup to the primary and the primary-standby log gap will keep increasing. The calculator will compare average logging rate and remote catchup rate and warn the user with "?" if needed:<br />
+        <br />
+        <span style="font-family:'courier new' , 'courier' , monospace">Distribution of log write rate (unit is MB/s):<br />
+        Total 8 numbers, Sum 32.764, Min 1.362, Max 7.306, Avg 4.096<br />
+        Average rate&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; 4.096 MB/s<br />
+        REMOTE CATCHUP ??&nbsp;&nbsp;&nbsp; 5.000 MB/s@&nbsp; 16 pg/f 0.012500 s/f<br />
+        Exactly&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; 1.362&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; 1 numbers&nbsp; 12%<br />
+        Exactly&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; 1.987&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; 1 numbers&nbsp; 12%</span><br />
+        ...<br />
+        <br />
+        The "Average rate" and "REMOTE CATCHUP" lines are added by the calculator. "?" markers are used for warning level:</p>
+
+        <ul dir="ltr">
+        	<li>Blank (no "?" at all): Average rate is lower than 50% of remote catchup rate. Expect quick catchup.</li>
+        	<li>"?":&nbsp;&nbsp;&nbsp;&nbsp; Average rate is between 50% and 75% of remote catchup rate. Possible slow catchup.</li>
+        	<li>"??":&nbsp;&nbsp; Average rate is between 75% and 100% of remote catchup rate. Expect slow catchup.</li>
+        	<li>"???": Average rate is higher than remote catchup rate. Expect long catchup or never catchup.</li>
+        </ul>
+
+        <p dir="ltr">Examples:<br />
+        <br />
+        <span style="font-family:'courier new' , 'courier' , monospace">Average rate&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; 4.096 MB/s<br />
+        REMOTE CATCHUP&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; 10.000 MB/s@&nbsp; 16 pg/f 0.006250 s/f<br />
+        <br />
+        Average rate&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; 4.096 MB/s<br />
+        REMOTE CATCHUP ?&nbsp;&nbsp;&nbsp;&nbsp; 7.000 MB/s@&nbsp; 16 pg/f 0.008929 s/f<br />
+        <br />
+        Average rate&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; 4.096 MB/s<br />
+        REMOTE CATCHUP ??&nbsp;&nbsp;&nbsp; 5.000 MB/s@&nbsp; 16 pg/f 0.012500 s/f<br />
+        <br />
+        Average rate&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; 4.096 MB/s<br />
+        REMOTE CATCHUP ???&nbsp;&nbsp; 3.000 MB/s@&nbsp; 16 pg/f 0.020833 s/f</span><br />
+        &nbsp;</p>
+
+        <h3 dir="ltr"><a name="MAN__Metropolitan_Area_Network__Example">MAN (Metropolitan Area Network) Example</a></h3>
+
+        <p dir="ltr">Using the same sample workload, now let say that we run HADR across town, instead of across the continent. With network bandwidth raised to 20MB/second and round trip time cut down to 5ms, we get:<br />
+        <br />
+        Command: <span style="font-family:'courier new' , 'courier' , monospace">hadrCalculator.pl -network 20 .005 -disk 200 .001 &lt;inputFile&gt;</span><br />
+        Output:<br />
+        <br />
+        <span style="font-size:11px"><span style="font-family:'courier new' , 'courier' , monospace">hadrCalculator.pl: Network speed 20 MB/s, .005 second round trip time<br />
+        hadrCalculator.pl: Disk speed 200 MB/s, .001 second overhead per write<br />
+        ...<br />
+        <br />
+        2013-02-09 01:25:38&nbsp; 1.469 MB/s,&nbsp; 8 sec,&nbsp;&nbsp; 8.3 pg/f, 0.022161 sec/f,&nbsp; 15.2 pg/tr, 0.061453 sec/tr, 0.044693 sec/cmt, nOpenTrans&nbsp;&nbsp; 2.9<br />
+        actual&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; 1.469 MB/s@&nbsp;&nbsp; 8 pg/f 0.022161 s/f<br />
+        SYNC&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; 3.624 MB/s@&nbsp;&nbsp; 8 pg/f 0.008945 s/f, min&nbsp;&nbsp; 3.624 MB/s@&nbsp;&nbsp; 8 pg/f 0.008945 s/f, max&nbsp;&nbsp; 9.935 MB/s@&nbsp; 44 pg/f 0.017331 s/f<br />
+        NEARSYNC&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; 4.897 MB/s@&nbsp;&nbsp; 8 pg/f 0.006621 s/f, min&nbsp;&nbsp; 4.897 MB/s@&nbsp;&nbsp; 8 pg/f 0.006621 s/f, max&nbsp; 12.652 MB/s@&nbsp; 44 pg/f 0.013609 s/f<br />
+        ASYNC&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; 20.000 MB/s@&nbsp;&nbsp; 8 pg/f 0.001621 s/f, min&nbsp; 20.000 MB/s@&nbsp;&nbsp; 8 pg/f 0.001621 s/f, max&nbsp; 20.000 MB/s@&nbsp; 44 pg/f 0.008609 s/f<br />
+        ...<br />
+        <br />
+        2013-02-26 15:32:09&nbsp; 7.307 MB/s, 60 sec,&nbsp; 17.6 pg/f, 0.009435 sec/f,&nbsp; 15.9 pg/tr, 0.186589 sec/tr, 0.008580 sec/cmt, nOpenTrans&nbsp; 22.7<br />
+        actual&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; 7.307 MB/s@&nbsp; 17 pg/f 0.009435 s/f<br />
+        SYNC&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; ??&nbsp;&nbsp;&nbsp; 7.363 MB/s@&nbsp; 23 pg/f 0.012539 s/f, min&nbsp;&nbsp; 6.180 MB/s@&nbsp; 17 pg/f 0.011125 s/f, max&nbsp; 15.393 MB/s@ 360 pg/f 0.091593 s/f<br />
+        NEARSYNC&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; 8.148 MB/s@&nbsp; 17 pg/f 0.008438 s/f, min&nbsp;&nbsp; 8.148 MB/s@&nbsp; 17 pg/f 0.008438 s/f, max&nbsp; 18.675 MB/s@ 360 pg/f 0.075494 s/f<br />
+        ASYNC&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; 20.000 MB/s@&nbsp; 17 pg/f 0.003438 s/f, min&nbsp; 20.000 MB/s@&nbsp; 17 pg/f 0.003438 s/f, max&nbsp; 20.000 MB/s@ 360 pg/f 0.070494 s/f<br />
+        ...<br />
+        <br />
+        2013-02-26 15:36:09&nbsp; 1.363 MB/s, 60 sec,&nbsp;&nbsp; 3.5 pg/f, 0.010018 sec/f,&nbsp;&nbsp; 4.3 pg/tr, 0.102471 sec/tr, 0.012782 sec/cmt, nOpenTrans&nbsp; 32.4<br />
+        actual&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; 1.363 MB/s@&nbsp;&nbsp; 3 pg/f 0.010018 s/f<br />
+        SYNC&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; 1.748 MB/s@&nbsp;&nbsp; 3 pg/f 0.007820 s/f, min&nbsp;&nbsp; 1.748 MB/s@&nbsp;&nbsp; 3 pg/f 0.007820 s/f, max&nbsp; 13.724 MB/s@ 139 pg/f 0.039653 s/f<br />
+        NEARSYNC&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; 2.405 MB/s@&nbsp;&nbsp; 3 pg/f 0.005684 s/f, min&nbsp;&nbsp; 2.405 MB/s@&nbsp;&nbsp; 3 pg/f 0.005684 s/f, max&nbsp; 16.895 MB/s@ 139 pg/f 0.032211 s/f<br />
+        ASYNC&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; 12.797 MB/s@&nbsp;&nbsp; 3 pg/f 0.001068 s/f, min&nbsp; 12.797 MB/s@&nbsp;&nbsp; 3 pg/f 0.001068 s/f, max&nbsp; 20.000 MB/s@ 139 pg/f 0.027211 s/f<br />
+        ...<br />
+        <br />
+        2013-02-26 15:39:05&nbsp; 3.280 MB/s, 56 sec,&nbsp;&nbsp; 6.7 pg/f, 0.007984 sec/f,&nbsp; 15.1 pg/tr, 0.102178 sec/tr, 0.017937 sec/cmt, nOpenTrans&nbsp; 45.0<br />
+        actual&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; 3.280 MB/s@&nbsp;&nbsp; 6 pg/f 0.007984 s/f<br />
+        SYNC&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; ?&nbsp;&nbsp;&nbsp;&nbsp; 3.294 MB/s@&nbsp;&nbsp; 7 pg/f 0.008724 s/f, min&nbsp;&nbsp; 3.054 MB/s@&nbsp;&nbsp; 6 pg/f 0.008570 s/f, max&nbsp; 15.965 MB/s@ 679 pg/f 0.166258 s/f<br />
+        NEARSYNC&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; 4.149 MB/s@&nbsp;&nbsp; 6 pg/f 0.006309 s/f, min&nbsp;&nbsp; 4.149 MB/s@&nbsp;&nbsp; 6 pg/f 0.006309 s/f, max&nbsp; 19.274 MB/s@ 679 pg/f 0.137715 s/f<br />
+        ASYNC&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; 20.000 MB/s@&nbsp;&nbsp; 6 pg/f 0.001309 s/f, min&nbsp; 20.000 MB/s@&nbsp;&nbsp; 6 pg/f 0.001309 s/f, max&nbsp; 20.000 MB/s@ 679 pg/f 0.132715 s/f<br />
+        ...<br />
+        <br />
+        SYNC&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; Max flush size: predicted&nbsp; 23 pages, workload max 1126 pages<br />
+        NEARSYNC&nbsp;&nbsp; Max flush size: predicted&nbsp; 17 pages, workload max 1126 pages<br />
+        ASYNC&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; Max flush size: predicted&nbsp; 17 pages, workload max 1126 pages</span></span><br />
+        <br />
+        We see that application impact is now down to "small" to "medium" for sync and nearSync mode during heavy load period and no impact at all in light load period. And the difference between computed flush duration and actual flush duration is small (just a few ms, compared to hundreds of ms in the WAN example). So this may be a practical setup.</p>
+
+        <h3 dir="ltr"><a name="LAN__Local_Area_Network__Example">LAN (Local Area Network) Example</a></h3>
+
+        <p dir="ltr">Finally, let's look at a LAN case (120MB/sec, .1 ms round trip time, typical giga bit ethernet):<br />
+        <br />
+        Command: <span style="font-family:'courier new' , 'courier' , monospace">hadrCalculator.pl -network 120 .0001 -disk 200 .001 &lt;inputFile&gt;</span><br />
+        Output:<br />
+        <br />
+        <span style="font-size:11px"><span style="font-family:'courier new' , 'courier' , monospace">hadrCalculator.pl: Network speed 120 MB/s, .0001 second round trip time<br />
+        hadrCalculator.pl: Disk speed 200 MB/s, .001 second overhead per write<br />
+        ...<br />
+        <br />
+        2013-02-09 01:25:38&nbsp; 1.469 MB/s,&nbsp; 8 sec,&nbsp;&nbsp; 8.3 pg/f, 0.022161 sec/f,&nbsp; 15.2 pg/tr, 0.061453 sec/tr, 0.044693 sec/cmt, nOpenTrans&nbsp;&nbsp; 2.9<br />
+        actual&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; 1.469 MB/s@&nbsp;&nbsp; 8 pg/f 0.022161 s/f<br />
+        SYNC&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; 12.033 MB/s@&nbsp;&nbsp; 8 pg/f 0.002694 s/f, min&nbsp; 12.033 MB/s@&nbsp;&nbsp; 8 pg/f 0.002694 s/f, max&nbsp; 32.755 MB/s@&nbsp; 44 pg/f 0.005257 s/f<br />
+        NEARSYNC&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; 27.899 MB/s@&nbsp;&nbsp; 8 pg/f 0.001162 s/f, min&nbsp; 27.899 MB/s@&nbsp;&nbsp; 8 pg/f 0.001162 s/f, max&nbsp; 92.527 MB/s@&nbsp; 44 pg/f 0.001861 s/f<br />
+        ASYNC&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; 27.899 MB/s@&nbsp;&nbsp; 8 pg/f 0.001162 s/f, min&nbsp; 27.899 MB/s@&nbsp;&nbsp; 8 pg/f 0.001162 s/f, max&nbsp; 92.527 MB/s@&nbsp; 44 pg/f 0.001861 s/f<br />
+        ...<br />
+        <br />
+        2013-02-26 15:32:09&nbsp; 7.307 MB/s, 60 sec,&nbsp; 17.6 pg/f, 0.009435 sec/f,&nbsp; 15.9 pg/tr, 0.186589 sec/tr, 0.008580 sec/cmt, nOpenTrans&nbsp; 22.7<br />
+        actual&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; 7.307 MB/s@&nbsp; 17 pg/f 0.009435 s/f<br />
+        SYNC&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; 20.459 MB/s@&nbsp; 17 pg/f 0.003360 s/f, min&nbsp; 20.459 MB/s@&nbsp; 17 pg/f 0.003360 s/f, max&nbsp; 50.447 MB/s@ 360 pg/f 0.027948 s/f<br />
+        NEARSYNC&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; 51.163 MB/s@&nbsp; 17 pg/f 0.001344 s/f, min&nbsp; 51.163 MB/s@&nbsp; 17 pg/f 0.001344 s/f, max 118.987 MB/s@ 360 pg/f 0.011849 s/f<br />
+        ASYNC&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; 51.163 MB/s@&nbsp; 17 pg/f 0.001344 s/f, min&nbsp; 51.163 MB/s@&nbsp; 17 pg/f 0.001344 s/f, max 120.000 MB/s@ 360 pg/f 0.011749 s/f<br />
+        ...<br />
+        <br />
+        2013-02-26 15:36:09&nbsp; 1.363 MB/s, 60 sec,&nbsp;&nbsp; 3.5 pg/f, 0.010018 sec/f,&nbsp;&nbsp; 4.3 pg/tr, 0.102471 sec/tr, 0.012782 sec/cmt, nOpenTrans&nbsp; 32.4<br />
+        actual&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; 1.363 MB/s@&nbsp;&nbsp; 3 pg/f 0.010018 s/f<br />
+        SYNC&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; 5.816 MB/s@&nbsp;&nbsp; 3 pg/f 0.002351 s/f, min&nbsp;&nbsp; 5.816 MB/s@&nbsp;&nbsp; 3 pg/f 0.002351 s/f, max&nbsp; 45.061 MB/s@ 139 pg/f 0.012077 s/f<br />
+        NEARSYNC&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; 12.797 MB/s@&nbsp;&nbsp; 3 pg/f 0.001068 s/f, min&nbsp; 12.797 MB/s@&nbsp;&nbsp; 3 pg/f 0.001068 s/f, max 117.411 MB/s@ 139 pg/f 0.004635 s/f<br />
+        ASYNC&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; 12.797 MB/s@&nbsp;&nbsp; 3 pg/f 0.001068 s/f, min&nbsp; 12.797 MB/s@&nbsp;&nbsp; 3 pg/f 0.001068 s/f, max 120.000 MB/s@ 139 pg/f 0.004535 s/f<br />
+        ...<br />
+        <br />
+        2013-02-26 15:39:05&nbsp; 3.280 MB/s, 56 sec,&nbsp;&nbsp; 6.7 pg/f, 0.007984 sec/f,&nbsp; 15.1 pg/tr, 0.102178 sec/tr, 0.017937 sec/cmt, nOpenTrans&nbsp; 45.0<br />
+        actual&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; 3.280 MB/s@&nbsp;&nbsp; 6 pg/f 0.007984 s/f<br />
+        SYNC&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; 10.145 MB/s@&nbsp;&nbsp; 6 pg/f 0.002580 s/f, min&nbsp; 10.145 MB/s@&nbsp;&nbsp; 6 pg/f 0.002580 s/f, max&nbsp; 52.289 MB/s@ 679 pg/f 0.050762 s/f<br />
+        NEARSYNC&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; 23.143 MB/s@&nbsp;&nbsp; 6 pg/f 0.001131 s/f, min&nbsp; 23.143 MB/s@&nbsp;&nbsp; 6 pg/f 0.001131 s/f, max 119.460 MB/s@ 679 pg/f 0.022219 s/f<br />
+        ASYNC&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; 23.143 MB/s@&nbsp;&nbsp; 6 pg/f 0.001131 s/f, min&nbsp; 23.143 MB/s@&nbsp;&nbsp; 6 pg/f 0.001131 s/f, max 120.000 MB/s@ 679 pg/f 0.022119 s/f<br />
+        ...<br />
+        <br />
+        SYNC&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; Max flush size: predicted&nbsp; 17 pages, workload max 1126 pages<br />
+        NEARSYNC&nbsp;&nbsp; Max flush size: predicted&nbsp; 17 pages, workload max 1126 pages<br />
+        ASYNC&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; Max flush size: predicted&nbsp; 17 pages, workload max 1126 pages</span></span><br />
+        <br />
+        No impact at all in any sync mode. You may use any mode and expect no impact to applications.</p>
+
+        <h1 dir="ltr"><a name="Summary">Summary</a></h1>
+
+        <p dir="ltr">With DB2 log scanner and HADR calculator in hand, now you can plan your HADR system with confidence, and tune your system with quantitative guidance. See <a href="perfTuning.html">step by step guide</a> on choosing HADR sync mode and TCP buffer size.</p>
+      </div>
+    </div>
+    <!-- /#page-content-wrapper -->
+
+  </div>
+  <!-- /#wrapper -->
+
+  <!-- Bootstrap core JavaScript -->
+  <script src="vendor/jquery/jquery.min.js"></script>
+  <script src="vendor/bootstrap/js/bootstrap.bundle.min.js"></script>
+
+  <!-- Menu Toggle Script -->
+  <script>
+    $("#menu-toggle").click(function(e) {
+      e.preventDefault();
+      $("#wrapper").toggleClass("toggled");
+    });
+  </script>
+
+</body>
+
+</html>
