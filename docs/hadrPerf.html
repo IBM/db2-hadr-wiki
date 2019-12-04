@@ -84,7 +84,7 @@
 
         <h2 dir="ltr">Presentation</h2>
 
-        <p dir="ltr"><strong>Slides for a companion presentation are available at <a href="/developerworks/community/wikis/form/api/wiki/e7a20a94-a11a-4e65-bc01-ddc92f0329ed/page/540cb75a-bb98-4b39-b69d-26b47a318a6c/attachment/87474e73-d473-46ed-8985-8e9622513556/media/HADR_perf.pdf">HADR_perf.pdf</a>.</strong> The presentation is intended as an overview or quick start for HADR performance, while the article below is best for in-depth studying or as handy reference.</p>
+        <p dir="ltr"><strong>Slides for a companion presentation are available at <a href="https://community.ibm.com/community/user/hybriddatamanagement/viewdocument/idug-2014-high-availability-disas?CommunityKey=b5b60ace-5eb2-4444-a961-d9edb6f39bd8">HADR_perf.pdf</a>.</strong> The presentation is intended as an overview or quick start for HADR performance, while the article below is best for in-depth studying or as handy reference.</p>
 
         <h2 dir="ltr">Article</h2>
 
@@ -223,7 +223,7 @@
 
         <h2 dir="ltr"><a name="Log_Path_on_Primary_and_Standby">Log Path on Primary and Standby</a></h2>
 
-        <p dir="ltr">Dedicated device for log path is strongly recommended. Do not share devices between tablespaces and log path. High performance device is recommended as log device because data changes from all transactions on a database member go to a single log stream. Log stream writing can easily become bottleneck, even when HADR is not enabled. This is particularly important for OLTP systems. DB2 log scanner can be used to analyze logger behavior. See <a href="db2logscan.html">db2 log scanner</a>,&nbsp; <a href="db2logscan.html#DB2_Logging_Performance">DB2&nbsp;Logging&nbsp;Performance</a>, and the "<a href="https://www.ibm.com/developerworks/community/wikis/home?lang=en#!/wiki/Wc9a068d7f6a6_4434_aece_0d297ea80ab1/page/Tuning%20and%20Monitoring%20Database%20System%20Performance" id="wikiLink1422037623054">Tuning&nbsp;and&nbsp;Monitoring&nbsp;Database&nbsp;System&nbsp;Performance</a>" white paper.</p>
+        <p dir="ltr">Dedicated device for log path is strongly recommended. Do not share devices between tablespaces and log path. High performance device is recommended as log device because data changes from all transactions on a database member go to a single log stream. Log stream writing can easily become bottleneck, even when HADR is not enabled. This is particularly important for OLTP systems. DB2 log scanner can be used to analyze logger behavior. See <a href="db2logscan.html">db2 log scanner</a>,&nbsp; <a href="db2logscan.html#DB2_Logging_Performance">DB2&nbsp;Logging&nbsp;Performance</a>, and the "<a href="https://community.ibm.com/community/user/hybriddatamanagement/viewdocument/tuning-and-monitoring-database-syst-1?CommunityKey=b5b60ace-5eb2-4444-a961-d9edb6f39bd8">Tuning&nbsp;and&nbsp;Monitoring&nbsp;Database&nbsp;System&nbsp;Performance</a>" white paper.</p>
 
         <h2 dir="ltr"><a name="Self_Tuning_Memory_Manager__STMM__on_the_Standby">Self Tuning Memory Manager (STMM) on the Standby</a></h2>
 
@@ -394,7 +394,7 @@
 
         <h2 dir="ltr"><a name="Monitoring_Hardware_Resources">Monitoring Hardware Resources</a></h2>
 
-        <p dir="ltr">You should monitor hardware resources on both the primary and the standby. A common tools is vmstat. Check CPU, memory, and IO utilization. Look for bottleneck (100% utilization). See the "<a href="https://www.ibm.com/developerworks/community/wikis/home?lang=en#!/wiki/Wc9a068d7f6a6_4434_aece_0d297ea80ab1/page/Tuning%20and%20Monitoring%20Database%20System%20Performance" id="wikiLink1422037623071">Tuning&nbsp;and&nbsp;Monitoring&nbsp;Database&nbsp;System&nbsp;Performance</a>" white paper for more into.</p>
+        <p dir="ltr">You should monitor hardware resources on both the primary and the standby. A common tools is vmstat. Check CPU, memory, and IO utilization. Look for bottleneck (100% utilization). See the "<a href="https://community.ibm.com/community/user/hybriddatamanagement/viewdocument/tuning-and-monitoring-database-syst-1?CommunityKey=b5b60ace-5eb2-4444-a961-d9edb6f39bd8">Tuning&nbsp;and&nbsp;Monitoring&nbsp;Database&nbsp;System&nbsp;Performance</a>" white paper for more into.</p>
 
         <p dir="ltr">&nbsp;</p>
 
@@ -624,7 +624,7 @@
 
         <p dir="ltr">Database configuration parameters are not replicated by HADR. Configuration on the standby needs to be manually maintained. It is recommended that buffer pool related parameters be set to the same on the primary and standby, <span class="keyword parmname parmname" id="vcc_sp_span_66" tabindex="30"><span class="resultofText">assuming the same hardware on primary and standby</span></span>. These include <span class="keyword parmname parmname" id="vcc_sp_span_66" tabindex="30"><span class="resultofText">num_iocleaners, </span></span><span class="keyword parmname parmname" id="vcc_sp_span_55" tabindex="25"><span class="resultofText">page_age_trgt_mcr (starting in V10.5), </span></span><span class="keyword parmname parmname" id="vcc_sp_span_55" tabindex="25"><span class="resultofText">page_age_trgt_gcr</span></span> <span class="keyword parmname parmname" id="vcc_sp_span_55" tabindex="25"><span class="resultofText">(starting in V10.5, applicable to pureScale systems only)</span></span>, and softmax (deprecated as of V10.5).</p>
 
-        <p dir="ltr">See the "<a href="https://www.ibm.com/developerworks/community/wikis/home?lang=en#!/wiki/Wc9a068d7f6a6_4434_aece_0d297ea80ab1/page/Tuning%20and%20Monitoring%20Database%20System%20Performance" id="wikiLink1422037623083">Tuning&nbsp;and&nbsp;Monitoring&nbsp;Database&nbsp;System&nbsp;Performance</a>" white paper for details of monitoring and tuning buffer pools.</p>
+        <p dir="ltr">See the "<a href="https://community.ibm.com/community/user/hybriddatamanagement/viewdocument/tuning-and-monitoring-database-syst-1?CommunityKey=b5b60ace-5eb2-4444-a961-d9edb6f39bd8">Tuning&nbsp;and&nbsp;Monitoring&nbsp;Database&nbsp;System&nbsp;Performance</a>" white paper for details of monitoring and tuning buffer pools.</p>
 
         <h3 dir="ltr"><a name="Reads_on_Standby">Reads on Standby</a></h3>
 
@@ -632,7 +632,7 @@
 
         <h3 dir="ltr"><a name="Hardware_Utilization">Hardware Utilization</a></h3>
 
-        <p dir="ltr">When replay is slow, check hardware bottleneck on standby. A common tools is vmstat. Check CPU, memory, and IO utilization. Look for bottleneck (100% utilization). See the "<a href="https://www.ibm.com/developerworks/community/wikis/home?lang=en#!/wiki/Wc9a068d7f6a6_4434_aece_0d297ea80ab1/page/Tuning%20and%20Monitoring%20Database%20System%20Performance" id="wikiLink1422037623084">Tuning&nbsp;and&nbsp;Monitoring&nbsp;Database&nbsp;System&nbsp;Performance</a>" white paper for details of monitoring system resources.<br />
+        <p dir="ltr">When replay is slow, check hardware bottleneck on standby. A common tools is vmstat. Check CPU, memory, and IO utilization. Look for bottleneck (100% utilization). See the "<a href="https://community.ibm.com/community/user/hybriddatamanagement/viewdocument/tuning-and-monitoring-database-syst-1?CommunityKey=b5b60ace-5eb2-4444-a961-d9edb6f39bd8">Tuning&nbsp;and&nbsp;Monitoring&nbsp;Database&nbsp;System&nbsp;Performance</a>" white paper for details of monitoring system resources.<br />
         <br />
         If standby hardware is less powerful than the primary, consider upgrading to match the primary.</p>
 
