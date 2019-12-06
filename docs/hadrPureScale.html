@@ -156,7 +156,7 @@
 
         <p dir="ltr">As in non pureScale environment, with HADR, the primary database sends transaction logs to the standby database, who replays the logs in real time to stay in synch with the primary. On pureScale, each database is made of multiple members. On the standby, only one member replays the logs.&nbsp; On the primary, each member has its own log stream. With HADR, each primary member opens a TCP connection to the standby replay member to ship its log stream to the standby. The following picture shows the data flow:</p>
 
-        <p dir="ltr"><img lconnwikimacro="image" lconnwikiparamattachmentname="HADR pureScale data flow.png" lconnwikiparamwikipage="HADR on pureScale" src="/developerworks/community/wikis/form/api/wiki/e7a20a94-a11a-4e65-bc01-ddc92f0329ed/page/31d656b5-3228-4486-b4e2-95421003c1be/attachment/80178bf1-6675-4fbd-88c2-94c6570e2efc/media/HADR%20pureScale%20data%20flow.png?preventCache=1447236939189" /><br />
+        <p dir="ltr"><img alt="HADR on pureScale" src="images/hadrPureScaleDataFlow.png" /><br />
         <br />
         The main reason for single member replay on standby is that HADR uses the same replay infrastructure as database roll forward, which only supports single member replay. Given that only a portion of primary's workload is write, which generates logs, and log replay usually costs less resource than processing SQL statements, standby replay speed usually can keep up with primary log generation. For example, primary has 4 members and each has a 25% write ratio. So total write load is 100% of one member's capacity. One replay member should be able to keep up. Still, you may configure a "fat" member on the standby as the replay member.</p>
 
