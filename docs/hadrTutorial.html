@@ -185,7 +185,7 @@
         	</li>
         	<li>Primary and standby must have the same paths for tablespace containers, to support tablespace replication.
         	<ul>
-        		<li>The container path requirement can often be satisfied with symbolic links. The standby devices should have same or larger capacity.</li>
+        		<li>The standby devices should have same or larger capacity.</li>
         		<li>Redirected restore is not supported when creating the standby. However, database directory (for database metadata files) and transaction log directory changes are supported during the restore. Table space containers created by relative paths will be restored to paths relative to the new database directory.</li>
         	</ul>
         	</li>
