@@ -572,7 +572,7 @@
 
         <p dir="ltr">When HADR (High Availability Disaster Recovery) is enabled on a database, logs on the primary database are replicated to one or more standby databases in real time. Replication can slow down log writing on the primary. The main factors impacting primary database log writing are: HADR sync mode, log device speed on primary and standby databases, and network speed between the primary and standby(s). See&nbsp;<a href="hadrSyncMode.html">HADR sync mode</a> for description of the sync modes, and <a href="perfTuning.html">HADR Performance Tuning</a> on measuring disk and network speed.<br />
         <br />
-        The HADR calculator (hadrCalculator.pl) estimates HADR performance in various sync modes. It can be downloaded <a href="https://www.ibm.com/developerworks/community/files/app?lang=en#/file/f5141270-8733-41a8-8fc5-9efe373f1d6b">here</a>.</p>
+        The HADR calculator (hadrCalculator.pl) estimates HADR performance in various sync modes. For Db2 v11.5 and later, it is already included in installation sqllib/bin/samples. For Db2 releases before v11.5, it can be downloaded <a href="tools/hadrCalculator/hadrCalculator.pl" target="_blank">here</a>.</p>
 
         <p dir="ltr">HADR calculator is a perl script. On Unix systems, you may run it directly with "x" permission. On Windows, run it as "perl hadrCalculator.pl &lt;arguments&gt;".</p>
 
