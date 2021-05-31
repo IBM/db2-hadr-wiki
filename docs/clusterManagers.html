@@ -169,14 +169,11 @@
 
         <h2 dir="ltr"><a name="HADR_auto_failover_on_Windows">HADR auto failover on Windows</a></h2>
 
-        <p dir="ltr">On Windows, SA MP is not Integrated in DB2 and db2haicu is not available. But you can still configure SA MP on Windows using scripts. The following paper shows how to set up SA MP on Windows.</p>
-
-        <p dir="ltr"><a href="http://public.dhe.ibm.com/software/data/sw-library/db2/papers/hadr_tsa_win.pdf">Automating DB2 HADR Failover on Windows using Tivoli System Automation for Multiplatforms</a><br />
-        White paper, 50 pages, 2012, Authors: Steve Raspudic, Michelle Chiu.</p>
+        <p dir="ltr">On Windows, it used to be possible to implement automated failover using older version of TSA, but that is no longer possible starting in TSA 4.1 (due to dropped support of Windows). as the wiki article suggests.  HADR automation on Windows is not possible with any other cluster manager.</p>
 
         <p dir="ltr">&nbsp;</p>
 
-        <p dir="ltr">Note: TSA MP on Windows has been dropped from TSA 4.1 level.&nbsp; Customers looking at automating HADR failover on Windows would likely need to select a different cluster manager product.&nbsp;&nbsp; See following article on using HADR on Windows with Microsoft Cluster Server.</p>
+        <p dir="ltr">Customers looking at automating HADR failover on Windows would likely need to select a different cluster manager product.&nbsp;&nbsp; See following article on using HADR on Windows with Microsoft Cluster Server.</p>
 
         <p dir="ltr"><a href="https://community.ibm.com/community/user/hybriddatamanagement/viewdocument/set-up-db2-for-linux-unix-and-win?CommunityKey=b5b60ace-5eb2-4444-a961-d9edb6f39bd8">Set up DB2 for Linux, UNIX, and Windows for high ... - IBM</a></p>
 
