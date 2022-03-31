@@ -1,236 +1,427 @@
 <!DOCTYPE html>
 <html lang="en">
-
-<head>
-
-  <meta charset="utf-8">
-  <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
-  <meta name="description" content="">
-  <meta name="author" content="">
-
-  <title>Db2 HADR Wiki</title>
-
+ <head>
+  <meta charset="utf-8"/>
+  <meta content="width=device-width, initial-scale=1, shrink-to-fit=no" name="viewport"/>
+  <meta content="" name="description"/>
+  <meta content="" name="author"/>
+  <title>
+   Db2 HADR Wiki
+  </title>
   <!-- Bootstrap core CSS -->
-  <link href="vendor/bootstrap/css/bootstrap.min.css" rel="stylesheet">
-
+  <link href="vendor/bootstrap/css/bootstrap.min.css" rel="stylesheet"/>
   <!-- Custom styles for this template -->
-  <link href="css/simple-sidebar.css" rel="stylesheet">
-
-</head>
-
-<body>
-
+  <link href="css/simple-sidebar.css" rel="stylesheet"/>
+ </head>
+ <body>
   <div class="d-flex" id="wrapper">
-
-    <!-- Sidebar -->
-    <div class="bg-light border-right" id="sidebar-wrapper">
-      <div class="sidebar-heading">Menu</div>
-      <div class="list-group list-group-flush">
-        <a href="hadrBenefits.html" class="list-group-item list-group-item-action bg-light">HADR Benefits</a>
-        <a href="featureHistory.html" class="list-group-item list-group-item-action bg-light">Feature History</a>
-        <a href="hadrTutorial.html" class="list-group-item list-group-item-action bg-light">HADR Tutorial</a>
-        <a href="tcpTuning.html" class="list-group-item list-group-item-action bg-light">TCP Tuning</a>
-        <a href="perfTuning.html" class="list-group-item list-group-item-action bg-light">Perf Tuning</a>
-        <a href="hadrSimulator.html" class="list-group-item list-group-item-action bg-light">HADR Simulator</a>
-        <a href="simulatorOptions.html" class="list-group-item list-group-item-action bg-light">HADR Simulator Options</a>
-        <a href="simulatorOutput.html" class="list-group-item list-group-item-action bg-light">HADR Simulator Output</a>
-        <a href="simulatorParams.html" class="list-group-item list-group-item-action bg-light">HADR Simulator Params</a>
-        <a href="db2logscan.html" class="list-group-item list-group-item-action bg-light">db2logscan</a>
-        <a href="hadrConfig.html" class="list-group-item list-group-item-action bg-light">HADR Config</a>
-        <a href="hadrSyncMode.html" class="list-group-item list-group-item-action bg-light">HADR Sync Mode</a>
-        <a href="hadrTakeover.html" class="list-group-item list-group-item-action bg-light">HADR Takeover</a>
-        <a href="hadrMonitoring.html" class="list-group-item list-group-item-action bg-light">HADR Monitoring</a>
-        <a href="hadrCommands.html" class="list-group-item list-group-item-action bg-light">HADR Commands</a>
-        <a href="hadrLogShipping.html" class="list-group-item list-group-item-action bg-light">HADR Log Shipping/a>
-        <a href="hadrPerf.html" class="list-group-item list-group-item-action bg-light">HADR Perf</a>
-        <a href="diagConnect.html" class="list-group-item list-group-item-action bg-light">Diag Connect</a>
-        <a href="db2diag.html" class="list-group-item list-group-item-action bg-light">db2diag.log</a>
-        <a href="clusterManagers.html" class="list-group-item list-group-item-action bg-light">Cluster Managers</a>
-        <a href="clientReroute.html" class="list-group-item list-group-item-action bg-light">Client Reroute</a>
-        <a href="hadrPureScale.html" class="list-group-item list-group-item-action bg-light">HADR on PureScale</a>
-        <a href="faq.html" class="list-group-item list-group-item-action bg-light">FAQ</a>
-        <a href="db2fmtlog.html" class="list-group-item list-group-item-action bg-light"><strong>> db2fmtlog replayonlywindow</strong></a>
-      </div>
+   <!-- Sidebar -->
+   <div class="bg-light border-right" id="sidebar-wrapper">
+    <div class="sidebar-heading">
+     Menu
     </div>
-    <!-- /#sidebar-wrapper -->
-
-    <!-- Page Content -->
-    <div id="page-content-wrapper">
-
-      <nav class="navbar navbar-expand-lg navbar-light bg-light border-bottom">
-        <button class="btn btn-primary" id="menu-toggle">Toggle Menu</button>
-
-        <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarSupportedContent" aria-controls="navbarSupportedContent" aria-expanded="false" aria-label="Toggle navigation">
-          <span class="navbar-toggler-icon"></span>
-        </button>
-
-        <div class="collapse navbar-collapse" id="navbarSupportedContent">
-          <ul class="navbar-nav ml-auto mt-2 mt-lg-0">
-            <li class="nav-item">
-              <a class="nav-link" href="index.html">Home</a>
-            </li>
-            <li class="nav-item">
-              <a class="nav-link" href="contact.html">Contact</a>
-            </li>
-            <li class="nav-item">
-              <a class="nav-link" href="contribute.html">Contribute</a>
-            </li>
-          </ul>
-        </div>
-      </nav>
-
-      <div class="container-fluid">
-        <p dir="ltr" style="text-align:center"><span style="font-size:22px">Scan logs files to report log records that can trigger replay only window</span></p>
-
-        <p dir="ltr" style="text-align:center"><span style="font-size:22px">on HADR Standby with db2fmtlog_replayonlywindow</span></p>
-
-        <p dir="ltr">&nbsp;</p>
-
-        <h1 dir="ltr">Introduction</h1>
-
-        <p dir="ltr">db2fmtlog_replayonlywindow is a tool that scans DB2 LUW transaction log files&nbsp;<span style="font-family:'helvetica neue' , 'helvetica' , 'arial' , sans-serif">(such as S0000001.LOG) to report log records that can trigger <a href="https://www.ibm.com/support/knowledgecenter/SSEPGG_11.1.0/com.ibm.db2.luw.admin.ha.doc/doc/c0056190.html" rel="noopener noreferrer noopener noreferrer" target="_blank">replay&nbsp;only&nbsp;window</a> on a HADR Standby with Reads On Standby (ROS) feature enabled. Reads on Standby (ROS) feature allows user to run read-only operations on a HADR Standby database as long as it's not in replay only window. When replay only window does happen, all applications performing read-only operations will be forced off. Therefore, it's vital to understand what operations could trigger replay only window and plan them accordingly. db2fmtlog_replayonlywindow provides necessary information to help user identify such operations from their existing workload.</span></p>
-
-        <h1 dir="ltr">Download - Db2 v11.1.3.3+</h1>
-
-        <p dir="ltr"><span style="font-family:'helvetica neue' , 'helvetica' , 'arial' , sans-serif">As of Db2 v11.1.3.3, the db2fmtlog_replayonlywindow tool is now part of the new db2fmtlog tool shipped with the product. The functionality of db2fmtlog's "-replayonlywindow" option is exactly the same as the db2fmtlog_replayonlywindow tool. The new db2fmtlog tool is able to run in Linux, AIX, and Windows environment. For details, please see the Knowledge Center:&nbsp;</span><a href="https://www.ibm.com/support/knowledgecenter/en/SSEPGG_11.1.0/com.ibm.db2.luw.admin.cmd.doc/doc/r0070378.html">https://www.ibm.com/support/knowledgecenter/en/SSEPGG_11.1.0/com.ibm.db2.luw.admin.cmd.doc/doc/r0070378.html</a>.</p>
-
-        <h1 dir="ltr">Download - Older releases</h1>
-
-        <p dir="ltr"><span style="font-family:'helvetica neue' , 'helvetica' , 'arial' , sans-serif">db2fmtlog_replayonlywindow is a stand-alone tool. You only need to download a single binary executable. It has no dependency on DB2 installation. Download from below:</span></p>
-
-        <table border="2" dir="ltr" style="font-family:'helvetica neue' , 'helvetica' , 'arial' , sans-serif;margin:4px;width:1110px;border-collapse:collapse !important">
-        	<tbody>
-        		<tr>
-        			<th style="padding:4px;background-color:rgb( 216 , 216 , 216 );width:392px">File name</th>
-        			<th style="padding:4px;background-color:rgb( 216 , 216 , 216 );width:169px">OS</th>
-        			<th style="padding:4px;background-color:rgb( 216 , 216 , 216 );width:167px">&nbsp;OS version&nbsp;</th>
-        			<th style="padding:4px;background-color:rgb( 216 , 216 , 216 );width:162px">&nbsp;Bit size&nbsp;</th>
-        			<th style="padding:4px;background-color:rgb( 216 , 216 , 216 );width:169px">Db2 version&nbsp;</th>
-        		</tr>
-        		<tr>
-        			<td style="padding:4px;width:392px"><a href="tools/db2fmtlog_replayonlywindow/db2fmtlog_replayonlywindow_aix" target="_blank">db2fmtlog_replayonlywindow_aix</a></td>
-        			<td style="padding:4px;text-align:center;width:169px">AIX</td>
-        			<td style="padding:4px;text-align:center;width:167px">6.1</td>
-        			<td style="padding:4px;text-align:center;width:162px">64</td>
-        			<td style="padding:4px;text-align:center;width:169px">10.5.0.9</td>
-        		</tr>
-        		<tr>
-        			<td style="padding:4px;width:392px"><a href="tools/db2fmtlog_replayonlywindow/db2fmtlog_replayonlywindow_linux" target="_blank">db2fmtlog_replayonlywindow_linux</a></td>
-        			<td style="padding:4px;text-align:center;width:169px">Linux</td>
-        			<td style="padding:4px;text-align:center;width:167px">3.0</td>
-        			<td style="padding:4px;text-align:center;width:162px">64</td>
-        			<td style="padding:4px;text-align:center;width:169px">10.5.0.9</td>
-        		</tr>
-        	</tbody>
-        </table>
-
-        <table border="2" dir="ltr" style="margin:4px;width:1196px;font-family:'helvetica neue' , 'helvetica' , 'arial' , sans-serif;border-collapse:collapse !important">
-        	<tbody>
-        	</tbody>
-        </table>
-
-        <p dir="ltr" style="margin-bottom:5px;padding-top:2px;padding-bottom:2px;font-family:'helvetica neue' , 'helvetica' , 'arial' , sans-serif">Note:</p>
-
-        <ol dir="ltr">
-        	<li style="margin-bottom:5px;padding-top:2px;padding-bottom:2px;font-family:'helvetica neue' , 'helvetica' , 'arial' , sans-serif">The OS version listed above is the version where the binary is built. Generally, the binary can also run on newer OS versions, but not older versions.</li>
-        	<li style="margin-bottom:5px;padding-top:2px;padding-bottom:2px;font-family:'helvetica neue' , 'helvetica' , 'arial' , sans-serif">The Db2 version listed above is the library used to compile the binary. It's usually fine to use the tool for the logs generated by Db2 instance from the same major release (ie. the tool built in 10.5.0.9 should work for 10.5.0.8).</li>
-        </ol>
-
-        <p dir="ltr" style="margin-bottom:5px;padding-top:2px;padding-bottom:2px;font-family:'helvetica neue' , 'helvetica' , 'arial' , sans-serif">If you need the the tool on other platforms or Db2 releases, email db2hadr@wwpdl.vnet.ibm.com.</p>
-
-        <h1 dir="ltr">Syntax</h1>
-
-        <p dir="ltr">Run the db2fmtlog_replayonlywindow tool in the directory containing the log files.</p>
-
-        <blockquote dir="ltr">
-        <p><span style="font-family:'courier new' , 'courier' , monospace">db2fmtlog_replayonlywindow log-file-range [output-file]</span></p>
-
-        <p><span style="font-family:'courier new' , 'courier' , monospace">&nbsp; &nbsp;Specifying Log Files to format<br />
-        &nbsp; &nbsp; &nbsp; To format a single log file, specify the log file number. For example,<br />
-        &nbsp; &nbsp; &nbsp; the log file number of S0000123.LOG is 123.</span></p>
-
-        <p><span style="font-family:'courier new' , 'courier' , monospace">&nbsp; &nbsp; &nbsp; db2fmtlog 123</span></p>
-
-        <p><span style="font-family:'courier new' , 'courier' , monospace">&nbsp; &nbsp; &nbsp; To format a range of log files, specify the first and last log file<br />
-        &nbsp; &nbsp; &nbsp; number.</span></p>
-
-        <p><span style="font-family:'courier new' , 'courier' , monospace">&nbsp; &nbsp; &nbsp; db2fmtlog 123-150</span></p>
-
-        <p><span style="font-family:'courier new' , 'courier' , monospace">&nbsp; &nbsp; &nbsp; To format log files by path name, pass - as the range of log files to<br />
-        &nbsp; &nbsp; &nbsp; format. The path names will be read from standard input. The following<br />
-        &nbsp; &nbsp; &nbsp; example will format all the log files in the current directory.</span></p>
-
-        <p><span style="font-family:'courier new' , 'courier' , monospace">&nbsp; &nbsp; &nbsp; \ls *.LOG | db2fmtlog -</span></p>
-
-        <p><span style="font-family:'courier new' , 'courier' , monospace">&nbsp; &nbsp;If no output-file is specified, standard out will be used.</span></p>
-        </blockquote>
-
-        <h1 dir="ltr">Sample Output</h1>
-
-        <blockquote dir="ltr">
-        <p dir="ltr"><span style="font-family:'courier new' , 'courier' , monospace">|------|------------------------------------------------------------------------<br />
-        | LREC | 10744&nbsp; 0004DF69&nbsp; 0000000011C7<br />
-        |------|------------------------------------------------------------------------<br />
-        | LREC |&nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp;Record LSO = 51259777<br />
-        |&nbsp; &nbsp; &nbsp; |&nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp;Record TID = 0000000011C7<br />
-        |&nbsp; &nbsp; &nbsp; |&nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp;Action = DDL<br />
-        |------|------------------------------------------------------------------------<br />
-        | LREC | 10744&nbsp; 0004DF6A&nbsp; 0000000011C7<br />
-        |------|------------------------------------------------------------------------<br />
-        | LREC |&nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp;Record LSO = 51260205<br />
-        |&nbsp; &nbsp; &nbsp; |&nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp;Record TID = 0000000011C7<br />
-        |&nbsp; &nbsp; &nbsp; |&nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; DDL Statement = create table t5ba.t1 (a int, b long varchar)<br />
-        |------|------------------------------------------------------------------------<br />
-        | LREC | 10765&nbsp; 0004DFFC&nbsp; 0000000011CB<br />
-        |------|------------------------------------------------------------------------<br />
-        | LREC |&nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp;Record LSO = 51272765<br />
-        |&nbsp; &nbsp; &nbsp; |&nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp;Record TID = 0000000011CB<br />
-        |&nbsp; &nbsp; &nbsp; |&nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp;Action = LOAD<br />
-        |------|------------------------------------------------------------------------<br />
-        | LREC | 10770&nbsp; 0004E003&nbsp; 0000000011CC<br />
-        |------|------------------------------------------------------------------------<br />
-        | LREC |&nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp;Record LSO = 51278901<br />
-        |&nbsp; &nbsp; &nbsp; |&nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp;Record TID = 0000000011CC<br />
-        |&nbsp; &nbsp; &nbsp; |&nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp;Action = LOAD<br />
-        |------|------------------------------------------------------------------------<br />
-        | LREC | 10915&nbsp; 0004E210&nbsp; 000000001532<br />
-        |------|------------------------------------------------------------------------<br />
-        | LREC |&nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp;Record LSO = 51440438<br />
-        |&nbsp; &nbsp; &nbsp; |&nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp;Record TID = 000000001532<br />
-        |&nbsp; &nbsp; &nbsp; |&nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp;Action = DDL<br />
-        |------|------------------------------------------------------------------------<br />
-        | LREC | 11131&nbsp; 0004E3FE&nbsp; 00000000163A<br />
-        |------|------------------------------------------------------------------------<br />
-        | LREC |&nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp;Record LSO = 51593237<br />
-        |&nbsp; &nbsp; &nbsp; |&nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp;Record TID = 00000000163A<br />
-        |&nbsp; &nbsp; &nbsp; |&nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp;Action = DDL<br />
-        |------|------------------------------------------------------------------------<br />
-        | LREC | 11131&nbsp; 0004E3FF&nbsp; 00000000163A<br />
-        |------|------------------------------------------------------------------------<br />
-        | LREC |&nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp;Record LSO = 51593665<br />
-        |&nbsp; &nbsp; &nbsp; |&nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp;Record TID = 00000000163A<br />
-        |&nbsp; &nbsp; &nbsp; |&nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; DDL Statement = truncate table t5ba.t1<br />
-        |------|------------------------------------------------------------------------</span></p>
-        </blockquote>
-      </div>
+    <div class="list-group list-group-flush">
+     <a class="list-group-item list-group-item-action bg-light" href="hadrBenefits.html">
+      HADR Benefits
+     </a>
+     <a class="list-group-item list-group-item-action bg-light" href="featureHistory.html">
+      Feature History
+     </a>
+     <a class="list-group-item list-group-item-action bg-light" href="hadrTutorial.html">
+      HADR Tutorial
+     </a>
+     <a class="list-group-item list-group-item-action bg-light" href="tcpTuning.html">
+      TCP Tuning
+     </a>
+     <a class="list-group-item list-group-item-action bg-light" href="perfTuning.html">
+      Perf Tuning
+     </a>
+     <a class="list-group-item list-group-item-action bg-light" href="hadrSimulator.html">
+      HADR Simulator
+     </a>
+     <a class="list-group-item list-group-item-action bg-light" href="simulatorOptions.html">
+      HADR Simulator Options
+     </a>
+     <a class="list-group-item list-group-item-action bg-light" href="simulatorOutput.html">
+      HADR Simulator Output
+     </a>
+     <a class="list-group-item list-group-item-action bg-light" href="simulatorParams.html">
+      HADR Simulator Params
+     </a>
+     <a class="list-group-item list-group-item-action bg-light" href="db2logscan.html">
+      db2logscan
+     </a>
+     <a class="list-group-item list-group-item-action bg-light" href="hadrConfig.html">
+      HADR Config
+     </a>
+     <a class="list-group-item list-group-item-action bg-light" href="hadrSyncMode.html">
+      HADR Sync Mode
+     </a>
+     <a class="list-group-item list-group-item-action bg-light" href="hadrTakeover.html">
+      HADR Takeover
+     </a>
+     <a class="list-group-item list-group-item-action bg-light" href="hadrMonitoring.html">
+      HADR Monitoring
+     </a>
+     <a class="list-group-item list-group-item-action bg-light" href="hadrCommands.html">
+      HADR Commands
+     </a>
+     <a class="list-group-item list-group-item-action bg-light" href="hadrLogShipping.html">
+      HADR Log Shipping/a&gt;
+     </a>
+     <a class="list-group-item list-group-item-action bg-light" href="hadrPerf.html">
+      HADR Perf
+     </a>
+     <a class="list-group-item list-group-item-action bg-light" href="diagConnect.html">
+      Diag Connect
+     </a>
+     <a class="list-group-item list-group-item-action bg-light" href="db2diag.html">
+      db2diag.log
+     </a>
+     <a class="list-group-item list-group-item-action bg-light" href="clusterManagers.html">
+      Cluster Managers
+     </a>
+     <a class="list-group-item list-group-item-action bg-light" href="clientReroute.html">
+      Client Reroute
+     </a>
+     <a class="list-group-item list-group-item-action bg-light" href="hadrPureScale.html">
+      HADR on PureScale
+     </a>
+     <a class="list-group-item list-group-item-action bg-light" href="faq.html">
+      FAQ
+     </a>
+     <a class="list-group-item list-group-item-action bg-light" href="db2fmtlog.html">
+      <strong>
+       &gt; db2fmtlog replayonlywindow
+      </strong>
+     </a>
     </div>
-    <!-- /#page-content-wrapper -->
-
+   </div>
+   <!-- /#sidebar-wrapper -->
+   <!-- Page Content -->
+   <div id="page-content-wrapper">
+    <nav class="navbar navbar-expand-lg navbar-light bg-light border-bottom">
+     <button class="btn btn-primary" id="menu-toggle">
+      Toggle Menu
+     </button>
+     <button aria-controls="navbarSupportedContent" aria-expanded="false" aria-label="Toggle navigation" class="navbar-toggler" data-target="#navbarSupportedContent" data-toggle="collapse" type="button">
+      <span class="navbar-toggler-icon">
+      </span>
+     </button>
+     <div class="collapse navbar-collapse" id="navbarSupportedContent">
+      <ul class="navbar-nav ml-auto mt-2 mt-lg-0">
+       <li class="nav-item">
+        <a class="nav-link" href="index.html">
+         Home
+        </a>
+       </li>
+       <li class="nav-item">
+        <a class="nav-link" href="contact.html">
+         Contact
+        </a>
+       </li>
+       <li class="nav-item">
+        <a class="nav-link" href="contribute.html">
+         Contribute
+        </a>
+       </li>
+      </ul>
+     </div>
+    </nav>
+    <div class="container-fluid">
+     <p dir="ltr" style="text-align:center">
+      <span style="font-size:22px">
+       Scan logs files to report log records that can trigger replay only window
+      </span>
+     </p>
+     <p dir="ltr" style="text-align:center">
+      <span style="font-size:22px">
+       on HADR Standby with db2fmtlog_replayonlywindow
+      </span>
+     </p>
+     <p dir="ltr">
+     </p>
+     <h1 dir="ltr">
+      Introduction
+     </h1>
+     <p dir="ltr">
+      db2fmtlog_replayonlywindow is a tool that scans DB2 LUW transaction log files
+      <span style="font-family:'helvetica neue' , 'helvetica' , 'arial' , sans-serif">
+       (such as S0000001.LOG) to report log records that can trigger
+       <a href="https://www.ibm.com/docs/en/db2/11.5?topic=standby-replay-only-window-hadr-database" rel="noopener noreferrer noopener noreferrer" target="_blank">
+        replay only window
+       </a>
+       on a HADR Standby with Reads On Standby (ROS) feature enabled. Reads on Standby (ROS) feature allows user to run read-only operations on a HADR Standby database as long as it's not in replay only window. When replay only window does happen, all applications performing read-only operations will be forced off. Therefore, it's vital to understand what operations could trigger replay only window and plan them accordingly. db2fmtlog_replayonlywindow provides necessary information to help user identify such operations from their existing workload.
+      </span>
+     </p>
+     <h1 dir="ltr">
+      Download - Db2 v11.1.3.3+
+     </h1>
+     <p dir="ltr">
+      <span style="font-family:'helvetica neue' , 'helvetica' , 'arial' , sans-serif">
+       As of Db2 v11.1.3.3, the db2fmtlog_replayonlywindow tool is now part of the new db2fmtlog tool shipped with the product. 
+       The functionality of db2fmtlog's "-replayonlywindow" option is exactly the same as the db2fmtlog_replayonlywindow tool. 
+       The new db2fmtlog tool is able to run in Linux, AIX, and Windows environment. 
+       For details, please see
+      </span>
+      <a href="https://www.ibm.com/docs/en/db2/11.5?topic=commands-db2fmtlog-format-display-log-file-information-tool">
+        the Knowledge Center
+      </a>
+      .
+     </p>
+     <h1 dir="ltr">
+      Download - Older releases
+     </h1>
+     <p dir="ltr">
+      <span style="font-family:'helvetica neue' , 'helvetica' , 'arial' , sans-serif">
+       db2fmtlog_replayonlywindow is a stand-alone tool. You only need to download a single binary executable. It has no dependency on DB2 installation. Download from below:
+      </span>
+     </p>
+     <table border="2" dir="ltr" style="font-family:'helvetica neue' , 'helvetica' , 'arial' , sans-serif;margin:4px;width:1110px;border-collapse:collapse !important">
+      <tbody>
+       <tr>
+        <th style="padding:4px;background-color:rgb( 216 , 216 , 216 );width:392px">
+         File name
+        </th>
+        <th style="padding:4px;background-color:rgb( 216 , 216 , 216 );width:169px">
+         OS
+        </th>
+        <th style="padding:4px;background-color:rgb( 216 , 216 , 216 );width:167px">
+         OS version
+        </th>
+        <th style="padding:4px;background-color:rgb( 216 , 216 , 216 );width:162px">
+         Bit size
+        </th>
+        <th style="padding:4px;background-color:rgb( 216 , 216 , 216 );width:169px">
+         Db2 version
+        </th>
+       </tr>
+       <tr>
+        <td style="padding:4px;width:392px">
+         <a href="tools/db2fmtlog_replayonlywindow/db2fmtlog_replayonlywindow_aix" target="_blank">
+          db2fmtlog_replayonlywindow_aix
+         </a>
+        </td>
+        <td style="padding:4px;text-align:center;width:169px">
+         AIX
+        </td>
+        <td style="padding:4px;text-align:center;width:167px">
+         6.1
+        </td>
+        <td style="padding:4px;text-align:center;width:162px">
+         64
+        </td>
+        <td style="padding:4px;text-align:center;width:169px">
+         10.5.0.9
+        </td>
+       </tr>
+       <tr>
+        <td style="padding:4px;width:392px">
+         <a href="tools/db2fmtlog_replayonlywindow/db2fmtlog_replayonlywindow_linux" target="_blank">
+          db2fmtlog_replayonlywindow_linux
+         </a>
+        </td>
+        <td style="padding:4px;text-align:center;width:169px">
+         Linux
+        </td>
+        <td style="padding:4px;text-align:center;width:167px">
+         3.0
+        </td>
+        <td style="padding:4px;text-align:center;width:162px">
+         64
+        </td>
+        <td style="padding:4px;text-align:center;width:169px">
+         10.5.0.9
+        </td>
+       </tr>
+      </tbody>
+     </table>
+     <table border="2" dir="ltr" style="margin:4px;width:1196px;font-family:'helvetica neue' , 'helvetica' , 'arial' , sans-serif;border-collapse:collapse !important">
+      <tbody>
+      </tbody>
+     </table>
+     <p dir="ltr" style="margin-bottom:5px;padding-top:2px;padding-bottom:2px;font-family:'helvetica neue' , 'helvetica' , 'arial' , sans-serif">
+      Note:
+     </p>
+     <ol dir="ltr">
+      <li style="margin-bottom:5px;padding-top:2px;padding-bottom:2px;font-family:'helvetica neue' , 'helvetica' , 'arial' , sans-serif">
+       The OS version listed above is the version where the binary is built. Generally, the binary can also run on newer OS versions, but not older versions.
+      </li>
+      <li style="margin-bottom:5px;padding-top:2px;padding-bottom:2px;font-family:'helvetica neue' , 'helvetica' , 'arial' , sans-serif">
+       The Db2 version listed above is the library used to compile the binary. It's usually fine to use the tool for the logs generated by Db2 instance from the same major release (ie. the tool built in 10.5.0.9 should work for 10.5.0.8).
+      </li>
+     </ol>
+     <p dir="ltr" style="margin-bottom:5px;padding-top:2px;padding-bottom:2px;font-family:'helvetica neue' , 'helvetica' , 'arial' , sans-serif">
+      If you need the the tool on other platforms or Db2 releases, email db2hadr@wwpdl.vnet.ibm.com.
+     </p>
+     <h1 dir="ltr">
+      Syntax
+     </h1>
+     <p dir="ltr">
+      Run the db2fmtlog_replayonlywindow tool in the directory containing the log files.
+     </p>
+     <blockquote dir="ltr">
+      <p>
+       <span style="font-family:'courier new' , 'courier' , monospace">
+        db2fmtlog_replayonlywindow log-file-range [output-file]
+       </span>
+      </p>
+      <p>
+       <span style="font-family:'courier new' , 'courier' , monospace">
+        Specifying Log Files to format
+        <br/>
+        To format a single log file, specify the log file number. For example,
+        <br/>
+        the log file number of S0000123.LOG is 123.
+       </span>
+      </p>
+      <p>
+       <span style="font-family:'courier new' , 'courier' , monospace">
+        db2fmtlog 123
+       </span>
+      </p>
+      <p>
+       <span style="font-family:'courier new' , 'courier' , monospace">
+        To format a range of log files, specify the first and last log file
+        <br/>
+        number.
+       </span>
+      </p>
+      <p>
+       <span style="font-family:'courier new' , 'courier' , monospace">
+        db2fmtlog 123-150
+       </span>
+      </p>
+      <p>
+       <span style="font-family:'courier new' , 'courier' , monospace">
+        To format log files by path name, pass - as the range of log files to
+        <br/>
+        format. The path names will be read from standard input. The following
+        <br/>
+        example will format all the log files in the current directory.
+       </span>
+      </p>
+      <p>
+       <span style="font-family:'courier new' , 'courier' , monospace">
+        \ls *.LOG | db2fmtlog -
+       </span>
+      </p>
+      <p>
+       <span style="font-family:'courier new' , 'courier' , monospace">
+        If no output-file is specified, standard out will be used.
+       </span>
+      </p>
+     </blockquote>
+     <h1 dir="ltr">
+      Sample Output
+     </h1>
+     <blockquote dir="ltr">
+      <p dir="ltr">
+       <span style="font-family:'courier new' , 'courier' , monospace">
+        |------|------------------------------------------------------------------------
+        <br/>
+        | LREC | 10744  0004DF69  0000000011C7
+        <br/>
+        |------|------------------------------------------------------------------------
+        <br/>
+        | LREC |                     Record LSO = 51259777
+        <br/>
+        |      |                     Record TID = 0000000011C7
+        <br/>
+        |      |                         Action = DDL
+        <br/>
+        |------|------------------------------------------------------------------------
+        <br/>
+        | LREC | 10744  0004DF6A  0000000011C7
+        <br/>
+        |------|------------------------------------------------------------------------
+        <br/>
+        | LREC |                     Record LSO = 51260205
+        <br/>
+        |      |                     Record TID = 0000000011C7
+        <br/>
+        |      |                  DDL Statement = create table t5ba.t1 (a int, b long varchar)
+        <br/>
+        |------|------------------------------------------------------------------------
+        <br/>
+        | LREC | 10765  0004DFFC  0000000011CB
+        <br/>
+        |------|------------------------------------------------------------------------
+        <br/>
+        | LREC |                     Record LSO = 51272765
+        <br/>
+        |      |                     Record TID = 0000000011CB
+        <br/>
+        |      |                         Action = LOAD
+        <br/>
+        |------|------------------------------------------------------------------------
+        <br/>
+        | LREC | 10770  0004E003  0000000011CC
+        <br/>
+        |------|------------------------------------------------------------------------
+        <br/>
+        | LREC |                     Record LSO = 51278901
+        <br/>
+        |      |                     Record TID = 0000000011CC
+        <br/>
+        |      |                         Action = LOAD
+        <br/>
+        |------|------------------------------------------------------------------------
+        <br/>
+        | LREC | 10915  0004E210  000000001532
+        <br/>
+        |------|------------------------------------------------------------------------
+        <br/>
+        | LREC |                     Record LSO = 51440438
+        <br/>
+        |      |                     Record TID = 000000001532
+        <br/>
+        |      |                         Action = DDL
+        <br/>
+        |------|------------------------------------------------------------------------
+        <br/>
+        | LREC | 11131  0004E3FE  00000000163A
+        <br/>
+        |------|------------------------------------------------------------------------
+        <br/>
+        | LREC |                     Record LSO = 51593237
+        <br/>
+        |      |                     Record TID = 00000000163A
+        <br/>
+        |      |                         Action = DDL
+        <br/>
+        |------|------------------------------------------------------------------------
+        <br/>
+        | LREC | 11131  0004E3FF  00000000163A
+        <br/>
+        |------|------------------------------------------------------------------------
+        <br/>
+        | LREC |                     Record LSO = 51593665
+        <br/>
+        |      |                     Record TID = 00000000163A
+        <br/>
+        |      |                  DDL Statement = truncate table t5ba.t1
+        <br/>
+        |------|------------------------------------------------------------------------
+       </span>
+      </p>
+     </blockquote>
+    </div>
+   </div>
+   <!-- /#page-content-wrapper -->
   </div>
   <!-- /#wrapper -->
-
   <!-- Bootstrap core JavaScript -->
-  <script src="vendor/jquery/jquery.min.js"></script>
-  <script src="vendor/bootstrap/js/bootstrap.bundle.min.js"></script>
-
+  <script src="vendor/jquery/jquery.min.js">
+  </script>
+  <script src="vendor/bootstrap/js/bootstrap.bundle.min.js">
+  </script>
   <!-- Menu Toggle Script -->
   <script>
-    $("#menu-toggle").click(function(e) {
+   $("#menu-toggle").click(function(e) {
       e.preventDefault();
       $("#wrapper").toggleClass("toggled");
     });
   </script>
-
-</body>
-
+ </body>
 </html>

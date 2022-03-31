@@ -1,307 +1,737 @@
 <!DOCTYPE html>
 <html lang="en">
-
-<head>
-
-  <meta charset="utf-8">
-  <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
-  <meta name="description" content="">
-  <meta name="author" content="">
-
-  <title>Db2 HADR Wiki</title>
-
+ <head>
+  <meta charset="utf-8"/>
+  <meta content="width=device-width, initial-scale=1, shrink-to-fit=no" name="viewport"/>
+  <meta content="" name="description"/>
+  <meta content="" name="author"/>
+  <title>
+   Db2 HADR Wiki
+  </title>
   <!-- Bootstrap core CSS -->
-  <link href="vendor/bootstrap/css/bootstrap.min.css" rel="stylesheet">
-
+  <link href="vendor/bootstrap/css/bootstrap.min.css" rel="stylesheet"/>
   <!-- Custom styles for this template -->
-  <link href="css/simple-sidebar.css" rel="stylesheet">
-
-</head>
-
-<body>
-
+  <link href="css/simple-sidebar.css" rel="stylesheet"/>
+ </head>
+ <body>
   <div class="d-flex" id="wrapper">
-
-    <!-- Sidebar -->
-    <div class="bg-light border-right" id="sidebar-wrapper">
-      <div class="sidebar-heading">Menu</div>
-      <div class="list-group list-group-flush">
-        <a href="index.html" class="list-group-item list-group-item-action bg-light">Welcome</a>
-        <a href="hadrBenefits.html" class="list-group-item list-group-item-action bg-light">HADR Benefits</a>
-        <a href="featureHistory.html" class="list-group-item list-group-item-action bg-light">Feature History</a>
-        <a href="hadrTutorial.html" class="list-group-item list-group-item-action bg-light">HADR Tutorial</a>
-        <a href="tcpTuning.html" class="list-group-item list-group-item-action bg-light">TCP Tuning</a>
-        <a href="perfTuning.html" class="list-group-item list-group-item-action bg-light">Perf Tuning</a>
-        <a href="hadrSimulator.html" class="list-group-item list-group-item-action bg-light">HADR Simulator</a>
-        <a href="simulatorOptions.html" class="list-group-item list-group-item-action bg-light">HADR Simulator Options</a>
-        <a href="simulatorOutput.html" class="list-group-item list-group-item-action bg-light">HADR Simulator Output</a>
-        <a href="simulatorParams.html" class="list-group-item list-group-item-action bg-light">HADR Simulator Params</a>
-        <a href="db2logscan.html" class="list-group-item list-group-item-action bg-light">db2logscan</a>
-        <a href="hadrConfig.html" class="list-group-item list-group-item-action bg-light">HADR Config</a>
-        <a href="hadrSyncMode.html" class="list-group-item list-group-item-action bg-light">HADR Sync Mode</a>
-        <a href="hadrTakeover.html" class="list-group-item list-group-item-action bg-light">HADR Takeover</a>
-        <a href="hadrMonitoring.html" class="list-group-item list-group-item-action bg-light">HADR Monitoring</a>
-        <a href="hadrCommands.html" class="list-group-item list-group-item-action bg-light">HADR Commands</a>
-        <a href="hadrLogShipping.html" class="list-group-item list-group-item-action bg-light">HADR Log Shipping/a>
-        <a href="hadrPerf.html" class="list-group-item list-group-item-action bg-light">HADR Perf</a>
-        <a href="diagConnect.html" class="list-group-item list-group-item-action bg-light">Diag Connect</a>
-        <a href="db2diag.html" class="list-group-item list-group-item-action bg-light">db2diag.log</a>
-        <a href="clusterManagers.html" class="list-group-item list-group-item-action bg-light"><strong>> Cluster Managers</strong></a>
-        <a href="clientReroute.html" class="list-group-item list-group-item-action bg-light">Client Reroute</a>
-        <a href="hadrPureScale.html" class="list-group-item list-group-item-action bg-light">HADR on PureScale</a>
-        <a href="faq.html" class="list-group-item list-group-item-action bg-light">FAQ</a>
-        <a href="db2fmtlog.html" class="list-group-item list-group-item-action bg-light">db2fmtlog_replayonlywindow</a>
-      </div>
+   <!-- Sidebar -->
+   <div class="bg-light border-right" id="sidebar-wrapper">
+    <div class="sidebar-heading">
+     Menu
     </div>
-    <!-- /#sidebar-wrapper -->
-
-    <!-- Page Content -->
-    <div id="page-content-wrapper">
-
-      <nav class="navbar navbar-expand-lg navbar-light bg-light border-bottom">
-        <button class="btn btn-primary" id="menu-toggle">Toggle Menu</button>
-
-        <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarSupportedContent" aria-controls="navbarSupportedContent" aria-expanded="false" aria-label="Toggle navigation">
-          <span class="navbar-toggler-icon"></span>
-        </button>
-
-        <div class="collapse navbar-collapse" id="navbarSupportedContent">
-          <ul class="navbar-nav ml-auto mt-2 mt-lg-0">
-            <li class="nav-item">
-              <a class="nav-link" href="index.html">Home</a>
-            </li>
-            <li class="nav-item">
-              <a class="nav-link" href="contact.html">Contact</a>
-            </li>
-            <li class="nav-item">
-              <a class="nav-link" href="contribute.html">Contribute</a>
-            </li>
-          </ul>
-        </div>
-      </nav>
-
-      <div class="container-fluid">
-        <p dir="ltr"><strong>Table of Contents</strong></p>
-
-        <ul dir="ltr">
-        	<li><a href="#Automating_HADR_failover">Automating HADR failover</a></li>
-        	<li><a href="#White_Papers">White Papers</a>
-        	<ul>
-        		<li><a href="#Using_db2haicu_with_HADR">Using db2haicu with HADR</a></li>
-        		<li><a href="#Using_virtual_IP_addresses_with_Reads_on_Standby_feature">Using virtual IP addresses with Reads on Standby feature</a></li>
-        		<li><a href="#Using_db2haicu_for_shared_disk_local_HA">Using db2haicu for shared disk local HA</a></li>
-        		<li><a href="#HADR_auto_failover_on_Windows">HADR auto failover on Windows</a></li>
-        	</ul>
-        	</li>
-        	<li><a href="#Setting%20up%20TSA%20on%20Two%20Data%20Cen">Setting&nbsp;up&nbsp;TSA&nbsp;on&nbsp;Two&nbsp;Data&nbsp;Centers&nbsp;Using&nbsp;HADR&nbsp;with&nbsp;Multiple&nbsp;Standbys</a></li>
-        </ul>
-
-        <p dir="ltr"><strong>&nbsp;&nbsp;</strong></p>
-
-        <h1 dir="ltr"><a name="Automating_HADR_failover">Automating HADR failover</a></h1>
-
-        <p dir="ltr">IBM Tivoli® System Automation for Multiplatforms (SA MP) is the recommended cluster manager for automating HADR failover. On Linux/Unix platforms, SA MP is integrated in DB2. "DB2 high availability instance configuration utility" (db2haicu) is the user interface to manage the integrated cluster manager. On Windows, SA MP is not Integrated in DB2 and db2haicu is not available. But you can still configure SA MP on Windows using scripts. See "<a href="#HADR_auto_failover_on_Windows">HADR&nbsp;auto&nbsp;failover&nbsp;on&nbsp;Windows</a>" section below.</p>
-
-        <p dir="ltr">DB2 Info Center provides complete reference to using the integrated cluster manager. In Info Center, navigate from the page "Configuring a clustered environment for high availability" (<a href="http://publib.boulder.ibm.com/infocenter/db2luw/v9r7/topic/com.ibm.db2.luw.admin.ha.doc/doc/t0051353.htm">http://publib.boulder.ibm.com/infocenter/db2luw/v9r7/topic/com.ibm.db2.luw.admin.ha.doc/doc/t0051353.htm</a>), or just search for "db2haicu".<br />
-        <br />
-        If you would like to use other cluster managers, such as</p>
-
-        <ul dir="ltr">
-        	<li>IBM® PowerHA® SystemMirror for AIX® (formerly known as "High Availability Cluster Multi-Processing" for AIX or HACMP)</li>
-        	<li>Microsoft Cluster Server (MSCS), , for Windows operating systems</li>
-        	<li>Sun Cluster, or VERITAS Cluster Server, for the Solaris operating system.</li>
-        </ul>
-
-        <p dir="ltr">See the page "Supported cluster management software" in Info center (<a href="http://publib.boulder.ibm.com/infocenter/db2luw/v9r7/topic/com.ibm.db2.luw.admin.ha.doc/doc/r0051388.html">http://publib.boulder.ibm.com/infocenter/db2luw/v9r7/topic/com.ibm.db2.luw.admin.ha.doc/doc/r0051388.html</a>)</p>
-
-        <p dir="ltr">See "Configure multiple HADR databases in a DB2 instance for automated failover using Tivoli System Automation for Multiplatforms" in IBM Community (<a href="https://community.ibm.com/community/user/hybriddatamanagement/viewdocument/configure-multiple-hadr-databases-i?CommunityKey=b5b60ace-5eb2-4444-a961-d9edb6f39bd8">https://community.ibm.com/community/user/hybriddatamanagement/viewdocument/configure-multiple-hadr-databases-i?CommunityKey=b5b60ace-5eb2-4444-a961-d9edb6f39bd8</a>)</p>
-
-        <p dir="ltr">Automated failover is often used with automated client reroute. See <a href="clientReroute.html">Client Reroute</a>.</p>
-
-        <p dir="ltr">&nbsp;</p>
-
-        <h1 dir="ltr"><a name="White_Papers">Red Book</a></h1>
-
-        <p dir="ltr"><a href="http://www.redbooks.ibm.com/redbooks/pdfs/sg247363.pdf">http://www.redbooks.ibm.com/redbooks/pdfs/sg247363.pdf</a></p>
-
-        <p dir="ltr">Title: High Availability and Disaster Recovery Options for DB2 for Linux, UNIX, and Windows</p>
-
-        <p dir="ltr">&nbsp;</p>
-
-        <h1 dir="ltr"><a name="White_Papers">White Papers</a></h1>
-
-        <h2 dir="ltr"><a name="Using_db2haicu_with_HADR">Using db2haicu with HADR</a></h2>
-
-        <p dir="ltr"><a href="https://community.ibm.com/community/user/hybriddatamanagement/viewdocument/automatinghadr-on-db2-101-for-linu?CommunityKey=ea909850-39ea-4ac4-9512-8e2eb37ea09a&tab=librarydocuments">Automated cluster controlled HADR configuration setup using the IBM DB2 high availability instance configuration utility (db2haicu)</a><br />
-        White paper. 58 pages. 2009. Authors: Steve Raspudic, Saurabh Sehgal, Malaravan Ponnuthurai<br />
-        General usage of db2haicu with HADR.<br />
-        <br />
-        <a href="http://public.dhe.ibm.com/software/dw/data/dm-1002automateddb2hadr/Automated_long-distance_HADR_configurations.pdf">DB2 system topology and configuration for automated multi-site HA and DR</a><br />
-        White paper, 77 pages, 2010, Authors: Aruna De Silva, Steve Raspudic, Sunil Kamath<br />
-        Focuses on multi-site (remote site for DR purpose) setup.</p>
-
-        <p dir="ltr"><a href="http://www-01.ibm.com/support/docview.wss?uid=swg21624179">Recommendations&nbsp;for&nbsp;a&nbsp;TSAMP&nbsp;controlled&nbsp;DB2&nbsp;HA/HADR&nbsp;environment</a><br />
-        Tech note for Tivoli System Automation for Mutl-iplatforms (TSAMP) configuration in DB2 HA/HADR environment.<br />
-        <br />
-        <a href="https://community.ibm.com/community/user/hybriddatamanagement/viewdocument/using-db2-high-availability-disaste?CommunityKey=ea909850-39ea-4ac4-9512-8e2eb37ea09a&tab=librarydocuments">Using DB2 High Availability Disaster Recovery with Tivoli Systems Automation and Reliable Scalable Cluster Technology</a>,<br />
-        Tutorial, 2010, Authors: Dipali Kapadia, Michelle Chiu<br />
-        Focuses on troubleshooting</p>
-
-        <p dir="ltr"><a href="http://public.dhe.ibm.com/software/data/sw-library/db2/papers/hadr_tsa_win.pdf" rel="noopener noreferrer" target="_blank">Automating&nbsp;HADR&nbsp;on&nbsp;DB2&nbsp;10.1&nbsp;for&nbsp;Linux,&nbsp;UNIX&nbsp;and&nbsp;Windows&nbsp;Failover&nbsp;Solution&nbsp;Using&nbsp;Tivoli&nbsp;System&nbsp;Automation&nbsp;for&nbsp;Multiplatforms</a>, Dec 2012, By Steve Raspudic, etc.&nbsp; This paper gives 2 examples of setting up HADR with automation: first via db2haicu in interactive mode; the second via db2haicu with XML input file.&nbsp; 2014 revision: <a href="http://public.dhe.ibm.com/software/dw/im/dm-0907hadrdb2haicu/db2-10-hadr-tsa.pdf">http://public.dhe.ibm.com/software/dw/im/dm-0907hadrdb2haicu/db2-10-hadr-tsa.pdf</a></p>
-
-        <h2 dir="ltr"><a name="Using_virtual_IP_addresses_with_Reads_on_Standby_feature">Using virtual IP addresses with Reads on Standby feature</a></h2>
-
-        <p dir="ltr"><a href="http://www-01.ibm.com/support/docview.wss?uid=swg27020912">Enabling continuous access to read on standby databases using Virtual IP addresses</a><br />
-        White paper, 12 pages, 2011, Authors: Steve Raspudic, Aruna De Silva, Louise McNicoll.</p>
-
-        <p dir="ltr">This paper describes how to set up two VIP addresses with HADR, one for read/write workload on primary database and one for read-only workload on the standby database. VIP is recommended for rerouting clients when reads on standby is enabled. Automatic client reroute should not be used when reads on standby is enabled.</p>
-
-        <h2 dir="ltr"><a name="Using_db2haicu_for_shared_disk_local_HA">Using db2haicu for shared disk local HA</a></h2>
-
-        <p dir="ltr"><a href="https://community.ibm.com/community/user/hybriddatamanagement/viewdocument/automatedinstance-failover-using-th?CommunityKey=ea909850-39ea-4ac4-9512-8e2eb37ea09a&tab=librarydocuments">Automated instance failover using the IBM DB2 High Availability Instance Configuration Utility (db2haicu)</a><br />
-        White paper, 69 pages, 2009, Authors: Steve Raspudic, Selvaprabhu Arumuggharaj</p>
-
-        <p dir="ltr">Db2haicu can be used with or without HADR. This is about the shared disk solution for local HA (without HADR).</p>
-
-        <p dir="ltr">Note that starting from DB2 V10.1, HADR supports multiple standbys. You can use a local standby for HA and remote standby(s) for DR. In older releases, you can set up shared disk solution for local HA and use HADR for DR (standby at remote site).</p>
-
-        <p dir="ltr">&nbsp;</p>
-
-        <h2 dir="ltr"><a name="HADR_auto_failover_on_Windows">HADR auto failover on Windows</a></h2>
-
-        <p dir="ltr">On Windows, it used to be possible to implement automated failover using older version of TSA, but that is no longer possible starting in TSA 4.1 (due to dropped support of Windows).</p>
-
-        <p dir="ltr">&nbsp;</p>
-
-        <p dir="ltr">Customers looking at automating HADR failover on Windows would likely need to select a different cluster manager product.&nbsp;&nbsp; See following article on using HADR on Windows with Microsoft Cluster Server.</p>
-
-        <p dir="ltr"><a href="https://community.ibm.com/community/user/hybriddatamanagement/viewdocument/set-up-db2-for-linux-unix-and-win?CommunityKey=b5b60ace-5eb2-4444-a961-d9edb6f39bd8">Set up DB2 for Linux, UNIX, and Windows for high ... - IBM</a></p>
-
-        <p dir="ltr">&nbsp;</p>
-
-        <p dir="ltr">&nbsp;</p>
-
-        <h1 dir="ltr"><a id="Setting up TSA on Two Data Cen" name="Setting up TSA on Two Data Cen"><span class="mw-headline" id="Setting_up_TSA_on_Two_Data_Centers_Using_HADR_with_Multiple_Standbys">Setting up TSA on Two Data Centers Using HADR with Multiple Standbys</span></a></h1>
-
-        <p dir="ltr">It is a common usage scenario with the following environment:</p>
-
-        <ul dir="ltr">
-        	<li><span class="wikEdList">Datacenter1 consists of 2 hosts A and B, providing high availability within the data center.</span></li>
-        	<li><span class="wikEdList">Datacenter2 consists of 2 hosts C and D, providing high availability within the data center.</span></li>
-        	<li><span class="wikEdList">Datacenter1 and Datacenter2 are typically some distance apart. &nbsp;Datacenter2 is for disaster recovery.</span></li>
-        	<li><span class="wikEdList">Initially, the database service is provided on host A in Datacenter1.</span></li>
-        	<li><span class="wikEdList">HADR is initially set up with primary on A, principal standby on B, and auxiliary standby on C and D.</span></li>
-        </ul>
-
-        <p dir="ltr"><br />
-        The following procedure will setup TSA in both data centers to handle automated failover.&nbsp; Details of db2haicu usage can be found in the&nbsp;<a href="https://community.ibm.com/community/user/hybriddatamanagement/viewdocument/automatinghadr-on-db2-101-for-linu?CommunityKey=ea909850-39ea-4ac4-9512-8e2eb37ea09a&tab=librarydocuments">Automated cluster controlled HADR configuration setup using the IBM DB2 high availability instance configuration utility (db2haicu)</a> white paper.</p>
-
-        <ol dir="ltr">
-        	<li><span class="wikEdList">Run db2haicu on host B to create domain containing A and B, defines tie breaker device, the network and DB2 instance resources</span>.</li>
-        	<li><span class="wikEdList">Run db2haicu on host A to create the second DB2 instance resource and HADR resource (after this step, HADR failover automation has been enabled in Datacenter1)</span>.</li>
-        	<li><span class="wikEdList"><span class="wikEdListTag">I</span>ssue manual graceful takeover on C (after this step, C is the primary, with D as its principal standby, A and B are the auxiliary standbys)</span>.</li>
-        	<li><span class="wikEdList">Run db2haicu on D to create domain containing C and D, defines tie breaker device, the network and DB2 instance resources</span>.</li>
-        	<li><span class="wikEdList"><span class="wikEdListTag">R</span>un db2haicu on C to create the second DB2 instance resource and HADR resource (after this step, HADR failover automation has been enabled in Datacenter2)</span>.</li>
-        	<li><span class="wikEdList"><span class="wikEdListTag">R</span>un db2haicu <span class="wikEdhyphenDash" title="Standard hyphen">-</span>disable on B</span>.</li>
-        	<li><span class="wikEdList">Run db2haicu <span class="wikEdhyphenDash" title="Standard hyphen">-</span>disable on A</span>.</li>
-        	<li><span class="wikEdList"><span class="wikEdListTag">I</span>ssue manual graceful takeover on A (after this step, A is the primary, with B as its principal standby, C and D are the auxiliary standbys)</span>.</li>
-        	<li><span class="wikEdList">Run db2haicu on B to re<span class="wikEdhyphenDash" title="Standard hyphen">-</span>enable automation</span>.</li>
-        	<li><span class="wikEdList">Run db2haicu on A to re<span class="wikEdhyphenDash" title="Standard hyphen">-</span>enable automation</span>.</li>
-        </ol>
-
-        <p dir="ltr"><br />
-        Note that the above setup creates two disjoint TSA domains, one in Datacenter1 and the other in Datacenter2.&nbsp; After the above setup, the HADR system is now enabled with the following:</p>
-
-        <ul dir="ltr">
-        	<li><span class="wikEdList">Automated failover in Datacenter1, should there be an outage of A, B automatically becomes the new primary. This will result in B as primary, with A the principal standby, and C and D are still the auxiliary standbys.</span></li>
-        	<li><span class="wikEdList">Automated restart of DB2 service all standbys B, C and D, should there be an outage (due to either hardware or software failure). &nbsp;There will be automatic execution of the DB2START command and the ACTIVATE DATABASE command. &nbsp;This will allow the standby service to be brought up as quickly as possible, and form connection with the primary database.</span></li>
-        </ul>
-
-        <p dir="ltr"><br />
-        Procedure for performing maintenance (the key point is : there is nothing special, all the same as if there is no TSA):</p>
-
-        <ul dir="ltr">
-        	<li><span class="wikEdList">First change on auxiliary standbys, which are C and D in Datacenter2.</span>
-
-        	<ul>
-        		<li><span class="wikEdList">Issue DEACTIVATE DATABASE and DB2STOP.</span></li>
-        		<li><span class="wikEdList">Perform change (such as new DB2 fixpak, or new OS, or hardware change).</span></li>
-        		<li><span class="wikEdList">Issue DB2START and ACTIVATE DATABASE.</span></li>
-        	</ul>
-        	</li>
-        	<li><span class="wikEdList">Change principal standby, which is B in Datacenter1.</span>
-        	<ul>
-        		<li><span class="wikEdList">Issue DEACTIVATE DATABASE and DB2STOP.</span></li>
-        		<li><span class="wikEdList">Perform change (such as new DB2 fixpak, or new OS, or hardware change).</span></li>
-        		<li><span class="wikEdList">Issue DB2START and ACTIVATE DATABASE.</span></li>
-        	</ul>
-        	</li>
-        	<li><span class="wikEdList">Issue graceful takeover on principal standby, which will become new primary.</span></li>
-        	<li><span class="wikEdList">Change old primary.</span>
-        	<ul>
-        		<li><span class="wikEdList">Issue DEACTIVATE DATABASE and DB2STOP.</span></li>
-        		<li><span class="wikEdList">Perform change (such as new DB2 fixpak, or new OS, or hardware change).</span></li>
-        		<li><span class="wikEdList"><span class="wikEdList">Issue DB2START and ACTIVATE DATABASE.</span></span></li>
-        	</ul>
-        	</li>
-        	<li><span class="wikEdList">Optionally, issue graceful takeover to bring primary back to the original host.</span></li>
-        </ul>
-
-        <p dir="ltr"><br />
-        If there is a need to perform graceful takeover from an auxiliary standby (say C in Datacenter2), use the following procedure.&nbsp; Note that step 1 and 3 are new.</p>
-
-        <ol dir="ltr">
-        	<li><span class="wikEdList">First run db2haicu <span class="wikEdhyphenDash" title="Standard hyphen">-</span>disable on the auxiliary standbys, which are C and D in Datacenter2.</span></li>
-        	<li><span class="wikEdList">Issue graceful takeover on the auxiliary standby C. &nbsp;C becomes primary, with D as principal standby, A and B as auxiliary standbys.</span></li>
-        	<li><span class="wikEdList">Run db2haicu on C and D to re-enable automation.</span></li>
-        </ol>
-
-        <p dir="ltr"><br />
-        In an event of disaster that takes out entire Datacenter1, procedure for manual failover to Datacenter2:</p>
-
-        <ul dir="ltr">
-        	<li><span class="wikEdList">Run db2haicu -disable on C and D</span>.</li>
-        	<li><span class="wikEdList">Run db2pd <span class="wikEdhyphenDash" title="Standard hyphen">-</span>hadr on C and D to see which has more logs.</span></li>
-        	<li><span class="wikEdList">Issue forced takeover from the one with more logs. Say it is C. &nbsp;This makes C the primary, with D as principal standby.</span></li>
-        	<li><span class="wikEdList">Run db2haicu on C and D to re-enable automation.</span>
-        	<ul>
-        		<li><span class="wikEdList"><span class="wikEdListTag">At this point, a</span>utomated failover between C and D is enabled.</span></li>
-        	</ul>
-        	</li>
-        	<li><span class="wikEdList"><span class="wikEdList">Later on when Datacenter1 comes back. &nbsp;A and B will likely need to be reinitialized.</span></span>
-        	<ul>
-        		<li><span class="wikEdList">In a full disaster, everything is lost, including the TSA domain.&nbsp; Even if TSA domain is not lost (eg. in a scenario where only the network to Datacenter1 is lost, everything within Datacenter1 is fine), use db2haicu to destroy the old TSA domain between A and B.&nbsp; It will be recreated later.</span></li>
-        		<li>Take a new online database backup on C, and restore this backup on A and B.</li>
-        		<li>Issue START HADR AS STANDBY on A and B.</li>
-        		<li><span class="wikEdList"><span class="wikEdListTag">I</span>ssue manual graceful takeover on A (after this step, A is the primary, with B as its principal standby, C and D are the auxiliary standbys)</span>.</li>
-        		<li><span class="wikEdList">Run db2haicu on B to create domain containing A and B, defines tie breaker device, the network and DB2 instance resources</span>.</li>
-        		<li><span class="wikEdList"><span class="wikEdListTag">R</span>un db2haicu on A to create the second DB2 instance resource and HADR resource (after this step, HADR failover automation has been enabled in Datacenter1)</span>.</li>
-        	</ul>
-        	</li>
-        </ul>
-
-        <h3 dir="ltr">Technote: TSA Setup on two Data Centers in an Environment having DB2 HADR with Multiple Standbys</h3>
-
-        <p dir="ltr"><a href="https://developer.ibm.com/recipes/tutorials/tsa-setup-on-two-data-centers-in-an-environment-having-db2-hadr-with-multiple-standbys/">https://developer.ibm.com/recipes/tutorials/tsa-setup-on-two-data-centers-in-an-environment-having-db2-hadr-with-multiple-standbys/</a></p>
-      </div>
+    <div class="list-group list-group-flush">
+     <a class="list-group-item list-group-item-action bg-light" href="index.html">
+      Welcome
+     </a>
+     <a class="list-group-item list-group-item-action bg-light" href="hadrBenefits.html">
+      HADR Benefits
+     </a>
+     <a class="list-group-item list-group-item-action bg-light" href="featureHistory.html">
+      Feature History
+     </a>
+     <a class="list-group-item list-group-item-action bg-light" href="hadrTutorial.html">
+      HADR Tutorial
+     </a>
+     <a class="list-group-item list-group-item-action bg-light" href="tcpTuning.html">
+      TCP Tuning
+     </a>
+     <a class="list-group-item list-group-item-action bg-light" href="perfTuning.html">
+      Perf Tuning
+     </a>
+     <a class="list-group-item list-group-item-action bg-light" href="hadrSimulator.html">
+      HADR Simulator
+     </a>
+     <a class="list-group-item list-group-item-action bg-light" href="simulatorOptions.html">
+      HADR Simulator Options
+     </a>
+     <a class="list-group-item list-group-item-action bg-light" href="simulatorOutput.html">
+      HADR Simulator Output
+     </a>
+     <a class="list-group-item list-group-item-action bg-light" href="simulatorParams.html">
+      HADR Simulator Params
+     </a>
+     <a class="list-group-item list-group-item-action bg-light" href="db2logscan.html">
+      db2logscan
+     </a>
+     <a class="list-group-item list-group-item-action bg-light" href="hadrConfig.html">
+      HADR Config
+     </a>
+     <a class="list-group-item list-group-item-action bg-light" href="hadrSyncMode.html">
+      HADR Sync Mode
+     </a>
+     <a class="list-group-item list-group-item-action bg-light" href="hadrTakeover.html">
+      HADR Takeover
+     </a>
+     <a class="list-group-item list-group-item-action bg-light" href="hadrMonitoring.html">
+      HADR Monitoring
+     </a>
+     <a class="list-group-item list-group-item-action bg-light" href="hadrCommands.html">
+      HADR Commands
+     </a>
+     <a class="list-group-item list-group-item-action bg-light" href="hadrLogShipping.html">
+      HADR Log Shipping/a&gt;
+     </a>
+     <a class="list-group-item list-group-item-action bg-light" href="hadrPerf.html">
+      HADR Perf
+     </a>
+     <a class="list-group-item list-group-item-action bg-light" href="diagConnect.html">
+      Diag Connect
+     </a>
+     <a class="list-group-item list-group-item-action bg-light" href="db2diag.html">
+      db2diag.log
+     </a>
+     <a class="list-group-item list-group-item-action bg-light" href="clusterManagers.html">
+      <strong>
+       &gt; Cluster Managers
+      </strong>
+     </a>
+     <a class="list-group-item list-group-item-action bg-light" href="clientReroute.html">
+      Client Reroute
+     </a>
+     <a class="list-group-item list-group-item-action bg-light" href="hadrPureScale.html">
+      HADR on PureScale
+     </a>
+     <a class="list-group-item list-group-item-action bg-light" href="faq.html">
+      FAQ
+     </a>
+     <a class="list-group-item list-group-item-action bg-light" href="db2fmtlog.html">
+      db2fmtlog_replayonlywindow
+     </a>
     </div>
-    <!-- /#page-content-wrapper -->
-
+   </div>
+   <!-- /#sidebar-wrapper -->
+   <!-- Page Content -->
+   <div id="page-content-wrapper">
+    <nav class="navbar navbar-expand-lg navbar-light bg-light border-bottom">
+     <button class="btn btn-primary" id="menu-toggle">
+      Toggle Menu
+     </button>
+     <button aria-controls="navbarSupportedContent" aria-expanded="false" aria-label="Toggle navigation" class="navbar-toggler" data-target="#navbarSupportedContent" data-toggle="collapse" type="button">
+      <span class="navbar-toggler-icon">
+      </span>
+     </button>
+     <div class="collapse navbar-collapse" id="navbarSupportedContent">
+      <ul class="navbar-nav ml-auto mt-2 mt-lg-0">
+       <li class="nav-item">
+        <a class="nav-link" href="index.html">
+         Home
+        </a>
+       </li>
+       <li class="nav-item">
+        <a class="nav-link" href="contact.html">
+         Contact
+        </a>
+       </li>
+       <li class="nav-item">
+        <a class="nav-link" href="contribute.html">
+         Contribute
+        </a>
+       </li>
+      </ul>
+     </div>
+    </nav>
+    <div class="container-fluid">
+     <p dir="ltr">
+      <strong>
+       Table of Contents
+      </strong>
+     </p>
+     <ul dir="ltr">
+      <li>
+       <a href="#Automating_HADR_failover">
+        Automating HADR failover
+       </a>
+      </li>
+      <li>
+       <a href="#White_Papers">
+        White Papers
+       </a>
+       <ul>
+        <li>
+         <a href="#Using_db2haicu_with_HADR">
+          Using db2haicu with HADR
+         </a>
+        </li>
+        <li>
+         <a href="#Using_virtual_IP_addresses_with_Reads_on_Standby_feature">
+          Using virtual IP addresses with Reads on Standby feature
+         </a>
+        </li>
+        <li>
+         <a href="#Using_db2haicu_for_shared_disk_local_HA">
+          Using db2haicu for shared disk local HA
+         </a>
+        </li>
+        <li>
+         <a href="#HADR_auto_failover_on_Windows">
+          HADR auto failover on Windows
+         </a>
+        </li>
+       </ul>
+      </li>
+      <li>
+       <a href="#Setting%20up%20TSA%20on%20Two%20Data%20Cen">
+        Setting up TSA on Two Data Centers Using HADR with Multiple Standbys
+       </a>
+      </li>
+     </ul>
+     <p dir="ltr">
+      <strong>
+      </strong>
+     </p>
+     <h1 dir="ltr">
+      <a name="Automating_HADR_failover">
+       Automating HADR failover
+      </a>
+     </h1>
+     <p dir="ltr">
+      IBM Tivoli® System Automation for Multiplatforms (SA MP) is the recommended cluster manager for automating HADR failover. On Linux/Unix platforms, SA MP is integrated in DB2. "DB2 high availability instance configuration utility" (db2haicu) is the user interface to manage the integrated cluster manager. On Windows, SA MP is not Integrated in DB2 and db2haicu is not available. But you can still configure SA MP on Windows using scripts. See "
+      <a href="#HADR_auto_failover_on_Windows">
+       HADR auto failover on Windows
+      </a>
+      " section below.
+     </p>
+     <p dir="ltr">
+      DB2 Info Center provides complete reference to using the integrated cluster manager. In Info Center, navigate from the page "
+      <a href="https://www.ibm.com/docs/en/db2/11.5?topic=availability-configuring-clustered-environment">
+        Configuring a clustered environment for high availability
+      </a>
+      " , or just search for "db2haicu".
+      <br/>
+      <br/>
+      If you would like to use other cluster managers, such as
+     </p>
+     <ul dir="ltr">
+      <li>
+       IBM® PowerHA® SystemMirror for AIX® (formerly known as "High Availability Cluster Multi-Processing" for AIX or HACMP)
+      </li>
+      <li>
+       Microsoft Cluster Server (MSCS), , for Windows operating systems
+      </li>
+      <li>
+       Sun Cluster, or VERITAS Cluster Server, for the Solaris operating system.
+      </li>
+     </ul>
+     <p dir="ltr">
+      See the page "
+      <a href="https://www.ibm.com/docs/en/db2/11.5?topic=clustering-supported-cluster-management-software">
+        Supported cluster management software
+      </a>
+      " in Info center
+     </p>
+     <p dir="ltr">
+      See "
+      <a href="https://community.ibm.com/community/user/hybriddatamanagement/viewdocument/configure-multiple-hadr-databases-i?CommunityKey=b5b60ace-5eb2-4444-a961-d9edb6f39bd8">
+        Configure multiple HADR databases in a DB2 instance for automated failover using Tivoli System Automation for Multiplatforms
+      </a>
+      " in IBM Community
+     </p>
+     <p dir="ltr">
+      Automated failover is often used with automated client reroute. See
+      <a href="clientReroute.html">
+       Client Reroute
+      </a>
+      .
+     </p>
+     <p dir="ltr">
+     </p>
+     <h1 dir="ltr">
+      <a name="White_Papers">
+       Red Book
+      </a>
+     </h1>
+     <p dir="ltr">
+      <a href="http://www.redbooks.ibm.com/redbooks/pdfs/sg247363.pdf">
+       http://www.redbooks.ibm.com/redbooks/pdfs/sg247363.pdf
+      </a>
+     </p>
+     <p dir="ltr">
+      Title: High Availability and Disaster Recovery Options for DB2 for Linux, UNIX, and Windows
+     </p>
+     <p dir="ltr">
+     </p>
+     <h1 dir="ltr">
+      <a name="White_Papers">
+       White Papers
+      </a>
+     </h1>
+     <h2 dir="ltr">
+      <a name="Using_db2haicu_with_HADR">
+       Using db2haicu with HADR
+      </a>
+     </h2>
+     <p dir="ltr">
+      <a href="https://community.ibm.com/community/user/hybriddatamanagement/viewdocument/automatinghadr-on-db2-101-for-linu?CommunityKey=ea909850-39ea-4ac4-9512-8e2eb37ea09a&amp;tab=librarydocuments">
+       Automated cluster controlled HADR configuration setup using the IBM DB2 high availability instance configuration utility (db2haicu)
+      </a>
+      <br/>
+      White paper. 58 pages. 2009. Authors: Steve Raspudic, Saurabh Sehgal, Malaravan Ponnuthurai
+      <br/>
+      General usage of db2haicu with HADR.
+      <br/>
+      <br/>
+      <a href="http://public.dhe.ibm.com/software/dw/data/dm-1002automateddb2hadr/Automated_long-distance_HADR_configurations.pdf">
+       DB2 system topology and configuration for automated multi-site HA and DR
+      </a>
+      <br/>
+      White paper, 77 pages, 2010, Authors: Aruna De Silva, Steve Raspudic, Sunil Kamath
+      <br/>
+      Focuses on multi-site (remote site for DR purpose) setup.
+     </p>
+     <p dir="ltr">
+      <a href="http://www-01.ibm.com/support/docview.wss?uid=swg21624179">
+       Recommendations for a TSAMP controlled DB2 HA/HADR environment
+      </a>
+      <br/>
+      Tech note for Tivoli System Automation for Mutl-iplatforms (TSAMP) configuration in DB2 HA/HADR environment.
+      <br/>
+      <br/>
+      <a href="https://community.ibm.com/community/user/hybriddatamanagement/viewdocument/using-db2-high-availability-disaste?CommunityKey=ea909850-39ea-4ac4-9512-8e2eb37ea09a&amp;tab=librarydocuments">
+       Using DB2 High Availability Disaster Recovery with Tivoli Systems Automation and Reliable Scalable Cluster Technology
+      </a>
+      ,
+      <br/>
+      Tutorial, 2010, Authors: Dipali Kapadia, Michelle Chiu
+      <br/>
+      Focuses on troubleshooting
+     </p>
+     <p dir="ltr">
+      <a href="http://public.dhe.ibm.com/software/data/sw-library/db2/papers/hadr_tsa_win.pdf" rel="noopener noreferrer" target="_blank">
+       Automating HADR on DB2 10.1 for Linux, UNIX and Windows Failover Solution Using Tivoli System Automation for Multiplatforms
+      </a>
+      , Dec 2012, By Steve Raspudic, etc.  This paper gives 2 examples of setting up HADR with automation: first via db2haicu in interactive mode; the second via db2haicu with XML input file.  2014 revision:
+      <a href="http://public.dhe.ibm.com/software/dw/im/dm-0907hadrdb2haicu/db2-10-hadr-tsa.pdf">
+       http://public.dhe.ibm.com/software/dw/im/dm-0907hadrdb2haicu/db2-10-hadr-tsa.pdf
+      </a>
+     </p>
+     <h2 dir="ltr">
+      <a name="Using_virtual_IP_addresses_with_Reads_on_Standby_feature">
+       Using virtual IP addresses with Reads on Standby feature
+      </a>
+     </h2>
+     <p dir="ltr">
+      <a href="http://www-01.ibm.com/support/docview.wss?uid=swg27020912">
+       Enabling continuous access to read on standby databases using Virtual IP addresses
+      </a>
+      <br/>
+      White paper, 12 pages, 2011, Authors: Steve Raspudic, Aruna De Silva, Louise McNicoll.
+     </p>
+     <p dir="ltr">
+      This paper describes how to set up two VIP addresses with HADR, one for read/write workload on primary database and one for read-only workload on the standby database. VIP is recommended for rerouting clients when reads on standby is enabled. Automatic client reroute should not be used when reads on standby is enabled.
+     </p>
+     <h2 dir="ltr">
+      <a name="Using_db2haicu_for_shared_disk_local_HA">
+       Using db2haicu for shared disk local HA
+      </a>
+     </h2>
+     <p dir="ltr">
+      <a href="https://community.ibm.com/community/user/hybriddatamanagement/viewdocument/automatedinstance-failover-using-th?CommunityKey=ea909850-39ea-4ac4-9512-8e2eb37ea09a&amp;tab=librarydocuments">
+       Automated instance failover using the IBM DB2 High Availability Instance Configuration Utility (db2haicu)
+      </a>
+      <br/>
+      White paper, 69 pages, 2009, Authors: Steve Raspudic, Selvaprabhu Arumuggharaj
+     </p>
+     <p dir="ltr">
+      Db2haicu can be used with or without HADR. This is about the shared disk solution for local HA (without HADR).
+     </p>
+     <p dir="ltr">
+      Note that starting from DB2 V10.1, HADR supports multiple standbys. You can use a local standby for HA and remote standby(s) for DR. In older releases, you can set up shared disk solution for local HA and use HADR for DR (standby at remote site).
+     </p>
+     <p dir="ltr">
+     </p>
+     <h2 dir="ltr">
+      <a name="HADR_auto_failover_on_Windows">
+       HADR auto failover on Windows
+      </a>
+     </h2>
+     <p dir="ltr">
+      On Windows, it used to be possible to implement automated failover using older version of TSA, but that is no longer possible starting in TSA 4.1 (due to dropped support of Windows).
+     </p>
+     <p dir="ltr">
+     </p>
+     <p dir="ltr">
+      Customers looking at automating HADR failover on Windows would likely need to select a different cluster manager product.   See following article on using HADR on Windows with Microsoft Cluster Server.
+     </p>
+     <p dir="ltr">
+      <a href="https://community.ibm.com/community/user/hybriddatamanagement/viewdocument/set-up-db2-for-linux-unix-and-win?CommunityKey=b5b60ace-5eb2-4444-a961-d9edb6f39bd8">
+       Set up DB2 for Linux, UNIX, and Windows for high ... - IBM
+      </a>
+     </p>
+     <p dir="ltr">
+     </p>
+     <p dir="ltr">
+     </p>
+     <h1 dir="ltr">
+      <a id="Setting up TSA on Two Data Cen" name="Setting up TSA on Two Data Cen">
+       <span class="mw-headline" id="Setting_up_TSA_on_Two_Data_Centers_Using_HADR_with_Multiple_Standbys">
+        Setting up TSA on Two Data Centers Using HADR with Multiple Standbys
+       </span>
+      </a>
+     </h1>
+     <p dir="ltr">
+      It is a common usage scenario with the following environment:
+     </p>
+     <ul dir="ltr">
+      <li>
+       <span class="wikEdList">
+        Datacenter1 consists of 2 hosts A and B, providing high availability within the data center.
+       </span>
+      </li>
+      <li>
+       <span class="wikEdList">
+        Datacenter2 consists of 2 hosts C and D, providing high availability within the data center.
+       </span>
+      </li>
+      <li>
+       <span class="wikEdList">
+        Datacenter1 and Datacenter2 are typically some distance apart.  Datacenter2 is for disaster recovery.
+       </span>
+      </li>
+      <li>
+       <span class="wikEdList">
+        Initially, the database service is provided on host A in Datacenter1.
+       </span>
+      </li>
+      <li>
+       <span class="wikEdList">
+        HADR is initially set up with primary on A, principal standby on B, and auxiliary standby on C and D.
+       </span>
+      </li>
+     </ul>
+     <p dir="ltr">
+      <br/>
+      The following procedure will setup TSA in both data centers to handle automated failover.  Details of db2haicu usage can be found in the
+      <a href="https://community.ibm.com/community/user/hybriddatamanagement/viewdocument/automatinghadr-on-db2-101-for-linu?CommunityKey=ea909850-39ea-4ac4-9512-8e2eb37ea09a&amp;tab=librarydocuments">
+       Automated cluster controlled HADR configuration setup using the IBM DB2 high availability instance configuration utility (db2haicu)
+      </a>
+      white paper.
+     </p>
+     <ol dir="ltr">
+      <li>
+       <span class="wikEdList">
+        Run db2haicu on host B to create domain containing A and B, defines tie breaker device, the network and DB2 instance resources
+       </span>
+       .
+      </li>
+      <li>
+       <span class="wikEdList">
+        Run db2haicu on host A to create the second DB2 instance resource and HADR resource (after this step, HADR failover automation has been enabled in Datacenter1)
+       </span>
+       .
+      </li>
+      <li>
+       <span class="wikEdList">
+        <span class="wikEdListTag">
+         I
+        </span>
+        ssue manual graceful takeover on C (after this step, C is the primary, with D as its principal standby, A and B are the auxiliary standbys)
+       </span>
+       .
+      </li>
+      <li>
+       <span class="wikEdList">
+        Run db2haicu on D to create domain containing C and D, defines tie breaker device, the network and DB2 instance resources
+       </span>
+       .
+      </li>
+      <li>
+       <span class="wikEdList">
+        <span class="wikEdListTag">
+         R
+        </span>
+        un db2haicu on C to create the second DB2 instance resource and HADR resource (after this step, HADR failover automation has been enabled in Datacenter2)
+       </span>
+       .
+      </li>
+      <li>
+       <span class="wikEdList">
+        <span class="wikEdListTag">
+         R
+        </span>
+        un db2haicu
+        <span class="wikEdhyphenDash" title="Standard hyphen">
+         -
+        </span>
+        disable on B
+       </span>
+       .
+      </li>
+      <li>
+       <span class="wikEdList">
+        Run db2haicu
+        <span class="wikEdhyphenDash" title="Standard hyphen">
+         -
+        </span>
+        disable on A
+       </span>
+       .
+      </li>
+      <li>
+       <span class="wikEdList">
+        <span class="wikEdListTag">
+         I
+        </span>
+        ssue manual graceful takeover on A (after this step, A is the primary, with B as its principal standby, C and D are the auxiliary standbys)
+       </span>
+       .
+      </li>
+      <li>
+       <span class="wikEdList">
+        Run db2haicu on B to re
+        <span class="wikEdhyphenDash" title="Standard hyphen">
+         -
+        </span>
+        enable automation
+       </span>
+       .
+      </li>
+      <li>
+       <span class="wikEdList">
+        Run db2haicu on A to re
+        <span class="wikEdhyphenDash" title="Standard hyphen">
+         -
+        </span>
+        enable automation
+       </span>
+       .
+      </li>
+     </ol>
+     <p dir="ltr">
+      <br/>
+      Note that the above setup creates two disjoint TSA domains, one in Datacenter1 and the other in Datacenter2.  After the above setup, the HADR system is now enabled with the following:
+     </p>
+     <ul dir="ltr">
+      <li>
+       <span class="wikEdList">
+        Automated failover in Datacenter1, should there be an outage of A, B automatically becomes the new primary. This will result in B as primary, with A the principal standby, and C and D are still the auxiliary standbys.
+       </span>
+      </li>
+      <li>
+       <span class="wikEdList">
+        Automated restart of DB2 service all standbys B, C and D, should there be an outage (due to either hardware or software failure).  There will be automatic execution of the DB2START command and the ACTIVATE DATABASE command.  This will allow the standby service to be brought up as quickly as possible, and form connection with the primary database.
+       </span>
+      </li>
+     </ul>
+     <p dir="ltr">
+      <br/>
+      Procedure for performing maintenance (the key point is : there is nothing special, all the same as if there is no TSA):
+     </p>
+     <ul dir="ltr">
+      <li>
+       <span class="wikEdList">
+        First change on auxiliary standbys, which are C and D in Datacenter2.
+       </span>
+       <ul>
+        <li>
+         <span class="wikEdList">
+          Issue DEACTIVATE DATABASE and DB2STOP.
+         </span>
+        </li>
+        <li>
+         <span class="wikEdList">
+          Perform change (such as new DB2 fixpak, or new OS, or hardware change).
+         </span>
+        </li>
+        <li>
+         <span class="wikEdList">
+          Issue DB2START and ACTIVATE DATABASE.
+         </span>
+        </li>
+       </ul>
+      </li>
+      <li>
+       <span class="wikEdList">
+        Change principal standby, which is B in Datacenter1.
+       </span>
+       <ul>
+        <li>
+         <span class="wikEdList">
+          Issue DEACTIVATE DATABASE and DB2STOP.
+         </span>
+        </li>
+        <li>
+         <span class="wikEdList">
+          Perform change (such as new DB2 fixpak, or new OS, or hardware change).
+         </span>
+        </li>
+        <li>
+         <span class="wikEdList">
+          Issue DB2START and ACTIVATE DATABASE.
+         </span>
+        </li>
+       </ul>
+      </li>
+      <li>
+       <span class="wikEdList">
+        Issue graceful takeover on principal standby, which will become new primary.
+       </span>
+      </li>
+      <li>
+       <span class="wikEdList">
+        Change old primary.
+       </span>
+       <ul>
+        <li>
+         <span class="wikEdList">
+          Issue DEACTIVATE DATABASE and DB2STOP.
+         </span>
+        </li>
+        <li>
+         <span class="wikEdList">
+          Perform change (such as new DB2 fixpak, or new OS, or hardware change).
+         </span>
+        </li>
+        <li>
+         <span class="wikEdList">
+          <span class="wikEdList">
+           Issue DB2START and ACTIVATE DATABASE.
+          </span>
+         </span>
+        </li>
+       </ul>
+      </li>
+      <li>
+       <span class="wikEdList">
+        Optionally, issue graceful takeover to bring primary back to the original host.
+       </span>
+      </li>
+     </ul>
+     <p dir="ltr">
+      <br/>
+      If there is a need to perform graceful takeover from an auxiliary standby (say C in Datacenter2), use the following procedure.  Note that step 1 and 3 are new.
+     </p>
+     <ol dir="ltr">
+      <li>
+       <span class="wikEdList">
+        First run db2haicu
+        <span class="wikEdhyphenDash" title="Standard hyphen">
+         -
+        </span>
+        disable on the auxiliary standbys, which are C and D in Datacenter2.
+       </span>
+      </li>
+      <li>
+       <span class="wikEdList">
+        Issue graceful takeover on the auxiliary standby C.  C becomes primary, with D as principal standby, A and B as auxiliary standbys.
+       </span>
+      </li>
+      <li>
+       <span class="wikEdList">
+        Run db2haicu on C and D to re-enable automation.
+       </span>
+      </li>
+     </ol>
+     <p dir="ltr">
+      <br/>
+      In an event of disaster that takes out entire Datacenter1, procedure for manual failover to Datacenter2:
+     </p>
+     <ul dir="ltr">
+      <li>
+       <span class="wikEdList">
+        Run db2haicu -disable on C and D
+       </span>
+       .
+      </li>
+      <li>
+       <span class="wikEdList">
+        Run db2pd
+        <span class="wikEdhyphenDash" title="Standard hyphen">
+         -
+        </span>
+        hadr on C and D to see which has more logs.
+       </span>
+      </li>
+      <li>
+       <span class="wikEdList">
+        Issue forced takeover from the one with more logs. Say it is C.  This makes C the primary, with D as principal standby.
+       </span>
+      </li>
+      <li>
+       <span class="wikEdList">
+        Run db2haicu on C and D to re-enable automation.
+       </span>
+       <ul>
+        <li>
+         <span class="wikEdList">
+          <span class="wikEdListTag">
+           At this point, a
+          </span>
+          utomated failover between C and D is enabled.
+         </span>
+        </li>
+       </ul>
+      </li>
+      <li>
+       <span class="wikEdList">
+        <span class="wikEdList">
+         Later on when Datacenter1 comes back.  A and B will likely need to be reinitialized.
+        </span>
+       </span>
+       <ul>
+        <li>
+         <span class="wikEdList">
+          In a full disaster, everything is lost, including the TSA domain.  Even if TSA domain is not lost (eg. in a scenario where only the network to Datacenter1 is lost, everything within Datacenter1 is fine), use db2haicu to destroy the old TSA domain between A and B.  It will be recreated later.
+         </span>
+        </li>
+        <li>
+         Take a new online database backup on C, and restore this backup on A and B.
+        </li>
+        <li>
+         Issue START HADR AS STANDBY on A and B.
+        </li>
+        <li>
+         <span class="wikEdList">
+          <span class="wikEdListTag">
+           I
+          </span>
+          ssue manual graceful takeover on A (after this step, A is the primary, with B as its principal standby, C and D are the auxiliary standbys)
+         </span>
+         .
+        </li>
+        <li>
+         <span class="wikEdList">
+          Run db2haicu on B to create domain containing A and B, defines tie breaker device, the network and DB2 instance resources
+         </span>
+         .
+        </li>
+        <li>
+         <span class="wikEdList">
+          <span class="wikEdListTag">
+           R
+          </span>
+          un db2haicu on A to create the second DB2 instance resource and HADR resource (after this step, HADR failover automation has been enabled in Datacenter1)
+         </span>
+         .
+        </li>
+       </ul>
+      </li>
+     </ul>
+     <h3 dir="ltr">
+      Technote: TSA Setup on two Data Centers in an Environment having DB2 HADR with Multiple Standbys
+     </h3>
+     <p dir="ltr">
+       <!-- This link has been archived. Could not find the related article -->
+      <a href="https://developer.ibm.com/recipes/tutorials/tsa-setup-on-two-data-centers-in-an-environment-having-db2-hadr-with-multiple-standbys/">
+       https://developer.ibm.com/recipes/tutorials/tsa-setup-on-two-data-centers-in-an-environment-having-db2-hadr-with-multiple-standbys/
+      </a>
+     </p>
+    </div>
+   </div>
+   <!-- /#page-content-wrapper -->
   </div>
   <!-- /#wrapper -->
-
   <!-- Bootstrap core JavaScript -->
-  <script src="vendor/jquery/jquery.min.js"></script>
-  <script src="vendor/bootstrap/js/bootstrap.bundle.min.js"></script>
-
+  <script src="vendor/jquery/jquery.min.js">
+  </script>
+  <script src="vendor/bootstrap/js/bootstrap.bundle.min.js">
+  </script>
   <!-- Menu Toggle Script -->
   <script>
-    $("#menu-toggle").click(function(e) {
+   $("#menu-toggle").click(function(e) {
       e.preventDefault();
       $("#wrapper").toggleClass("toggled");
     });
   </script>
-
-</body>
-
+ </body>
 </html>
