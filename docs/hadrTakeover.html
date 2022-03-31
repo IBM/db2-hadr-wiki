@@ -1,325 +1,676 @@
 <!DOCTYPE html>
 <html lang="en">
-
-<head>
-
-  <meta charset="utf-8">
-  <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
-  <meta name="description" content="">
-  <meta name="author" content="">
-
-  <title>Db2 HADR Wiki</title>
-
+ <head>
+  <meta charset="utf-8"/>
+  <meta content="width=device-width, initial-scale=1, shrink-to-fit=no" name="viewport"/>
+  <meta content="" name="description"/>
+  <meta content="" name="author"/>
+  <title>
+   Db2 HADR Wiki
+  </title>
   <!-- Bootstrap core CSS -->
-  <link href="vendor/bootstrap/css/bootstrap.min.css" rel="stylesheet">
-
+  <link href="vendor/bootstrap/css/bootstrap.min.css" rel="stylesheet"/>
   <!-- Custom styles for this template -->
-  <link href="css/simple-sidebar.css" rel="stylesheet">
-
-</head>
-
-<body>
-
+  <link href="css/simple-sidebar.css" rel="stylesheet"/>
+ </head>
+ <body>
   <div class="d-flex" id="wrapper">
-
-    <!-- Sidebar -->
-    <div class="bg-light border-right" id="sidebar-wrapper">
-      <div class="sidebar-heading">Menu</div>
-      <div class="list-group list-group-flush">
-        <a href="hadrBenefits.html" class="list-group-item list-group-item-action bg-light">HADR Benefits</a>
-        <a href="featureHistory.html" class="list-group-item list-group-item-action bg-light">Feature History</a>
-        <a href="hadrTutorial.html" class="list-group-item list-group-item-action bg-light">HADR Tutorial</a>
-        <a href="tcpTuning.html" class="list-group-item list-group-item-action bg-light">TCP Tuning</a>
-        <a href="perfTuning.html" class="list-group-item list-group-item-action bg-light">Perf Tuning</a>
-        <a href="hadrSimulator.html" class="list-group-item list-group-item-action bg-light">HADR Simulator</a>
-        <a href="simulatorOptions.html" class="list-group-item list-group-item-action bg-light">HADR Simulator Options</a>
-        <a href="simulatorOutput.html" class="list-group-item list-group-item-action bg-light">HADR Simulator Output</a>
-        <a href="simulatorParams.html" class="list-group-item list-group-item-action bg-light">HADR Simulator Params</a>
-        <a href="db2logscan.html" class="list-group-item list-group-item-action bg-light">db2logscan</a>
-        <a href="hadrConfig.html" class="list-group-item list-group-item-action bg-light">HADR Config</a>
-        <a href="hadrSyncMode.html" class="list-group-item list-group-item-action bg-light">HADR Sync Mode</a>
-        <a href="hadrTakeover.html" class="list-group-item list-group-item-action bg-light"><strong>> HADR Takeover</strong></a>
-        <a href="hadrMonitoring.html" class="list-group-item list-group-item-action bg-light">HADR Monitoring</a>
-        <a href="hadrCommands.html" class="list-group-item list-group-item-action bg-light">HADR Commands</a>
-        <a href="hadrLogShipping.html" class="list-group-item list-group-item-action bg-light">HADR Log Shipping</a>
-        <a href="hadrPerf.html" class="list-group-item list-group-item-action bg-light">HADR Perf</a>
-        <a href="diagConnect.html" class="list-group-item list-group-item-action bg-light">Diag Connect</a>
-        <a href="db2diag.html" class="list-group-item list-group-item-action bg-light">db2diag.log</a>
-        <a href="clusterManagers.html" class="list-group-item list-group-item-action bg-light">Cluster Managers</a>
-        <a href="clientReroute.html" class="list-group-item list-group-item-action bg-light">Client Reroute</a>
-        <a href="hadrPureScale.html" class="list-group-item list-group-item-action bg-light">HADR on PureScale</a>
-        <a href="faq.html" class="list-group-item list-group-item-action bg-light">FAQ</a>
-        <a href="db2fmtlog.html" class="list-group-item list-group-item-action bg-light">db2fmtlog replayonlywindow</a>
-      </div>
+   <!-- Sidebar -->
+   <div class="bg-light border-right" id="sidebar-wrapper">
+    <div class="sidebar-heading">
+     Menu
     </div>
-    <!-- /#sidebar-wrapper -->
-
-    <!-- Page Content -->
-    <div id="page-content-wrapper">
-
-      <nav class="navbar navbar-expand-lg navbar-light bg-light border-bottom">
-        <button class="btn btn-primary" id="menu-toggle">Toggle Menu</button>
-
-        <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarSupportedContent" aria-controls="navbarSupportedContent" aria-expanded="false" aria-label="Toggle navigation">
-          <span class="navbar-toggler-icon"></span>
-        </button>
-
-        <div class="collapse navbar-collapse" id="navbarSupportedContent">
-          <ul class="navbar-nav ml-auto mt-2 mt-lg-0">
-            <li class="nav-item">
-              <a class="nav-link" href="index.html">Home</a>
-            </li>
-            <li class="nav-item">
-              <a class="nav-link" href="contact.html">Contact</a>
-            </li>
-            <li class="nav-item">
-              <a class="nav-link" href="contribute.html">Contribute</a>
-            </li>
-          </ul>
-        </div>
-      </nav>
-
-      <div class="container-fluid">
-        <h1 dir="ltr"><a name="HADR_Takeover">HADR Takeover</a></h1>
-
-        <p dir="ltr">This page discusses takeover related topics: role switch, failover, and primary reintegration.</p>
-
-        <p dir="ltr"><strong>Table of Contents</strong></p>
-
-        <ul dir="ltr">
-        	<li><a href="#What_is_takeover">What is takeover</a></li>
-        	<li><a href="#Primary_reintegration">Primary reintegration</a></li>
-        	<li><a href="#What_happens_during_a_takeover">What happens during a takeover</a>
-        	<ul>
-        		<li><a href="#Non_forced_takeover">Non forced takeover</a></li>
-        		<li><a href="#Forced_takeover">Forced takeover</a></li>
-        	</ul>
-        	</li>
-        	<li><a href="#What_affects_takeover_speed">What affects takeover speed</a>
-        	<ul>
-        		<li><a href="#Non_forced_takeover2">Non forced takeover</a></li>
-        		<li><a href="#Forced_takeover2">Forced takeover</a></li>
-        	</ul>
-        	</li>
-        	<li><a href="#How_to_monitor_takeover">How to monitor takeover</a></li>
-        	<li><a href="#How_to_recover_from_failed_takeover">How to recover from failed takeover</a></li>
-        	<li><a href="#How_to_deal_with_hanging_takeover">How to deal with hanging takeover</a></li>
-        	<li><a href="#Takeover%20takes%20a%20long%20time%20to">Takeover&nbsp;takes&nbsp;a&nbsp;long&nbsp;time&nbsp;to&nbsp;initiate</a></li>
-        	<li><a href="#Database%20accessibility%20during">Database&nbsp;accessibility&nbsp;during HADR takeover</a></li>
-        </ul>
-
-        <p dir="ltr"><strong>&nbsp; </strong></p>
-
-        <h2 dir="ltr"><a name="What_is_takeover">What is takeover</a></h2>
-
-        <p dir="ltr">The "<a href="http://publib.boulder.ibm.com/infocenter/db2luw/v9r7/topic/com.ibm.db2.luw.admin.cmd.doc/doc/r0011553.html">takeover hadr</a>" command does role switch, or failover, with just a single command. The command can only be issued on the standby (the standby takes over to become a primary). There are two flavors:</p>
-
-        <ul dir="ltr">
-        	<li>Non-forced takeover (a.k.a, graceful takeover, role switch): Primary and standby switch roles. Guaranteed no data loss. This is used for planned maintenance, such as <a href="http://publib.boulder.ibm.com/infocenter/db2luw/v9r7/topic/com.ibm.db2.luw.admin.ha.doc/doc/t0011766.html">rolling update</a>.</li>
-        </ul>
-
-        <ul dir="ltr">
-        	<li>Forced takeover (ie. failover): Standby becomes primary, but old primary remains primary. This is used in failover, where old primary may not be reachable from the standby. When old primary is reachable, standby sends a message to it to disable it, to avoid split brain.
-        	<ul>
-        		<li>A "peer window only" option can be added to "takeover by force" command. With this option, if the standby is in peer window when the command is issued, takeover will proceed and the there will not be any data loss. If standby is not in peer window, the takeover command will fail. This option is often used for "safe" automated takeover. See also <a href="hadrConfig.html#hadr_peer_window___HADR_peer_window">peer&nbsp;window</a>.</li>
-        	</ul>
-        	</li>
-        </ul>
-
-        <p dir="ltr">For <a href="http://pic.dhe.ibm.com/infocenter/db2luw/v10r1/topic/com.ibm.db2.luw.admin.ha.doc/doc/c0059994.html">multiple standby</a>, takeover (both flavors) is allowed on any standby. After takeover, all new standbys will be auto reconfigured to connect to the new primary.</p>
-
-        <p dir="ltr">&nbsp;</p>
-
-        <h2 dir="ltr"><a name="Primary_reintegration">Primary reintegration</a></h2>
-
-        <p dir="ltr">After a failover, the old primary can rejoin the new primary as a standby. This is known as primary reintegration. Primary reintegration will succeed only if there is no data loss during the failover (ie. log streams of the two databases have not diverged). If there is no data loss, then the new primary has all the log data of the old primary and it will continue logging on the common log stream. If there is data loss, then the old primary has some log data not replicated to the new primary. As the new primary starts its logging at the takeover point in the log stream, it writes different data than the old primary's, effectively forking off a new log stream. The following diagram shows diverging log streams:</p>
-
-        <pre dir="ltr">
+    <div class="list-group list-group-flush">
+     <a class="list-group-item list-group-item-action bg-light" href="hadrBenefits.html">
+      HADR Benefits
+     </a>
+     <a class="list-group-item list-group-item-action bg-light" href="featureHistory.html">
+      Feature History
+     </a>
+     <a class="list-group-item list-group-item-action bg-light" href="hadrTutorial.html">
+      HADR Tutorial
+     </a>
+     <a class="list-group-item list-group-item-action bg-light" href="tcpTuning.html">
+      TCP Tuning
+     </a>
+     <a class="list-group-item list-group-item-action bg-light" href="perfTuning.html">
+      Perf Tuning
+     </a>
+     <a class="list-group-item list-group-item-action bg-light" href="hadrSimulator.html">
+      HADR Simulator
+     </a>
+     <a class="list-group-item list-group-item-action bg-light" href="simulatorOptions.html">
+      HADR Simulator Options
+     </a>
+     <a class="list-group-item list-group-item-action bg-light" href="simulatorOutput.html">
+      HADR Simulator Output
+     </a>
+     <a class="list-group-item list-group-item-action bg-light" href="simulatorParams.html">
+      HADR Simulator Params
+     </a>
+     <a class="list-group-item list-group-item-action bg-light" href="db2logscan.html">
+      db2logscan
+     </a>
+     <a class="list-group-item list-group-item-action bg-light" href="hadrConfig.html">
+      HADR Config
+     </a>
+     <a class="list-group-item list-group-item-action bg-light" href="hadrSyncMode.html">
+      HADR Sync Mode
+     </a>
+     <a class="list-group-item list-group-item-action bg-light" href="hadrTakeover.html">
+      <strong>
+       &gt; HADR Takeover
+      </strong>
+     </a>
+     <a class="list-group-item list-group-item-action bg-light" href="hadrMonitoring.html">
+      HADR Monitoring
+     </a>
+     <a class="list-group-item list-group-item-action bg-light" href="hadrCommands.html">
+      HADR Commands
+     </a>
+     <a class="list-group-item list-group-item-action bg-light" href="hadrLogShipping.html">
+      HADR Log Shipping
+     </a>
+     <a class="list-group-item list-group-item-action bg-light" href="hadrPerf.html">
+      HADR Perf
+     </a>
+     <a class="list-group-item list-group-item-action bg-light" href="diagConnect.html">
+      Diag Connect
+     </a>
+     <a class="list-group-item list-group-item-action bg-light" href="db2diag.html">
+      db2diag.log
+     </a>
+     <a class="list-group-item list-group-item-action bg-light" href="clusterManagers.html">
+      Cluster Managers
+     </a>
+     <a class="list-group-item list-group-item-action bg-light" href="clientReroute.html">
+      Client Reroute
+     </a>
+     <a class="list-group-item list-group-item-action bg-light" href="hadrPureScale.html">
+      HADR on PureScale
+     </a>
+     <a class="list-group-item list-group-item-action bg-light" href="faq.html">
+      FAQ
+     </a>
+     <a class="list-group-item list-group-item-action bg-light" href="db2fmtlog.html">
+      db2fmtlog replayonlywindow
+     </a>
+    </div>
+   </div>
+   <!-- /#sidebar-wrapper -->
+   <!-- Page Content -->
+   <div id="page-content-wrapper">
+    <nav class="navbar navbar-expand-lg navbar-light bg-light border-bottom">
+     <button class="btn btn-primary" id="menu-toggle">
+      Toggle Menu
+     </button>
+     <button aria-controls="navbarSupportedContent" aria-expanded="false" aria-label="Toggle navigation" class="navbar-toggler" data-target="#navbarSupportedContent" data-toggle="collapse" type="button">
+      <span class="navbar-toggler-icon">
+      </span>
+     </button>
+     <div class="collapse navbar-collapse" id="navbarSupportedContent">
+      <ul class="navbar-nav ml-auto mt-2 mt-lg-0">
+       <li class="nav-item">
+        <a class="nav-link" href="index.html">
+         Home
+        </a>
+       </li>
+       <li class="nav-item">
+        <a class="nav-link" href="contact.html">
+         Contact
+        </a>
+       </li>
+       <li class="nav-item">
+        <a class="nav-link" href="contribute.html">
+         Contribute
+        </a>
+       </li>
+      </ul>
+     </div>
+    </nav>
+    <div class="container-fluid">
+     <h1 dir="ltr">
+      <a name="HADR_Takeover">
+       HADR Takeover
+      </a>
+     </h1>
+     <p dir="ltr">
+      This page discusses takeover related topics: role switch, failover, and primary reintegration.
+     </p>
+     <p dir="ltr">
+      <strong>
+       Table of Contents
+      </strong>
+     </p>
+     <ul dir="ltr">
+      <li>
+       <a href="#What_is_takeover">
+        What is takeover
+       </a>
+      </li>
+      <li>
+       <a href="#Primary_reintegration">
+        Primary reintegration
+       </a>
+      </li>
+      <li>
+       <a href="#What_happens_during_a_takeover">
+        What happens during a takeover
+       </a>
+       <ul>
+        <li>
+         <a href="#Non_forced_takeover">
+          Non forced takeover
+         </a>
+        </li>
+        <li>
+         <a href="#Forced_takeover">
+          Forced takeover
+         </a>
+        </li>
+       </ul>
+      </li>
+      <li>
+       <a href="#What_affects_takeover_speed">
+        What affects takeover speed
+       </a>
+       <ul>
+        <li>
+         <a href="#Non_forced_takeover2">
+          Non forced takeover
+         </a>
+        </li>
+        <li>
+         <a href="#Forced_takeover2">
+          Forced takeover
+         </a>
+        </li>
+       </ul>
+      </li>
+      <li>
+       <a href="#How_to_monitor_takeover">
+        How to monitor takeover
+       </a>
+      </li>
+      <li>
+       <a href="#How_to_recover_from_failed_takeover">
+        How to recover from failed takeover
+       </a>
+      </li>
+      <li>
+       <a href="#How_to_deal_with_hanging_takeover">
+        How to deal with hanging takeover
+       </a>
+      </li>
+      <li>
+       <a href="#Takeover%20takes%20a%20long%20time%20to">
+        Takeover takes a long time to initiate
+       </a>
+      </li>
+      <li>
+       <a href="#Database%20accessibility%20during">
+        Database accessibility during HADR takeover
+       </a>
+      </li>
+     </ul>
+     <p dir="ltr">
+      <strong>
+      </strong>
+     </p>
+     <h2 dir="ltr">
+      <a name="What_is_takeover">
+       What is takeover
+      </a>
+     </h2>
+     <p dir="ltr">
+      The "
+      <a href="https://www.ibm.com/docs/en/db2/11.5?topic=commands-takeover-hadr">
+       takeover hadr
+      </a>
+      " command does role switch, or failover, with just a single command. The command can only be issued on the standby (the standby takes over to become a primary). There are two flavors:
+     </p>
+     <ul dir="ltr">
+      <li>
+       Non-forced takeover (a.k.a, graceful takeover, role switch): Primary and standby switch roles. Guaranteed no data loss. This is used for planned maintenance, such as
+       <a href="https://www.ibm.com/docs/en/db2/11.5?topic=maintenance-performing-rolling-updates-in-hadr-environment">
+        rolling update
+       </a>
+       .
+      </li>
+     </ul>
+     <ul dir="ltr">
+      <li>
+       Forced takeover (ie. failover): Standby becomes primary, but old primary remains primary. This is used in failover, where old primary may not be reachable from the standby. When old primary is reachable, standby sends a message to it to disable it, to avoid split brain.
+       <ul>
+        <li>
+         A "peer window only" option can be added to "takeover by force" command. With this option, if the standby is in peer window when the command is issued, takeover will proceed and the there will not be any data loss. If standby is not in peer window, the takeover command will fail. This option is often used for "safe" automated takeover. See also
+         <a href="hadrConfig.html#hadr_peer_window___HADR_peer_window">
+          peer window
+         </a>
+         .
+        </li>
+       </ul>
+      </li>
+     </ul>
+     <p dir="ltr">
+      For
+      <a href="https://www.ibm.com/docs/en/db2/11.5?topic=databases-hadr-takeover-operations-multiple-standbys">
+       multiple standby
+      </a>
+      , takeover (both flavors) is allowed on any standby. After takeover, all new standbys will be auto reconfigured to connect to the new primary.
+     </p>
+     <p dir="ltr">
+     </p>
+     <h2 dir="ltr">
+      <a name="Primary_reintegration">
+       Primary reintegration
+      </a>
+     </h2>
+     <p dir="ltr">
+      After a failover, the old primary can rejoin the new primary as a standby. This is known as primary reintegration. Primary reintegration will succeed only if there is no data loss during the failover (ie. log streams of the two databases have not diverged). If there is no data loss, then the new primary has all the log data of the old primary and it will continue logging on the common log stream. If there is data loss, then the old primary has some log data not replicated to the new primary. As the new primary starts its logging at the takeover point in the log stream, it writes different data than the old primary's, effectively forking off a new log stream. The following diagram shows diverging log streams:
+     </p>
+     <pre dir="ltr">
         common log data    takeover_point   old primary's not replicated data
         -------------------------+--------------------------------------------
                                  |
                                  ---------------------------------------------
                                             new primary's log data</pre>
-
-        <p dir="ltr">Run "start HADR ... as standby" command on the old primary to convert it to a new standby.</p>
-
-        <p dir="ltr">The command will change the database role to standby, start the database in standby role, then return. When the command returns success, it does NOT mean that primary reintegration has succeeded. The new standby has yet to connect to the new primary to check if its log stream is compatible to the new primary's. The "start HADR ... as standby" command does not wait for the check because it can take a long time. For example, the new standby may not even be able to connect to the primary for an extended time. User should continue to monitor the new standby until it connects to the primary and enters remote catchup or peer state. If reintegration fails (two databases have diverging log streams), the new standby will shut itself down. Check db2diag.log file for details.</p>
-
-        <p dir="ltr">&nbsp;</p>
-
-        <h2 dir="ltr"><a name="What_happens_during_a_takeover">What happens during a takeover</a></h2>
-
-        <h3 dir="ltr"><a name="Non_forced_takeover">Non forced takeover</a></h3>
-
-        <p dir="ltr">The following steps are performed during a non forced takeover:</p>
-
-        <ul dir="ltr">
-        	<li>Primary forces all applications off. Open transactions are rolled back.</li>
-        	<li>Ship all logs generated on the primary to standby, including log data generated by rolling back open transactions.</li>
-        	<li>Primary turns into standby role.</li>
-        	<li>Standby forces all applications off if reads on standby is enabled,</li>
-        	<li>Standby completes replay of all received logs. There will be no open transactions at end of replay because open transactions have been rolled back when replaying roll back records from the primary.</li>
-        	<li>Standby turns into primary role, after completing log replay and receiving notification from primary that the old primary has turned into a standby (this rule avoids split brain (two primaries) in all cases, but may result in two standbys in error cases).</li>
-        </ul>
-
-        <p dir="ltr">To minimize takeover time, forcing applications on primary, forcing applications on standby, log shipping, and log replay are all performed in parallel.</p>
-
-        <h3 dir="ltr"><a name="Forced_takeover">Forced takeover</a></h3>
-
-        <p dir="ltr">The following steps are performed during a forced takeover:</p>
-
-        <ul dir="ltr">
-        	<li>If primary and standby are connected, standby sends a message to primary to stop its log writing immediately. Open transactions are <strong>not </strong>rolled back on the primary, because roll back needs to write log records. To minimize data loss, standby gives the old primary a few seconds to ship over logs already written. To avoid blocking failover, log shipping is stopped after a few seconds even if end of log is not reached. If primary and standby are not connected, nothing is done to the old primary. User is responsible for taking old primary offline.</li>
-        	<li>Standby forces all applications off if reads on standby is enabled,</li>
-        	<li>Standby completes replay of all received logs.</li>
-        	<li>Standby rolls back all open transactions at end of replay (similar to "roll forward stop").</li>
-        	<li>Standby turns into primary role, after rolling back open transactions.</li>
-        </ul>
-
-        <p dir="ltr">To minimize takeover time, forcing apps on standby, log shipping, and log replay are all performed in parallel.</p>
-
-        <p dir="ltr"><strong>To avoid split brain, it is best practice to take the old primary offline before failover and keep it offline after failover. </strong>Standby stopping log writing on old primary is only best effort and it does not prevent read only access.</p>
-
-        <hr dir="ltr" />
-        <h2 dir="ltr"><a name="What_affects_takeover_speed">What affects takeover speed</a></h2>
-
-        <p dir="ltr">The main factors affecting takeover time are:</p>
-
-        <h3 dir="ltr"><a name="Non_forced_takeover2">Non forced takeover</a></h3>
-
-        <ul dir="ltr">
-        	<li>Size and number of open transactions on the primary when takeover is issued. This determines how long it will take the primary to roll back these transactions. Large transactions or large number of transactions will slow down takeover.</li>
-        	<li>How soon log shipping completes. Standby must receive all log data generated by the primary. Primary can generate rollback log records after takeover has started. For superAsync mode, there can be a big primary-standby log gap at beginning of takeover because takeover is allowed in remote catchup state. For other sync modes, non forced takeover is allowed only in peer state, where log gap is small (about one flush, typically a few pages).</li>
-        	<li>How soon standby can finish replay of all received logs. Log buffering and spooling can result in a large receive-replay log gap at start of takeover. This backlog needs to be replayed before takeover finishes. Logs generated after takeover starts (roll back log records) need to be replayed too.</li>
-        </ul>
-
-        <p dir="ltr">In superAsync mode, it is recommended to issue non forced takeover only when primary-standby log gap is relatively small. Throttle or stop primary workload before takeover if needed.</p>
-
-        <p dir="ltr">It is best practice to check the followings before issuing a non forced takeover:</p>
-
-        <ul dir="ltr">
-        	<li>HADR state (peer state is required unless sync mode is superAsync).</li>
-        	<li>Number and type of applications connected to the primary.</li>
-        	<li>Primary-standby log gap.</li>
-        	<li>Standby receive-replay log gap.</li>
-        </ul>
-
-        <h3 dir="ltr"><a name="Forced_takeover2">Forced takeover</a></h3>
-
-        <ul dir="ltr">
-        	<li>Size and number of open transactions when replay reaches end of logs received from the primary. Standby will need to roll back these transactions. Large transactions or large number of transactions will slow down takeover. User can estimate end of replay open transaction status before issuing takeover by understanding general primary workload property, and looking at transaction status on the standby during replay via the "db2pd -transaction" command.</li>
-        	<li>Log shipping in forced takeover is limited to a few seconds if old primary is still connected. If it is not connected, then log shipping ends immediately. So generally we expect only a small amount of of additional logs or no additional logs to arrive from the primary after takeover starts.</li>
-        	<li>How soon standby can finish replay of all logs received from the primary. Log buffering and spooling can result in a large receive-replay log gap at start of takeover. This backlog needs to be replayed before takeover finishes.</li>
-        </ul>
-
-        <p dir="ltr">It is best practice to check the followings before issuing a forced takeover:</p>
-
-        <ul dir="ltr">
-        	<li>HADR state (forced takeover is not allowed in local catchup and remote catchup states).</li>
-        	<li>Number and type of applications in primary workload.</li>
-        	<li>Primary-standby log gap. Data in the gap will likely be lost in a failover.</li>
-        	<li>Standby receive-replay log gap.</li>
-        </ul>
-
-        <hr dir="ltr" />
-        <h2 dir="ltr"><a name="How_to_monitor_takeover">How to monitor takeover</a></h2>
-
-        <p dir="ltr"><strong>Use the "db2pd -hadr -db &lt;dbname&gt;" to monitor overral&nbsp;progress of&nbsp;takeover. </strong>During a takeover, there may be a time window when clients cannot connect to either primary or standby, so SQL based methods such as table function won't work.</p>
-
-        <ul dir="ltr">
-        	<li>Monitor TAKEOVER_APP_REMAINING_PRIMARY and TAKEOVER_APP_REMAINING_STANDBY fields&nbsp;for the progress of forcing applications off the primary and standby. This is especially useful when there are a large number of clients or long transactions. Note that "db2pd -hadr" shows these fields only when takeover is in progress.</li>
-        	<li>Monitor PRIMARY_LOG_POS, STANDBY_LOG_POS, and HADR_LOG_GAP fields for progress of log shipping. While rolling back a large transaction, remaining application status may not change for some time, but log position should move as more undo records are generated.</li>
-        	<li>Monitor STANDBY_LOG_POS, STANDBY_REPLAY_LOG_POS, and STANDBY_RECV_REPLAY_GAP fields&nbsp;for the progress of replay. Standby must finish replaying all received logs before becoming a primary. The gap can be large when log spooling is enabled. Note that more logs can arrive after takeover starts (STANDBY_LOG_POS can move).</li>
-        </ul>
-
-        <p dir="ltr"><strong>Use the "db2pd -applications -db &lt;dbname&gt;" command to view details of remaining applications.</strong> Note that this command lists both user applications and DB2 internal connections. For example, the replay agent on standby is also listed. It can be identified as having "Appid" like "*LOCAL.DB2.121029205843" (the 2nd field is the user name for user applications. "DB2" is used for internal apps. The ending number is a time stamp for "2012-10-29 20:58:43", which is the start time of the application in GMT) and "SystemAuthID" as "n/a".</p>
-
-        <p dir="ltr"><strong>Use the "db2pd -transactions -db &lt;dbname&gt;." command to get&nbsp;additional information on the applications.</strong> Pay attention to the State, Firstlsn, Lastlsn, SpaceReserved, and LogSpace fields. During roll back, State will be "ABORT". Unless a transaction hangs, Lastlsn should be increasing. LogSpace shows how big the transaction is (it is the sum of space already used and SpaceReserved). SpaceReserved shows estimation of log data yet to be written for this transaction.&nbsp;</p>
-
-        <p dir="ltr"><strong>Use the "db2pd -recovery -db &lt;dbname&gt;" command to get details&nbsp;of the current status of recovery, which is part of the takeover process.</strong> The output shows the LSN and LSO values that are being replayed/compensated currently.&nbsp;There is also the “progress” section at the bottom showing the progress of the recovery, including the description, starting time, and total work done for each phase. If these values change over time, then the recovery process must be progressing, and takeover has not hanged.</p>
-
-        <p dir="ltr">For more info on db2pd, see <a href="http://publib.boulder.ibm.com/infocenter/db2luw/v9r7/topic/com.ibm.db2.luw.admin.cmd.doc/doc/r0011729.html">DB2 V9.7 Info Center</a>, and <a href="http://pic.dhe.ibm.com/infocenter/db2luw/v10r1/topic/com.ibm.db2.luw.admin.cmd.doc/doc/r0011729.html">DB2 V10.1 Info Center</a>.<br />
-        &nbsp;</p>
-
-        <hr dir="ltr" />
-        <h2 dir="ltr"><a name="How_to_recover_from_failed_takeover">How to recover from failed takeover</a></h2>
-
-        <p dir="ltr">For non forced takeover, first examine the role of both databases after takeover failure. You may end up with two standby databases, but you will never end up with two primary databases. If a database is offline, use "HADR database role" field from "db2 get db cfg for &lt;dbname&gt;" command to determine the role. Do not attempt to restart a database before examining its role and working out a recovery plan.</p>
-
-        <ul dir="ltr">
-        	<li>If neither database has changed its role, you may retry takeover after correcting the root cause.</li>
-        	<li>If old primary has changed into standby role, but old standby has not changed into primary role, you have two standbys. You may choose either one to issue a forced takeover to change it into a primary. The two standby databases have identical log streams at this point. So either one can become a primary while keeping the other one compatible to it. To decide which one will become the new primary, consider the following:
-        	<ul>
-        		<li>Which database's location works better as primary for your business?</li>
-        		<li>How long will the forced takeover take? You may start the two databases as usual in their standby role, then examine their replay positions. In DB2 V10.1 and later, see STANDBY_REPLAY_LOG_POS field. In earlier releases, see STANDBY_LOG_POS field. You may want to choose the one with a higher replay position (less log to replay before becoming a primary). Generally, the old primary is likely to have a higher replay position.</li>
-        	</ul>
-        	</li>
-        	<li>If both databases have changed into their new roles, simply restart any crashed databases and the pair should connect and function.</li>
-        </ul>
-
-        <p dir="ltr">For forced takeover, examine the role of the old standby after the failure (role of old primary is never changed). Assuming you still want to use the old standby as the new primary (chances are that this is a failover and old primary is not available):</p>
-
-        <ul dir="ltr">
-        	<li>If the old standby has not changed its role, you may retry takeover after correcting the root cause.</li>
-        	<li>If the old standby has changed its role, restart it and it should function as the new primary.</li>
-        </ul>
-
-        <h2 dir="ltr"><a name="How_to_deal_with_hanging_takeover">How to deal with hanging takeover</a></h2>
-
-        <p dir="ltr">If a takeover appears hang, first monitor it to find out what is hanging (see "How to monitor takeover" above). If possible, resolve the issue and let the takeover end by itself. As a last resort, you can forcefully end the takeover. This may be necessary because while takeover is hanging, you lose service availability (neither database can serve clients). Use the following procedure to stop takeover:</p>
-
-        <ul dir="ltr">
-        	<li>Try deactivating the old standby. If deactivation fails or hang, kill the database.</li>
-        	<li>Try deactivating the old primary. If deactivation fails or hang, kill the database.</li>
-        	<li>Use the "How to recover from failed takeover" procedure above to recover.</li>
-        </ul>
-
-        <h2 dir="ltr"><a id="Takeover takes a long time to" name="Takeover takes a long time to">Takeover takes a long time to initiate</a></h2>
-
-        <p dir="ltr">When a takeover is initiated, the other side must receive a connection from the takeover for it to proceed. This takeover connection can potentially end up competing with connection requests from client applications. A large number of connection requests coinciding with takeover can cause a delay in takeover being able to proceed. It's recommended to control and limit as much as possible incoming connections prior to initiating takeover.</p>
-
-        <p dir="ltr">There are a few methods to help alleviate the competition of the takeover with other connections:</p>
-
-        <ol dir="ltr">
-        	<li>Use db2trc to suspend the tcp/ip communication manager from establishing new connections. See the technote here: <a href="http://www-01.ibm.com/support/docview.wss?uid=swg21673436">http://www-01.ibm.com/support/docview.wss?uid=swg21673436</a></li>
-        	<li>Configure your clients to wait between connection attempts to reduce the number of incoming connections. The&nbsp;acrRetryInterval variable, set in the db2dsdriver config file, can be used to control client reconnection intervals. See here: <a href="https://www.ibm.com/support/knowledgecenter/en/SSEPGG_11.1.0/com.ibm.db2.luw.apdv.cli.doc/doc/c0056195.html">https://www.ibm.com/support/knowledgecenter/en/SSEPGG_11.1.0/com.ibm.db2.luw.apdv.cli.doc/doc/c0056195.html</a></li>
-        	<li>Upgrade to at least Db2 v11.1.4.4 for the latest improvements in streamlining the latching involved for new incoming connections to determine if a takeover request is in progress and if so, to stop trying to connect.</li>
-        </ol>
-
-        <hr dir="ltr" />
-        <h2 dir="ltr"><a id="Database accessibility during" name="Database accessibility during">Database accessibility during HADR takeover</a></h2>
-
-        <p dir="ltr"><span style="font-size:12px"><span style="font-family:'arial' , 'helvetica' , sans-serif"><span style="font-style:normal"><span style="font-weight:400"><span style="letter-spacing:normal"><span style="text-transform:none"><span style="white-space:normal"><span style="word-spacing:0px"><span style="background-color:#ffffff">Beginning in 11.1.2.2, the database can be configured to allow connectivity during the backward phase of crash recovery or takeover. The backward phase is divided into two parts. The first part is synchronous, for undoing transactions with DDL, catalog changes, column-organized tables, etc. This part still does not allow connections. The second part is&nbsp;asynchronous, for undoing transactions that only touch regular objects. In this part the database can be connectable.&nbsp;</span></span></span></span></span></span></span></span></span></p>
-
-        <p dir="ltr"><span style="font-size:12px"><span style="font-family:'arial' , 'helvetica' , sans-serif"><span style="font-style:normal"><span style="font-weight:400"><span style="letter-spacing:normal"><span style="text-transform:none"><span style="white-space:normal"><span style="word-spacing:0px"><span style="background-color:#ffffff">By setting the registry variable DB2_ONLINERECOVERY=YES before takeover, the takeover command will return at the start of asynchronous backward phase, when the database become connectable. At this moment, the tables, indexes, or objects NOT associated with uncommitted transactions will be fully accessible.</span></span></span></span></span></span></span></span></span></p>
-
-        <p dir="ltr"><span style="font-size:12px"><span style="font-family:'arial' , 'helvetica' , sans-serif"><span style="font-style:normal"><span style="font-weight:400"><span style="letter-spacing:normal"><span style="text-transform:none"><span style="white-space:normal"><span style="word-spacing:0px"><span style="background-color:#ffffff">Another registry variable DB2_ONLINERECOVERY_WITH_UR_ACCESS will control if the tables, indexes, or objects associated with these uncommitted transactions are accessible using UR isolation level. As these uncommitted transactions are compensated, the locks on the associated objects will be released and they will become fully accessible.</span></span></span></span></span></span></span></span></span></p>
-
-        <p dir="ltr">For details on this new feature, please see this&nbsp;Knowledge Center<a href="https://www.ibm.com/support/knowledgecenter/SSEPGG_11.1.0/com.ibm.db2.luw.admin.ha.doc/doc/c0070281.html">&nbsp;</a>article:&nbsp;<a href="https://www.ibm.com/support/knowledgecenter/SSEPGG_11.1.0/com.ibm.db2.luw.admin.ha.doc/doc/c0070281.html">https://www.ibm.com/support/knowledgecenter/SSEPGG_11.1.0/com.ibm.db2.luw.admin.ha.doc/doc/c0070281.html</a></p>
-
-        <p dir="ltr">&nbsp;</p>
-
-        <hr dir="ltr" />
-        <p dir="ltr">&nbsp;</p>
-      </div>
+     <p dir="ltr">
+      Run "start HADR ... as standby" command on the old primary to convert it to a new standby.
+     </p>
+     <p dir="ltr">
+      The command will change the database role to standby, start the database in standby role, then return. When the command returns success, it does NOT mean that primary reintegration has succeeded. The new standby has yet to connect to the new primary to check if its log stream is compatible to the new primary's. The "start HADR ... as standby" command does not wait for the check because it can take a long time. For example, the new standby may not even be able to connect to the primary for an extended time. User should continue to monitor the new standby until it connects to the primary and enters remote catchup or peer state. If reintegration fails (two databases have diverging log streams), the new standby will shut itself down. Check db2diag.log file for details.
+     </p>
+     <p dir="ltr">
+     </p>
+     <h2 dir="ltr">
+      <a name="What_happens_during_a_takeover">
+       What happens during a takeover
+      </a>
+     </h2>
+     <h3 dir="ltr">
+      <a name="Non_forced_takeover">
+       Non forced takeover
+      </a>
+     </h3>
+     <p dir="ltr">
+      The following steps are performed during a non forced takeover:
+     </p>
+     <ul dir="ltr">
+      <li>
+       Primary forces all applications off. Open transactions are rolled back.
+      </li>
+      <li>
+       Ship all logs generated on the primary to standby, including log data generated by rolling back open transactions.
+      </li>
+      <li>
+       Primary turns into standby role.
+      </li>
+      <li>
+       Standby forces all applications off if reads on standby is enabled,
+      </li>
+      <li>
+       Standby completes replay of all received logs. There will be no open transactions at end of replay because open transactions have been rolled back when replaying roll back records from the primary.
+      </li>
+      <li>
+       Standby turns into primary role, after completing log replay and receiving notification from primary that the old primary has turned into a standby (this rule avoids split brain (two primaries) in all cases, but may result in two standbys in error cases).
+      </li>
+     </ul>
+     <p dir="ltr">
+      To minimize takeover time, forcing applications on primary, forcing applications on standby, log shipping, and log replay are all performed in parallel.
+     </p>
+     <h3 dir="ltr">
+      <a name="Forced_takeover">
+       Forced takeover
+      </a>
+     </h3>
+     <p dir="ltr">
+      The following steps are performed during a forced takeover:
+     </p>
+     <ul dir="ltr">
+      <li>
+       If primary and standby are connected, standby sends a message to primary to stop its log writing immediately. Open transactions are
+       <strong>
+        not
+       </strong>
+       rolled back on the primary, because roll back needs to write log records. To minimize data loss, standby gives the old primary a few seconds to ship over logs already written. To avoid blocking failover, log shipping is stopped after a few seconds even if end of log is not reached. If primary and standby are not connected, nothing is done to the old primary. User is responsible for taking old primary offline.
+      </li>
+      <li>
+       Standby forces all applications off if reads on standby is enabled,
+      </li>
+      <li>
+       Standby completes replay of all received logs.
+      </li>
+      <li>
+       Standby rolls back all open transactions at end of replay (similar to "roll forward stop").
+      </li>
+      <li>
+       Standby turns into primary role, after rolling back open transactions.
+      </li>
+     </ul>
+     <p dir="ltr">
+      To minimize takeover time, forcing apps on standby, log shipping, and log replay are all performed in parallel.
+     </p>
+     <p dir="ltr">
+      <strong>
+       To avoid split brain, it is best practice to take the old primary offline before failover and keep it offline after failover.
+      </strong>
+      Standby stopping log writing on old primary is only best effort and it does not prevent read only access.
+     </p>
+     <hr dir="ltr"/>
+     <h2 dir="ltr">
+      <a name="What_affects_takeover_speed">
+       What affects takeover speed
+      </a>
+     </h2>
+     <p dir="ltr">
+      The main factors affecting takeover time are:
+     </p>
+     <h3 dir="ltr">
+      <a name="Non_forced_takeover2">
+       Non forced takeover
+      </a>
+     </h3>
+     <ul dir="ltr">
+      <li>
+       Size and number of open transactions on the primary when takeover is issued. This determines how long it will take the primary to roll back these transactions. Large transactions or large number of transactions will slow down takeover.
+      </li>
+      <li>
+       How soon log shipping completes. Standby must receive all log data generated by the primary. Primary can generate rollback log records after takeover has started. For superAsync mode, there can be a big primary-standby log gap at beginning of takeover because takeover is allowed in remote catchup state. For other sync modes, non forced takeover is allowed only in peer state, where log gap is small (about one flush, typically a few pages).
+      </li>
+      <li>
+       How soon standby can finish replay of all received logs. Log buffering and spooling can result in a large receive-replay log gap at start of takeover. This backlog needs to be replayed before takeover finishes. Logs generated after takeover starts (roll back log records) need to be replayed too.
+      </li>
+     </ul>
+     <p dir="ltr">
+      In superAsync mode, it is recommended to issue non forced takeover only when primary-standby log gap is relatively small. Throttle or stop primary workload before takeover if needed.
+     </p>
+     <p dir="ltr">
+      It is best practice to check the followings before issuing a non forced takeover:
+     </p>
+     <ul dir="ltr">
+      <li>
+       HADR state (peer state is required unless sync mode is superAsync).
+      </li>
+      <li>
+       Number and type of applications connected to the primary.
+      </li>
+      <li>
+       Primary-standby log gap.
+      </li>
+      <li>
+       Standby receive-replay log gap.
+      </li>
+     </ul>
+     <h3 dir="ltr">
+      <a name="Forced_takeover2">
+       Forced takeover
+      </a>
+     </h3>
+     <ul dir="ltr">
+      <li>
+       Size and number of open transactions when replay reaches end of logs received from the primary. Standby will need to roll back these transactions. Large transactions or large number of transactions will slow down takeover. User can estimate end of replay open transaction status before issuing takeover by understanding general primary workload property, and looking at transaction status on the standby during replay via the "db2pd -transaction" command.
+      </li>
+      <li>
+       Log shipping in forced takeover is limited to a few seconds if old primary is still connected. If it is not connected, then log shipping ends immediately. So generally we expect only a small amount of of additional logs or no additional logs to arrive from the primary after takeover starts.
+      </li>
+      <li>
+       How soon standby can finish replay of all logs received from the primary. Log buffering and spooling can result in a large receive-replay log gap at start of takeover. This backlog needs to be replayed before takeover finishes.
+      </li>
+     </ul>
+     <p dir="ltr">
+      It is best practice to check the followings before issuing a forced takeover:
+     </p>
+     <ul dir="ltr">
+      <li>
+       HADR state (forced takeover is not allowed in local catchup and remote catchup states).
+      </li>
+      <li>
+       Number and type of applications in primary workload.
+      </li>
+      <li>
+       Primary-standby log gap. Data in the gap will likely be lost in a failover.
+      </li>
+      <li>
+       Standby receive-replay log gap.
+      </li>
+     </ul>
+     <hr dir="ltr"/>
+     <h2 dir="ltr">
+      <a name="How_to_monitor_takeover">
+       How to monitor takeover
+      </a>
+     </h2>
+     <p dir="ltr">
+      <strong>
+       Use the "db2pd -hadr -db &lt;dbname&gt;" to monitor overral progress of takeover.
+      </strong>
+      During a takeover, there may be a time window when clients cannot connect to either primary or standby, so SQL based methods such as table function won't work.
+     </p>
+     <ul dir="ltr">
+      <li>
+       Monitor TAKEOVER_APP_REMAINING_PRIMARY and TAKEOVER_APP_REMAINING_STANDBY fields for the progress of forcing applications off the primary and standby. This is especially useful when there are a large number of clients or long transactions. Note that "db2pd -hadr" shows these fields only when takeover is in progress.
+      </li>
+      <li>
+       Monitor PRIMARY_LOG_POS, STANDBY_LOG_POS, and HADR_LOG_GAP fields for progress of log shipping. While rolling back a large transaction, remaining application status may not change for some time, but log position should move as more undo records are generated.
+      </li>
+      <li>
+       Monitor STANDBY_LOG_POS, STANDBY_REPLAY_LOG_POS, and STANDBY_RECV_REPLAY_GAP fields for the progress of replay. Standby must finish replaying all received logs before becoming a primary. The gap can be large when log spooling is enabled. Note that more logs can arrive after takeover starts (STANDBY_LOG_POS can move).
+      </li>
+     </ul>
+     <p dir="ltr">
+      <strong>
+       Use the "db2pd -applications -db &lt;dbname&gt;" command to view details of remaining applications.
+      </strong>
+      Note that this command lists both user applications and DB2 internal connections. For example, the replay agent on standby is also listed. It can be identified as having "Appid" like "*LOCAL.DB2.121029205843" (the 2nd field is the user name for user applications. "DB2" is used for internal apps. The ending number is a time stamp for "2012-10-29 20:58:43", which is the start time of the application in GMT) and "SystemAuthID" as "n/a".
+     </p>
+     <p dir="ltr">
+      <strong>
+       Use the "db2pd -transactions -db &lt;dbname&gt;." command to get additional information on the applications.
+      </strong>
+      Pay attention to the State, Firstlsn, Lastlsn, SpaceReserved, and LogSpace fields. During roll back, State will be "ABORT". Unless a transaction hangs, Lastlsn should be increasing. LogSpace shows how big the transaction is (it is the sum of space already used and SpaceReserved). SpaceReserved shows estimation of log data yet to be written for this transaction.
+     </p>
+     <p dir="ltr">
+      <strong>
+       Use the "db2pd -recovery -db &lt;dbname&gt;" command to get details of the current status of recovery, which is part of the takeover process.
+      </strong>
+      The output shows the LSN and LSO values that are being replayed/compensated currently. There is also the “progress” section at the bottom showing the progress of the recovery, including the description, starting time, and total work done for each phase. If these values change over time, then the recovery process must be progressing, and takeover has not hanged.
+     </p>
+     <p dir="ltr">
+      For more info on db2pd, see
+      <a href="https://www.ibm.com/docs/en/db2/9.7?topic=commands-db2pd-monitor-troubleshoot-db2-engine-activities">
+       DB2 V9.7 Info Center
+      </a>
+      , and
+      <a href="https://www.ibm.com/docs/en/db2/10.1.0?topic=commands-db2pd-monitor-troubleshoot-db2-engine-activities">
+       DB2 V10.1 Info Center
+      </a>
+      .
+      <br/>
+     </p>
+     <hr dir="ltr"/>
+     <h2 dir="ltr">
+      <a name="How_to_recover_from_failed_takeover">
+       How to recover from failed takeover
+      </a>
+     </h2>
+     <p dir="ltr">
+      For non forced takeover, first examine the role of both databases after takeover failure. You may end up with two standby databases, but you will never end up with two primary databases. If a database is offline, use "HADR database role" field from "db2 get db cfg for &lt;dbname&gt;" command to determine the role. Do not attempt to restart a database before examining its role and working out a recovery plan.
+     </p>
+     <ul dir="ltr">
+      <li>
+       If neither database has changed its role, you may retry takeover after correcting the root cause.
+      </li>
+      <li>
+       If old primary has changed into standby role, but old standby has not changed into primary role, you have two standbys. You may choose either one to issue a forced takeover to change it into a primary. The two standby databases have identical log streams at this point. So either one can become a primary while keeping the other one compatible to it. To decide which one will become the new primary, consider the following:
+       <ul>
+        <li>
+         Which database's location works better as primary for your business?
+        </li>
+        <li>
+         How long will the forced takeover take? You may start the two databases as usual in their standby role, then examine their replay positions. In DB2 V10.1 and later, see STANDBY_REPLAY_LOG_POS field. In earlier releases, see STANDBY_LOG_POS field. You may want to choose the one with a higher replay position (less log to replay before becoming a primary). Generally, the old primary is likely to have a higher replay position.
+        </li>
+       </ul>
+      </li>
+      <li>
+       If both databases have changed into their new roles, simply restart any crashed databases and the pair should connect and function.
+      </li>
+     </ul>
+     <p dir="ltr">
+      For forced takeover, examine the role of the old standby after the failure (role of old primary is never changed). Assuming you still want to use the old standby as the new primary (chances are that this is a failover and old primary is not available):
+     </p>
+     <ul dir="ltr">
+      <li>
+       If the old standby has not changed its role, you may retry takeover after correcting the root cause.
+      </li>
+      <li>
+       If the old standby has changed its role, restart it and it should function as the new primary.
+      </li>
+     </ul>
+     <h2 dir="ltr">
+      <a name="How_to_deal_with_hanging_takeover">
+       How to deal with hanging takeover
+      </a>
+     </h2>
+     <p dir="ltr">
+      If a takeover appears hang, first monitor it to find out what is hanging (see "How to monitor takeover" above). If possible, resolve the issue and let the takeover end by itself. As a last resort, you can forcefully end the takeover. This may be necessary because while takeover is hanging, you lose service availability (neither database can serve clients). Use the following procedure to stop takeover:
+     </p>
+     <ul dir="ltr">
+      <li>
+       Try deactivating the old standby. If deactivation fails or hang, kill the database.
+      </li>
+      <li>
+       Try deactivating the old primary. If deactivation fails or hang, kill the database.
+      </li>
+      <li>
+       Use the "How to recover from failed takeover" procedure above to recover.
+      </li>
+     </ul>
+     <h2 dir="ltr">
+      <a id="Takeover takes a long time to" name="Takeover takes a long time to">
+       Takeover takes a long time to initiate
+      </a>
+     </h2>
+     <p dir="ltr">
+      When a takeover is initiated, the other side must receive a connection from the takeover for it to proceed. This takeover connection can potentially end up competing with connection requests from client applications. A large number of connection requests coinciding with takeover can cause a delay in takeover being able to proceed. It's recommended to control and limit as much as possible incoming connections prior to initiating takeover.
+     </p>
+     <p dir="ltr">
+      There are a few methods to help alleviate the competition of the takeover with other connections:
+     </p>
+     <ol dir="ltr">
+      <li>
+       Use db2trc to suspend the tcp/ip communication manager from establishing new connections. See the technote here:
+       <a href="http://www-01.ibm.com/support/docview.wss?uid=swg21673436">
+        Preventing application database connections from automatically activating a database after db2start.
+       </a>
+      </li>
+      <li>
+       Configure your clients to wait between connection attempts to reduce the number of incoming connections. The acrRetryInterval variable, set in the db2dsdriver config file, can be used to control client reconnection intervals. See here:
+       <a href="https://www.ibm.com/docs/en/db2/11.5?topic=njcshacd-configuration-db2-automatic-client-reroute-support-applications-other-than-java">
+        Configuration of Db2 automatic client reroute support for applications other than Java
+       </a>
+      </li>
+      <li>
+       Upgrade to at least Db2 v11.1.4.4 for the latest improvements in streamlining the latching involved for new incoming connections to determine if a takeover request is in progress and if so, to stop trying to connect.
+      </li>
+     </ol>
+     <hr dir="ltr"/>
+     <h2 dir="ltr">
+      <a id="Database accessibility during" name="Database accessibility during">
+       Database accessibility during HADR takeover
+      </a>
+     </h2>
+     <p dir="ltr">
+      <span style="font-size:12px">
+       <span style="font-family:'arial' , 'helvetica' , sans-serif">
+        <span style="font-style:normal">
+         <span style="font-weight:400">
+          <span style="letter-spacing:normal">
+           <span style="text-transform:none">
+            <span style="white-space:normal">
+             <span style="word-spacing:0px">
+              <span style="background-color:#ffffff">
+               Beginning in 11.1.2.2, the database can be configured to allow connectivity during the backward phase of crash recovery or takeover. The backward phase is divided into two parts. The first part is synchronous, for undoing transactions with DDL, catalog changes, column-organized tables, etc. This part still does not allow connections. The second part is asynchronous, for undoing transactions that only touch regular objects. In this part the database can be connectable.
+              </span>
+             </span>
+            </span>
+           </span>
+          </span>
+         </span>
+        </span>
+       </span>
+      </span>
+     </p>
+     <p dir="ltr">
+      <span style="font-size:12px">
+       <span style="font-family:'arial' , 'helvetica' , sans-serif">
+        <span style="font-style:normal">
+         <span style="font-weight:400">
+          <span style="letter-spacing:normal">
+           <span style="text-transform:none">
+            <span style="white-space:normal">
+             <span style="word-spacing:0px">
+              <span style="background-color:#ffffff">
+               By setting the registry variable DB2_ONLINERECOVERY=YES before takeover, the takeover command will return at the start of asynchronous backward phase, when the database become connectable. At this moment, the tables, indexes, or objects NOT associated with uncommitted transactions will be fully accessible.
+              </span>
+             </span>
+            </span>
+           </span>
+          </span>
+         </span>
+        </span>
+       </span>
+      </span>
+     </p>
+     <p dir="ltr">
+      <span style="font-size:12px">
+       <span style="font-family:'arial' , 'helvetica' , sans-serif">
+        <span style="font-style:normal">
+         <span style="font-weight:400">
+          <span style="letter-spacing:normal">
+           <span style="text-transform:none">
+            <span style="white-space:normal">
+             <span style="word-spacing:0px">
+              <span style="background-color:#ffffff">
+               Another registry variable DB2_ONLINERECOVERY_WITH_UR_ACCESS will control if the tables, indexes, or objects associated with these uncommitted transactions are accessible using UR isolation level. As these uncommitted transactions are compensated, the locks on the associated objects will be released and they will become fully accessible.
+              </span>
+             </span>
+            </span>
+           </span>
+          </span>
+         </span>
+        </span>
+       </span>
+      </span>
+     </p>
+     <p dir="ltr">
+      For details on this new feature, please see 
+      <a href="https://www.ibm.com/docs/en/db2/11.5?topic=cr-database-accessibility-during-backward-phase-crash-recovery-hadr-takeover">
+        this Knowledge Center article
+      </a>
+      .
+     </p>
+     <p dir="ltr">
+     </p>
+     <hr dir="ltr"/>
+     <p dir="ltr">
+     </p>
     </div>
-    <!-- /#page-content-wrapper -->
-
+   </div>
+   <!-- /#page-content-wrapper -->
   </div>
   <!-- /#wrapper -->
-
   <!-- Bootstrap core JavaScript -->
-  <script src="vendor/jquery/jquery.min.js"></script>
-  <script src="vendor/bootstrap/js/bootstrap.bundle.min.js"></script>
-
+  <script src="vendor/jquery/jquery.min.js">
+  </script>
+  <script src="vendor/bootstrap/js/bootstrap.bundle.min.js">
+  </script>
   <!-- Menu Toggle Script -->
   <script>
-    $("#menu-toggle").click(function(e) {
+   $("#menu-toggle").click(function(e) {
       e.preventDefault();
       $("#wrapper").toggleClass("toggled");
     });
   </script>
-
-</body>
-
+ </body>
 </html>

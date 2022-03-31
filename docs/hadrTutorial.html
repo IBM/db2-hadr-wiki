@@ -1,356 +1,787 @@
 <!DOCTYPE html>
 <html lang="en">
-
-<head>
-
-  <meta charset="utf-8">
-  <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
-  <meta name="description" content="">
-  <meta name="author" content="">
-
-  <title>Db2 HADR Wiki</title>
-
+ <head>
+  <meta charset="utf-8"/>
+  <meta content="width=device-width, initial-scale=1, shrink-to-fit=no" name="viewport"/>
+  <meta content="" name="description"/>
+  <meta content="" name="author"/>
+  <title>
+   Db2 HADR Wiki
+  </title>
   <!-- Bootstrap core CSS -->
-  <link href="vendor/bootstrap/css/bootstrap.min.css" rel="stylesheet">
-
+  <link href="vendor/bootstrap/css/bootstrap.min.css" rel="stylesheet"/>
   <!-- Custom styles for this template -->
-  <link href="css/simple-sidebar.css" rel="stylesheet">
-
-</head>
-
-<body>
-
+  <link href="css/simple-sidebar.css" rel="stylesheet"/>
+ </head>
+ <body>
   <div class="d-flex" id="wrapper">
-
-    <!-- Sidebar -->
-    <div class="bg-light border-right" id="sidebar-wrapper">
-      <div class="sidebar-heading">Menu</div>
-      <div class="list-group list-group-flush">
-        <a href="hadrBenefits.html" class="list-group-item list-group-item-action bg-light">HADR Benefits</a>
-        <a href="featureHistory.html" class="list-group-item list-group-item-action bg-light">Feature History</a>
-        <a href="hadrTutorial.html" class="list-group-item list-group-item-action bg-light"><strong>> HADR Tutorial</strong></a>
-        <a href="tcpTuning.html" class="list-group-item list-group-item-action bg-light">TCP Tuning</a>
-        <a href="perfTuning.html" class="list-group-item list-group-item-action bg-light">Perf Tuning</a>
-        <a href="hadrSimulator.html" class="list-group-item list-group-item-action bg-light">HADR Simulator</a>
-        <a href="simulatorOptions.html" class="list-group-item list-group-item-action bg-light">HADR Simulator Options</a>
-        <a href="simulatorOutput.html" class="list-group-item list-group-item-action bg-light">HADR Simulator Output</a>
-        <a href="simulatorParams.html" class="list-group-item list-group-item-action bg-light">HADR Simulator Params</a>
-        <a href="db2logscan.html" class="list-group-item list-group-item-action bg-light">db2logscan</a>
-        <a href="hadrConfig.html" class="list-group-item list-group-item-action bg-light">HADR Config</a>
-        <a href="hadrSyncMode.html" class="list-group-item list-group-item-action bg-light">HADR Sync Mode</a>
-        <a href="hadrTakeover.html" class="list-group-item list-group-item-action bg-light">HADR Takeover</a>
-        <a href="hadrMonitoring.html" class="list-group-item list-group-item-action bg-light">HADR Monitoring</a>
-        <a href="hadrCommands.html" class="list-group-item list-group-item-action bg-light">HADR Commands</a>
-        <a href="hadrLogShipping.html" class="list-group-item list-group-item-action bg-light">HADR Log Shipping</a>
-        <a href="hadrPerf.html" class="list-group-item list-group-item-action bg-light">HADR Perf</a>
-        <a href="diagConnect.html" class="list-group-item list-group-item-action bg-light">Diag Connect</a>
-        <a href="db2diag.html" class="list-group-item list-group-item-action bg-light">db2diag.log</a>
-        <a href="clusterManagers.html" class="list-group-item list-group-item-action bg-light">Cluster Managers</a>
-        <a href="clientReroute.html" class="list-group-item list-group-item-action bg-light">Client Reroute</a>
-        <a href="hadrPureScale.html" class="list-group-item list-group-item-action bg-light">HADR on PureScale</a>
-        <a href="faq.html" class="list-group-item list-group-item-action bg-light">FAQ</a>
-        <a href="db2fmtlog.html" class="list-group-item list-group-item-action bg-light">db2fmtlog replayonlywindow</a>
-      </div>
+   <!-- Sidebar -->
+   <div class="bg-light border-right" id="sidebar-wrapper">
+    <div class="sidebar-heading">
+     Menu
     </div>
-    <!-- /#sidebar-wrapper -->
-
-    <!-- Page Content -->
-    <div id="page-content-wrapper">
-
-      <nav class="navbar navbar-expand-lg navbar-light bg-light border-bottom">
-        <button class="btn btn-primary" id="menu-toggle">Toggle Menu</button>
-
-        <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarSupportedContent" aria-controls="navbarSupportedContent" aria-expanded="false" aria-label="Toggle navigation">
-          <span class="navbar-toggler-icon"></span>
-        </button>
-
-        <div class="collapse navbar-collapse" id="navbarSupportedContent">
-          <ul class="navbar-nav ml-auto mt-2 mt-lg-0">
-            <li class="nav-item">
-              <a class="nav-link" href="index.html">Home</a>
-            </li>
-            <li class="nav-item">
-              <a class="nav-link" href="contact.html">Contact</a>
-            </li>
-            <li class="nav-item">
-              <a class="nav-link" href="contribute.html">Contribute</a>
-            </li>
-          </ul>
-        </div>
-      </nav>
-
-      <div class="container-fluid">
-        <p dir="ltr" style="text-align:center"><span style="font-size:24px">DB2 HADR Tutorial</span></p>
-
-        <p dir="ltr"><strong>Table of Contents</strong></p>
-
-        <ul dir="ltr">
-        	<li><a href="#Introduction">Introduction</a>
-
-        	<ul>
-        		<li><a href="#What_is_HADR_">What is HADR?</a></li>
-        		<li><a href="#How_does_HADR_work_">How does HADR work?</a></li>
-        		<li><a href="#What_s_replicated__what_s_not_">What's replicated, what's not?</a></li>
-        		<li><a href="#System_Requirements_and_Recommendations">System Requirements and Recommendations</a></li>
-        	</ul>
-        	</li>
-        	<li><a href="#Planning_HADR">Planning HADR</a>
-        	<ul>
-        		<li><a href="#Number_of_standbys">Number of standbys</a></li>
-        		<li><a href="#pureScale_Considerations">pureScale Considerations</a></li>
-        		<li><a href="#HADR_Synchronization_Mode_and_Network_Speed">HADR Synchronization Mode and Network Speed</a></li>
-        		<li><a href="#Network_Encryption_and_Compression">Network Encryption and Compression</a></li>
-        		<li><a href="#Primary_Standby_Hardware_Recommendations">Primary/Standby Hardware Recommendations</a></li>
-        		<li><a href="#Log_Archive_Considerations">Log Archive Considerations</a></li>
-        	</ul>
-        	</li>
-        	<li><a href="#Deploying_HADR">Deploying HADR</a>
-        	<ul>
-        		<li><a href="#Initializing_HADR">Initializing HADR</a></li>
-        		<li><a href="#Monitoring_HADR">Monitoring HADR</a></li>
-        		<li><a href="#Role_switch_and_Failover">Role switch and Failover</a></li>
-        		<li><a href="#Performance_Tuning">Performance Tuning</a></li>
-        		<li><a href="#Automation">Automation</a></li>
-        		<li><a href="#Reads_on_Standby">Reads&nbsp;on&nbsp;Standby</a></li>
-        		<li><a href="#Rolling_Update">Rolling&nbsp;Update</a></li>
-        	</ul>
-        	</li>
-        </ul>
-
-        <p dir="ltr"><strong>&nbsp;&nbsp;</strong></p>
-
-        <h1 dir="ltr"><a name="Introduction">Introduction</a></h1>
-
-        <h2 dir="ltr"><a name="What_is_HADR_">What is HADR?</a></h2>
-
-        <p dir="ltr">HADR (High Availability Disaster Recovery) is a DB2 LUW feature for high availability and disaster recovery. It is the preferred solution for HA and DR on DB2. It replicates data in real time from a primary database to one or more standby databases. In case the primary database fails, a standby database takes over as the new primary. For all benefits of HADR, see <a href="hadrBenefits.html">HADR benefits</a></p>
-
-        <h2 dir="ltr"><a name="How_does_HADR_work_">How does HADR work?</a></h2>
-
-        <p dir="ltr">HADR is based on log replay. You initialize the standby with a backup or split mirror image of the primary. You then configure and start HADR on the primary and standby databases. The primary ships its transaction log data to the standby via a TCP connection. The standby continuously replays the log records to keep itself in sync with the primary.<br />
-        <br />
-        Initially, the standby's log position is at the time when the backup was taken. The standby starts in a catchup state that ships logs from this position to the current position of the primary. Eventually, the standby catches up to the current position and enters a "peer" state. HADR automatically handles state transition, including chasing the "moving target" of primary position. All you need to do is to issue the "start HADR" command on primary and standby.<br />
-        <br />
-        If the primary fails, you issue a "takeover HADR by force" command on the standby to make the standby the new primary. A single command does it all. For planned maintenance, you issue a "takeover HADR" (without "by force" option) command to switch primary and standby's roles. HADR management is so simple. There are only 3 commands: Start HADR, stop HADR, and takeover HADR.</p>
-
-        <h2 dir="ltr"><a name="What_s_replicated__what_s_not_">What's replicated, what's not?</a></h2>
-
-        <p dir="ltr">Logged operations are replicated. These include, but are not limited to:</p>
-
-        <ul dir="ltr">
-        	<li>DDL</li>
-        	<li>DML</li>
-        	<li>Create/alter table space</li>
-        	<li>Create/alter storage group</li>
-        	<li>Create/alter buffer pool</li>
-        	<li>XML data.</li>
-        	<li>Logged LOBs</li>
-        </ul>
-
-        <p dir="ltr">Not logged operations are not replicated. These include, but are not limited to:</p>
-
-        <ul dir="ltr">
-        	<li>Database configuration parameters (this allows primary and standby databases to be configured differently).</li>
-        	<li>"Not logged initially" tables</li>
-        	<li>Not logged LOBs</li>
-        	<li>UDF (User Defined Function) libraries. UDF DDL is replicated. But the libraries used by UDF (such as C or Java libraries)&nbsp; are not replicated, because they are not stored in the database. Users must manually copy the libraries to the standby.</li>
-        </ul>
-
-        <p dir="ltr">Note: You can use database configuration parameter <a href="hadrConfig.html#BLOCKNONLOGGED___Block_Non_Logged_operations">BLOCKNONLOGGED</a> to block not logged operations on the primary.</p>
-
-        <h2 dir="ltr"><a name="System_Requirements_and_Recommendations">System Requirements and Recommendations</a></h2>
-
-        <p dir="ltr">Standby is maintained as a mirror image of the primary. Many aspects of the primary and standby databases need to be the same.</p>
-
-        <ul dir="ltr">
-        	<li>Primary and standby must have the <strong>same DB2 major version</strong>. For example, both on V10.1.
-
-        	<ul>
-        		<li>Standby database fix pack level must be same or higher than that of the primary (otherwise, primary could generate log records the standby cannot replay).</li>
-        		<li>Same fix pack level is recommended on primary and standby, to minimize compatibility risk. Different primary and standby fix pack levels usually only occur during rolling update</a></li>
-        	</ul>
-        	</li>
-        	<li>Primary and standby must have the<strong> same platform</strong>.
-        	<ul>
-        		<li>"Platform" here is defined as the combination of OS type (software) and machine architecture (hardware). For example, the followings are considered distinct platforms: Windows-x86, AIX-power, HP-IA, Solaris-Sparc, Solaris-x86, Linux-PPC, Linux-Z, Linux-390, Linux-x86,</li>
-        		<li>Primary and standby must have the same endian (both big endian, or both small endian). This requirement is usually satisfied by the platform requirement already.</li>
-        	</ul>
-        	</li>
-        	<li>Same OS version (major and minor) is recommended on primary and standby. Different versions usually only occur during <a href="http://publib.boulder.ibm.com/infocenter/db2luw/v10r1/topic/com.ibm.db2.luw.admin.ha.doc/doc/t0011766.html">rolling&nbsp;update</a>. DB2 does not enforce any check on OS version. But you should keep the different-version window as short as possible, to minimize compatibility risk.</li>
-        	<li>The DB2 software on primary and standby must have the same bit size (both 64 bit, or both 32 bit).</li>
-        	<li>Same bit size on the host platform is recommended, to minimize compatibility risk.
-        	<ul>
-        		<li>Host platform bit size could be different. For example, DB2 is 32 bit on both machines. Primary host is 64 bit, which can run both 64 bit and 32 bit applications. Standby host is 32 bit.</li>
-        	</ul>
-        	</li>
-        	<li>Primary and standby must have the same paths for tablespace containers, to support tablespace replication.
-        	<ul>
-        		<li>The standby devices should have same or larger capacity.</li>
-        		<li>Redirected restore is not supported when creating the standby. However, database directory (for database metadata files) and transaction log directory changes are supported during the restore. Table space containers created by relative paths will be restored to paths relative to the new database directory.</li>
-        	</ul>
-        	</li>
-        	<li>Same hardware (CPU, memory, disk, etc.) is recommended on the primary and standby, so that standby has enough power for replay. Sufficient planning and testing should be done when deploying a less powerful standby.</li>
-        	<li>Same amount of memory is recommended on the primary and standby, so that buffer pool replication is less likely to fail.</li>
-        </ul>
-
-        <p dir="ltr">For more info, see <a href="http://pic.dhe.ibm.com/infocenter/db2luw/v10r5/topic/com.ibm.db2.luw.admin.ha.doc/doc/c0011759.html">Info&nbsp;Center</a></p>
-
-        <h1 dir="ltr"><a name="Planning_HADR">Planning HADR</a></h1>
-
-        <h2 dir="ltr"><a name="Number_of_standbys">Number of standbys</a></h2>
-
-        <p dir="ltr">First, how many standbys are needed? A standby can serve HA (High Availability), or DR (Disaster Recovery) purpose. If you want both HA and DR protection, you need 2 standbys, one for each purpose. HADR supports up to 3 standbys (starting V10.1). A third one can be used for a 2nd DR site, or for protection against user error (configured with <a href="http://publib.boulder.ibm.com/infocenter/db2luw/v10r1/topic/com.ibm.db2.luw.admin.ha.doc/doc/c0060000.html">delayed&nbsp;replay</a>). Any standby can have reads on standby enabled to support reporting workload.<br />
-        <br />
-        This tutorial will focus on single standby setup. For specifics of multiple standby setup, see <a href="https://community.ibm.com/community/user/hybriddatamanagement/viewdocument/db2-101hadr-multiple-standbys?CommunityKey=b5b60ace-5eb2-4444-a961-d9edb6f39bd8">HADR multiple standby</a>&nbsp; white paper. It is recommended that you start from this single standby tutorial to get familiar with HADR basics, then go to multiple standby scenarios.<br />
-        <br />
-        If you are using a DB2 version earlier than V10.1, HADR is limited to one standby. The common ways to support both HA and DR are:</p>
-
-        <ul dir="ltr">
-        	<li>Set up the HADR standby locally for HA purpose. Use Q-Rep for a remote DR site.</li>
-        	<li>Set up disk mirroring and/or spare host machine locally for HA. Use HADR for remote DR site.</li>
-        </ul>
-
-        <p dir="ltr"><br />
-        Due to the complexity and reduced HA/DR protection when using single HADR standby with other HA/DR methods, HADR with multiple standby is recommended. This is a good reason to upgrade to V10.1 and later.</p>
-
-        <h2 dir="ltr"><a name="pureScale_Considerations">pureScale Considerations</a></h2>
-
-        <p dir="ltr">If you are using pureScale, there are some limitations of HADR on pureScale.</p>
-
-        <ul dir="ltr">
-        	<li>HADR support on pureScale is starts from DB2 V10.5. If you are on earlier releases, you may use Q-rep for DR solution, or consider upgrade.</li>
-        	<li>Only one standby is supported on pureScale,</li>
-        	<li>Only async and superAsync HADR modes are supported on pureScale.</li>
-        </ul>
-
-        <p dir="ltr">pureScale cluster itself provides excellent HA. HADR on pureScale is mainly intended for DR protection. Single standby and sync mode restrictions generally do not impact DR ability.<br />
-        <br />
-        This tutorial will focus on non pureScale setup. For specifics of pureScale setup, see <a href="hadrPureScale.html">Tutorial for HADR on pureScale</a>. It is recommended that you start from the non pureScale tutorial to get familiar with HADR basics, then go to the pureScale scenario.</p>
-
-        <h2 dir="ltr"><a name="HADR_Synchronization_Mode_and_Network_Speed">HADR Synchronization Mode and Network Speed</a></h2>
-
-        <p dir="ltr">The most important HADR parameter is the HADR synchronization mode. See <a href="hadrSyncMode.html">HADR Sync Modes</a> for description of the various modes and how to choose a mode.<br />
-        <br />
-        An HA standby is usually close to the primary, often in the same building, connected to the primary by LAN. HADR synchronization mode is usually Sync or NearSync. HADR provides quick failover, with little or no data loss. The HA standby guards against common failures like hardware/software failure. You can also schedule planned downtime without service interruption using <a href="http://publib.boulder.ibm.com/infocenter/db2luw/v10r1/topic/com.ibm.db2.luw.admin.ha.doc/doc/t0011766.html">rolling&nbsp;update</a>.<br />
-        <br />
-        An DR standby is usually far from the primary, often in a different city. When a disaster like fire, storm, or earthquake destroys the primary site, you can failover to the standby site. The DR standby is usually connected to the primary via WAN. Network round trip time is often 100ms or more. HADR synchronization mode is usually Async or SuperAsync. While HADR failover is still fast, there can be some data loss during a failover.<br />
-        <br />
-        Network is usually not an issue in HA systems. For example, a gigabit ethernet provides 120MB/sec throughput, with round trip time at 0.1ms. The throughput is more than enough for most database workload. The round trip time is also very small compared to disk write latency, which is often at least a few ms. So ack message travel in sync or nearSync mode does not add much overhead.<br />
-        <br />
-        Network can become the bottleneck in DR systems. For example, if your peak logging rate is 20MB/sec, while the network throughput is 15MB/sec, your logging rate will be capped at 15MB/sec, unless superAsync mode is used. SuperAsync mode allows the primary to get ahead of the standby, exposing higher data loss risk. If this is not acceptable, you have to upgrade your network.<br />
-        <br />
-        A dedicated private network (separate NIC, router, etc.) between primary and standby is recommended, for performance and security reasons. HADR does not encrypt the traffic between primary and standby. Log data is sent as is.<br />
-        <br />
-        While maximizing TCP throughput on network, socket buffer size is an important factor, especially for WAN. A small buffer size can limit the throughput. See <a href="tcpTuning.html">TCP Tuning</a>.<br />
-        <br />
-        To figure out if your network can support the planned sync mode, see <a href="perfTuning.html">step by step TCP and sync mode configuration</a></p>
-
-        <h2 dir="ltr"><a name="Network_Encryption_and_Compression">Network Encryption and Compression</a></h2>
-
-        <p dir="ltr">HADR does not encrypt or compress log data during log shipping. If needed, you can use network layer encryption or compression between primary and standby.<br />
-        <br />
-        You are likely to get lower compression ratio when many tables in your database are already compressed, with either classic row compression or adaptive compression, because row data in log records are also compressed (just another benefit of table compression). With non-compressed tables, the compression ratio is usually between 3 and 5. Of course, it costs time to compress/decompress data. Compression is more likely to be beneficial on WAN.</p>
-
-        <h2 dir="ltr"><a name="Primary_Standby_Hardware_Recommendations">Primary/Standby Hardware Recommendations</a></h2>
-
-        <p dir="ltr">Same hardware (CPU, memory, disk, etc.) is recommended on the primary and standby, so that standby has enough power for replay. Sufficient planning and testing should be done when deploying a less powerful standby.<br />
-        <br />
-        If you plan to use Reads on Standby, additional power on the standby machine may be needed.</p>
-
-        <h2 dir="ltr"><a name="Log_Archive_Considerations">Log Archive Considerations</a></h2>
-
-        <p dir="ltr">You may choose to have shared or independent archive devices on primary and standby. See <a href="hadrConfig.html#LOGARCHMETH1_and_LOGARCHMETH2___Log_Archive_Device">Log&nbsp;Archive&nbsp;Device</a> for details.</p>
-
-        <h1 dir="ltr"><a name="Deploying_HADR">Deploying HADR</a></h1>
-
-        <h2 dir="ltr"><a name="Initializing_HADR">Initializing HADR</a></h2>
-
-        <p dir="ltr">It is recommended that you decide on the HADR configuration parameters as much as you can before initializing HADR, to minimize updating configuration after initialization. Changing config after setup may require db2 instance or database shutdown and restart. All HADR registry variables require db2 instance shutdown and restart to take effect. Prior to DB2 V10.1, HADR database config parameters require database shutdown and restart to take effect. See also <a href="hadrConfig.html#HADR_Database_Configuration_Parameters">HADR&nbsp;Database&nbsp;Configuration&nbsp;Parameters</a></p>
-
-        <p dir="ltr">See <a href="hadrConfig.html">HADR config</a> for description of relevant parameters and the optimal setting.</p>
-
-        <p dir="ltr">DB2 Info Center has detailed info on how to initialize HADR. The basic steps are: create the standby database, configure primary and standby databases, and start HADR on primary and standby.</p>
-
-        <ul dir="ltr">
-        	<li>V9.7:&nbsp; Initializing HADR for <a href="http://publib.boulder.ibm.com/infocenter/db2luw/v9r7/topic/com.ibm.db2.luw.admin.ha.doc/doc/t0011725.html">single standby</a>.</li>
-        	<li>V10.1: Initializing HADR for <a href="http://publib.boulder.ibm.com/infocenter/db2luw/v10r1/topic/com.ibm.db2.luw.admin.ha.doc/doc/t0011725.html">single&nbsp;standby</a>, or <a href="http://pic.dhe.ibm.com/infocenter/db2luw/v10r1/topic/com.ibm.db2.luw.admin.ha.doc/doc/t0059995.html">multiple standby</a>.</li>
-        	<li>V10.5: Initializing HADR for <a href="http://pic.dhe.ibm.com/infocenter/db2luw/v10r5/topic/com.ibm.db2.luw.admin.ha.doc/doc/t0011725.html">single&nbsp;standby,&nbsp;multiple&nbsp;standbys, or pureScale environment.</a></li>
-        </ul>
-
-        <p dir="ltr">Additonal info: <a href="hadrCommands.html">HADR commands</a></p>
-
-        <p dir="ltr">HADR can also be set up and managed using IBM Data Studio or Optim™ Database Administrator. See <a href="https://community.ibm.com/community/user/hybriddatamanagement/viewdocument/prevent-database-outages-with-high?CommunityKey=ea909850-39ea-4ac4-9512-8e2eb37ea09a&tab=librarydocuments">https://community.ibm.com/community/user/hybriddatamanagement/viewdocument/prevent-database-outages-with-high?CommunityKey=ea909850-39ea-4ac4-9512-8e2eb37ea09a&tab=librarydocuments</a>&nbsp; for more info.</p>
-
-        <h2 dir="ltr"><a name="Monitoring_HADR">Monitoring HADR</a></h2>
-
-        <p dir="ltr">Once you have HADR set up, you need to monitor it. See&nbsp;<a href="hadrMonitoring.html">HADR monitoring</a> for details.</p>
-
-        <h2 dir="ltr"><a name="Role_switch_and_Failover">Role switch and Failover</a></h2>
-
-        <p dir="ltr">HADR supports moving primary role from one database to another. For planned role change, primary and standby switch roles. It is a simple one command operation and guaranteed to have no data loss. For unplanned outage, you will need a failover that changes the standby to a primary, but leaves the old primary as primary (it may not even be accessible). Both kinds role change are done by the "takeover HADR" command, with different options. See&nbsp;<a href="hadrTakeover.html">HADR takeover</a>&nbsp; for details.<br />
-        <br />
-        Additonal info: <a href="hadrCommands.html">HADR commands</a></p>
-
-        <h2 dir="ltr"><a name="Performance_Tuning">Performance Tuning</a></h2>
-
-        <p dir="ltr">In case you run into performance problems, like slow database response to SQL clients, you will need to find the cause and fix it. First, you need to check if HADR is the cause. See&nbsp; <a href="hadrMonitoring.html#Impact_to_Primary_database_logging">Impact&nbsp;to&nbsp;primary&nbsp;database&nbsp;logging</a>. If it is an HADR problem, then proceed to diagnostics. For details, see <a href="hadrPerf.html">HADR performance tuning and diagnostics</a>.</p>
-
-        <h2 dir="ltr"><a name="Automation">Automation</a></h2>
-
-        <p dir="ltr">HADR supports automated failover and client reroute to the new primary. See <a href="clusterManagers.html">cluster managers</a> and <a href="clientReroute.html">Client Reroute</a></p>
-
-        <h2 dir="ltr"><a name="Reads_on_Standby">Reads on Standby</a></h2>
-
-        <p dir="ltr">HADR standby database supports read-only queries. This feature is disabled by default. It can be enabled by the DB2_HADR_ROS registry variable. Only the Uncommitted Read isolation level is supported. This feature is best for read-only reporting workload. It offloads the primary. In a multiple standby system, reads on standby can be enabled on any standby. See the followings for more info:</p>
-
-        <ul dir="ltr">
-        	<li>DB2 Info Center &nbsp; <a href="http://publib.boulder.ibm.com/infocenter/db2luw/v10r1/topic/com.ibm.db2.luw.admin.ha.doc/doc/c0054257.html">http://publib.boulder.ibm.com/infocenter/db2luw/v10r1/topic/com.ibm.db2.luw.admin.ha.doc/doc/c0054257.html</a></li>
-        	<li>Reads on Standby tutorial,&nbsp; <a href="https://community.ibm.com/community/user/hybriddatamanagement/viewdocument/get-the-most-from-the-db2-hadr-stan?CommunityKey=b5b60ace-5eb2-4444-a961-d9edb6f39bd8">https://community.ibm.com/community/user/hybriddatamanagement/viewdocument/get-the-most-from-the-db2-hadr-stan?CommunityKey=b5b60ace-5eb2-4444-a961-d9edb6f39bd8</a></li>
-        </ul>
-
-        <h2 dir="ltr"><a name="Rolling_Update">Rolling Update</a></h2>
-
-        <p dir="ltr">For DB2 fixpack update and OS/hardware upgrade, HADR rolling update allows continued availability during the update.</p>
-
-        <p dir="ltr">See the following Info Center topics for more info:</p>
-
-        <ul dir="ltr">
-        	<li>Base case: <a href="http://publib.boulder.ibm.com/infocenter/db2luw/v10r1/topic/com.ibm.db2.luw.admin.ha.doc/doc/t0011766.html">Rolling&nbsp;update&nbsp;in&nbsp;HADR&nbsp;environment</a></li>
-        	<li>When cluster manager (DB2 with TSA) is enabled: <a href="http://publib.boulder.ibm.com/infocenter/db2luw/v10r1/topic/com.ibm.db2.luw.admin.ha.doc/doc/t0056202.html">Rolling&nbsp;update&nbsp;in&nbsp;an&nbsp;automated&nbsp;HADR&nbsp;environment</a></li>
-        	<li>When multiple standbys are defined: <a href="http://publib.boulder.ibm.com/infocenter/db2luw/v10r1/topic/com.ibm.db2.luw.admin.ha.doc/doc/c0060225.html">Rolling&nbsp;update&nbsp;in&nbsp;HADR&nbsp;multiple&nbsp;standby&nbsp;mode</a></li>
-        </ul>
-
-        <p dir="ltr">HADR rolling update does not support upgrade across DB2 major version. For example, from DB2 V10.1 to V10.5. Major version upgrade procedure is as follows:</p>
-
-        <ul dir="ltr">
-        	<li>Backup primary database (in case upgrade fails, you can go back to the old release). This step is recommended, but not required.</li>
-        	<li>Run "stop HADR" command on the primary database</li>
-        	<li>Upgrade the primary instance and database as usual</li>
-        	<li>Take a full backup (or split mirror image) of the primary database on the new release.</li>
-        	<li>Concurrently, drop standby database and upgrade the standby instance</li>
-        	<li>Reinitialize the standby database using primary's backup or split mirror image from the new release</li>
-        </ul>
-
-        <p dir="ltr">The main reason that HADR rolling update cannot cross major version boundary is that DB2 transaction logs from the new release may not be compatible with the old release, yet HADR requires log compatibility on primary and standby.</p>
-      </div>
+    <div class="list-group list-group-flush">
+     <a class="list-group-item list-group-item-action bg-light" href="hadrBenefits.html">
+      HADR Benefits
+     </a>
+     <a class="list-group-item list-group-item-action bg-light" href="featureHistory.html">
+      Feature History
+     </a>
+     <a class="list-group-item list-group-item-action bg-light" href="hadrTutorial.html">
+      <strong>
+       &gt; HADR Tutorial
+      </strong>
+     </a>
+     <a class="list-group-item list-group-item-action bg-light" href="tcpTuning.html">
+      TCP Tuning
+     </a>
+     <a class="list-group-item list-group-item-action bg-light" href="perfTuning.html">
+      Perf Tuning
+     </a>
+     <a class="list-group-item list-group-item-action bg-light" href="hadrSimulator.html">
+      HADR Simulator
+     </a>
+     <a class="list-group-item list-group-item-action bg-light" href="simulatorOptions.html">
+      HADR Simulator Options
+     </a>
+     <a class="list-group-item list-group-item-action bg-light" href="simulatorOutput.html">
+      HADR Simulator Output
+     </a>
+     <a class="list-group-item list-group-item-action bg-light" href="simulatorParams.html">
+      HADR Simulator Params
+     </a>
+     <a class="list-group-item list-group-item-action bg-light" href="db2logscan.html">
+      db2logscan
+     </a>
+     <a class="list-group-item list-group-item-action bg-light" href="hadrConfig.html">
+      HADR Config
+     </a>
+     <a class="list-group-item list-group-item-action bg-light" href="hadrSyncMode.html">
+      HADR Sync Mode
+     </a>
+     <a class="list-group-item list-group-item-action bg-light" href="hadrTakeover.html">
+      HADR Takeover
+     </a>
+     <a class="list-group-item list-group-item-action bg-light" href="hadrMonitoring.html">
+      HADR Monitoring
+     </a>
+     <a class="list-group-item list-group-item-action bg-light" href="hadrCommands.html">
+      HADR Commands
+     </a>
+     <a class="list-group-item list-group-item-action bg-light" href="hadrLogShipping.html">
+      HADR Log Shipping
+     </a>
+     <a class="list-group-item list-group-item-action bg-light" href="hadrPerf.html">
+      HADR Perf
+     </a>
+     <a class="list-group-item list-group-item-action bg-light" href="diagConnect.html">
+      Diag Connect
+     </a>
+     <a class="list-group-item list-group-item-action bg-light" href="db2diag.html">
+      db2diag.log
+     </a>
+     <a class="list-group-item list-group-item-action bg-light" href="clusterManagers.html">
+      Cluster Managers
+     </a>
+     <a class="list-group-item list-group-item-action bg-light" href="clientReroute.html">
+      Client Reroute
+     </a>
+     <a class="list-group-item list-group-item-action bg-light" href="hadrPureScale.html">
+      HADR on PureScale
+     </a>
+     <a class="list-group-item list-group-item-action bg-light" href="faq.html">
+      FAQ
+     </a>
+     <a class="list-group-item list-group-item-action bg-light" href="db2fmtlog.html">
+      db2fmtlog replayonlywindow
+     </a>
     </div>
-    <!-- /#page-content-wrapper -->
-
+   </div>
+   <!-- /#sidebar-wrapper -->
+   <!-- Page Content -->
+   <div id="page-content-wrapper">
+    <nav class="navbar navbar-expand-lg navbar-light bg-light border-bottom">
+     <button class="btn btn-primary" id="menu-toggle">
+      Toggle Menu
+     </button>
+     <button aria-controls="navbarSupportedContent" aria-expanded="false" aria-label="Toggle navigation" class="navbar-toggler" data-target="#navbarSupportedContent" data-toggle="collapse" type="button">
+      <span class="navbar-toggler-icon">
+      </span>
+     </button>
+     <div class="collapse navbar-collapse" id="navbarSupportedContent">
+      <ul class="navbar-nav ml-auto mt-2 mt-lg-0">
+       <li class="nav-item">
+        <a class="nav-link" href="index.html">
+         Home
+        </a>
+       </li>
+       <li class="nav-item">
+        <a class="nav-link" href="contact.html">
+         Contact
+        </a>
+       </li>
+       <li class="nav-item">
+        <a class="nav-link" href="contribute.html">
+         Contribute
+        </a>
+       </li>
+      </ul>
+     </div>
+    </nav>
+    <div class="container-fluid">
+     <p dir="ltr" style="text-align:center">
+      <span style="font-size:24px">
+       DB2 HADR Tutorial
+      </span>
+     </p>
+     <p dir="ltr">
+      <strong>
+       Table of Contents
+      </strong>
+     </p>
+     <ul dir="ltr">
+      <li>
+       <a href="#Introduction">
+        Introduction
+       </a>
+       <ul>
+        <li>
+         <a href="#What_is_HADR_">
+          What is HADR?
+         </a>
+        </li>
+        <li>
+         <a href="#How_does_HADR_work_">
+          How does HADR work?
+         </a>
+        </li>
+        <li>
+         <a href="#What_s_replicated__what_s_not_">
+          What's replicated, what's not?
+         </a>
+        </li>
+        <li>
+         <a href="#System_Requirements_and_Recommendations">
+          System Requirements and Recommendations
+         </a>
+        </li>
+       </ul>
+      </li>
+      <li>
+       <a href="#Planning_HADR">
+        Planning HADR
+       </a>
+       <ul>
+        <li>
+         <a href="#Number_of_standbys">
+          Number of standbys
+         </a>
+        </li>
+        <li>
+         <a href="#pureScale_Considerations">
+          pureScale Considerations
+         </a>
+        </li>
+        <li>
+         <a href="#HADR_Synchronization_Mode_and_Network_Speed">
+          HADR Synchronization Mode and Network Speed
+         </a>
+        </li>
+        <li>
+         <a href="#Network_Encryption_and_Compression">
+          Network Encryption and Compression
+         </a>
+        </li>
+        <li>
+         <a href="#Primary_Standby_Hardware_Recommendations">
+          Primary/Standby Hardware Recommendations
+         </a>
+        </li>
+        <li>
+         <a href="#Log_Archive_Considerations">
+          Log Archive Considerations
+         </a>
+        </li>
+       </ul>
+      </li>
+      <li>
+       <a href="#Deploying_HADR">
+        Deploying HADR
+       </a>
+       <ul>
+        <li>
+         <a href="#Initializing_HADR">
+          Initializing HADR
+         </a>
+        </li>
+        <li>
+         <a href="#Monitoring_HADR">
+          Monitoring HADR
+         </a>
+        </li>
+        <li>
+         <a href="#Role_switch_and_Failover">
+          Role switch and Failover
+         </a>
+        </li>
+        <li>
+         <a href="#Performance_Tuning">
+          Performance Tuning
+         </a>
+        </li>
+        <li>
+         <a href="#Automation">
+          Automation
+         </a>
+        </li>
+        <li>
+         <a href="#Reads_on_Standby">
+          Reads on Standby
+         </a>
+        </li>
+        <li>
+         <a href="#Rolling_Update">
+          Rolling Update
+         </a>
+        </li>
+       </ul>
+      </li>
+     </ul>
+     <p dir="ltr">
+      <strong>
+      </strong>
+     </p>
+     <h1 dir="ltr">
+      <a name="Introduction">
+       Introduction
+      </a>
+     </h1>
+     <h2 dir="ltr">
+      <a name="What_is_HADR_">
+       What is HADR?
+      </a>
+     </h2>
+     <p dir="ltr">
+      HADR (High Availability Disaster Recovery) is a DB2 LUW feature for high availability and disaster recovery. It is the preferred solution for HA and DR on DB2. It replicates data in real time from a primary database to one or more standby databases. In case the primary database fails, a standby database takes over as the new primary. For all benefits of HADR, see
+      <a href="hadrBenefits.html">
+       HADR benefits
+      </a>
+     </p>
+     <h2 dir="ltr">
+      <a name="How_does_HADR_work_">
+       How does HADR work?
+      </a>
+     </h2>
+     <p dir="ltr">
+      HADR is based on log replay. You initialize the standby with a backup or split mirror image of the primary. You then configure and start HADR on the primary and standby databases. The primary ships its transaction log data to the standby via a TCP connection. The standby continuously replays the log records to keep itself in sync with the primary.
+      <br/>
+      <br/>
+      Initially, the standby's log position is at the time when the backup was taken. The standby starts in a catchup state that ships logs from this position to the current position of the primary. Eventually, the standby catches up to the current position and enters a "peer" state. HADR automatically handles state transition, including chasing the "moving target" of primary position. All you need to do is to issue the "start HADR" command on primary and standby.
+      <br/>
+      <br/>
+      If the primary fails, you issue a "takeover HADR by force" command on the standby to make the standby the new primary. A single command does it all. For planned maintenance, you issue a "takeover HADR" (without "by force" option) command to switch primary and standby's roles. HADR management is so simple. There are only 3 commands: Start HADR, stop HADR, and takeover HADR.
+     </p>
+     <h2 dir="ltr">
+      <a name="What_s_replicated__what_s_not_">
+       What's replicated, what's not?
+      </a>
+     </h2>
+     <p dir="ltr">
+      Logged operations are replicated. These include, but are not limited to:
+     </p>
+     <ul dir="ltr">
+      <li>
+       DDL
+      </li>
+      <li>
+       DML
+      </li>
+      <li>
+       Create/alter table space
+      </li>
+      <li>
+       Create/alter storage group
+      </li>
+      <li>
+       Create/alter buffer pool
+      </li>
+      <li>
+       XML data.
+      </li>
+      <li>
+       Logged LOBs
+      </li>
+     </ul>
+     <p dir="ltr">
+      Not logged operations are not replicated. These include, but are not limited to:
+     </p>
+     <ul dir="ltr">
+      <li>
+       Database configuration parameters (this allows primary and standby databases to be configured differently).
+      </li>
+      <li>
+       "Not logged initially" tables
+      </li>
+      <li>
+       Not logged LOBs
+      </li>
+      <li>
+       UDF (User Defined Function) libraries. UDF DDL is replicated. But the libraries used by UDF (such as C or Java libraries)  are not replicated, because they are not stored in the database. Users must manually copy the libraries to the standby.
+      </li>
+     </ul>
+     <p dir="ltr">
+      Note: You can use database configuration parameter
+      <a href="hadrConfig.html#BLOCKNONLOGGED___Block_Non_Logged_operations">
+       BLOCKNONLOGGED
+      </a>
+      to block not logged operations on the primary.
+     </p>
+     <h2 dir="ltr">
+      <a name="System_Requirements_and_Recommendations">
+       System Requirements and Recommendations
+      </a>
+     </h2>
+     <p dir="ltr">
+      Standby is maintained as a mirror image of the primary. Many aspects of the primary and standby databases need to be the same.
+     </p>
+     <ul dir="ltr">
+      <li>
+       Primary and standby must have the
+       <strong>
+        same DB2 major version
+       </strong>
+       . For example, both on V10.1.
+       <ul>
+        <li>
+         Standby database fix pack level must be same or higher than that of the primary (otherwise, primary could generate log records the standby cannot replay).
+        </li>
+        <li>
+         Same fix pack level is recommended on primary and standby, to minimize compatibility risk. Different primary and standby fix pack levels usually only occur during rolling update
+        </li>
+       </ul>
+      </li>
+      <li>
+       Primary and standby must have the
+       <strong>
+        same platform
+       </strong>
+       .
+       <ul>
+        <li>
+         "Platform" here is defined as the combination of OS type (software) and machine architecture (hardware). For example, the followings are considered distinct platforms: Windows-x86, AIX-power, HP-IA, Solaris-Sparc, Solaris-x86, Linux-PPC, Linux-Z, Linux-390, Linux-x86,
+        </li>
+        <li>
+         Primary and standby must have the same endian (both big endian, or both small endian). This requirement is usually satisfied by the platform requirement already.
+        </li>
+       </ul>
+      </li>
+      <li>
+       Same OS version (major and minor) is recommended on primary and standby. Different versions usually only occur during
+       <a href="https://www.ibm.com/docs/en/db2/11.5?topic=maintenance-performing-rolling-updates-in-hadr-environment">
+        rolling update
+       </a>
+       . DB2 does not enforce any check on OS version. But you should keep the different-version window as short as possible, to minimize compatibility risk.
+      </li>
+      <li>
+       The DB2 software on primary and standby must have the same bit size (both 64 bit, or both 32 bit).
+      </li>
+      <li>
+       Same bit size on the host platform is recommended, to minimize compatibility risk.
+       <ul>
+        <li>
+         Host platform bit size could be different. For example, DB2 is 32 bit on both machines. Primary host is 64 bit, which can run both 64 bit and 32 bit applications. Standby host is 32 bit.
+        </li>
+       </ul>
+      </li>
+      <li>
+       Primary and standby must have the same paths for tablespace containers, to support tablespace replication.
+       <ul>
+        <li>
+         The standby devices should have same or larger capacity.
+        </li>
+        <li>
+         Redirected restore is not supported when creating the standby. However, database directory (for database metadata files) and transaction log directory changes are supported during the restore. Table space containers created by relative paths will be restored to paths relative to the new database directory.
+        </li>
+       </ul>
+      </li>
+      <li>
+       Same hardware (CPU, memory, disk, etc.) is recommended on the primary and standby, so that standby has enough power for replay. Sufficient planning and testing should be done when deploying a less powerful standby.
+      </li>
+      <li>
+       Same amount of memory is recommended on the primary and standby, so that buffer pool replication is less likely to fail.
+      </li>
+     </ul>
+     <p dir="ltr">
+      For more info, see
+      <a href="https://www.ibm.com/docs/en/db2/11.5?topic=support-system-requirements">
+       Info Center
+      </a>
+     </p>
+     <h1 dir="ltr">
+      <a name="Planning_HADR">
+       Planning HADR
+      </a>
+     </h1>
+     <h2 dir="ltr">
+      <a name="Number_of_standbys">
+       Number of standbys
+      </a>
+     </h2>
+     <p dir="ltr">
+      First, how many standbys are needed? A standby can serve HA (High Availability), or DR (Disaster Recovery) purpose. If you want both HA and DR protection, you need 2 standbys, one for each purpose. HADR supports up to 3 standbys (starting V10.1). A third one can be used for a 2nd DR site, or for protection against user error (configured with
+      <a href="https://www.ibm.com/docs/en/db2/11.5?topic=solution-hadr-delayed-replay">
+       delayed replay
+      </a>
+      ). Any standby can have reads on standby enabled to support reporting workload.
+      <br/>
+      <br/>
+      This tutorial will focus on single standby setup. For specifics of multiple standby setup, see
+      <a href="https://www.ibm.com/docs/en/db2/11.5?topic=solution-hadr-multiple-standby-databases">
+       HADR multiple standby
+      </a>
+      white paper. It is recommended that you start from this single standby tutorial to get familiar with HADR basics, then go to multiple standby scenarios.
+      <br/>
+      <br/>
+      If you are using a DB2 version earlier than V10.1, HADR is limited to one standby. The common ways to support both HA and DR are:
+     </p>
+     <ul dir="ltr">
+      <li>
+       Set up the HADR standby locally for HA purpose. Use Q-Rep for a remote DR site.
+      </li>
+      <li>
+       Set up disk mirroring and/or spare host machine locally for HA. Use HADR for remote DR site.
+      </li>
+     </ul>
+     <p dir="ltr">
+      <br/>
+      Due to the complexity and reduced HA/DR protection when using single HADR standby with other HA/DR methods, HADR with multiple standby is recommended. This is a good reason to upgrade to V10.1 and later.
+     </p>
+     <h2 dir="ltr">
+      <a name="pureScale_Considerations">
+       pureScale Considerations
+      </a>
+     </h2>
+     <p dir="ltr">
+      If you are using pureScale, there are some limitations of HADR on pureScale.
+     </p>
+     <ul dir="ltr">
+      <li>
+       HADR support on pureScale is starts from DB2 V10.5. If you are on earlier releases, you may use Q-rep for DR solution, or consider upgrade.
+      </li>
+      <li>
+       Only one standby is supported on pureScale,
+      </li>
+      <li>
+       Only async and superAsync HADR modes are supported on pureScale.
+      </li>
+     </ul>
+     <p dir="ltr">
+      pureScale cluster itself provides excellent HA. HADR on pureScale is mainly intended for DR protection. Single standby and sync mode restrictions generally do not impact DR ability.
+      <br/>
+      <br/>
+      This tutorial will focus on non pureScale setup. For specifics of pureScale setup, see
+      <a href="hadrPureScale.html">
+       Tutorial for HADR on pureScale
+      </a>
+      . It is recommended that you start from the non pureScale tutorial to get familiar with HADR basics, then go to the pureScale scenario.
+     </p>
+     <h2 dir="ltr">
+      <a name="HADR_Synchronization_Mode_and_Network_Speed">
+       HADR Synchronization Mode and Network Speed
+      </a>
+     </h2>
+     <p dir="ltr">
+      The most important HADR parameter is the HADR synchronization mode. See
+      <a href="hadrSyncMode.html">
+       HADR Sync Modes
+      </a>
+      for description of the various modes and how to choose a mode.
+      <br/>
+      <br/>
+      An HA standby is usually close to the primary, often in the same building, connected to the primary by LAN. HADR synchronization mode is usually Sync or NearSync. HADR provides quick failover, with little or no data loss. The HA standby guards against common failures like hardware/software failure. You can also schedule planned downtime without service interruption using
+      <a href="https://www.ibm.com/docs/en/db2/11.5?topic=databases-rolling-updates-multiple-hadr-standby">
+       rolling update
+      </a>
+      .
+      <br/>
+      <br/>
+      An DR standby is usually far from the primary, often in a different city. When a disaster like fire, storm, or earthquake destroys the primary site, you can failover to the standby site. The DR standby is usually connected to the primary via WAN. Network round trip time is often 100ms or more. HADR synchronization mode is usually Async or SuperAsync. While HADR failover is still fast, there can be some data loss during a failover.
+      <br/>
+      <br/>
+      Network is usually not an issue in HA systems. For example, a gigabit ethernet provides 120MB/sec throughput, with round trip time at 0.1ms. The throughput is more than enough for most database workload. The round trip time is also very small compared to disk write latency, which is often at least a few ms. So ack message travel in sync or nearSync mode does not add much overhead.
+      <br/>
+      <br/>
+      Network can become the bottleneck in DR systems. For example, if your peak logging rate is 20MB/sec, while the network throughput is 15MB/sec, your logging rate will be capped at 15MB/sec, unless superAsync mode is used. SuperAsync mode allows the primary to get ahead of the standby, exposing higher data loss risk. If this is not acceptable, you have to upgrade your network.
+      <br/>
+      <br/>
+      A dedicated private network (separate NIC, router, etc.) between primary and standby is recommended, for performance and security reasons. HADR does not encrypt the traffic between primary and standby. Log data is sent as is.
+      <br/>
+      <br/>
+      While maximizing TCP throughput on network, socket buffer size is an important factor, especially for WAN. A small buffer size can limit the throughput. See
+      <a href="tcpTuning.html">
+       TCP Tuning
+      </a>
+      .
+      <br/>
+      <br/>
+      To figure out if your network can support the planned sync mode, see
+      <a href="perfTuning.html">
+       step by step TCP and sync mode configuration
+      </a>
+     </p>
+     <h2 dir="ltr">
+      <a name="Network_Encryption_and_Compression">
+       Network Encryption and Compression
+      </a>
+     </h2>
+     <p dir="ltr">
+      HADR does not encrypt or compress log data during log shipping. If needed, you can use network layer encryption or compression between primary and standby.
+      <br/>
+      <br/>
+      You are likely to get lower compression ratio when many tables in your database are already compressed, with either classic row compression or adaptive compression, because row data in log records are also compressed (just another benefit of table compression). With non-compressed tables, the compression ratio is usually between 3 and 5. Of course, it costs time to compress/decompress data. Compression is more likely to be beneficial on WAN.
+     </p>
+     <h2 dir="ltr">
+      <a name="Primary_Standby_Hardware_Recommendations">
+       Primary/Standby Hardware Recommendations
+      </a>
+     </h2>
+     <p dir="ltr">
+      Same hardware (CPU, memory, disk, etc.) is recommended on the primary and standby, so that standby has enough power for replay. Sufficient planning and testing should be done when deploying a less powerful standby.
+      <br/>
+      <br/>
+      If you plan to use Reads on Standby, additional power on the standby machine may be needed.
+     </p>
+     <h2 dir="ltr">
+      <a name="Log_Archive_Considerations">
+       Log Archive Considerations
+      </a>
+     </h2>
+     <p dir="ltr">
+      You may choose to have shared or independent archive devices on primary and standby. See
+      <a href="hadrConfig.html#LOGARCHMETH1_and_LOGARCHMETH2___Log_Archive_Device">
+       Log Archive Device
+      </a>
+      for details.
+     </p>
+     <h1 dir="ltr">
+      <a name="Deploying_HADR">
+       Deploying HADR
+      </a>
+     </h1>
+     <h2 dir="ltr">
+      <a name="Initializing_HADR">
+       Initializing HADR
+      </a>
+     </h2>
+     <p dir="ltr">
+      It is recommended that you decide on the HADR configuration parameters as much as you can before initializing HADR, to minimize updating configuration after initialization. Changing config after setup may require db2 instance or database shutdown and restart. All HADR registry variables require db2 instance shutdown and restart to take effect. Prior to DB2 V10.1, HADR database config parameters require database shutdown and restart to take effect. See also
+      <a href="hadrConfig.html#HADR_Database_Configuration_Parameters">
+       HADR Database Configuration Parameters
+      </a>
+     </p>
+     <p dir="ltr">
+      See
+      <a href="hadrConfig.html">
+       HADR config
+      </a>
+      for description of relevant parameters and the optimal setting.
+     </p>
+     <p dir="ltr">
+      DB2 Info Center has detailed info on how to initialize HADR. The basic steps are: create the standby database, configure primary and standby databases, and start HADR on primary and standby.
+     </p>
+     <ul dir="ltr">
+      <li>
+       V9.7:  Initializing HADR for
+       <a href="https://www.ibm.com/docs/en/db2/9.7?topic=availability-initializing-hadr">
+        single standby
+       </a>
+       .
+      </li>
+      <li>
+       V10.1: Initializing HADR for
+       <a href="https://www.ibm.com/docs/en/db2/10.1.0?topic=availability-initializing-hadr">
+        single standby
+       </a>
+       , or
+       <a href="https://www.ibm.com/docs/en/db2/10.1.0?topic=databases-initializing-hadr-in-multiple-standby-mode">
+        multiple standby
+       </a>
+       .
+      </li>
+      <li>
+       V10.5: Initializing HADR for
+       <a href="https://www.ibm.com/docs/en/db2/10.5?topic=availability-initializing-hadr">
+        single standby, multiple standbys, or pureScale environment.
+       </a>
+      </li>
+     </ul>
+     <p dir="ltr">
+      Additonal info:
+      <a href="hadrCommands.html">
+       HADR commands
+      </a>
+     </p>
+     <p dir="ltr">
+      HADR can also be set up and managed using IBM Data Studio or Optim™ Database Administrator. See
+      <a href="https://community.ibm.com/community/user/hybriddatamanagement/viewdocument/prevent-database-outages-with-high?CommunityKey=ea909850-39ea-4ac4-9512-8e2eb37ea09a&amp;tab=librarydocuments">
+        Prevent database outages with High AvailabilityDisaster Recovery in DB2
+      </a>
+      for more info.
+     </p>
+     <h2 dir="ltr">
+      <a name="Monitoring_HADR">
+       Monitoring HADR
+      </a>
+     </h2>
+     <p dir="ltr">
+      Once you have HADR set up, you need to monitor it. See
+      <a href="hadrMonitoring.html">
+       HADR monitoring
+      </a>
+      for details.
+     </p>
+     <h2 dir="ltr">
+      <a name="Role_switch_and_Failover">
+       Role switch and Failover
+      </a>
+     </h2>
+     <p dir="ltr">
+      HADR supports moving primary role from one database to another. For planned role change, primary and standby switch roles. It is a simple one command operation and guaranteed to have no data loss. For unplanned outage, you will need a failover that changes the standby to a primary, but leaves the old primary as primary (it may not even be accessible). Both kinds role change are done by the "takeover HADR" command, with different options. See
+      <a href="hadrTakeover.html">
+       HADR takeover
+      </a>
+      for details.
+      <br/>
+      <br/>
+      Additonal info:
+      <a href="hadrCommands.html">
+       HADR commands
+      </a>
+     </p>
+     <h2 dir="ltr">
+      <a name="Performance_Tuning">
+       Performance Tuning
+      </a>
+     </h2>
+     <p dir="ltr">
+      In case you run into performance problems, like slow database response to SQL clients, you will need to find the cause and fix it. First, you need to check if HADR is the cause. See
+      <a href="hadrMonitoring.html#Impact_to_Primary_database_logging">
+       Impact to primary database logging
+      </a>
+      . If it is an HADR problem, then proceed to diagnostics. For details, see
+      <a href="hadrPerf.html">
+       HADR performance tuning and diagnostics
+      </a>
+      .
+     </p>
+     <h2 dir="ltr">
+      <a name="Automation">
+       Automation
+      </a>
+     </h2>
+     <p dir="ltr">
+      HADR supports automated failover and client reroute to the new primary. See
+      <a href="clusterManagers.html">
+       cluster managers
+      </a>
+      and
+      <a href="clientReroute.html">
+       Client Reroute
+      </a>
+     </p>
+     <h2 dir="ltr">
+      <a name="Reads_on_Standby">
+       Reads on Standby
+      </a>
+     </h2>
+     <p dir="ltr">
+      HADR standby database supports read-only queries. This feature is disabled by default. It can be enabled by the DB2_HADR_ROS registry variable. Only the Uncommitted Read isolation level is supported. This feature is best for read-only reporting workload. It offloads the primary. In a multiple standby system, reads on standby can be enabled on any standby. See the followings for more info:
+     </p>
+     <ul dir="ltr">
+      <li>
+       <a href="https://www.ibm.com/docs/en/db2/11.5?topic=solution-hadr-reads-standby-feature">
+        DB2 Info Center
+       </a>
+      </li>
+      <li>
+       <a href="https://community.ibm.com/community/user/hybriddatamanagement/viewdocument/get-the-most-from-the-db2-hadr-stan?CommunityKey=b5b60ace-5eb2-4444-a961-d9edb6f39bd8">
+        Reads on Standby tutorial
+       </a>
+      </li>
+     </ul>
+     <h2 dir="ltr">
+      <a name="Rolling_Update">
+       Rolling Update
+      </a>
+     </h2>
+     <p dir="ltr">
+      For DB2 fixpack update and OS/hardware upgrade, HADR rolling update allows continued availability during the update.
+     </p>
+     <p dir="ltr">
+      See the following Info Center topics for more info:
+     </p>
+     <ul dir="ltr">
+      <li>
+       Base case:
+       <a href="https://www.ibm.com/docs/en/db2/11.5?topic=maintenance-performing-rolling-updates-in-hadr-environment">
+        Rolling update in HADR environment
+       </a>
+      </li>
+      <li>
+       When cluster manager (DB2 with TSA) is enabled:
+       <a href="https://www.ibm.com/docs/en/db2/11.5?topic=pm-performing-rolling-updates-in-tsa-automated-db2-high-availability-disaster-recovery-hadr-environment#t0056202">
+        Rolling update in an automated HADR environment
+       </a>
+      </li>
+      <li>
+       When multiple standbys are defined:
+       <a href="https://www.ibm.com/docs/en/db2/11.5?topic=databases-rolling-updates-multiple-hadr-standby">
+        Rolling update in HADR multiple standby mode
+       </a>
+      </li>
+     </ul>
+     <p dir="ltr">
+      HADR rolling update does not support upgrade across DB2 major version. For example, from DB2 V10.1 to V10.5. Major version upgrade procedure is as follows:
+     </p>
+     <ul dir="ltr">
+      <li>
+       Backup primary database (in case upgrade fails, you can go back to the old release). This step is recommended, but not required.
+      </li>
+      <li>
+       Run "stop HADR" command on the primary database
+      </li>
+      <li>
+       Upgrade the primary instance and database as usual
+      </li>
+      <li>
+       Take a full backup (or split mirror image) of the primary database on the new release.
+      </li>
+      <li>
+       Concurrently, drop standby database and upgrade the standby instance
+      </li>
+      <li>
+       Reinitialize the standby database using primary's backup or split mirror image from the new release
+      </li>
+     </ul>
+     <p dir="ltr">
+      The main reason that HADR rolling update cannot cross major version boundary is that DB2 transaction logs from the new release may not be compatible with the old release, yet HADR requires log compatibility on primary and standby.
+     </p>
+    </div>
+   </div>
+   <!-- /#page-content-wrapper -->
   </div>
   <!-- /#wrapper -->
-
   <!-- Bootstrap core JavaScript -->
-  <script src="vendor/jquery/jquery.min.js"></script>
-  <script src="vendor/bootstrap/js/bootstrap.bundle.min.js"></script>
-
+  <script src="vendor/jquery/jquery.min.js">
+  </script>
+  <script src="vendor/bootstrap/js/bootstrap.bundle.min.js">
+  </script>
   <!-- Menu Toggle Script -->
   <script>
-    $("#menu-toggle").click(function(e) {
+   $("#menu-toggle").click(function(e) {
       e.preventDefault();
       $("#wrapper").toggleClass("toggled");
     });
   </script>
-
-</body>
-
+ </body>
 </html>

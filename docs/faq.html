@@ -1,342 +1,720 @@
 <!DOCTYPE html>
 <html lang="en">
-
-<head>
-
-  <meta charset="utf-8">
-  <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
-  <meta name="description" content="">
-  <meta name="author" content="">
-
-  <title>Db2 HADR Wiki</title>
-
+ <head>
+  <meta charset="utf-8"/>
+  <meta content="width=device-width, initial-scale=1, shrink-to-fit=no" name="viewport"/>
+  <meta content="" name="description"/>
+  <meta content="" name="author"/>
+  <title>
+   Db2 HADR Wiki
+  </title>
   <!-- Bootstrap core CSS -->
-  <link href="vendor/bootstrap/css/bootstrap.min.css" rel="stylesheet">
-
+  <link href="vendor/bootstrap/css/bootstrap.min.css" rel="stylesheet"/>
   <!-- Custom styles for this template -->
-  <link href="css/simple-sidebar.css" rel="stylesheet">
-
-</head>
-
-<body>
-
+  <link href="css/simple-sidebar.css" rel="stylesheet"/>
+ </head>
+ <body>
   <div class="d-flex" id="wrapper">
-
-    <!-- Sidebar -->
-    <div class="bg-light border-right" id="sidebar-wrapper">
-      <div class="sidebar-heading">Menu</div>
-      <div class="list-group list-group-flush">
-        <a href="hadrBenefits.html" class="list-group-item list-group-item-action bg-light">HADR Benefits</a>
-        <a href="featureHistory.html" class="list-group-item list-group-item-action bg-light">Feature History</a>
-        <a href="hadrTutorial.html" class="list-group-item list-group-item-action bg-light">HADR Tutorial</a>
-        <a href="tcpTuning.html" class="list-group-item list-group-item-action bg-light">TCP Tuning</a>
-        <a href="perfTuning.html" class="list-group-item list-group-item-action bg-light">Perf Tuning</a>
-        <a href="hadrSimulator.html" class="list-group-item list-group-item-action bg-light">HADR Simulator</a>
-        <a href="simulatorOptions.html" class="list-group-item list-group-item-action bg-light">HADR Simulator Options</a>
-        <a href="simulatorOutput.html" class="list-group-item list-group-item-action bg-light">HADR Simulator Output</a>
-        <a href="simulatorParams.html" class="list-group-item list-group-item-action bg-light">HADR Simulator Params</a>
-        <a href="db2logscan.html" class="list-group-item list-group-item-action bg-light">db2logscan</a>
-        <a href="hadrConfig.html" class="list-group-item list-group-item-action bg-light">HADR Config</a>
-        <a href="hadrSyncMode.html" class="list-group-item list-group-item-action bg-light">HADR Sync Mode</a>
-        <a href="hadrTakeover.html" class="list-group-item list-group-item-action bg-light">HADR Takeover</a>
-        <a href="hadrMonitoring.html" class="list-group-item list-group-item-action bg-light">HADR Monitoring</a>
-        <a href="hadrCommands.html" class="list-group-item list-group-item-action bg-light">HADR Commands</a>
-        <a href="hadrLogShipping.html" class="list-group-item list-group-item-action bg-light">HADR Log Shipping/a>
-        <a href="hadrPerf.html" class="list-group-item list-group-item-action bg-light">HADR Perf</a>
-        <a href="diagConnect.html" class="list-group-item list-group-item-action bg-light">Diag Connect</a>
-        <a href="db2diag.html" class="list-group-item list-group-item-action bg-light">db2diag.log</a>
-        <a href="clusterManagers.html" class="list-group-item list-group-item-action bg-light">Cluster Managers</a>
-        <a href="clientReroute.html" class="list-group-item list-group-item-action bg-light">Client Reroute</a>
-        <a href="hadrPureScale.html" class="list-group-item list-group-item-action bg-light">HADR on PureScale</a>
-        <a href="faq.html" class="list-group-item list-group-item-action bg-light"><strong>> FAQ</strong></a>
-        <a href="db2fmtlog.html" class="list-group-item list-group-item-action bg-light">db2fmtlog_replayonlywindow</a>
-      </div>
+   <!-- Sidebar -->
+   <div class="bg-light border-right" id="sidebar-wrapper">
+    <div class="sidebar-heading">
+     Menu
     </div>
-    <!-- /#sidebar-wrapper -->
-
-    <!-- Page Content -->
-    <div id="page-content-wrapper">
-
-      <nav class="navbar navbar-expand-lg navbar-light bg-light border-bottom">
-        <button class="btn btn-primary" id="menu-toggle">Toggle Menu</button>
-
-        <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarSupportedContent" aria-controls="navbarSupportedContent" aria-expanded="false" aria-label="Toggle navigation">
-          <span class="navbar-toggler-icon"></span>
-        </button>
-
-        <div class="collapse navbar-collapse" id="navbarSupportedContent">
-          <ul class="navbar-nav ml-auto mt-2 mt-lg-0">
-            <li class="nav-item">
-              <a class="nav-link" href="index.html">Home</a>
+    <div class="list-group list-group-flush">
+     <a class="list-group-item list-group-item-action bg-light" href="hadrBenefits.html">
+      HADR Benefits
+     </a>
+     <a class="list-group-item list-group-item-action bg-light" href="featureHistory.html">
+      Feature History
+     </a>
+     <a class="list-group-item list-group-item-action bg-light" href="hadrTutorial.html">
+      HADR Tutorial
+     </a>
+     <a class="list-group-item list-group-item-action bg-light" href="tcpTuning.html">
+      TCP Tuning
+     </a>
+     <a class="list-group-item list-group-item-action bg-light" href="perfTuning.html">
+      Perf Tuning
+     </a>
+     <a class="list-group-item list-group-item-action bg-light" href="hadrSimulator.html">
+      HADR Simulator
+     </a>
+     <a class="list-group-item list-group-item-action bg-light" href="simulatorOptions.html">
+      HADR Simulator Options
+     </a>
+     <a class="list-group-item list-group-item-action bg-light" href="simulatorOutput.html">
+      HADR Simulator Output
+     </a>
+     <a class="list-group-item list-group-item-action bg-light" href="simulatorParams.html">
+      HADR Simulator Params
+     </a>
+     <a class="list-group-item list-group-item-action bg-light" href="db2logscan.html">
+      db2logscan
+     </a>
+     <a class="list-group-item list-group-item-action bg-light" href="hadrConfig.html">
+      HADR Config
+     </a>
+     <a class="list-group-item list-group-item-action bg-light" href="hadrSyncMode.html">
+      HADR Sync Mode
+     </a>
+     <a class="list-group-item list-group-item-action bg-light" href="hadrTakeover.html">
+      HADR Takeover
+     </a>
+     <a class="list-group-item list-group-item-action bg-light" href="hadrMonitoring.html">
+      HADR Monitoring
+     </a>
+     <a class="list-group-item list-group-item-action bg-light" href="hadrCommands.html">
+      HADR Commands
+     </a>
+     <a class="list-group-item list-group-item-action bg-light" href="hadrLogShipping.html">
+      HADR Log Shipping/a&gt;
+     </a>
+     <a class="list-group-item list-group-item-action bg-light" href="hadrPerf.html">
+      HADR Perf
+     </a>
+     <a class="list-group-item list-group-item-action bg-light" href="diagConnect.html">
+      Diag Connect
+     </a>
+     <a class="list-group-item list-group-item-action bg-light" href="db2diag.html">
+      db2diag.log
+     </a>
+     <a class="list-group-item list-group-item-action bg-light" href="clusterManagers.html">
+      Cluster Managers
+     </a>
+     <a class="list-group-item list-group-item-action bg-light" href="clientReroute.html">
+      Client Reroute
+     </a>
+     <a class="list-group-item list-group-item-action bg-light" href="hadrPureScale.html">
+      HADR on PureScale
+     </a>
+     <a class="list-group-item list-group-item-action bg-light" href="faq.html">
+      <strong>
+       &gt; FAQ
+      </strong>
+     </a>
+     <a class="list-group-item list-group-item-action bg-light" href="db2fmtlog.html">
+      db2fmtlog_replayonlywindow
+     </a>
+    </div>
+   </div>
+   <!-- /#sidebar-wrapper -->
+   <!-- Page Content -->
+   <div id="page-content-wrapper">
+    <nav class="navbar navbar-expand-lg navbar-light bg-light border-bottom">
+     <button class="btn btn-primary" id="menu-toggle">
+      Toggle Menu
+     </button>
+     <button aria-controls="navbarSupportedContent" aria-expanded="false" aria-label="Toggle navigation" class="navbar-toggler" data-target="#navbarSupportedContent" data-toggle="collapse" type="button">
+      <span class="navbar-toggler-icon">
+      </span>
+     </button>
+     <div class="collapse navbar-collapse" id="navbarSupportedContent">
+      <ul class="navbar-nav ml-auto mt-2 mt-lg-0">
+       <li class="nav-item">
+        <a class="nav-link" href="index.html">
+         Home
+        </a>
+       </li>
+       <li class="nav-item">
+        <a class="nav-link" href="contact.html">
+         Contact
+        </a>
+       </li>
+       <li class="nav-item">
+        <a class="nav-link" href="contribute.html">
+         Contribute
+        </a>
+       </li>
+      </ul>
+     </div>
+    </nav>
+    <div class="container-fluid">
+     <p dir="ltr">
+      <strong>
+       Table of Contents
+      </strong>
+     </p>
+     <ul dir="ltr">
+      <li>
+       <a href="#HADR_Setup">
+        HADR Setup
+       </a>
+       <ul>
+        <li>
+         <a href="#Is_redirected_restore_supported_when_initializing_the_HADR_standby_">
+          Is redirected restore supported when initializing the HADR standby?
+         </a>
+        </li>
+        <li>
+         <a href="#Should_I_start_the_primary_first_or_the_standby_first_">
+          Should I start the primary first or the standby first?
+         </a>
+        </li>
+       </ul>
+      </li>
+      <li>
+       <a href="#HADR_Configuration">
+        HADR Configuration
+       </a>
+       <ul>
+        <li>
+         <a href="#Which_HADR_synchronization_mode_shall_I_use_">
+          Which HADR synchronization mode shall I use?
+         </a>
+        </li>
+        <li>
+         <a href="#Are_HADR_database_configuration_parameters_dynamic_">
+          Are HADR database configuration parameters dynamic?
+         </a>
+        </li>
+        <li>
+         <a href="#Are_HADR_registry_variables_dynamic_">
+          Are HADR registry variables dynamic?
+         </a>
+        </li>
+        <li>
+         <a href="#Should_I_set_DB2_HADR_NO_IP_CHECK_on_one_or_both_databases_">
+          Should I set DB2_HADR_NO_IP_CHECK on one or both databases?
+         </a>
+        </li>
+       </ul>
+      </li>
+      <li>
+       <a href="#Log_File_Management">
+        Log File Management
+       </a>
+       <ul>
+        <li>
+         <a href="#How_does_the__em_primary___em_manage_its_log_files_">
+          How does the
+          <em>
+           primary
+          </em>
+          manage its log files?
+         </a>
+        </li>
+        <li>
+         <a href="#How_does_the__em_standby___em_manage_its_log_files_">
+          How does the
+          <em>
+           standby
+          </em>
+          manage its log files?
+         </a>
+        </li>
+        <li>
+         <a href="#Can_I_use_log_retain_on_HADR_databases_">
+          Can I use log retain on HADR databases?
+         </a>
+        </li>
+        <li>
+         <a href="#What_are_the_pros_and_cons_of_using_shared_log_archive_between_the_primary_and_standby_">
+          What are the pros and cons of using shared log archive between the primary and standby?
+         </a>
+        </li>
+        <li>
+         <a href="#What_is_the_recommendation_on_using_log_archive_compression_with_HADR_">
+          What is the recommendation on using log archive compression with HADR?
+         </a>
+        </li>
+       </ul>
+      </li>
+      <li>
+       <a href="#Replicating_Data">
+        Replicating Data
+       </a>
+       <ul>
+        <li>
+         <a href="#What_is_replicated__what_is_not_">
+          What is replicated, what is not?
+         </a>
+        </li>
+        <li>
+         <a href="#How_is_LOAD_handled_by_HADR_">
+          How is LOAD handled by HADR?
+         </a>
+        </li>
+        <li>
+         <a href="#What_is_the_difference_and_impact_to_HADR_when_using_IMPORT__INGEST__and_LOAD_">
+          What is the difference and impact to HADR when using IMPORT, INGEST, and LOAD?
+         </a>
+        </li>
+        <li>
+         <a href="#How_is_Blob_Clob_DBClob_handled_in_HADR_">
+          How is Blob/Clob/DBClob handled in HADR?
+         </a>
+        </li>
+        <li>
+         <a href="#What_happens_if_the_standby_encounters_a_replay_error_">
+          What happens if the standby encounters a replay error?
+         </a>
+        </li>
+       </ul>
+      </li>
+      <li>
+       <a href="#Using_HADR_commands">
+        Using HADR commands
+       </a>
+       <ul>
+        <li>
+         <a href="#Do_HADR_commands_use_db_name_or_db_alias_to_address_databases____loopback__catalog_not_supported_">
+          Do HADR commands use db name or db alias to address databases? ("loopback" catalog not supported)
+         </a>
+        </li>
+        <li>
+         <a href="#What_database_aliases_shall_I_use_for_HADR_commands_when_automatic_client_reroute_is_enabled_">
+          What database aliases shall I use for HADR commands when automatic client reroute is enabled?
+         </a>
+        </li>
+        <li>
+         <a href="#How_come_the_standby_fails_to_start__but_the__Start_HADR_as_standby__command_still_succeeds_">
+          How come the standby fails to start, but the "Start HADR as standby" command still succeeds?
+         </a>
+        </li>
+       </ul>
+      </li>
+      <li>
+       <a href="#Monitoring_HADR">
+        Monitoring HADR
+       </a>
+       <ul>
+        <li>
+         <a href="#How_do_I_tell_the_role_of_a_database_when_it_is_offline_">
+          How do I tell the role of a database when it is offline?
+         </a>
+        </li>
+        <li>
+         <a href="#Why_is_the_HADR_state_reported_in_db2diag_log_different_from_the_state_reported_in_monitoring_interfaces_">
+          Why is the HADR state reported in db2diag.log different from the state reported in monitoring interfaces?
+         </a>
+        </li>
+        <li>
+         <a href="#What_do_I_see_the__This_operation_is_not_allowed_on_a_standby_database__message_in_db2diag_log_">
+          What do I see the "This operation is not allowed on a standby database" message in db2diag.log?
+         </a>
+        </li>
+        <li>
+         <a href="#How_to_I_monitor_tablespace_status_on_the_standby_">
+          How to I monitor tablespace status on the standby?
+         </a>
+        </li>
+        <li>
+         <a href="#How_can_I_determine_if_there_are_any_unavailable_tables_on_HADR_standby_database_">
+          How can I determine if there are any unavailable tables on HADR standby database?
+         </a>
+        </li>
+       </ul>
+      </li>
+      <li>
+       <a href="#How_can_I_determine_if_there_are_any_unavailable_tables_on_HADR_standby_database_">
+        Automated Failover
+       </a>
+       <ul>
+        <li>
+         <a href="#How_can_I_determine_if_there_are_any_unavailable_tables_on_HADR_standby_database_">
+          How configure automated failover with PowerHA?
+         </a>
+        </li>
+       </ul>
+      </li>
+      <li>
+       <a href="#Miscellaneous">
+        Miscellaneous
+       </a>
+       <ul>
+        <li>
+         <a href="#How_do_I_find_out_which_HADR_features_were_added_in_which_DB2_release_">
+          How do I find out which HADR features were added in which DB2 release?
+         </a>
+        </li>
+        <li>
+         <a href="#Does_HADR_support_compression_in_log_shipping_">
+          Does HADR support compression in log shipping?
+         </a>
+        </li>
+        <li>
+         <a href="#Does_HADR_support_encryption_in_log_shipping_">
+          Does HADR support encryption in log shipping? What if I have "native database encryption" enabled?
+         </a>
+        </li>
+       </ul>
+      </li>
+     </ul>
+     <p dir="ltr">
+      <strong>
+      </strong>
+     </p>
+     <p dir="ltr">
+      Back to
+      <a href="index.html">
+       DB2 HADR home
+      </a>
+     </p>
+     <p dir="ltr" style="text-align:center">
+      <span style="font-size:24px">
+       HADR FAQ
+      </span>
+     </p>
+     <h1 dir="ltr">
+      <a name="HADR_Setup">
+       HADR Setup
+      </a>
+     </h1>
+     <h2 dir="ltr">
+      <a name="Is_redirected_restore_supported_when_initializing_the_HADR_standby_">
+       Is redirected restore supported when initializing the HADR standby?
+      </a>
+     </h2>
+     <p dir="ltr">
+      Redirected restore is not supported. "Redirected" here means redirecting tablespace containers, as in a "restore ... redirect" command.
+     </p>
+     <p dir="ltr">
+      Database directory ("restore ... to ...") and log directory ("restore ... newlogpath") changes are supported. When database directory changes, table space containers created by relative paths will be restored to paths relative to the new database directory.
+     </p>
+     <p dir="ltr">
+      The "restore ... on ... [dbpath on ...]" command is also supported, even though it can be considered as "implicit" redirection.
+     </p>
+     <h2 dir="ltr">
+      <a name="Should_I_start_the_primary_first_or_the_standby_first_">
+       Should I start the primary first or the standby first?
+      </a>
+     </h2>
+     <p dir="ltr">
+      From Info Center, Managing HADR, initializing HADR:
+     </p>
+     <p dir="ltr">
+      Usually, the standby database is started first. If you start the primary database first, this startup procedure will fail if the standby database is not started within the time period specified by the HADR_TIMEOUT database configuration parameter.
+     </p>
+     <p dir="ltr">
+     </p>
+     <h2 dir="ltr">
+      <a name="Should_I_start_the_primary_first_or_the_standby_first_">
+       How to setup automated failover when there are multiple databases in an instance?
+      </a>
+     </h2>
+     <p dir="ltr">
+     </p>
+     <p dir="ltr">
+      In order to configure 2  databases for automated failover, you will need to have 4 separate XML files, here is the sequence in which you would run db2haicu to set this up:
+     </p>
+     <p dir="ltr">
+     </p>
+     <p dir="ltr" style="margin-left:40px">
+      Setting up for database 1:
+      <br/>
+      1) Run db2haicu on the standby (XML file A)
+      <br/>
+      2) Run db2haicu on the primary (XML file B)
+     </p>
+     <p dir="ltr" style="margin-left:40px">
+      Setting up for database 2:
+      <br/>
+      3) Run db2haicu on the standby (XML file C)
+      <br/>
+      4) Run db2haicu on the primary (XML file D)
+     </p>
+     <p dir="ltr">
+     </p>
+     <p dir="ltr">
+     </p>
+     <div dir="ltr">
+     </div>
+     <h1 dir="ltr">
+      <a name="HADR_Configuration">
+       HADR Configuration
+      </a>
+     </h1>
+     <p dir="ltr">
+      See also
+      <a href="hadrConfig.html">
+       HADR config
+      </a>
+      on HADR syncmode and other parameters.
+     </p>
+     <h2 dir="ltr">
+      <a name="Which_HADR_synchronization_mode_shall_I_use_">
+       Which HADR synchronization mode shall I use?
+      </a>
+     </h2>
+     <p dir="ltr">
+      See
+      <a href="hadrSyncMode.html">
+       HADR sync mode
+      </a>
+     </p>
+     <h2 dir="ltr">
+      <a name="Are_HADR_database_configuration_parameters_dynamic_">
+       Are HADR database configuration parameters dynamic?
+      </a>
+     </h2>
+     <p dir="ltr">
+      See
+      <a href="hadrConfig.html#Updating_HADR_Configuration">
+       Updating HADR Configuration
+      </a>
+     </p>
+     <h2 dir="ltr">
+      <a name="Are_HADR_registry_variables_dynamic_">
+       Are HADR registry variables dynamic?
+      </a>
+     </h2>
+     <p dir="ltr">
+      No. All HADR related registry variables require DB2 instance shutdown and restart to take effect. The HADR registry variables have DB2_HADR_ prefix. Example: DB2_HADR_PEER_WAIT_LIMIT, DB2_HADR_SOSNDBUF and DB2_HADR_SORCVBUF.
+     </p>
+     <h2 dir="ltr">
+      <a name="Should_I_set_DB2_HADR_NO_IP_CHECK_on_one_or_both_databases_">
+       Should I set DB2_HADR_NO_IP_CHECK on one or both databases?
+      </a>
+     </h2>
+     <p dir="ltr">
+      DB2_HADR_NO_IP_CHECK should be set on both primary and standby instances, even if only one of them is under NAT (Network Address Translation) control.
+     </p>
+     <div dir="ltr">
+     </div>
+     <h1 dir="ltr">
+      <a name="Log_File_Management">
+       Log File Management
+      </a>
+     </h1>
+     <h2 dir="ltr">
+      <a name="How_does_the__em_primary___em_manage_its_log_files_">
+       How does the
+       <em>
+        primary
+       </em>
+       manage its log files?
+      </a>
+     </h2>
+     <p dir="ltr">
+      Log file management on the primary database is identical to that of a standard (non-HADR) database.
+     </p>
+     <h2 dir="ltr">
+      <a name="How_does_the__em_standby___em_manage_its_log_files_">
+       How does the
+       <em>
+        standby
+       </em>
+       manage its log files?
+      </a>
+     </h2>
+     <p dir="ltr">
+      See
+      <a href="hadrLogShipping.html#Log_file_management_on_standby">
+       Log File Management on Standby
+      </a>
+     </p>
+     <h2 dir="ltr">
+      <a name="Can_I_use_log_retain_on_HADR_databases_">
+       Can I use log retain on HADR databases?
+      </a>
+     </h2>
+     <p dir="ltr">
+      Yes. See also
+      <a href="hadrLogShipping.html#Log_file_management_on_standby">
+       Log File Management on Standby
+      </a>
+     </p>
+     <p dir="ltr">
+      If archiving is not enabled on the primary (It is using logretain), then the standby will not reclaim any log files. All files will be kept on both primary and standby. Users are responsible to manage the files. Generally, files older than "First active log file" from "get db cfg" can be removed. "First active file" should be read and used for file management on primary and standby separately. Standby's first active file can be older than the primary's because replay on standby can fall behind primary's transaction processing.
+     </p>
+     <p dir="ltr">
+      The standby never archives log files, thus using logretain on standby has no impact to HADR log file operations on standby.
+     </p>
+     <h2 dir="ltr">
+      <a name="What_are_the_pros_and_cons_of_using_shared_log_archive_between_the_primary_and_standby_">
+       What are the pros and cons of using shared log archive between the primary and standby?
+      </a>
+     </h2>
+     <p dir="ltr">
+      See
+      <a href="hadrConfig.html#LOGARCHMETH1_and_LOGARCHMETH2___Log_Archive_Device">
+       LOGARCHMETH1 and LOGARCHMETH2 Log ArchiveDevice
+      </a>
+     </p>
+     <p dir="ltr">
+     </p>
+     <h2 dir="ltr">
+      <a name="What_is_the_recommendation_on_using_log_archive_compression_with_HADR_">
+      </a>
+      What is the recommendation on using log archive compression with HADR?
+     </h2>
+     <p dir="ltr">
+      The DB2 log archive compression feature (enabled via database configuration parameter logarchcompr1 or logarchcompr2) compresses log files when they are archived. Compression happens when a log file is sent to log archive. Log files in active log path are not compressed. Neither is log shipping from HADR primary to standby. So normally, compression has little effect on HADR.
+      <br/>
+      <br/>
+      Log archive compression can affect HADR when standby falls significantly behind the primary (eg. due to planned or unplanned outage of standby).  When standby is reactivated, it will need to replay some relatively old log files to catchup. The files are likely to be in archive. Unless shared archive is configured, the primary will need to retrieve, uncompress, and send the files to the standby. This will add to CPU cost on the primary and cause some delay in HADR catchup. Even if standby can directly retrieve the files via shared archive, it will still need to uncompress them, with CPU cost on the standby.
+     </p>
+     <p dir="ltr">
+      The same log archive compression configuration is recommended on HADR primary and standby. Log archive compression can be configured independently on primary and standby. A database (primary, standby, or standard) can always uncompress log files, regardless of its current compression setting. A standby will not have problem reading compressed files from shared archive.
+      <br/>
+      <br/>
+      The decision to use log archive compression should be made based on the benefit vs cost, as if HADR is not being used.  The benefit is space saving in archive, the cost is CPU time to compress and uncompress the files. The HADR complication of standby falling significantly behind is relatively rare. It is troublesome with or without log archive compression. When it happens, you may consider reinitializing the standby via a recent backup from the primary, rather than going through a long catchup. If you choose to go through a long catchup, you may retrieve needed log files to overflow log path in advance to speed up catchup.
+     </p>
+     <div dir="ltr">
+     </div>
+     <p dir="ltr">
+     </p>
+     <h1 dir="ltr">
+      <a name="Replicating_Data">
+       Replicating Data
+      </a>
+     </h1>
+     <h2 dir="ltr">
+      <a name="What_is_replicated__what_is_not_">
+       What is replicated, what is not?
+      </a>
+     </h2>
+     <p dir="ltr">
+      See
+      <a href="hadrTutorial.html#What_s_replicated__what_s_not_">
+       What's replicated and what's not
+      </a>
+     </p>
+     <h2 dir="ltr">
+      <a name="How_is_LOAD_handled_by_HADR_">
+       How is LOAD handled by HADR?
+      </a>
+     </h2>
+     <p dir="ltr">
+      HADR replicates load with certain restrictions. See DB2 info center "
+      <a href="https://www.ibm.com/docs/en/db2/11.5?topic=hadr-database-configuration">
+        Load operations and HADR
+      </a>
+      ".
+     </p>
+     <p dir="ltr">
+      See also
+      <a href="hadrConfig.html#DB2_LOAD_COPY_NO_OVERRIDE___Replaying_Load">
+       Replaying Load
+      </a>
+     </p>
+     <h2 dir="ltr">
+      <a name="What_is_the_difference_and_impact_to_HADR_when_using_IMPORT__INGEST__and_LOAD_">
+       What is the difference and impact to HADR when using IMPORT, INGEST, and LOAD?
+      </a>
+     </h2>
+     <p dir="ltr">
+      There is a significant difference using IMPORT / INGEST vs using LOAD :
+     </p>
+     <ul dir="ltr">
+      <li>
+       IMPORT and INGEST log all data into the transaction logs, thus data is always replicated to standby by HADR.
+      </li>
+      <li>
+       LOAD does not log the data into transaction logs
+       <ul>
+        <li>
+         Non-recoverable load should not be used in HADR environment, unless you can conveniently rerun the load to populate the table after a failover.
+        </li>
+        <li>
+         Recoverable load generates a load copy image. To retrieve the data for replay, the HADR standby needs to be able to access this load copy image.
+         <ul>
+          <li>
+           A shared device such as TSM or NFS is recommended for load copy.
+          </li>
+          <li>
+           No shared device is not really practical. You will need to shut down standby, load on primary, transfer load copy image to the standby, then start standby again to replay the load.
+          </li>
+          <li>
+           Even with shared device, it adds a dependency of standby on the NFS or TSM server
+           <ul>
+            <li>
+             If the service is not available at replay time, standby will not be able to access the image
             </li>
-            <li class="nav-item">
-              <a class="nav-link" href="contact.html">Contact</a>
+            <li>
+             Standby replay will not wait, it will just mark the tablespace in roll forward pending state and continue replay.
             </li>
-            <li class="nav-item">
-              <a class="nav-link" href="contribute.html">Contribute</a>
+            <li>
+             User will have to detect this and repair the tablespace (via taking new backup on primary and restore onto the standby)
             </li>
-          </ul>
-        </div>
-      </nav>
-
-      <div class="container-fluid">
-        <p dir="ltr"><strong>Table of Contents</strong></p>
-
-        <ul dir="ltr">
-        	<li><a href="#HADR_Setup">HADR Setup</a>
-
-        	<ul>
-        		<li><a href="#Is_redirected_restore_supported_when_initializing_the_HADR_standby_">Is redirected restore supported when initializing the HADR standby?</a></li>
-        		<li><a href="#Should_I_start_the_primary_first_or_the_standby_first_">Should I start the primary first or the standby first?&nbsp;</a></li>
-        	</ul>
-        	</li>
-        	<li><a href="#HADR_Configuration">HADR Configuration</a>
-        	<ul>
-        		<li><a href="#Which_HADR_synchronization_mode_shall_I_use_">Which HADR synchronization mode shall I use?</a></li>
-        		<li><a href="#Are_HADR_database_configuration_parameters_dynamic_">Are HADR database configuration parameters dynamic?</a></li>
-        		<li><a href="#Are_HADR_registry_variables_dynamic_">Are HADR registry variables dynamic?</a></li>
-        		<li><a href="#Should_I_set_DB2_HADR_NO_IP_CHECK_on_one_or_both_databases_">Should I set DB2_HADR_NO_IP_CHECK on one or both databases?</a></li>
-        	</ul>
-        	</li>
-        	<li><a href="#Log_File_Management">Log File Management</a>
-        	<ul>
-        		<li><a href="#How_does_the__em_primary___em_manage_its_log_files_">How does the <em>primary </em>manage its log files?</a></li>
-        		<li><a href="#How_does_the__em_standby___em_manage_its_log_files_">How does the <em>standby </em>manage its log files?</a></li>
-        		<li><a href="#Can_I_use_log_retain_on_HADR_databases_">Can I use log retain on HADR databases?</a></li>
-        		<li><a href="#What_are_the_pros_and_cons_of_using_shared_log_archive_between_the_primary_and_standby_">What&nbsp;are&nbsp;the&nbsp;pros&nbsp;and&nbsp;cons&nbsp;of&nbsp;using&nbsp;shared&nbsp;log&nbsp;archive&nbsp;between&nbsp;the&nbsp;primary&nbsp;and&nbsp;standby?</a></li>
-        		<li><a href="#What_is_the_recommendation_on_using_log_archive_compression_with_HADR_">What&nbsp;is&nbsp;the&nbsp;recommendation&nbsp;on&nbsp;using&nbsp;log&nbsp;archive&nbsp;compression&nbsp;with&nbsp;HADR?</a></li>
-        	</ul>
-        	</li>
-        	<li><a href="#Replicating_Data">Replicating Data</a>
-        	<ul>
-        		<li><a href="#What_is_replicated__what_is_not_">What is replicated, what is not?</a></li>
-        		<li><a href="#How_is_LOAD_handled_by_HADR_">How is LOAD handled by HADR?</a></li>
-        		<li><a href="#What_is_the_difference_and_impact_to_HADR_when_using_IMPORT__INGEST__and_LOAD_">What is the difference and impact to HADR when using IMPORT, INGEST, and LOAD?</a></li>
-        		<li><a href="#How_is_Blob_Clob_DBClob_handled_in_HADR_">How is Blob/Clob/DBClob handled in HADR?</a></li>
-        		<li><a href="#What_happens_if_the_standby_encounters_a_replay_error_">What happens if the standby encounters a replay error?</a></li>
-        	</ul>
-        	</li>
-        	<li><a href="#Using_HADR_commands">Using HADR commands</a>
-        	<ul>
-        		<li><a href="#Do_HADR_commands_use_db_name_or_db_alias_to_address_databases____loopback__catalog_not_supported_">Do HADR commands use db name or db alias to address databases? ("loopback" catalog not supported)</a></li>
-        		<li><a href="#What_database_aliases_shall_I_use_for_HADR_commands_when_automatic_client_reroute_is_enabled_">What database aliases shall I use for HADR commands when automatic client reroute is enabled?</a></li>
-        		<li><a href="#How_come_the_standby_fails_to_start__but_the__Start_HADR_as_standby__command_still_succeeds_">How come the standby fails to start, but the "Start HADR as standby" command still succeeds?</a></li>
-        	</ul>
-        	</li>
-        	<li><a href="#Monitoring_HADR">Monitoring HADR</a>
-        	<ul>
-        		<li><a href="#How_do_I_tell_the_role_of_a_database_when_it_is_offline_">How do I tell the role of a database when it is offline?</a></li>
-        		<li><a href="#Why_is_the_HADR_state_reported_in_db2diag_log_different_from_the_state_reported_in_monitoring_interfaces_">Why is the HADR state reported in db2diag.log different from the state reported in monitoring interfaces?</a></li>
-        		<li><a href="#What_do_I_see_the__This_operation_is_not_allowed_on_a_standby_database__message_in_db2diag_log_">What do I see the "This operation is not allowed on a standby database" message in db2diag.log?</a></li>
-        		<li><a href="#How_to_I_monitor_tablespace_status_on_the_standby_">How to I monitor tablespace status on the standby?</a></li>
-        		<li><a href="#How_can_I_determine_if_there_are_any_unavailable_tables_on_HADR_standby_database_">How can I determine if there are any unavailable tables on HADR standby database?&nbsp;</a></li>
-        	</ul>
-        	</li>
-        	<li><a href="#How_can_I_determine_if_there_are_any_unavailable_tables_on_HADR_standby_database_">Automated&nbsp;Failover</a>
-        	<ul>
-        		<li><a href="#How_can_I_determine_if_there_are_any_unavailable_tables_on_HADR_standby_database_">How&nbsp;configure&nbsp;automated&nbsp;failover&nbsp;with&nbsp;PowerHA?</a></li>
-        	</ul>
-        	</li>
-        	<li><a href="#Miscellaneous">Miscellaneous</a>
-        	<ul>
-        		<li><a href="#How_do_I_find_out_which_HADR_features_were_added_in_which_DB2_release_">How do I find out which HADR features were added in which DB2 release?</a></li>
-        		<li><a href="#Does_HADR_support_compression_in_log_shipping_">Does&nbsp;HADR&nbsp;support&nbsp;compression&nbsp;in&nbsp;log&nbsp;shipping? </a></li>
-        		<li><a href="#Does_HADR_support_encryption_in_log_shipping_">Does&nbsp;HADR&nbsp;support&nbsp;encryption&nbsp;in&nbsp;log&nbsp;shipping?&nbsp;What if I&nbsp;have&nbsp;"native&nbsp;database&nbsp;encryption"&nbsp;enabled?</a></li>
-        	</ul>
-        	</li>
-        </ul>
-
-        <p dir="ltr"><strong>&nbsp;&nbsp;</strong></p>
-
-        <p dir="ltr">Back to <a href="index.html">DB2 HADR home</a></p>
-
-        <p dir="ltr" style="text-align:center"><span style="font-size:24px">HADR FAQ</span></p>
-
-        <h1 dir="ltr"><a name="HADR_Setup">HADR Setup</a></h1>
-
-        <h2 dir="ltr"><a name="Is_redirected_restore_supported_when_initializing_the_HADR_standby_">Is redirected restore supported when initializing the HADR standby?</a></h2>
-
-        <p dir="ltr">Redirected restore is not supported. "Redirected" here means redirecting tablespace containers, as in a "restore ... redirect" command.</p>
-
-        <p dir="ltr">Database directory ("restore ... to ...") and log directory ("restore ... newlogpath") changes are supported. When database directory changes, table space containers created by relative paths will be restored to paths relative to the new database directory.</p>
-
-        <p dir="ltr">The "restore ... on ... [dbpath on ...]" command is also supported, even though it can be considered as "implicit" redirection.</p>
-
-        <h2 dir="ltr"><a name="Should_I_start_the_primary_first_or_the_standby_first_">Should I start the primary first or the standby first?</a></h2>
-
-        <p dir="ltr">From Info Center, Managing HADR, initializing HADR:</p>
-
-        <p dir="ltr">Usually, the standby database is started first. If you start the primary database first, this startup procedure will fail if the standby database is not started within the time period specified by the HADR_TIMEOUT database configuration parameter.</p>
-
-        <p dir="ltr">&nbsp;</p>
-
-        <h2 dir="ltr"><a name="Should_I_start_the_primary_first_or_the_standby_first_">How to setup automated failover when there are multiple databases in an instance?</a></h2>
-
-        <p dir="ltr">&nbsp;</p>
-
-        <p dir="ltr">In order to configure 2&nbsp; databases for automated failover, you will need to have 4 separate XML files, here is the sequence in which you would run db2haicu to set this up:</p>
-
-        <p dir="ltr">&nbsp;</p>
-
-        <p dir="ltr" style="margin-left:40px">Setting up for database 1:<br />
-        1) Run db2haicu on the standby (XML file A)<br />
-        2) Run db2haicu on the primary (XML file B)</p>
-
-        <p dir="ltr" style="margin-left:40px">Setting up for database 2:<br />
-        3) Run db2haicu on the standby (XML file C)<br />
-        4) Run db2haicu on the primary (XML file D)</p>
-
-        <p dir="ltr">&nbsp;</p>
-
-        <p dir="ltr">&nbsp;</p>
-
-        <div dir="ltr">&nbsp;</div>
-
-        <h1 dir="ltr"><a name="HADR_Configuration">HADR Configuration</a></h1>
-
-        <p dir="ltr">See also <a href="hadrConfig.html">HADR config</a> on HADR syncmode and other parameters.</p>
-
-        <h2 dir="ltr"><a name="Which_HADR_synchronization_mode_shall_I_use_">Which HADR synchronization mode shall I use?</a></h2>
-
-        <p dir="ltr">See <a href="hadrSyncMode.html">HADR sync mode</a></p>
-
-        <h2 dir="ltr"><a name="Are_HADR_database_configuration_parameters_dynamic_">Are HADR database configuration parameters dynamic?</a></h2>
-
-        <p dir="ltr">See <a href="hadrConfig.html#Updating_HADR_Configuration">Updating HADR Configuration</a></p>
-
-        <h2 dir="ltr"><a name="Are_HADR_registry_variables_dynamic_">Are HADR registry variables dynamic?</a></h2>
-
-        <p dir="ltr">No. All HADR related registry variables require DB2 instance shutdown and restart to take effect. The HADR registry variables have DB2_HADR_ prefix. Example: DB2_HADR_PEER_WAIT_LIMIT, DB2_HADR_SOSNDBUF and DB2_HADR_SORCVBUF.</p>
-
-        <h2 dir="ltr"><a name="Should_I_set_DB2_HADR_NO_IP_CHECK_on_one_or_both_databases_">Should I set DB2_HADR_NO_IP_CHECK on one or both databases?</a></h2>
-
-        <p dir="ltr">DB2_HADR_NO_IP_CHECK should be set on both primary and standby instances, even if only one of them is under NAT (Network Address Translation) control.</p>
-
-        <div dir="ltr">&nbsp;</div>
-
-        <h1 dir="ltr"><a name="Log_File_Management">Log File Management</a></h1>
-
-        <h2 dir="ltr"><a name="How_does_the__em_primary___em_manage_its_log_files_">How does the <em>primary </em>manage its log files?</a></h2>
-
-        <p dir="ltr">Log file management on the primary database is identical to that of a standard (non-HADR) database.</p>
-
-        <h2 dir="ltr"><a name="How_does_the__em_standby___em_manage_its_log_files_">How does the <em>standby </em>manage its log files?</a></h2>
-
-        <p dir="ltr">See <a href="hadrLogShipping.html#Log_file_management_on_standby">Log File Management on Standby</a></p>
-
-        <h2 dir="ltr"><a name="Can_I_use_log_retain_on_HADR_databases_">Can I use log retain on HADR databases?</a></h2>
-
-        <p dir="ltr">Yes. See also <a href="hadrLogShipping.html#Log_file_management_on_standby">Log File Management on Standby</a></p>
-
-        <p dir="ltr">If archiving is not enabled on the primary (It is using logretain), then the standby will not reclaim any log files. All files will be kept on both primary and standby. Users are responsible to manage the files. Generally, files older than "First active log file" from "get db cfg" can be removed. "First active file" should be read and used for file management on primary and standby separately. Standby's first active file can be older than the primary's because replay on standby can fall behind primary's transaction processing.</p>
-
-        <p dir="ltr">The standby never archives log files, thus using logretain on standby has no impact to HADR log file operations on standby.</p>
-
-        <h2 dir="ltr"><a name="What_are_the_pros_and_cons_of_using_shared_log_archive_between_the_primary_and_standby_">What are the pros and cons of using shared log archive between the primary and standby?</a></h2>
-
-        <p dir="ltr">See <a href="hadrConfig.html#LOGARCHMETH1_and_LOGARCHMETH2___Log_Archive_Device">LOGARCHMETH1 and LOGARCHMETH2 Log ArchiveDevice</a></p>
-
-        <p dir="ltr">&nbsp;</p>
-
-        <h2 dir="ltr"><a name="What_is_the_recommendation_on_using_log_archive_compression_with_HADR_"></a>What is the recommendation on using log archive compression with HADR?</h2>
-
-        <p dir="ltr">The DB2 log archive compression feature (enabled via database configuration parameter logarchcompr1 or logarchcompr2) compresses log files when they are archived. Compression happens when a log file is sent to log archive. Log files in active log path are not compressed. Neither is log shipping from HADR primary to standby. So normally, compression has little effect on HADR.<br />
-        <br />
-        Log archive compression can affect HADR when standby falls significantly behind the primary (eg. due to planned or unplanned outage of standby).&nbsp; When standby is reactivated, it will need to replay some relatively old log files to catchup. The files are likely to be in archive. Unless shared archive is configured, the primary will need to retrieve, uncompress, and send the files to the standby. This will add to CPU cost on the primary and cause some delay in HADR catchup. Even if standby can directly retrieve the files via shared archive, it will still need to uncompress them, with CPU cost on the standby.</p>
-
-        <p dir="ltr">The same log archive compression configuration is recommended on HADR primary and standby. Log archive compression can be configured independently on primary and standby. A database (primary, standby, or standard) can always uncompress log files, regardless of its current compression setting. A standby will not have problem reading compressed files from shared archive.<br />
-        <br />
-        The decision to use log archive compression should be made based on the benefit vs cost, as if HADR is not being used.&nbsp; The benefit is space saving in archive, the cost is CPU time to compress and uncompress the files. The HADR complication of standby falling significantly behind is relatively rare. It is troublesome with or without log archive compression. When it happens, you may consider reinitializing the standby via a recent backup from the primary, rather than going through a long catchup. If you choose to go through a long catchup, you may retrieve needed log files to overflow log path in advance to speed up catchup.</p>
-
-        <div dir="ltr">&nbsp;</div>
-
-        <p dir="ltr">&nbsp;</p>
-
-        <h1 dir="ltr"><a name="Replicating_Data">Replicating Data</a></h1>
-
-        <h2 dir="ltr"><a name="What_is_replicated__what_is_not_">What is replicated, what is not?</a></h2>
-
-        <p dir="ltr">See <a href="hadrTutorial.html#What_s_replicated__what_s_not_">What's replicated and what's not</a></p>
-
-        <h2 dir="ltr"><a name="How_is_LOAD_handled_by_HADR_">How is LOAD handled by HADR?</a></h2>
-
-        <p dir="ltr">HADR replicates load with certain restrictions. See DB2 info center "Load operations and HADR" in <a href="http://www-01.ibm.com/support/knowledgecenter/SSEPGG_10.5.0/com.ibm.db2.luw.admin.ha.doc/doc/c0011761.html%23c0011761__load?lang=en">http://www-01.ibm.com/support/knowledgecenter/SSEPGG_10.5.0/com.ibm.db2.luw.admin.ha.doc/doc/c0011761.html%23c0011761__load?lang=en</a></p>
-
-        <p dir="ltr">See also <a href="hadrConfig.html#DB2_LOAD_COPY_NO_OVERRIDE___Replaying_Load">Replaying Load</a></p>
-
-        <h2 dir="ltr"><a name="What_is_the_difference_and_impact_to_HADR_when_using_IMPORT__INGEST__and_LOAD_">What is the difference and impact to HADR when using IMPORT, INGEST, and LOAD?</a></h2>
-
-        <p dir="ltr">There is a significant difference using IMPORT / INGEST vs using LOAD :</p>
-
-        <ul dir="ltr">
-        	<li>IMPORT and INGEST log all data into the transaction logs, thus data is always replicated to standby by HADR.</li>
-        	<li>LOAD does not log the data into transaction logs
-        	<ul>
-        		<li>Non-recoverable load should not be used in HADR environment, unless you can conveniently rerun the load to populate the table after a failover.</li>
-        		<li>Recoverable load generates a load copy image. To retrieve the data for replay, the HADR standby needs to be able to access this load copy image.
-        		<ul>
-        			<li>A shared device such as TSM or NFS is recommended for load copy.</li>
-        			<li>No shared device is not really practical. You will need to shut down standby, load on primary, transfer load copy image to the standby, then start standby again to replay the load.</li>
-        			<li>Even with shared device, it adds a dependency of standby on the NFS or TSM server
-        			<ul>
-        				<li>If the service is not available at replay time, standby will not be able to access the image</li>
-        				<li>Standby replay will not wait, it will just mark the tablespace in roll forward pending state and continue replay.</li>
-        				<li>User will have to detect this and repair the tablespace (via taking new backup on primary and restore onto the standby)</li>
-        				<li>Impact of replay failure can be quite significant</li>
-        			</ul>
-        			</li>
-        		</ul>
-        		</li>
-        	</ul>
-        	</li>
-        </ul>
-
-        <p dir="ltr"><br />
-        <br />
-        Thus if the performance of INGEST is adequate, it is preferred. Things to consider when using IMPORT or INGEST:</p>
-
-        <ul dir="ltr">
-        	<li>They can produce much higher logging rate on the primary (more so for INGEST)</li>
-        	<li>This could mean the primary logging rate is higher than the HADR log shipping speed, or the standby log replay speed
-        	<ul>
-        		<li>This could potentially cause congestion that could affect primary transaction processing</li>
-        		<li>If congestion is avoided by using large standby receive buffer or log spooling, it would still mean that standby log replay could fall behind the primary, at least temporarily.
-        		<ul>
-        			<li>This would lead to long takeover time, should there be a primary outage when standby replay is behind.</li>
-        		</ul>
-        		</li>
-        	</ul>
-        	</li>
-        	<li>You should experiment to see what kind of logging rate you get when running INGEST</li>
-        </ul>
-
-        <h2 dir="ltr"><a name="How_is_Blob_Clob_DBClob_handled_in_HADR_">How is Blob/Clob/DBClob handled in HADR?</a></h2>
-
-        <p dir="ltr">DB2 LOB type includes Blob, Clob, and DBClob. A LOB column can be declared as logged or not logged.&nbsp; For HADR, a LOB column is replicated if and only if it is logged. For a not logged LOB, the standby will still allocate space for it; the LOB will have the right size but the content will be binary zero.</p>
-
-        <h2 dir="ltr"><a name="What_happens_if_the_standby_encounters_a_replay_error_">What happens if the standby encounters a replay error?</a></h2>
-
-        <p dir="ltr">For fatal errors, the standby database will shut itself down. The DBA should identify the cause (read db2diag.log, etc.), fix the problem, then reactivate the standby.</p>
-
-        <p dir="ltr">Replay errors on a tablespace may bring the tablespace offline, but leave the database online. Subsequent replays will skip this tablespace. At database level, the standby may look healthy, say, in peer state with a small log gap. But it can have one or more tablespaces offline. These tablespaces will not be accessible upon failover.</p>
-
-        <p dir="ltr">Therefore it is very important to also monitor tablespace state on the standby. You can use "db2pd -tablespaces" option to monitor the standby.</p>
-
-        <div dir="ltr">&nbsp;</div>
-
-        <h1 dir="ltr"><a name="Using_HADR_commands">Using HADR commands</a></h1>
-
-        <p dir="ltr">See also <a href="hadrCommands.html">HADR commands</a></p>
-
-        <h2 dir="ltr"><a name="Do_HADR_commands_use_db_name_or_db_alias_to_address_databases____loopback__catalog_not_supported_">Do HADR commands use db name or db alias to address databases? ("loopback" catalog not supported)</a></h2>
-
-        <p dir="ltr">HADR commands (start hadr, stop hadr, takeover hadr) use db aliases to address the database. Therefore, you could issue the commands from the database server machine or a client machine as long as the alias points to the right database.</p>
-
-        <p dir="ltr">However, there is a limitation for the "start hadr ... as standby" command. On the server machine hosting the standby database, the database catalog must have an entry with the same db alias and db name. If you do "db2 list db directory", you should see something like:</p>
-
-        <div class="preformatted" dir="ltr">
-        <div class="preformattedContent">
-        <pre>
+            <li>
+             Impact of replay failure can be quite significant
+            </li>
+           </ul>
+          </li>
+         </ul>
+        </li>
+       </ul>
+      </li>
+     </ul>
+     <p dir="ltr">
+      <br/>
+      <br/>
+      Thus if the performance of INGEST is adequate, it is preferred. Things to consider when using IMPORT or INGEST:
+     </p>
+     <ul dir="ltr">
+      <li>
+       They can produce much higher logging rate on the primary (more so for INGEST)
+      </li>
+      <li>
+       This could mean the primary logging rate is higher than the HADR log shipping speed, or the standby log replay speed
+       <ul>
+        <li>
+         This could potentially cause congestion that could affect primary transaction processing
+        </li>
+        <li>
+         If congestion is avoided by using large standby receive buffer or log spooling, it would still mean that standby log replay could fall behind the primary, at least temporarily.
+         <ul>
+          <li>
+           This would lead to long takeover time, should there be a primary outage when standby replay is behind.
+          </li>
+         </ul>
+        </li>
+       </ul>
+      </li>
+      <li>
+       You should experiment to see what kind of logging rate you get when running INGEST
+      </li>
+     </ul>
+     <h2 dir="ltr">
+      <a name="How_is_Blob_Clob_DBClob_handled_in_HADR_">
+       How is Blob/Clob/DBClob handled in HADR?
+      </a>
+     </h2>
+     <p dir="ltr">
+      DB2 LOB type includes Blob, Clob, and DBClob. A LOB column can be declared as logged or not logged.  For HADR, a LOB column is replicated if and only if it is logged. For a not logged LOB, the standby will still allocate space for it; the LOB will have the right size but the content will be binary zero.
+     </p>
+     <h2 dir="ltr">
+      <a name="What_happens_if_the_standby_encounters_a_replay_error_">
+       What happens if the standby encounters a replay error?
+      </a>
+     </h2>
+     <p dir="ltr">
+      For fatal errors, the standby database will shut itself down. The DBA should identify the cause (read db2diag.log, etc.), fix the problem, then reactivate the standby.
+     </p>
+     <p dir="ltr">
+      Replay errors on a tablespace may bring the tablespace offline, but leave the database online. Subsequent replays will skip this tablespace. At database level, the standby may look healthy, say, in peer state with a small log gap. But it can have one or more tablespaces offline. These tablespaces will not be accessible upon failover.
+     </p>
+     <p dir="ltr">
+      Therefore it is very important to also monitor tablespace state on the standby. You can use "db2pd -tablespaces" option to monitor the standby.
+     </p>
+     <div dir="ltr">
+     </div>
+     <h1 dir="ltr">
+      <a name="Using_HADR_commands">
+       Using HADR commands
+      </a>
+     </h1>
+     <p dir="ltr">
+      See also
+      <a href="hadrCommands.html">
+       HADR commands
+      </a>
+     </p>
+     <h2 dir="ltr">
+      <a name="Do_HADR_commands_use_db_name_or_db_alias_to_address_databases____loopback__catalog_not_supported_">
+       Do HADR commands use db name or db alias to address databases? ("loopback" catalog not supported)
+      </a>
+     </h2>
+     <p dir="ltr">
+      HADR commands (start hadr, stop hadr, takeover hadr) use db aliases to address the database. Therefore, you could issue the commands from the database server machine or a client machine as long as the alias points to the right database.
+     </p>
+     <p dir="ltr">
+      However, there is a limitation for the "start hadr ... as standby" command. On the server machine hosting the standby database, the database catalog must have an entry with the same db alias and db name. If you do "db2 list db directory", you should see something like:
+     </p>
+     <div class="preformatted" dir="ltr">
+      <div class="preformattedContent">
+       <pre>
          Database alias                       = FOO
          Database name                        = FOO
          Local database directory             = /work1/databases
@@ -347,106 +725,218 @@
          Alternate server hostname            =
          Alternate server port number         =
         </pre>
-        </div>
-        </div>
-
-        <p dir="ltr">Users do not usually run into this limitation. Such an entry is created automatically on "create db" or "restore db". It's missing only in unusually cases such as "loopback" catalog.</p>
-
-        <h2 dir="ltr"><a name="What_database_aliases_shall_I_use_for_HADR_commands_when_automatic_client_reroute_is_enabled_">What database aliases shall I use for HADR commands when automatic client reroute is enabled?</a></h2>
-
-        <p dir="ltr">Do not use ACR enabled database aliases in HADR admin commands. See <a href="clientReroute.html#HADR_Admin_Commands">HADR Admin Commands</a></p>
-
-        <h2 dir="ltr"><a name="How_come_the_standby_fails_to_start__but_the__Start_HADR_as_standby__command_still_succeeds_">How come the standby fails to start, but the "Start HADR as standby" command still succeeds?</a></h2>
-
-        <p dir="ltr">When the "start HADR on database ... as standby" command is issued, the command returns as soon as the relevant EDUs are successfully started. It does not wait for connection to primary (In contrast, with the exception of "start HADR on db ... as primary <b>by force</b>", the primary database is not considered started until it connects to a standby database). If the standby database encounters an error such as connection rejected by the primary, the "start" command may still return success. Many replay errors will also bring down the standby database. Thus the status of the standby should be continuously monitored.</p>
-
-        <p dir="ltr">The same behavior applies to the "activate database" command on the standby.</p>
-
-        <p dir="ltr">This behavior applies to primary reintegration too. Returning of "start ... as standby" command does not indicate that reintegration succeeded. See also <a href="hadrTakeover.html#Primary_reintegration">Primary Reintegration</a></p>
-
-        <div dir="ltr">&nbsp;</div>
-
-        <h1 dir="ltr"><a name="Monitoring_HADR">Monitoring HADR</a></h1>
-
-        <p dir="ltr">See also <a href="hadrMonitoring.html">HADR monitoring</a></p>
-
-        <h2 dir="ltr"><a name="How_do_I_tell_the_role_of_a_database_when_it_is_offline_">How do I tell the role of a database when it is offline?</a></h2>
-
-        <p dir="ltr">Check database configuration parameter "HADR database role". It is one of PRIMARY, STANDBY, or STANDARD (not an HADR database). When it is online, you can also find the role in the "HADR_ROLE" field in monitoring interfaces.</p>
-
-        <h2 dir="ltr"><a name="Why_is_the_HADR_state_reported_in_db2diag_log_different_from_the_state_reported_in_monitoring_interfaces_">Why is the HADR state reported in db2diag.log different from the state reported in monitoring interfaces?</a></h2>
-
-        <p dir="ltr">See <a href="db2diag.html#HADR_State_Change">HADR State Change</a></p>
-
-        <h2 dir="ltr"><a name="What_do_I_see_the__This_operation_is_not_allowed_on_a_standby_database__message_in_db2diag_log_">What do I see the "This operation is not allowed on a standby database" message in db2diag.log?</a></h2>
-
-        <p dir="ltr">This message is usually caused by a client (or the client reroute mechanism) trying to connect to the standby database. This message and the subsequent "sqleserl, probe:77" message can usually be ignored.</p>
-
-        <h2 dir="ltr"><a name="How_to_I_monitor_tablespace_status_on_the_standby_">How to I monitor tablespace status on the standby?</a></h2>
-
-        <p dir="ltr">DB2 CLP command "list tablespaces" requires a database connection. But the standby database does not accept client connection unless reads on standby is enabled. You can use the db2pd command to monitor tablespaces on the standby. Use "db2pd -tablespaces -db &lt;dbName&gt;". See also <a href="hadrMonitoring.html#Standby_tablespace_status">Standby Tablespace Status</a></p>
-
-        <h2 dir="ltr"><a name="How_can_I_determine_if_there_are_any_unavailable_tables_on_HADR_standby_database_">How can I determine if there are any unavailable tables on HADR standby database?</a></h2>
-
-        <p dir="ltr">It is routine practice to identify if any database objects, such as tables, are unavailable on the HADR standby prior to issuing a takeover. For example, you might check if there any tables that are unavailable because they are in a drop-pending state. Tables in unavailable state may be caused by not logged operation on the primary such as NLI / non-recoverable load.</p>
-
-        <p class="wordwrap" dir="ltr">To determine if there are any tables in drop-pending state on the standby, you need to use the <code>db2dart</code> and the <code>db2pd</code> commands on the standby. You need to use both commands because each provides a potentially incomplete picture of the table state: <code>db2dart</code> reads only changes that are on disk, and <code>db2pd</code> can report only the information about tables that are loaded into memory.</p>
-
-        <p class="wordwrap" dir="ltr">See <a href="https://www.ibm.com/support/pages/node/231663">this technote</a> for detailed steps to check for unavailable tables in the database on HADR standby.</p>
-
-        <div dir="ltr">&nbsp;</div>
-
-        <p dir="ltr">&nbsp;</p>
-
-        <h1 dir="ltr"><a href="#HADR_Setup" name="Miscellaneous">Automated&nbsp;Failover</a></h1>
-
-        <h2 dir="ltr"><a href="#How_can_I_determine_if_there_are_any_unavailable_tables_on_HADR_standby_database_" name="How_do_I_find_out_which_HADR_features_were_added_in_which_DB2_release_">How&nbsp;configure&nbsp;automated&nbsp;failover&nbsp;with&nbsp;PowerHA?</a></h2>
-
-        <p dir="ltr">&nbsp;Please refer to section 7.5 "Automating HADR takeover with PowerHA" of the following redbook:<br />
-        http://www.redbooks.ibm.com/redbooks/pdfs/sg247363.pdf</p>
-
-        <p dir="ltr">&nbsp;</p>
-
-        <h1 dir="ltr"><a name="Miscellaneous">Miscellaneous</a></h1>
-
-        <h2 dir="ltr"><a name="How_do_I_find_out_which_HADR_features_were_added_in_which_DB2_release_">How do I find out which HADR features were added in which DB2 release?</a></h2>
-
-        <p dir="ltr">See <a href="featureHistory.html">feature&nbsp;history</a></p>
-
-        <h2 dir="ltr"><a name="Does_HADR_support_compression_in_log_shipping_">Does HADR support compression in log shipping? </a></h2>
-
-        <p dir="ltr">No. HADR sends log data onto TCP as is. If compression is needed, an external hardware or software solution can be used. Note that if row compression or columnar compression is enabled, the data embedded in log stream is already compressed. Therefore additional compression at or below TCP level may not result in high compression ratio.</p>
-
-        <p dir="ltr">DB2 "log archive compression" feature only compresses a log file when it is archived. It has no effect on HADR log shipping. See also <a href="#What_is_the_recommendation_on_using_log_archive_compression_with_HADR_">What&nbsp;is&nbsp;the&nbsp;recommendation&nbsp;on&nbsp;using&nbsp;log&nbsp;archive&nbsp;compression&nbsp;with&nbsp;HADR?</a></p>
-
-        <h2 dir="ltr"><a name="Does_HADR_support_encryption_in_log_shipping_">Does HADR support encryption in log shipping?</a> What if I have "native database encryption" enabled?</h2>
-
-        <p dir="ltr">No. HADR sends log data onto TCP as is. HADR primary and standby usually are connected via private network, for security and performance reasons. If encryption is needed, an external method such as VPN can be used.</p>
-
-        <p dir="ltr">The DB2 native database encryption (see <a href="http://www-01.ibm.com/support/knowledgecenter/SSEPGG_10.5.0/com.ibm.db2.luw.admin.sec.doc/doc/t0061766.html">http://www-01.ibm.com/support/knowledgecenter/SSEPGG_10.5.0/com.ibm.db2.luw.admin.sec.doc/doc/t0061766.html</a>) only encrypts data at rest (ie. on disk), Data in memory and in transit (such as client/server communication and HADR primary/standby communication) are not encrypted. Search for "Encrypt a database in an HADR environment" in the knowledge center topic quoted above for example of managing HADR in encrypted database environment.</p>
-
-        <p dir="ltr">Primary and standby encryption configurations are independent. You can have both unencrypted, both encrypted, or one encrypted and the other not encrypted. In most business environments, you would want them to have the same encryption policy. HADR will print a warning message to DB2 admin log when it detects that primary and standby have different policy.</p>
-
-        <p dir="ltr">&nbsp;</p>
       </div>
+     </div>
+     <p dir="ltr">
+      Users do not usually run into this limitation. Such an entry is created automatically on "create db" or "restore db". It's missing only in unusually cases such as "loopback" catalog.
+     </p>
+     <h2 dir="ltr">
+      <a name="What_database_aliases_shall_I_use_for_HADR_commands_when_automatic_client_reroute_is_enabled_">
+       What database aliases shall I use for HADR commands when automatic client reroute is enabled?
+      </a>
+     </h2>
+     <p dir="ltr">
+      Do not use ACR enabled database aliases in HADR admin commands. See
+      <a href="clientReroute.html#HADR_Admin_Commands">
+       HADR Admin Commands
+      </a>
+     </p>
+     <h2 dir="ltr">
+      <a name="How_come_the_standby_fails_to_start__but_the__Start_HADR_as_standby__command_still_succeeds_">
+       How come the standby fails to start, but the "Start HADR as standby" command still succeeds?
+      </a>
+     </h2>
+     <p dir="ltr">
+      When the "start HADR on database ... as standby" command is issued, the command returns as soon as the relevant EDUs are successfully started. It does not wait for connection to primary (In contrast, with the exception of "start HADR on db ... as primary
+      <b>
+       by force
+      </b>
+      ", the primary database is not considered started until it connects to a standby database). If the standby database encounters an error such as connection rejected by the primary, the "start" command may still return success. Many replay errors will also bring down the standby database. Thus the status of the standby should be continuously monitored.
+     </p>
+     <p dir="ltr">
+      The same behavior applies to the "activate database" command on the standby.
+     </p>
+     <p dir="ltr">
+      This behavior applies to primary reintegration too. Returning of "start ... as standby" command does not indicate that reintegration succeeded. See also
+      <a href="hadrTakeover.html#Primary_reintegration">
+       Primary Reintegration
+      </a>
+     </p>
+     <div dir="ltr">
+     </div>
+     <h1 dir="ltr">
+      <a name="Monitoring_HADR">
+       Monitoring HADR
+      </a>
+     </h1>
+     <p dir="ltr">
+      See also
+      <a href="hadrMonitoring.html">
+       HADR monitoring
+      </a>
+     </p>
+     <h2 dir="ltr">
+      <a name="How_do_I_tell_the_role_of_a_database_when_it_is_offline_">
+       How do I tell the role of a database when it is offline?
+      </a>
+     </h2>
+     <p dir="ltr">
+      Check database configuration parameter "HADR database role". It is one of PRIMARY, STANDBY, or STANDARD (not an HADR database). When it is online, you can also find the role in the "HADR_ROLE" field in monitoring interfaces.
+     </p>
+     <h2 dir="ltr">
+      <a name="Why_is_the_HADR_state_reported_in_db2diag_log_different_from_the_state_reported_in_monitoring_interfaces_">
+       Why is the HADR state reported in db2diag.log different from the state reported in monitoring interfaces?
+      </a>
+     </h2>
+     <p dir="ltr">
+      See
+      <a href="db2diag.html#HADR_State_Change">
+       HADR State Change
+      </a>
+     </p>
+     <h2 dir="ltr">
+      <a name="What_do_I_see_the__This_operation_is_not_allowed_on_a_standby_database__message_in_db2diag_log_">
+       What do I see the "This operation is not allowed on a standby database" message in db2diag.log?
+      </a>
+     </h2>
+     <p dir="ltr">
+      This message is usually caused by a client (or the client reroute mechanism) trying to connect to the standby database. This message and the subsequent "sqleserl, probe:77" message can usually be ignored.
+     </p>
+     <h2 dir="ltr">
+      <a name="How_to_I_monitor_tablespace_status_on_the_standby_">
+       How to I monitor tablespace status on the standby?
+      </a>
+     </h2>
+     <p dir="ltr">
+      DB2 CLP command "list tablespaces" requires a database connection. But the standby database does not accept client connection unless reads on standby is enabled. You can use the db2pd command to monitor tablespaces on the standby. Use "db2pd -tablespaces -db &lt;dbName&gt;". See also
+      <a href="hadrMonitoring.html#Standby_tablespace_status">
+       Standby Tablespace Status
+      </a>
+     </p>
+     <h2 dir="ltr">
+      <a name="How_can_I_determine_if_there_are_any_unavailable_tables_on_HADR_standby_database_">
+       How can I determine if there are any unavailable tables on HADR standby database?
+      </a>
+     </h2>
+     <p dir="ltr">
+      It is routine practice to identify if any database objects, such as tables, are unavailable on the HADR standby prior to issuing a takeover. For example, you might check if there any tables that are unavailable because they are in a drop-pending state. Tables in unavailable state may be caused by not logged operation on the primary such as NLI / non-recoverable load.
+     </p>
+     <p class="wordwrap" dir="ltr">
+      To determine if there are any tables in drop-pending state on the standby, you need to use the
+      <code>
+       db2dart
+      </code>
+      and the
+      <code>
+       db2pd
+      </code>
+      commands on the standby. You need to use both commands because each provides a potentially incomplete picture of the table state:
+      <code>
+       db2dart
+      </code>
+      reads only changes that are on disk, and
+      <code>
+       db2pd
+      </code>
+      can report only the information about tables that are loaded into memory.
+     </p>
+     <p class="wordwrap" dir="ltr">
+      See
+      <a href="https://www.ibm.com/support/pages/node/231663">
+       this technote
+      </a>
+      for detailed steps to check for unavailable tables in the database on HADR standby.
+     </p>
+     <div dir="ltr">
+     </div>
+     <p dir="ltr">
+     </p>
+     <h1 dir="ltr">
+      <a href="#HADR_Setup" name="Miscellaneous">
+       Automated Failover
+      </a>
+     </h1>
+     <h2 dir="ltr">
+      <a href="#How_can_I_determine_if_there_are_any_unavailable_tables_on_HADR_standby_database_" name="How_do_I_find_out_which_HADR_features_were_added_in_which_DB2_release_">
+       How configure automated failover with PowerHA?
+      </a>
+     </h2>
+     <p dir="ltr">
+      Please refer to section 7.5 "Automating HADR takeover with PowerHA" of the following redbook:
+      <br/>
+      <a href="http://www.redbooks.ibm.com/redbooks/pdfs/sg247363.pdf"> 
+        http://www.redbooks.ibm.com/redbooks/pdfs/sg247363.pdf 
+      </a>
+     </p>
+     <p dir="ltr">
+     </p>
+     <h1 dir="ltr">
+      <a name="Miscellaneous">
+       Miscellaneous
+      </a>
+     </h1>
+     <h2 dir="ltr">
+      <a name="How_do_I_find_out_which_HADR_features_were_added_in_which_DB2_release_">
+       How do I find out which HADR features were added in which DB2 release?
+      </a>
+     </h2>
+     <p dir="ltr">
+      See
+      <a href="featureHistory.html">
+       feature history
+      </a>
+     </p>
+     <h2 dir="ltr">
+      <a name="Does_HADR_support_compression_in_log_shipping_">
+       Does HADR support compression in log shipping?
+      </a>
+     </h2>
+     <p dir="ltr">
+      No. HADR sends log data onto TCP as is. If compression is needed, an external hardware or software solution can be used. Note that if row compression or columnar compression is enabled, the data embedded in log stream is already compressed. Therefore additional compression at or below TCP level may not result in high compression ratio.
+     </p>
+     <p dir="ltr">
+      DB2 "log archive compression" feature only compresses a log file when it is archived. It has no effect on HADR log shipping. See also
+      <a href="#What_is_the_recommendation_on_using_log_archive_compression_with_HADR_">
+       What is the recommendation on using log archive compression with HADR?
+      </a>
+     </p>
+     <h2 dir="ltr">
+      <a name="Does_HADR_support_encryption_in_log_shipping_">
+       Does HADR support encryption in log shipping?
+      </a>
+      What if I have "native database encryption" enabled?
+     </h2>
+     <p dir="ltr">
+      No. HADR sends log data onto TCP as is. HADR primary and standby usually are connected via private network, for security and performance reasons. If encryption is needed, an external method such as VPN can be used.
+     </p>
+     <p dir="ltr">
+      The DB2 
+      <a href="https://www.ibm.com/docs/en/db2/11.5?topic=rest-db2-native-encryption">
+        native database encryption
+      </a>
+       only encrypts data at rest (ie. on disk), Data in memory and in transit (such as client/server communication and HADR primary/standby communication) are not encrypted. Search for "Encrypt a database in an HADR environment" in the knowledge center topic quoted above for example of managing HADR in encrypted database environment.
+     </p>
+     <p dir="ltr">
+      Primary and standby encryption configurations are independent. You can have both unencrypted, both encrypted, or one encrypted and the other not encrypted. In most business environments, you would want them to have the same encryption policy. HADR will print a warning message to DB2 admin log when it detects that primary and standby have different policy.
+     </p>
+     <p dir="ltr">
+     </p>
     </div>
-    <!-- /#page-content-wrapper -->
-
+   </div>
+   <!-- /#page-content-wrapper -->
   </div>
   <!-- /#wrapper -->
-
   <!-- Bootstrap core JavaScript -->
-  <script src="vendor/jquery/jquery.min.js"></script>
-  <script src="vendor/bootstrap/js/bootstrap.bundle.min.js"></script>
-
+  <script src="vendor/jquery/jquery.min.js">
+  </script>
+  <script src="vendor/bootstrap/js/bootstrap.bundle.min.js">
+  </script>
   <!-- Menu Toggle Script -->
   <script>
-    $("#menu-toggle").click(function(e) {
+   $("#menu-toggle").click(function(e) {
       e.preventDefault();
       $("#wrapper").toggleClass("toggled");
     });
   </script>
-
-</body>
-
+ </body>
 </html>

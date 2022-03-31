@@ -1,565 +1,1228 @@
 <!DOCTYPE html>
 <html lang="en">
-
-<head>
-
-  <meta charset="utf-8">
-  <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
-  <meta name="description" content="">
-  <meta name="author" content="">
-
-  <title>Db2 HADR Wiki</title>
-
+ <head>
+  <meta charset="utf-8"/>
+  <meta content="width=device-width, initial-scale=1, shrink-to-fit=no" name="viewport"/>
+  <meta content="" name="description"/>
+  <meta content="" name="author"/>
+  <title>
+   Db2 HADR Wiki
+  </title>
   <!-- Bootstrap core CSS -->
-  <link href="vendor/bootstrap/css/bootstrap.min.css" rel="stylesheet">
-
+  <link href="vendor/bootstrap/css/bootstrap.min.css" rel="stylesheet"/>
   <!-- Custom styles for this template -->
-  <link href="css/simple-sidebar.css" rel="stylesheet">
-
-</head>
-
-<body>
-
+  <link href="css/simple-sidebar.css" rel="stylesheet"/>
+ </head>
+ <body>
   <div class="d-flex" id="wrapper">
-
-    <!-- Sidebar -->
-    <div class="bg-light border-right" id="sidebar-wrapper">
-      <div class="sidebar-heading">Menu</div>
-      <div class="list-group list-group-flush">
-        <a href="hadrBenefits.html" class="list-group-item list-group-item-action bg-light">HADR Benefits</a>
-        <a href="featureHistory.html" class="list-group-item list-group-item-action bg-light">Feature History</a>
-        <a href="hadrTutorial.html" class="list-group-item list-group-item-action bg-light">HADR Tutorial</a>
-        <a href="tcpTuning.html" class="list-group-item list-group-item-action bg-light">TCP Tuning</a>
-        <a href="perfTuning.html" class="list-group-item list-group-item-action bg-light">Perf Tuning</a>
-        <a href="hadrSimulator.html" class="list-group-item list-group-item-action bg-light">HADR Simulator</a>
-        <a href="simulatorOptions.html" class="list-group-item list-group-item-action bg-light">HADR Simulator Options</a>
-        <a href="simulatorOutput.html" class="list-group-item list-group-item-action bg-light">HADR Simulator Output</a>
-        <a href="simulatorParams.html" class="list-group-item list-group-item-action bg-light">HADR Simulator Params</a>
-        <a href="db2logscan.html" class="list-group-item list-group-item-action bg-light">db2logscan</a>
-        <a href="hadrConfig.html" class="list-group-item list-group-item-action bg-light">HADR Config</a>
-        <a href="hadrSyncMode.html" class="list-group-item list-group-item-action bg-light">HADR Sync Mode</a>
-        <a href="hadrTakeover.html" class="list-group-item list-group-item-action bg-light">HADR Takeover</a>
-        <a href="hadrMonitoring.html" class="list-group-item list-group-item-action bg-light">HADR Monitoring</a>
-        <a href="hadrCommands.html" class="list-group-item list-group-item-action bg-light">HADR Commands</a>
-        <a href="hadrLogShipping.html" class="list-group-item list-group-item-action bg-light">HADR Log Shipping/a>
-        <a href="hadrPerf.html" class="list-group-item list-group-item-action bg-light">HADR Perf</a>
-        <a href="diagConnect.html" class="list-group-item list-group-item-action bg-light">Diag Connect</a>
-        <a href="db2diag.html" class="list-group-item list-group-item-action bg-light">db2diag.log</a>
-        <a href="clusterManagers.html" class="list-group-item list-group-item-action bg-light">Cluster Managers</a>
-        <a href="clientReroute.html" class="list-group-item list-group-item-action bg-light">Client Reroute</a>
-        <a href="hadrPureScale.html" class="list-group-item list-group-item-action bg-light"><strong>> HADR on PureScale</strong></a>
-        <a href="faq.html" class="list-group-item list-group-item-action bg-light">FAQ</a>
-        <a href="db2fmtlog.html" class="list-group-item list-group-item-action bg-light">db2fmtlog_replayonlywindow</a>
-      </div>
+   <!-- Sidebar -->
+   <div class="bg-light border-right" id="sidebar-wrapper">
+    <div class="sidebar-heading">
+     Menu
     </div>
-    <!-- /#sidebar-wrapper -->
-
-    <!-- Page Content -->
-    <div id="page-content-wrapper">
-
-      <nav class="navbar navbar-expand-lg navbar-light bg-light border-bottom">
-        <button class="btn btn-primary" id="menu-toggle">Toggle Menu</button>
-
-        <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarSupportedContent" aria-controls="navbarSupportedContent" aria-expanded="false" aria-label="Toggle navigation">
-          <span class="navbar-toggler-icon"></span>
-        </button>
-
-        <div class="collapse navbar-collapse" id="navbarSupportedContent">
-          <ul class="navbar-nav ml-auto mt-2 mt-lg-0">
-            <li class="nav-item">
-              <a class="nav-link" href="index.html">Home</a>
-            </li>
-            <li class="nav-item">
-              <a class="nav-link" href="contact.html">Contact</a>
-            </li>
-            <li class="nav-item">
-              <a class="nav-link" href="contribute.html">Contribute</a>
-            </li>
-          </ul>
-        </div>
-      </nav>
-
-      <div class="container-fluid">
-        <p dir="ltr" style="text-align:center"><span style="font-size:36px">HADR on pureScale</span></p>
-
-        <p dir="ltr"><strong>Table of Contents</strong></p>
-
-        <ul dir="ltr">
-        	<li><a href="#References">References</a></li>
-        	<li><a href="#Overview">Overview</a>
-        	<ul>
-        		<li><a href="#Log_Shipping_and_Replay">Log Shipping and Replay</a>
-        		<ul>
-        			<li><a href="#Performance_Considerations">Performance Considerations</a></li>
-        		</ul>
-        		</li>
-        		<li><a href="#The_Preferred_Replay_Member">The Preferred Replay Member</a></li>
-        		<li><a href="#High_Availability_on_Standby">High Availability on Standby</a></li>
-        		<li><a href="#Assisted_Remote_Catchup">Assisted Remote Catchup</a></li>
-        		<li><a href="#Cluster_Level_Commands">Cluster Level Commands</a>
-        		<ul>
-        			<li><a href="#HADR_Commands_in_pureScale">HADR Commands in pureScale</a></li>
-        			<li><a href="#Activate_deactivate_db_command_on_standby">Activate/deactivate db command on standby</a></li>
-        		</ul>
-        		</li>
-        		<li><a href="#Restrictions_for_HADR_on_pureScale">Restrictions for HADR on pureScale</a></li>
-        	</ul>
-        	</li>
-        	<li><a href="#Setting_up_HADR_on_pureScale">Setting up HADR on pureScale</a>
-        	<ul>
-        		<li><a href="#Creating_Standby_Database">Creating Standby Database</a></li>
-        		<li><a href="#Configuring_HADR_on_Primary_and_Standby">Configuring HADR on Primary and Standby</a>
-        		<ul>
-        			<li><a href="#hadr_local_host_and_hadr_local_svc">hadr_local_host and hadr_local_svc</a></li>
-        			<li><a href="#hadr_target_list">hadr_target_list</a></li>
-        			<li><a href="#hadr_syncmode">hadr_syncmode</a></li>
-        			<li><a href="#Auto_configuration_of_hadr_remote_host__hadr_remote_svc_and_hadr_remote_inst">Auto configuration of hadr_remote_host, hadr_remote_svc and hadr_remote_inst</a></li>
-        		</ul>
-        		</li>
-        		<li><a href="#Starting_HADR">Starting HADR</a></li>
-        	</ul>
-        	</li>
-        	<li><a href="#Monitoring_HADR">Monitoring HADR</a></li>
-        	<li><a href="#Takeover">Takeover</a>
-        	<ul>
-        		<li><a href="#Non_forced_Takeover__role_switch_">Non forced Takeover (role switch)</a></li>
-        		<li><a href="#Forced_Takeover__failover_">Forced Takeover (failover)</a>
-        		<ul>
-        			<li><a href="#Primary_Reintegration">Primary Reintegration</a></li>
-        		</ul>
-        		</li>
-        		<li><a href="#Client_Reroute">Client Reroute</a></li>
-        	</ul>
-        	</li>
-        	<li><a href="#Topology_Change">Topology Change</a></li>
-        	<li><a href="#Spooling">Spooling</a></li>
-        	<li><a href="#Delayed_replay">Delayed replay</a></li>
-        	<li><a href="#Rolling_Update">Rolling Update</a></li>
-        </ul>
-
-        <p dir="ltr"><strong>&nbsp;&nbsp;</strong></p>
-
-        <p dir="ltr">DB2 pureScale architecture provides excellent HA (High Availability). Beginning in DB2 V10.5, you can use the familiar HADR feature on pureScale for DR (Disaster Recovery) protection. This page is a tutorial for using HADR on pureScale. See reference below for additional materials.</p>
-
-        <h1 dir="ltr"><a name="References">References</a></h1>
-
-        <ul dir="ltr">
-        	<li>White paper "<a href="https://community.ibm.com/community/user/hybriddatamanagement/viewdocument/combining-ibm-db2-purescale-feature?CommunityKey=ea909850-39ea-4ac4-9512-8e2eb37ea09a&tab=librarydocuments">Combining&nbsp;IBM&nbsp;DB2&nbsp;pureScale&nbsp;Feature&nbsp;with&nbsp;Q&nbsp;Replication&nbsp;for&nbsp;Scalability&nbsp;and&nbsp;Business&nbsp;Continuity</a>".&nbsp; In DB2 V10.1 and earlier releases, where HADR is not supported on pureScale, you can use Q Replication for pureScale DR solution. While Q Replication is a flexible and powerful replication tool, HADR is easier to set up and manage for HA and DR usage because it is specifically designed for this purpose.</li>
-        	<li><a href="https://community.ibm.com/community/user/hybriddatamanagement/viewdocument/implementing-disaster-recovery-in-i?CommunityKey=b5b60ace-5eb2-4444-a961-d9edb6f39bd8">Implementing&nbsp;disaster&nbsp;recovery&nbsp;in&nbsp;IBM&nbsp;PureData System&nbsp;for&nbsp;Transactions</a>&nbsp; White paper specifically for HADR on the IBM PureData Appliance. The appliance runs DB2 pureScale.</li>
-        	<li><a href="index.html">General HADR info</a>. Many of the general HADR rules apply to pureScale systems. This tutorial page focuses on pureScale specifics. If you are new to HADR, you may want to start from general HADR material.</li>
-        	<li><a href="http://pic.dhe.ibm.com/infocenter/db2luw/v10r5/topic/com.ibm.db2.luw.admin.ha.doc/doc/c0061084.html">HADR&nbsp;on&nbsp;pureScale</a> in DB2 Info Center. Expand this topic in Info Center navigation pane to list subtopics. Info Center is the official DB2 documentation. It is a complete reference, but can be overwhelming for new users.</li>
-        </ul>
-
-        <h1 dir="ltr"><a name="Overview">Overview</a></h1>
-
-        <h2 dir="ltr"><a name="Log_Shipping_and_Replay">Log Shipping and Replay</a></h2>
-
-        <p dir="ltr">As in non pureScale environment, with HADR, the primary database sends transaction logs to the standby database, who replays the logs in real time to stay in synch with the primary. On pureScale, each database is made of multiple members. On the standby, only one member replays the logs.&nbsp; On the primary, each member has its own log stream. With HADR, each primary member opens a TCP connection to the standby replay member to ship its log stream to the standby. The following picture shows the data flow:</p>
-
-        <p dir="ltr"><img alt="HADR on pureScale" src="images/hadrPureScaleDataFlow.png" /><br />
-        <br />
-        The main reason for single member replay on standby is that HADR uses the same replay infrastructure as database roll forward, which only supports single member replay. Given that only a portion of primary's workload is write, which generates logs, and log replay usually costs less resource than processing SQL statements, standby replay speed usually can keep up with primary log generation. For example, primary has 4 members and each has a 25% write ratio. So total write load is 100% of one member's capacity. One replay member should be able to keep up. Still, you may configure a "fat" member on the standby as the replay member.</p>
-
-        <p dir="ltr">On the primary, transaction logging and HADR operation in a member closely resembles a database in non pureScale environment. There is an HADR thread in each primary member that ships log data to the standby. See <a href="hadrLogShipping.html">HADR log shipping</a> for more info.</p>
-
-        <p dir="ltr">On the standby, things in the replay member is somewhat different from that of non pureScale. In the replay member, a dedicated HADR thread is created to serve each stream. This thread receives log data from the primary, then passes the data to the replay mechanism, which merges the streams into one logical stream. The merge is necessary in order to reconstruct transaction order on the primary cluster. The merged stream is then fed to parallel replay, which uses multiple threads to replay the log records in parallel. The same parallel replay mechanism is used for pureScale and non pureScale. Although replay cannot span multiple members, it does use the multiple CPU's on replay member for parallel work. The default number of replay threads is the number of physical CPU cores on the host.</p>
-
-        <p dir="ltr">On the standby, database is inactive on non replay members.</p>
-
-        <p dir="ltr">On both primary and standby, log stream id and standby id numbers are appended to the HADR thread name. See <a href="db2diag.html#The_HADR_Threads">HADR&nbsp;threads</a> for more info. The logging threads have log stream id appended too.</p>
-
-        <h3 dir="ltr"><a name="Performance_Considerations">Performance Considerations</a></h3>
-
-        <p dir="ltr">Shipping all log streams to a single standby member can create network bottleneck. The HADR simulator can be used to <a href="hadrSimulator.html#Simulating_pureScale_Systems">test&nbsp;network&nbsp;performance</a> during planning.<br />
-        <br />
-        Replay performance should be tested during planning too. Pre-generated log files can be fed to a test system for rolling forward. Rolling forward and HADR replay performance should be very close because they use the same infrastructure.</p>
-
-        <h2 dir="ltr"><a name="The_Preferred_Replay_Member">The Preferred Replay Member</a></h2>
-
-        <p dir="ltr">The member where "start HADR" command is run is designated as the preferred replay member. The designation is persistent. It stays until the next designation. DB2 favors the preferred member when choosing a replay member. The preference is only a recommendation to DB2. If the preferred member is not available (for example, db2 instance is offline on the member), DB2 will choose another member. Note that both "start HADR as primary" and "start HADR as standby" commands designates the preferred member. On the primary, the designation does not take effect until the database becomes a standby.<br />
-        <br />
-        If "start hadr" command returns success, preferred replay member is updated. If "start hadr" command returns failure, preferred member may or may not have been updated, depending on how far the command execution went.<br />
-        <br />
-        If a database is already active and in the desired role, the "start hadr" command will be a nop (no operation performed). It will return "SQL1777N HADR is already started." and the preferred replay member is NOT updated. Thus to re-designate the preferred member for an online standby, you need to deactivate it first, then issue "start HADR as standby" on the preferred member.<br />
-        <br />
-        Preferred replay member designation is at database level. Different databases in the same instance can have different preferred replay member.</p>
-
-        <p dir="ltr">The HADR_FLAGS field from monitoring will report <span class="resultofText">STANDBY_REPLAY_NOT_ON_PREFERRED when the current replay member is not the preferred member. If you have set up a "fat" member as the preferred member, you should be alerted when replay is not running on the fat member. T</span>here is no user interface to return exactly which member is the preferred member. When in doubt, re-designate the preferred member to make sure it is configured as intended.<br />
-        <br />
-        Because start hadr command has the side effect of setting preferred replay member, using "activate db" command to start database is preferred over the "start hadr" command. See also <a href="hadrCommands.html#HADR_database_startup_shutdown__a_">HADR&nbsp;database&nbsp;startup/shutdown</a></p>
-
-        <h2 dir="ltr"><a name="High_Availability_on_Standby">High Availability on Standby</a></h2>
-
-        <p dir="ltr">Following the pureScale HA design goal, partial failure (some members fail) will not prevent DB2 from providing continued service. This applies to both primary and standby. On the primary, all usual pureScale availability features apply. On the standby, if the current replay member fails, DB2 will automatically migrate replay and log receiving to another member. The migration favors the preferred member as destination. If replay moves off the preferred member, it does not "fail back" when the preferred member is back online. To move replay back to the preferred member, run "deactivate database", then "activate database" on the standby.<br />
-        <br />
-        Note: The "deactivate db ... member" command shuts down a database on a specific member. If the member is the replay member, database will be deactivated on the member, but standby high availability will kick in and DB2 will auto restart replay. Preferred member selection applies when restarting replay. The previous replay member may or may not be selected as the new replay member. To shutdown the standby completely, use the "deactivate db" command without "member" clause. To do maintenance on a member host, stop db2 instance on it so that it will not be selected as replay member. See <a href="http://pic.dhe.ibm.com/infocenter/db2luw/v10r5/topic/com.ibm.db2.luw.admin.sd.doc/doc/t0056115.html">Performing&nbsp;maintenance&nbsp;on&nbsp;a&nbsp;member&nbsp;host</a><br />
-        <br />
-        For more info on replay member, see "<a href="http://pic.dhe.ibm.com/infocenter/db2luw/v10r5/topic/com.ibm.db2.luw.admin.ha.doc/doc/c0061086.html">HADR&nbsp;standby&nbsp;replay&nbsp;in&nbsp;a&nbsp;DB2&nbsp;pureScale&nbsp;environment</a>" in Info Center.</p>
-
-        <h2 dir="ltr"><a name="Assisted_Remote_Catchup">Assisted Remote Catchup</a></h2>
-
-        <p dir="ltr">Another high availability feature, assisted remote catchup allows HADR to continue functioning when some primary members cannot connect to standby.</p>
-
-        <p dir="ltr">If a primary member cannot connect to the standby replay member directly, another member can open an extra TCP connection to the standby replay member to ship its log stream. This is known as "Assisted Remote Catchup".&nbsp; As long as one primary member can connect to the standby, log shipping of all streams will go on, although shipping speed will suffer.</p>
-
-        <p dir="ltr">Assisted remote catchup automatically kicks in when the stream owning member loses connection to standby. If the assisting member loses the assisting connection, the assisting process will start over. The previous assisting member may or may not be chosen as the new assisting member. Load balancing is performed across primary members who can still connect to the standby.</p>
-
-        <p dir="ltr">When a log stream is in assisted remote catchup, it will be reported as in remote catchup state, with the ASSISTED_REMOTE_CATCHUP flag set in the HADR_FLAGS monitoring field. See "<a href="#Monitoring_HADR">Monitoring&nbsp;HADR</a>" section below for more info. You may want to set up scripts to alert DBA when assisted remote catchup occurs.</p>
-
-        <p dir="ltr">Assisted remote catchup covers the following 2 scenarios:</p>
-
-        <ul dir="ltr">
-        	<li>Database is active on a primary member, but cannot connect to the standby. This scenario handles network problem. In this scenario, the assisted member will keep trying connecting to the standby. Once it makes direct connection to the standby, assisted remote catchup will end; the owning member will ship its log stream itself. This is generally an abnormal condition. ASSISTED_MEMBER_ACTIVE from HADR_FLAGS will be set to alert users.</li>
-        	<li>Database is inactive on a primary member. This scenario is just as important. A member can be inactive indefinitely. Any of its logs not already shipped to the standby have to be shipped, otherwise, this stream will block other streams' log shipping because log merge (required by log replay) will stall on the standby.
-        	<ul>
-        		<li>This scenario covers the case where a member shuts down normally or abnormally (crashed). DB2 instance need not be online on the assisted member. Assisting member reads the log files from disk.</li>
-        		<li>When the assisted member starts, it will attempt to connect to the standby. Once the connection succeeds, assisted remote catchup will end; the owning member will ship logs for itself.</li>
-        	</ul>
-        	</li>
-        </ul>
-
-        <h2 dir="ltr"><a name="Cluster_Level_Commands">Cluster Level Commands</a></h2>
-
-        <h3 dir="ltr"><a name="HADR_Commands_in_pureScale">HADR Commands in pureScale</a></h3>
-
-        <p dir="ltr">For ease of administration, the HADR commands (start/stop/takeover HADR) are all cluster scope. Running a command on any member applies the operation to the whole cluster, even if database is not active on the issuing member. As long as db2 instance is online on a member, you can issue HADR commands on the member. DB2 will coordinate across the members. This applies to both primary and standby. This is particularly useful on the standby because database is inactive on non-replay members.</p>
-
-        <p dir="ltr">Note: In pureScale, when we say "db2 is active/inactive (or online/offline)" on a member, it can be ambiguous. "db2" can mean the db2 instance on the member, or the database service for a given database running on the member. In this page, we usually mean the latter (database service on the member).</p>
-
-        <h3 dir="ltr"><a name="Activate_deactivate_db_command_on_standby">Activate/deactivate db command on standby</a></h3>
-
-        <p dir="ltr">"Activate db" command on the standby will select a replay member, with preference to the preferred replay member, then start log receive and replay on the member. Other members remain inactive. The "activate db" command itself can be issued from any member.<br />
-        <br />
-        "Deactivate db" command (without "member" clause) on the standby will deactivate the replay member. Non-replay members remain inactive. The "deactivate db" command itself can be issued from any member.</p>
-
-        <h2 dir="ltr"><a name="Restrictions_for_HADR_on_pureScale">Restrictions for HADR on pureScale</a></h2>
-
-        <p dir="ltr">There are some restrictions for HADR on pureScale:</p>
-
-        <ul dir="ltr">
-        	<li>The <a href="hadrSyncMode.html">HADR synchronization modes</a> SYNC and NEARSYNC are not supported. Only ASYNC and SUPERASYNC modes are supported. This is usually not a problem because HADR is intended as DR solution for pureScale. DR site is typically far from the primary site. SYNC and NEARSYNC modes are not practical over long distance.</li>
-        	<li><a href="hadrConfig.html#hadr_peer_window___HADR_peer_window">Peer&nbsp;window</a> is not supported because it requires either SYNC or NEARSYNC mode. This is usually not a problem. Peer window is typically used for HA and HADR on pureScale is usually used for DR.</li>
-        	<li>The topology of the primary and the standby must be synchronized. Both databases must be pureScale systems and have same number of members (except for the short time when a member is being added on the primary).
-        	<ul>
-        		<li>Add member operation on the primary will be replayed on the standby. However, you need to follow a certain procedure to prepare the standby for replaying the add member operation. See "<a href="http://pic.dhe.ibm.com/infocenter/db2luw/v10r5/topic/com.ibm.db2.luw.admin.ha.doc/doc/t0061090.html">add&nbsp;member</a>" in Info Center.</li>
-        		<li>Drop member operation on the primary will require reinitialization of the standby. See "<a href="http://pic.dhe.ibm.com/infocenter/db2luw/v10r5/topic/com.ibm.db2.luw.admin.ha.doc/doc/t0061091.html">drop&nbsp;member</a>" in Info Center.</li>
-        	</ul>
-        	</li>
-        	<li>You cannot have more than one HADR standby database.</li>
-        	<li>The reads on standby feature is not supported.</li>
-        	<li>You cannot use the integrated cluster manager, IBM® Tivoli® System Automation for Multiplatforms (SA MP), to manage automated failover to a standby database. SA MP manages high availability within the local cluster only.</li>
-        	<li>Network address translation (NAT) between the primary and standby sites is not supported.</li>
-        </ul>
-
-        <p dir="ltr">For general restrictions applicable to both pureScale and non pureScale, see <a href="http://pic.dhe.ibm.com/infocenter/db2luw/v10r5/topic/com.ibm.db2.luw.admin.ha.doc/doc/c0011760.html">http://pic.dhe.ibm.com/infocenter/db2luw/v10r5/topic/com.ibm.db2.luw.admin.ha.doc/doc/c0011760.html</a> in Info Center.</p>
-
-        <h1 dir="ltr"><a name="Setting_up_HADR_on_pureScale">Setting up HADR on pureScale</a></h1>
-
-        <p dir="ltr">The procedure of setting HADR on pureScale is largely the same as on non pureScale systems. You create the standby database, configure HADR parameters on primary and standby, then run the "start HADR" command.<br />
-        <br />
-        For a sample scenario, see "<a href="http://pic.dhe.ibm.com/infocenter/db2luw/v10r5/topic/com.ibm.db2.luw.admin.ha.doc/doc/c0061088.html">Scenario:&nbsp;Deploying&nbsp;HADR&nbsp;in&nbsp;a&nbsp;DB2&nbsp;pureScale&nbsp;environment</a>" in Info Center. As of Dec. 2013, there is a documentation error on the Info Center page. The "member" clause is missing in the "db2 update db cfg" statement for member level parameters. The command should be "<span style="font-family:'courier new' , 'courier' , monospace">update db cfg for hadr_db <strong>member </strong>&lt;x&gt; using". </span>This defect is being fixed.</p>
-
-        <h2 dir="ltr"><a name="Creating_Standby_Database">Creating Standby Database</a></h2>
-
-        <p dir="ltr">As in non pureScale environment, two methods are supported:</p>
-
-        <ul dir="ltr">
-        	<li>Backup and restore: Take an offline or online backup of the primary database and restore it on the standby instance.</li>
-        	<li>Split mirror: Create a split mirror of the primary database on the standby instance, then run "db2inidb ... as standby".</li>
-        </ul>
-
-        <h2 dir="ltr"><a name="Configuring_HADR_on_Primary_and_Standby">Configuring HADR on Primary and Standby</a></h2>
-
-        <p dir="ltr">With the exception of hadr_local_host and hadr_local_svc, all HADR database configuration parameters are cluster scope (a single value is accepted and applied at cluster level).</p>
-
-        <p dir="ltr">Wherever a host address is expected (in hadr_local_host, hadr_remote_host, and hadr_target_list), either a host name, or a numerical IP address is accepted. For numerical IPv6 address, see the relevant parameter in Info Center for accepted format.</p>
-
-        <p dir="ltr">Wherever a port number is expected (in hadr_local_svc, hadr_remote_svc, and hadr_target_list), either a service name, or a numerical port number is accepted.</p>
-
-        <p dir="ltr">This page only lists the minimal set of parameters you need to update to set up HADR. Parameters (such as hadr_timeout) with reasonable default are not listed. See <a href="hadrConfig.html">HADR config</a> for other HADR parameters.</p>
-
-        <h3 dir="ltr"><a name="hadr_local_host_and_hadr_local_svc">hadr_local_host and hadr_local_svc</a></h3>
-
-        <p dir="ltr">These two parameters define the TCP address on which a database listens for incoming connection requests. In pureScale, they are per member scope. Example:<br />
-        <br />
-        <span style="font-family:'courier new' , 'courier' , monospace">db2 "update db cfg for hadr_db member 0 using hadr_local_host host0.ibm.com hadr_local_svc 4000"</span><br />
-        <br />
-        Unless the members share a physical host (allowed, but not a practical real world setup), an "update db cfg ... member &lt;x&gt; using hadr_local_host &lt;hostX&gt;" statement is needed for each member. For hadr_local_svc, a common port is recommended, so a single "update db cfg for hadr_db using hadr_local_svc &lt;commonPort&gt;" statement will cover all members.</p>
-
-        <p dir="ltr">Each member listens on its local address. There must not be duplicate addresses. In the case of members sharing a host, you must use different port number for the members.</p>
-
-        <h3 dir="ltr"><a name="hadr_target_list">hadr_target_list</a></h3>
-
-        <p dir="ltr">This parameter lists remote databases' addresses. It defines what databases are allowed to connect as standbys when the local database is a primary. A pureScale database is represented in the list as <span style="font-family:'courier new' , 'courier' , monospace">"{host0:port0|host1:port1|host2:port2}"</span>, where "{...}" encloses members in the same cluster, and the <span style="font-family:'courier new' , 'courier' , monospace">"|"</span> (vertical bar) character delimits members. Each host:port pair identifies a member by its address. The member address comes from the hadr_local_host and hadr_local_svc configuration on the remote database. DB2 compares addresses after resolving host name to IP address and service name to port number. So the text in hadr_target_list need not match the text in hadr_local_host and hadr_local_svc on the remote database.</p>
-
-        <p dir="ltr">hadr_target_list is used to bootstrap primary-standby communication. Both primary and standby attempts to contact the remote database using addresses in&nbsp; hadr_target_list. Once a database reaches a listed remote member, it will retrieve the full member list of the remote database. Listing all members of a remote database in hadr_target_list is not required, but recommended when the number of memebers is small (such as 4). For large clusters, list the members that are most likely to be online if not all members are listed. If none of the listed members are online, primary and standby cannot connect to each other. As long as one member from a cluster is listed, the cluster is considered listed and will be accepted as a standby. If a listed member address does not actually belong to the remote cluster, it is ignored.</p>
-
-        <p dir="ltr">hadr_target_list accepts a string up to 2048 bytes long. Assuming 50 characters for each address, it can hold about 40 member addresses.</p>
-
-        <p dir="ltr">Example of a 3 member listing:<br />
-        <br />
-        <span style="font-family:'courier new' , 'courier' , monospace">db2 "update db cfg for hadr_db using hadr_target_list {host0.ibm.com:4000|host1.ibm.com:4000|host2.ibm.com:4000}"</span><br />
-        <br />
-        In hadr_target_list, multiple standbys are listed as "<span style="font-family:'courier new' , 'courier' , monospace">standby1|standby2|standby3</span>". The "|" character is used to delimit members within a cluster and to delimit multiple standbys. When "|" is within a "{ }" enclosure, it is a member delimiter, otherwise, it is a standby (database) delimiter. "{ }"&nbsp; enclosure around members of a database is mandatory on pureScale, even if only one address is listed for a cluster. In non pureScale environment, "{ }" is optional.</p>
-
-        <p dir="ltr">In a future release where multiple standby is supported on pureScale, hadr_target_list can be <span style="font-family:'courier new' , 'courier' , monospace">"{hostA0.ibm.com:4000|hostA1.ibm.com:4000|hostA2.ibm.com:4000}|{hostB0.ibm.com:4000|hostB1.ibm.com:4000|hostB2.ibm.com:4000}"</span>, where two clusters (hostA* and hostB*) are listed.<br />
-        <br />
-        For more info on hadr_target_list, see <a href="http://pic.dhe.ibm.com/infocenter/db2luw/v10r5/topic/com.ibm.db2.luw.admin.config.doc/doc/r0059281.html">http://pic.dhe.ibm.com/infocenter/db2luw/v10r5/topic/com.ibm.db2.luw.admin.config.doc/doc/r0059281.html</a> in Info Center.</p>
-
-        <h3 dir="ltr"><a name="hadr_syncmode">hadr_syncmode</a></h3>
-
-        <p dir="ltr">In pureScale, only ASYNC or SUPERASYNC modes are supported. As in non pureScale environment (when hadr_target_list is set), hadr_syncmode specifies the syncmode of the primary - principal_standby pair when the local database is the primary. For example, hadr_syncmode is set to ASYNC on database A and SUPERASYNC on database B. When A is the primary, the pair uses ASYNC mode. When B is the primary, the pair uses SUPERASYNC mode.<br />
-        <br />
-        Note: hadr_syncmode defaults to NEARSYNC in non pureScale environment and ASYNC in pureScale environment.<br />
-        <br />
-        For more info, see <a href="hadrSyncMode.html">HADR sync mode</a></p>
-
-        <h3 dir="ltr"><a name="Auto_configuration_of_hadr_remote_host__hadr_remote_svc_and_hadr_remote_inst">Auto configuration of hadr_remote_host, hadr_remote_svc and hadr_remote_inst</a></h3>
-
-        <p dir="ltr">Note: A logical NULL value of database configuration parameter is displayed as empty string (zero length string) in "db2 get db cfg" command output. To explicitly set a parameter as NULL, use the "db2 update db cfg for &lt;dbName&gt; using &lt;parameterName&gt; NULL" command. "NULL" must be spelled in upper case, otherwise, it is interpreted as literal string "null".<br />
-        <br />
-        While these parameters are under auto config control in pureScale and non pureScale environment (when hadr_target_list is set), there are some differences:<br />
-        <br />
-        - In pureScale, hadr_remote_host, hadr_remote_svc, and hadr_remote_inst are allowed to be NULL on HADR startup. They will be auto configured after HADR starts.<br />
-        - In non pureScale environment, they are all required to be not NULL on startup and it is recommended that users set them to the correct values (what auto config would set them to), because these values are used by integrated cluster manager, which may start using the values before they are auto configured. In pureScale, integrated cluster manager does not manage HADR, so these parameters are allowed to be NULL. In any case, auto config will correct any incorrect values after HADR startup.</p>
-
-        <p dir="ltr">- In non pureScale environment, the remote database's host and port are set in hadr_remote_host and hadr_remote_svc, respectively.<br />
-        - In pureScale environment, in order to represent multiple members of a remote database, the remote database's member list is set in hadr_remote_host, using hadr_target_list format, while hadr_remote_svc is always set to NULL.<br />
-        <br />
-        <strong>hadr_remote_host</strong><br />
-        This parameter is under auto config control. You can leave it as NULL on pureScale. On primary, it will be auto set to the principal standby's member list. On the standby, it will be set to the primary's member list. Since only one standby (the principal standby) is supported in pureScale, whatever listed in hadr_target_list is the one and only remote database. Thus auto config will simply copy the string from hadr_target_list into hadr_remote_host.<br />
-        <br />
-        <strong>hadr_remote_svc</strong><br />
-        hadr_remote_svc is under auto config control. In pureScale, DB2 always sets it to NULL.<br />
-        <br />
-        <strong>hadr_remote_inst</strong><br />
-        This parameter is under auto config control. You can leave it as NULL on pureScale. On primary, it will be auto set to the principal standby's instance name. On the standby, it will be set to the primary's instance name.</p>
-
-        <h2 dir="ltr"><a name="Starting_HADR">Starting HADR</a></h2>
-
-        <p dir="ltr">Note: Starting in DB2 V10.1, starting HADR on the primary while the database is already online will pick up the latest HADR configuration. This means that you can set up HADR with no outage on the primary. See also <a href="hadrConfig.html#Refreshing_HADR_configuration">Refreshing&nbsp;HADR&nbsp;configuration</a><br />
-        <br />
-        First, decide which member is the preferred replay member on each (primary and standby) database. Then as in non pureScale, run the "start hadr" command to start HADR.<br />
-        <br />
-        - Run the 'db2 start hadr on db &lt;db&gt; as standby' command on the standby's preferred replay member. Log receive and replay will be started on the preferred member. Database remains inactive on other members.<br />
-        <br />
-        - Run the 'db2 start hadr on db &lt;db&gt; as primary' command on the primary's preferred replay member. If database is offline when the command is issued, it is activated only on the member where the command is issued. If database is online when the command is issued, all members remain online and the issuing member is brought online if it was offline.<br />
-        <br />
-        As in non pureScale, standby should be started first. To prevent split brain, a primary cannot be started if it cannot find its standby, unless the "start hadr ... as primary <strong>by force</strong>" command is used. In pureScale, any primary member making contact to the standby satisfies the "finding" standby requirement. The requirement applies only to starting HADR on cluster lever. Once HADR is started, member start and restart does not require connection to standby, even when no other member has connection to the standby.</p>
-
-        <p dir="ltr">After starting, the HADR pair will connect to each other. Each stream will independently go through state transition. For definition of HADR states, see <a href="http://pic.dhe.ibm.com/infocenter/db2luw/v10r5/index.jsp?topic=%2Fcom.ibm.db2.luw.admin.ha.doc%2Fdoc%2Fc0011748.html">http://pic.dhe.ibm.com/infocenter/db2luw/v10r5/index.jsp?topic=%2Fcom.ibm.db2.luw.admin.ha.doc%2Fdoc%2Fc0011748.html</a> in Info Center. You should monitor HADR to verify that state transition proceeds as designed.</p>
-
-        <p dir="ltr">The start HADR command change database role from standard to primary and standby. The change is persistent. You can activate/deactivate the primary and standby database using the usual "activate/deactivate db command". See also <a href="hadrCommands.html#HADR_database_startup_shutdown__a_">HADR&nbsp;database&nbsp;startup/shutdown</a>. The role will not change on deactivation/reactivation. The 'start standby first" requirement described above remains after the initial HADR setup.</p>
-
-        <p dir="ltr">Managing HADR is easy. There are only 3 HADR commands. See <a href="hadrCommands.html">Start/stop/takeover HADR commands</a></p>
-
-        <h1 dir="ltr"><a name="Monitoring_HADR">Monitoring HADR</a></h1>
-
-        <p dir="ltr">Only the db2pd command and MON_GET_HADR table function return HADR info on pureScale. Deprecated interfaces such as database snapshot does not return any HADR information on pureScale. For general HADR monitoring, see <a href="hadrMonitoring.html">HADR monitoring</a><br />
-        <br />
-        In monitoring output, LOG_STREAM_ID is the log stream's id, which is usually the same as the owning member's member id. PRIMARY_MEMBER and STANDBY_MEMBER fields indicate the primary and standby member processing the log stream (source and destination of log shipping). STANDBY_MEMBER field will be the same for all streams. It indicates the current replay member on the standby.</p>
-
-        <p dir="ltr">The db2pd command and the MON_GET_HADR table function return essentially the same information, but because reads on standby is not supported in a DB2 pureScale environment, you can only use the db2pd command to monitor from a standby. As well, the db2pd command is preferred during takeover because there could be a time window during which neither the primary nor the standby allows client connections.</p>
-
-        <p dir="ltr">For assisted remote catchup streams, the assisted member will report the stream as in DISCONNECTED state; the assisting member will report the stream as in REMOTE_CATCHUP state, with the ASSISTED_REMOTE_CATCHUP flag set in the HADR_FLAGS field. The assisting member's report will show LOG_STREAM_ID and PRIMARY_MEMBER mismatch. For example, you may see log stream id 1 and primary member 2, indicating that member 2 is assisting member 1.<br />
-        <br />
-        The "db2pd -hadr" command returns a section for each stream the local member is processing. On the primary, it returns the stream the member owns and any stream the member is assisting via assisted remote catchup. Thus an assisted remote catchup stream is reported by the assisted and assisting member. To see all streams on the primary, add -allmembers option to db2pd. On the standby, all streams are returned when the command is issued on the replay member; on a non-replay member, db2pd will report that the database is not active on that member and return no data.<br />
-        <br />
-        In a DB2 pureScale environment, the MON_GET_HADR table function returns a row for each log stream. Its argument specifies what streams are returned. The argument can be<br />
-        - A member number for that member's stream and any stream it is assisting via assisted remote catchup.<br />
-        - The special value -1 or NULL&nbsp; for the local member's stream (the member where the query connects to)<br />
-        - The special value -2 for all members. An assisted remote catchup stream only shows up once in the output, under assisting member's listing.<br />
-        <br />
-        For more info, see <a href="http://pic.dhe.ibm.com/infocenter/db2luw/v10r5/topic/com.ibm.db2.luw.admin.ha.doc/doc/c0061082.html">http://pic.dhe.ibm.com/infocenter/db2luw/v10r5/topic/com.ibm.db2.luw.admin.ha.doc/doc/c0061082.html</a> in Info Center.</p>
-
-        <h1 dir="ltr"><a name="Takeover">Takeover</a></h1>
-
-        <p dir="ltr">The standby database can become a primary using the takeover command. The takeover command is only allowed on the standby. It can be issued on any standby member, including non-replay members. Both forced and non forced takeover are supported. The takeover behavior is largely the same as in non pureScale environment.<br />
-        <br />
-        For general info on takeover, see&nbsp;<a href="hadrTakeover.html">HADR takeover</a>. For pureScale specifics, see <a href="http://pic.dhe.ibm.com/infocenter/db2luw/v10r5/topic/com.ibm.db2.luw.admin.ha.doc/doc/c0061129.html">http://pic.dhe.ibm.com/infocenter/db2luw/v10r5/topic/com.ibm.db2.luw.admin.ha.doc/doc/c0061129.html</a> in Info Center.</p>
-
-        <p dir="ltr">Takeover eligibility is based on the streams' HADR state. For definition of the states, see <a href="http://pic.dhe.ibm.com/infocenter/db2luw/v10r5/index.jsp?topic=%2Fcom.ibm.db2.luw.admin.ha.doc%2Fdoc%2Fc0011748.html">http://pic.dhe.ibm.com/infocenter/db2luw/v10r5/index.jsp?topic=%2Fcom.ibm.db2.luw.admin.ha.doc%2Fdoc%2Fc0011748.html</a> in Info Center.</p>
-
-        <h2 dir="ltr"><a name="Non_forced_Takeover__role_switch_">Non forced Takeover (role switch)</a></h2>
-
-        <p dir="ltr">The syntax for non forced takeover is "db2 takeover hadr on db &lt;dbName&gt;". With this command, the primary and standby switch roles. It guarantees no data loss (new primary has all data from old primary). This command can only be issued on the standby.</p>
-
-        <p dir="ltr">Role switch is allowed on pureScale only when each log stream satisfies the following condition:</p>
-
-        <ul dir="ltr">
-        	<li>Not in member crash recovery (MCR) pending or in-progress state.<br />
-        	AND</li>
-        	<li>Meets one of the following condition:
-        	<ul>
-        		<li>In peer state (state can never be peer if hadr_syncmode is superAsync)</li>
-        		<li>In remote catchup state and hadr_syncmode is superAsync</li>
-        		<li>In assisted remote catchup (regardless of hadr_syncmode)</li>
-        	</ul>
-        	</li>
-        </ul>
-
-        <p dir="ltr">The same condition also applies to non pureScale environment, which is treated like a single stream system. Non pureScale systems never do MCR or assisted remote catchup, thus these two conditions have no effect in non pureScale environment.</p>
-
-        <p dir="ltr">Allowing assisted remote catchup streams allows role switch even if there is network problem between some primary members and the standby, or some primary members are inactive. User should check primary-standby log gap on remote catchup and assisted remote catchup log streams before issuing takeover command. Large gap can cause long takeover because takeover needs to ship and replay all logs in the gap.</p>
-
-        <p dir="ltr">Role switch is not allowed if any primary member is in member crash recovery (MCR) pending or in-progress state. Because pureScale clusters are designed to start and finish MCR quickly, MCR pending or in-progress state should be short. Encountering MCR pending or in-progress state during takeover should be rare. Should this happen, user can simply retry takeover after MCR completes on the primary.<br />
-        <br />
-        If the primary database is performing group crash recovery (GCR), then the streams cannot be in the required states for role switch, therefore the takeover command will fail.<br />
-        <br />
-        During role switch, on the old primary, a member that has direct connection to standby is chosen as the replay member, with preference to the preferred replay member (the preferred member will not be chosen if it has no direct connection to the standby). Log receive and replay is then started on the chosen member. Database is deactivated on all other members.<br />
-        <br />
-        During role switch, on the old standby, the replay member is converted to primary role and stays active. Other members remain inactive. Thus only a single member is active on the new primary initially. Other members can be activated via "activate db" command or client connection.</p>
-
-        <h2 dir="ltr"><a name="Forced_Takeover__failover_">Forced Takeover (failover)</a></h2>
-
-        <p dir="ltr">The syntax for forced takeover is "db2 takeover hadr on db &lt;dbName&gt; <strong>by force</strong>". With this command, the standby becomes the new primary. The primary&nbsp; remains in primary role. This command is usually used in failover scenario, after the primary fails. The command can only be issued on the standby. It can succeed even if the primary is down or unreachable. The primary is disabled if the standby can reach it, otherwise, nothing is done to the old primary. There can be data loss (some data on old primary is not replicated to new primary). To avoid split brain, user should securely shut down or fence off old primary before issuing a forced takeover on the standby.</p>
-
-        <p dir="ltr">Forced takeover is allowed only when each stream meets one of the following condition:</p>
-
-        <ul dir="ltr">
-        	<li>In remote catchup pending state</li>
-        	<li>In remote catchup state</li>
-        	<li>In assisted remote catchup</li>
-        	<li>In peer state</li>
-        	<li>In disconnected peer state.</li>
-        </ul>
-
-        <p dir="ltr">This applies to both pureScale and non pureScale environment. The only disallowed state is local catchup.</p>
-
-        <p dir="ltr">Forced takeover is allowed when log archive retrieval is in progress on the standby (stream state is remote catchup pending). DB2 will stop log retrieval first, then perform the usual takeover procedure.</p>
-
-        <p dir="ltr">For forced takeover, the standby will send a poison pill to the old primary if it has a connection to any of the old primary's member. The poison pill will disable the old primary to avoid split brain, but leave it in primary role. The old standby's replay member will change into an active primary member. Other old standby members remain inactive.</p>
-
-        <h3 dir="ltr"><a name="Primary_Reintegration">Primary Reintegration</a></h3>
-
-        <p dir="ltr">Reintegrating the old primary as the new standby after a failover is supported in pureScale environment. Reintegration will succeed only if the old primary's log streams have not diverged from the new primary's.<br />
-        <br />
-        Same as in non pureScale environment, reintegration is done via the "start hadr ... as standby" command. The command can be issued on any old primary member. Because this command also designates the processing member as the preferred member, issue it only on the intended preferred replay member.<br />
-        <br />
-        Prior to issuing the "start hadr ... as standby" command, database must be offline on all old primary's members. The CF need not be shutdown and restarted. Any remaining CF data structure for this database will be auto cleaned upon reintegration. <strong>Do NOT use the "deactivate database" command </strong>on the old primary to shut it down on all members for reintegration, because deactivation creates a hard checkpoint that makes the old primary's log streams incompatible to the new primary's. Kill any remaining old primary member instead.<br />
-        <br />
-        Because it may be necessary to kill an old primary database, it is recommended that only one HADR database be created in a DB2 instance, so that the kill will not impact other databases.</p>
-
-        <h2 dir="ltr"><a name="Client_Reroute">Client Reroute</a></h2>
-
-        <p dir="ltr">Clients can be auto rerouted to the new primary after a takeover. See <a href="clientReroute.html#PureScale_Systems">client&nbsp;reroute</a> for more info.</p>
-
-        <p dir="ltr">&nbsp;</p>
-
-        <p dir="ltr">See <a href="https://community.ibm.com/community/user/hybriddatamanagement/viewdocument/configure-parameters-for-ibm-data-s?CommunityKey=b5b60ace-5eb2-4444-a961-d9edb6f39bd8">https://community.ibm.com/community/user/hybriddatamanagement/viewdocument/configure-parameters-for-ibm-data-s?CommunityKey=b5b60ace-5eb2-4444-a961-d9edb6f39bd8 </a>for setting up client reroute for Java client against HADR database on pureScale.</p>
-
-        <p dir="ltr">&nbsp;</p>
-
-        <h1 dir="ltr"><a name="Topology_Change">Topology Change</a></h1>
-
-        <p dir="ltr">Topology change (add/drop member) requires special attention in HADR environment. See <a href="http://pic.dhe.ibm.com/infocenter/db2luw/v10r5/topic/com.ibm.db2.luw.admin.ha.doc/doc/c0061087.html">http://pic.dhe.ibm.com/infocenter/db2luw/v10r5/topic/com.ibm.db2.luw.admin.ha.doc/doc/c0061087.html</a> in Info Center for more info.</p>
-
-        <h1 dir="ltr"><a name="Spooling">Spooling</a></h1>
-
-        <p dir="ltr">Spooling is supported on pureScale. The hadr_spool_limit is a cluster level parameter. The limit is applied on a per stream basis (each stream can spool up to this limit).<br />
-        <br />
-        hadr_spool_limit defaults to AUTOMATIC starting V10.5. Internally, AUTOMATIC is interpreted as amount of log data in logprimary + logsecond log files. The STANDBY_SPOOL_LIMIT monitor field returns the computed spool size in unit of pages.<br />
-        <br />
-        The default applies to both pureScale and non pureScale environment. For non pureScale environment, this is a change of behavior from releases prior to V10.5, where the default was 0 (spooling disabled). The rationale is:</p>
-
-        <ul dir="ltr">
-        	<li>Spooling has negelegible impact on standby replay performance.</li>
-        	<li>Spooling significantly reduces HADR impact on primary workload.
-        	<ul>
-        		<li>The spool absorbs primary load spikes. It is a better choice than memory buffer (controlled by registry variable DB2_HADR_BUF_SIZE), because it is larger and cheaper.</li>
-        		<li>For pureScale, spool has the additional function to absorb uneven log shipping speed across log streams. A slow stream can block other streams because log merge (required by log replay) needs data from all streams. Spooling allows a fast stream to get ahead of a slow stream for up to spool size.</li>
-        	</ul>
-        	</li>
-        </ul>
-
-        <p dir="ltr">See also <a href="hadrConfig.html#hadr_spool_limit___HADR_spool_limit">hadr_spool_limit</a></p>
-
-        <h1 dir="ltr"><a name="Delayed_replay">Delayed replay</a></h1>
-
-        <p dir="ltr">Delayed replay is supported on pureScale. See also <a href="http://pic.dhe.ibm.com/infocenter/db2luw/v10r5/topic/com.ibm.db2.luw.admin.ha.doc/doc/c0060000.html">delayed&nbsp;replay</a></p>
-
-        <h1 dir="ltr"><a name="Rolling_Update">Rolling Update</a></h1>
-
-        <p dir="ltr">HADR rolling update can be used for DB2 fix pack, or operating system / hardware upgrade. The primary and standby databases are updated in a rolling fashion. Update is applied on a database only when it is in standby role. A role switch is performed to change the primary database into standby role, so that it can be updated. There is always a database to serve the clients as primary. There is no down time during the update. See&nbsp;<a href="http://pic.dhe.ibm.com/infocenter/db2luw/v10r5/topic/com.ibm.db2.luw.admin.ha.doc/doc/t0011766.html">Rolling&nbsp;update&nbsp;on&nbsp;single&nbsp;standby&nbsp;systems</a> and <a href="http://publib.boulder.ibm.com/infocenter/db2luw/v10r1/topic/com.ibm.db2.luw.admin.ha.doc/doc/c0060225.html">Rolling&nbsp;update&nbsp;on&nbsp;multiple&nbsp;standby&nbsp;systems</a> in Info Center.<br />
-        <br />
-        On a pureScale system, users can perform rolling update across the members and CFs. The procedure ensures that at least one CF and at least one member stays online, so that the cluster stays online to serve clients. See&nbsp;<a href="http://pic.dhe.ibm.com/infocenter/db2luw/v10r5/topic/com.ibm.db2.luw.qb.server.doc/doc/t0061194.html">pureScale&nbsp;rolling&nbsp;update</a> in Info Center. For HADR primary and standby databases, a special procedure must be used for DB2 fix pack update. See <a href="http://pic.dhe.ibm.com/infocenter/db2luw/v10r5/topic/com.ibm.db2.luw.qb.server.doc/doc/t0061250.html">pureScale&nbsp;rolling&nbsp;update&nbsp;on&nbsp;HADR databases</a>. The HADR procedure only uses pureScale roling update capability to update the primary and standby. No HADR capability such as role switch is used. The key is to update the standby first, so that primary and standby can keep connected (HADR requires standby to be on newer fix pack).</p>
-
-        <p dir="ltr">If pureScale rolling update does not involve changing DB2 version, the procedure is more flexible. As long as you keep at least one CF and at least one member online, a procedure will work. See <a href="http://pic.dhe.ibm.com/infocenter/db2luw/v10r5/topic/com.ibm.db2.luw.admin.sd.doc/doc/t0056115.html">Performing&nbsp;maintenance&nbsp;on&nbsp;a&nbsp;member&nbsp;host</a>. For HADR pureScale systems, you just need to update both primary and standby (in either order). No special procedure is needed.</p>
-
-        <p dir="ltr">Neither HADR nor pureScale rolling update supports update across DB2 major release boundary. For example, you can update from V10.1 fp1 to fp2, but not from V10.1 to V10.5. This limitation results from operational incompatibility across major releases. Because Q Replication does not require the source and target databases to be on the same major release, it can be used to create a replica of the database to perform rolling update using a procedure similar to HADR rolling update. But this method needs more hardware and admin resource.</p>
-
-        <p dir="ltr">On HADR pureScale systems, you have the choice of using HADR rolling update, or pureScale rolling update. The following table is a comparison to help you make the decision.</p>
-
-        <table border="1" dir="ltr" style="width:100%">
-        	<tbody>
-        		<tr>
-        			<td>&nbsp;</td>
-        			<td style="text-align:center">HADR rolling update</td>
-        			<td style="text-align:center">pureScale rolling update</td>
-        		</tr>
-        		<tr>
-        			<td>Update with no down time</td>
-        			<td style="text-align:center">Yes</td>
-        			<td style="text-align:center">Yes</td>
-        		</tr>
-        		<tr>
-        			<td>Update across major release</td>
-        			<td style="text-align:center">No</td>
-        			<td style="text-align:center">No</td>
-        		</tr>
-        		<tr>
-        			<td>Allow bringing down whole cluster</td>
-        			<td style="text-align:center">Yes. Primary and standby databases are brought down in a rolling fashion.</td>
-        			<td style="text-align:center">No. Critical resources such as shared storage device must stay up to keep the cluster online</td>
-        		</tr>
-        		<tr>
-        			<td>Impact to system capacity</td>
-        			<td style="text-align:center">No impact to capacity with same primary/standby hardware.<br />
-        			Reduced capacity when primary is on a site with weaker hardware.<br />
-        			Reads on standby is not available when a standby is being updated.</td>
-        			<td style="text-align:center">Reduced cluster capacity when a member is being updated.</td>
-        		</tr>
-        		<tr>
-        			<td>Impact to HA protection provided by pureScale</td>
-        			<td style="text-align:center"><br />
-        			Full HA protection remains on the pureScale cluster in primary role</td>
-        			<td style="text-align:center">Reduced HA protection when one CF is being updated. Member update has less impact.</td>
-        		</tr>
-        		<tr>
-        			<td>Impact to HA and DR protection provided by HADR</td>
-        			<td style="text-align:center">On single standby systems, HA+DR protection is lost when the standby is being updated. On multiple standby systems, reduced protection when one standby is being updated.</td>
-        			<td style="text-align:center">
-        			<p>Very brief interruption. The level commit step on primary or standby will break primary-standby connection momentarily (for a few seconds).</p>
-        			</td>
-        		</tr>
-        		<tr>
-        			<td>Client reroute required</td>
-        			<td style="text-align:center">Yes. Clients need to be rerouted when primary role moves to another database. This can be a problem if clients have slow network connection to the new primary (for example: primary and standby are geographically distant and clients cannot be moved together with the primary role).</td>
-        			<td style="text-align:center">No. Clients always connect to the same cluster.</td>
-        		</tr>
-        	</tbody>
-        </table>
-
-        <p dir="ltr">&nbsp;</p>
-      </div>
+    <div class="list-group list-group-flush">
+     <a class="list-group-item list-group-item-action bg-light" href="hadrBenefits.html">
+      HADR Benefits
+     </a>
+     <a class="list-group-item list-group-item-action bg-light" href="featureHistory.html">
+      Feature History
+     </a>
+     <a class="list-group-item list-group-item-action bg-light" href="hadrTutorial.html">
+      HADR Tutorial
+     </a>
+     <a class="list-group-item list-group-item-action bg-light" href="tcpTuning.html">
+      TCP Tuning
+     </a>
+     <a class="list-group-item list-group-item-action bg-light" href="perfTuning.html">
+      Perf Tuning
+     </a>
+     <a class="list-group-item list-group-item-action bg-light" href="hadrSimulator.html">
+      HADR Simulator
+     </a>
+     <a class="list-group-item list-group-item-action bg-light" href="simulatorOptions.html">
+      HADR Simulator Options
+     </a>
+     <a class="list-group-item list-group-item-action bg-light" href="simulatorOutput.html">
+      HADR Simulator Output
+     </a>
+     <a class="list-group-item list-group-item-action bg-light" href="simulatorParams.html">
+      HADR Simulator Params
+     </a>
+     <a class="list-group-item list-group-item-action bg-light" href="db2logscan.html">
+      db2logscan
+     </a>
+     <a class="list-group-item list-group-item-action bg-light" href="hadrConfig.html">
+      HADR Config
+     </a>
+     <a class="list-group-item list-group-item-action bg-light" href="hadrSyncMode.html">
+      HADR Sync Mode
+     </a>
+     <a class="list-group-item list-group-item-action bg-light" href="hadrTakeover.html">
+      HADR Takeover
+     </a>
+     <a class="list-group-item list-group-item-action bg-light" href="hadrMonitoring.html">
+      HADR Monitoring
+     </a>
+     <a class="list-group-item list-group-item-action bg-light" href="hadrCommands.html">
+      HADR Commands
+     </a>
+     <a class="list-group-item list-group-item-action bg-light" href="hadrLogShipping.html">
+      HADR Log Shipping
+     </a>
+     <a class="list-group-item list-group-item-action bg-light" href="hadrPerf.html">
+      HADR Perf
+     </a>
+     <a class="list-group-item list-group-item-action bg-light" href="diagConnect.html">
+      Diag Connect
+     </a>
+     <a class="list-group-item list-group-item-action bg-light" href="db2diag.html">
+      db2diag.log
+     </a>
+     <a class="list-group-item list-group-item-action bg-light" href="clusterManagers.html">
+      Cluster Managers
+     </a>
+     <a class="list-group-item list-group-item-action bg-light" href="clientReroute.html">
+      Client Reroute
+     </a>
+     <a class="list-group-item list-group-item-action bg-light" href="hadrPureScale.html">
+      <strong>
+       &gt; HADR on PureScale
+      </strong>
+     </a>
+     <a class="list-group-item list-group-item-action bg-light" href="faq.html">
+      FAQ
+     </a>
+     <a class="list-group-item list-group-item-action bg-light" href="db2fmtlog.html">
+      db2fmtlog_replayonlywindow
+     </a>
     </div>
-    <!-- /#page-content-wrapper -->
-
+   </div>
+   <!-- /#sidebar-wrapper -->
+   <!-- Page Content -->
+   <div id="page-content-wrapper">
+    <nav class="navbar navbar-expand-lg navbar-light bg-light border-bottom">
+     <button class="btn btn-primary" id="menu-toggle">
+      Toggle Menu
+     </button>
+     <button aria-controls="navbarSupportedContent" aria-expanded="false" aria-label="Toggle navigation" class="navbar-toggler" data-target="#navbarSupportedContent" data-toggle="collapse" type="button">
+      <span class="navbar-toggler-icon">
+      </span>
+     </button>
+     <div class="collapse navbar-collapse" id="navbarSupportedContent">
+      <ul class="navbar-nav ml-auto mt-2 mt-lg-0">
+       <li class="nav-item">
+        <a class="nav-link" href="index.html">
+         Home
+        </a>
+       </li>
+       <li class="nav-item">
+        <a class="nav-link" href="contact.html">
+         Contact
+        </a>
+       </li>
+       <li class="nav-item">
+        <a class="nav-link" href="contribute.html">
+         Contribute
+        </a>
+       </li>
+      </ul>
+     </div>
+    </nav>
+    <div class="container-fluid">
+     <p dir="ltr" style="text-align:center">
+      <span style="font-size:36px">
+       HADR on pureScale
+      </span>
+     </p>
+     <p dir="ltr">
+      <strong>
+       Table of Contents
+      </strong>
+     </p>
+     <ul dir="ltr">
+      <li>
+       <a href="#References">
+        References
+       </a>
+      </li>
+      <li>
+       <a href="#Overview">
+        Overview
+       </a>
+       <ul>
+        <li>
+         <a href="#Log_Shipping_and_Replay">
+          Log Shipping and Replay
+         </a>
+         <ul>
+          <li>
+           <a href="#Performance_Considerations">
+            Performance Considerations
+           </a>
+          </li>
+         </ul>
+        </li>
+        <li>
+         <a href="#The_Preferred_Replay_Member">
+          The Preferred Replay Member
+         </a>
+        </li>
+        <li>
+         <a href="#High_Availability_on_Standby">
+          High Availability on Standby
+         </a>
+        </li>
+        <li>
+         <a href="#Assisted_Remote_Catchup">
+          Assisted Remote Catchup
+         </a>
+        </li>
+        <li>
+         <a href="#Cluster_Level_Commands">
+          Cluster Level Commands
+         </a>
+         <ul>
+          <li>
+           <a href="#HADR_Commands_in_pureScale">
+            HADR Commands in pureScale
+           </a>
+          </li>
+          <li>
+           <a href="#Activate_deactivate_db_command_on_standby">
+            Activate/deactivate db command on standby
+           </a>
+          </li>
+         </ul>
+        </li>
+        <li>
+         <a href="#Restrictions_for_HADR_on_pureScale">
+          Restrictions for HADR on pureScale
+         </a>
+        </li>
+       </ul>
+      </li>
+      <li>
+       <a href="#Setting_up_HADR_on_pureScale">
+        Setting up HADR on pureScale
+       </a>
+       <ul>
+        <li>
+         <a href="#Creating_Standby_Database">
+          Creating Standby Database
+         </a>
+        </li>
+        <li>
+         <a href="#Configuring_HADR_on_Primary_and_Standby">
+          Configuring HADR on Primary and Standby
+         </a>
+         <ul>
+          <li>
+           <a href="#hadr_local_host_and_hadr_local_svc">
+            hadr_local_host and hadr_local_svc
+           </a>
+          </li>
+          <li>
+           <a href="#hadr_target_list">
+            hadr_target_list
+           </a>
+          </li>
+          <li>
+           <a href="#hadr_syncmode">
+            hadr_syncmode
+           </a>
+          </li>
+          <li>
+           <a href="#Auto_configuration_of_hadr_remote_host__hadr_remote_svc_and_hadr_remote_inst">
+            Auto configuration of hadr_remote_host, hadr_remote_svc and hadr_remote_inst
+           </a>
+          </li>
+         </ul>
+        </li>
+        <li>
+         <a href="#Starting_HADR">
+          Starting HADR
+         </a>
+        </li>
+       </ul>
+      </li>
+      <li>
+       <a href="#Monitoring_HADR">
+        Monitoring HADR
+       </a>
+      </li>
+      <li>
+       <a href="#Takeover">
+        Takeover
+       </a>
+       <ul>
+        <li>
+         <a href="#Non_forced_Takeover__role_switch_">
+          Non forced Takeover (role switch)
+         </a>
+        </li>
+        <li>
+         <a href="#Forced_Takeover__failover_">
+          Forced Takeover (failover)
+         </a>
+         <ul>
+          <li>
+           <a href="#Primary_Reintegration">
+            Primary Reintegration
+           </a>
+          </li>
+         </ul>
+        </li>
+        <li>
+         <a href="#Client_Reroute">
+          Client Reroute
+         </a>
+        </li>
+       </ul>
+      </li>
+      <li>
+       <a href="#Topology_Change">
+        Topology Change
+       </a>
+      </li>
+      <li>
+       <a href="#Spooling">
+        Spooling
+       </a>
+      </li>
+      <li>
+       <a href="#Delayed_replay">
+        Delayed replay
+       </a>
+      </li>
+      <li>
+       <a href="#Rolling_Update">
+        Rolling Update
+       </a>
+      </li>
+     </ul>
+     <p dir="ltr">
+      <strong>
+      </strong>
+     </p>
+     <p dir="ltr">
+      DB2 pureScale architecture provides excellent HA (High Availability). Beginning in DB2 V10.5, you can use the familiar HADR feature on pureScale for DR (Disaster Recovery) protection. This page is a tutorial for using HADR on pureScale. See reference below for additional materials.
+     </p>
+     <h1 dir="ltr">
+      <a name="References">
+       References
+      </a>
+     </h1>
+     <ul dir="ltr">
+      <li>
+       White paper "
+       <a href="https://community.ibm.com/community/user/hybriddatamanagement/viewdocument/combining-ibm-db2-purescale-feature?CommunityKey=ea909850-39ea-4ac4-9512-8e2eb37ea09a&tab=librarydocuments">
+        Combining IBM DB2 pureScale Feature with Q Replication for Scalability and Business Continuity
+       </a>
+       ".  In DB2 V10.1 and earlier releases, where HADR is not supported on pureScale, you can use Q Replication for pureScale DR solution. While Q Replication is a flexible and powerful replication tool, HADR is easier to set up and manage for HA and DR usage because it is specifically designed for this purpose.
+      </li>
+      <li>
+       <a href="https://community.ibm.com/community/user/hybriddatamanagement/viewdocument/implementing-disaster-recovery-in-i?CommunityKey=b5b60ace-5eb2-4444-a961-d9edb6f39bd8">
+        Implementing disaster recovery in IBM PureData System for Transactions
+       </a>
+       White paper specifically for HADR on the IBM PureData Appliance. The appliance runs DB2 pureScale.
+      </li>
+      <li>
+       <a href="index.html">
+        General HADR info
+       </a>
+       . Many of the general HADR rules apply to pureScale systems. This tutorial page focuses on pureScale specifics. If you are new to HADR, you may want to start from general HADR material.
+      </li>
+      <li>
+       <a href="https://www.ibm.com/docs/en/db2/11.5?topic=idpe-high-availability-disaster-recovery-hadr-in-db2-purescale-environments">
+        HADR on pureScale
+       </a>
+       in DB2 Info Center. Expand this topic in Info Center navigation pane to list subtopics. Info Center is the official DB2 documentation. It is a complete reference, but can be overwhelming for new users.
+      </li>
+     </ul>
+     <h1 dir="ltr">
+      <a name="Overview">
+       Overview
+      </a>
+     </h1>
+     <h2 dir="ltr">
+      <a name="Log_Shipping_and_Replay">
+       Log Shipping and Replay
+      </a>
+     </h2>
+     <p dir="ltr">
+      As in non pureScale environment, with HADR, the primary database sends transaction logs to the standby database, who replays the logs in real time to stay in synch with the primary. On pureScale, each database is made of multiple members. On the standby, only one member replays the logs.  On the primary, each member has its own log stream. With HADR, each primary member opens a TCP connection to the standby replay member to ship its log stream to the standby. The following picture shows the data flow:
+     </p>
+     <p dir="ltr">
+      <img alt="HADR on pureScale" src="images/hadrPureScaleDataFlow.png"/>
+      <br/>
+      <br/>
+      The main reason for single member replay on standby is that HADR uses the same replay infrastructure as database roll forward, which only supports single member replay. Given that only a portion of primary's workload is write, which generates logs, and log replay usually costs less resource than processing SQL statements, standby replay speed usually can keep up with primary log generation. For example, primary has 4 members and each has a 25% write ratio. So total write load is 100% of one member's capacity. One replay member should be able to keep up. Still, you may configure a "fat" member on the standby as the replay member.
+     </p>
+     <p dir="ltr">
+      On the primary, transaction logging and HADR operation in a member closely resembles a database in non pureScale environment. There is an HADR thread in each primary member that ships log data to the standby. See
+      <a href="hadrLogShipping.html">
+       HADR log shipping
+      </a>
+      for more info.
+     </p>
+     <p dir="ltr">
+      On the standby, things in the replay member is somewhat different from that of non pureScale. In the replay member, a dedicated HADR thread is created to serve each stream. This thread receives log data from the primary, then passes the data to the replay mechanism, which merges the streams into one logical stream. The merge is necessary in order to reconstruct transaction order on the primary cluster. The merged stream is then fed to parallel replay, which uses multiple threads to replay the log records in parallel. The same parallel replay mechanism is used for pureScale and non pureScale. Although replay cannot span multiple members, it does use the multiple CPU's on replay member for parallel work. The default number of replay threads is the number of physical CPU cores on the host.
+     </p>
+     <p dir="ltr">
+      On the standby, database is inactive on non replay members.
+     </p>
+     <p dir="ltr">
+      On both primary and standby, log stream id and standby id numbers are appended to the HADR thread name. See
+      <a href="db2diag.html#The_HADR_Threads">
+       HADR threads
+      </a>
+      for more info. The logging threads have log stream id appended too.
+     </p>
+     <h3 dir="ltr">
+      <a name="Performance_Considerations">
+       Performance Considerations
+      </a>
+     </h3>
+     <p dir="ltr">
+      Shipping all log streams to a single standby member can create network bottleneck. The HADR simulator can be used to
+      <a href="hadrSimulator.html#Simulating_pureScale_Systems">
+       test network performance
+      </a>
+      during planning.
+      <br/>
+      <br/>
+      Replay performance should be tested during planning too. Pre-generated log files can be fed to a test system for rolling forward. Rolling forward and HADR replay performance should be very close because they use the same infrastructure.
+     </p>
+     <h2 dir="ltr">
+      <a name="The_Preferred_Replay_Member">
+       The Preferred Replay Member
+      </a>
+     </h2>
+     <p dir="ltr">
+      The member where "start HADR" command is run is designated as the preferred replay member. The designation is persistent. It stays until the next designation. DB2 favors the preferred member when choosing a replay member. The preference is only a recommendation to DB2. If the preferred member is not available (for example, db2 instance is offline on the member), DB2 will choose another member. Note that both "start HADR as primary" and "start HADR as standby" commands designates the preferred member. On the primary, the designation does not take effect until the database becomes a standby.
+      <br/>
+      <br/>
+      If "start hadr" command returns success, preferred replay member is updated. If "start hadr" command returns failure, preferred member may or may not have been updated, depending on how far the command execution went.
+      <br/>
+      <br/>
+      If a database is already active and in the desired role, the "start hadr" command will be a nop (no operation performed). It will return "SQL1777N HADR is already started." and the preferred replay member is NOT updated. Thus to re-designate the preferred member for an online standby, you need to deactivate it first, then issue "start HADR as standby" on the preferred member.
+      <br/>
+      <br/>
+      Preferred replay member designation is at database level. Different databases in the same instance can have different preferred replay member.
+     </p>
+     <p dir="ltr">
+      The HADR_FLAGS field from monitoring will report
+      <span class="resultofText">
+       STANDBY_REPLAY_NOT_ON_PREFERRED when the current replay member is not the preferred member. If you have set up a "fat" member as the preferred member, you should be alerted when replay is not running on the fat member. T
+      </span>
+      here is no user interface to return exactly which member is the preferred member. When in doubt, re-designate the preferred member to make sure it is configured as intended.
+      <br/>
+      <br/>
+      Because start hadr command has the side effect of setting preferred replay member, using "activate db" command to start database is preferred over the "start hadr" command. See also
+      <a href="hadrCommands.html#HADR_database_startup_shutdown__a_">
+       HADR database startup/shutdown
+      </a>
+     </p>
+     <h2 dir="ltr">
+      <a name="High_Availability_on_Standby">
+       High Availability on Standby
+      </a>
+     </h2>
+     <p dir="ltr">
+      Following the pureScale HA design goal, partial failure (some members fail) will not prevent DB2 from providing continued service. This applies to both primary and standby. On the primary, all usual pureScale availability features apply. On the standby, if the current replay member fails, DB2 will automatically migrate replay and log receiving to another member. The migration favors the preferred member as destination. If replay moves off the preferred member, it does not "fail back" when the preferred member is back online. To move replay back to the preferred member, run "deactivate database", then "activate database" on the standby.
+      <br/>
+      <br/>
+      Note: The "deactivate db ... member" command shuts down a database on a specific member. If the member is the replay member, database will be deactivated on the member, but standby high availability will kick in and DB2 will auto restart replay. Preferred member selection applies when restarting replay. The previous replay member may or may not be selected as the new replay member. To shutdown the standby completely, use the "deactivate db" command without "member" clause. To do maintenance on a member host, stop db2 instance on it so that it will not be selected as replay member. See
+      <a href="https://www.ibm.com/docs/en/db2/11.5?topic=environment-performing-maintenance-db2-purescale-host">
+       Performing maintenance on a member host
+      </a>
+      <br/>
+      <br/>
+      For more info on replay member, see "
+      <a href="https://www.ibm.com/docs/en/db2/11.5?topic=environments-standby-replay-in-db2-purescale-environment">
+       HADR standby replay in a DB2 pureScale environment
+      </a>
+      " in Info Center.
+     </p>
+     <h2 dir="ltr">
+      <a name="Assisted_Remote_Catchup">
+       Assisted Remote Catchup
+      </a>
+     </h2>
+     <p dir="ltr">
+      Another high availability feature, assisted remote catchup allows HADR to continue functioning when some primary members cannot connect to standby.
+     </p>
+     <p dir="ltr">
+      If a primary member cannot connect to the standby replay member directly, another member can open an extra TCP connection to the standby replay member to ship its log stream. This is known as "Assisted Remote Catchup".  As long as one primary member can connect to the standby, log shipping of all streams will go on, although shipping speed will suffer.
+     </p>
+     <p dir="ltr">
+      Assisted remote catchup automatically kicks in when the stream owning member loses connection to standby. If the assisting member loses the assisting connection, the assisting process will start over. The previous assisting member may or may not be chosen as the new assisting member. Load balancing is performed across primary members who can still connect to the standby.
+     </p>
+     <p dir="ltr">
+      When a log stream is in assisted remote catchup, it will be reported as in remote catchup state, with the ASSISTED_REMOTE_CATCHUP flag set in the HADR_FLAGS monitoring field. See "
+      <a href="#Monitoring_HADR">
+       Monitoring HADR
+      </a>
+      " section below for more info. You may want to set up scripts to alert DBA when assisted remote catchup occurs.
+     </p>
+     <p dir="ltr">
+      Assisted remote catchup covers the following 2 scenarios:
+     </p>
+     <ul dir="ltr">
+      <li>
+       Database is active on a primary member, but cannot connect to the standby. This scenario handles network problem. In this scenario, the assisted member will keep trying connecting to the standby. Once it makes direct connection to the standby, assisted remote catchup will end; the owning member will ship its log stream itself. This is generally an abnormal condition. ASSISTED_MEMBER_ACTIVE from HADR_FLAGS will be set to alert users.
+      </li>
+      <li>
+       Database is inactive on a primary member. This scenario is just as important. A member can be inactive indefinitely. Any of its logs not already shipped to the standby have to be shipped, otherwise, this stream will block other streams' log shipping because log merge (required by log replay) will stall on the standby.
+       <ul>
+        <li>
+         This scenario covers the case where a member shuts down normally or abnormally (crashed). DB2 instance need not be online on the assisted member. Assisting member reads the log files from disk.
+        </li>
+        <li>
+         When the assisted member starts, it will attempt to connect to the standby. Once the connection succeeds, assisted remote catchup will end; the owning member will ship logs for itself.
+        </li>
+       </ul>
+      </li>
+     </ul>
+     <h2 dir="ltr">
+      <a name="Cluster_Level_Commands">
+       Cluster Level Commands
+      </a>
+     </h2>
+     <h3 dir="ltr">
+      <a name="HADR_Commands_in_pureScale">
+       HADR Commands in pureScale
+      </a>
+     </h3>
+     <p dir="ltr">
+      For ease of administration, the HADR commands (start/stop/takeover HADR) are all cluster scope. Running a command on any member applies the operation to the whole cluster, even if database is not active on the issuing member. As long as db2 instance is online on a member, you can issue HADR commands on the member. DB2 will coordinate across the members. This applies to both primary and standby. This is particularly useful on the standby because database is inactive on non-replay members.
+     </p>
+     <p dir="ltr">
+      Note: In pureScale, when we say "db2 is active/inactive (or online/offline)" on a member, it can be ambiguous. "db2" can mean the db2 instance on the member, or the database service for a given database running on the member. In this page, we usually mean the latter (database service on the member).
+     </p>
+     <h3 dir="ltr">
+      <a name="Activate_deactivate_db_command_on_standby">
+       Activate/deactivate db command on standby
+      </a>
+     </h3>
+     <p dir="ltr">
+      "Activate db" command on the standby will select a replay member, with preference to the preferred replay member, then start log receive and replay on the member. Other members remain inactive. The "activate db" command itself can be issued from any member.
+      <br/>
+      <br/>
+      "Deactivate db" command (without "member" clause) on the standby will deactivate the replay member. Non-replay members remain inactive. The "deactivate db" command itself can be issued from any member.
+     </p>
+     <h2 dir="ltr">
+      <a name="Restrictions_for_HADR_on_pureScale">
+       Restrictions for HADR on pureScale
+      </a>
+     </h2>
+     <p dir="ltr">
+      There are some restrictions for HADR on pureScale:
+     </p>
+     <ul dir="ltr">
+      <li>
+       The
+       <a href="hadrSyncMode.html">
+        HADR synchronization modes
+       </a>
+       SYNC and NEARSYNC are not supported. Only ASYNC and SUPERASYNC modes are supported. This is usually not a problem because HADR is intended as DR solution for pureScale. DR site is typically far from the primary site. SYNC and NEARSYNC modes are not practical over long distance.
+      </li>
+      <li>
+       <a href="hadrConfig.html#hadr_peer_window___HADR_peer_window">
+        Peer window
+       </a>
+       is not supported because it requires either SYNC or NEARSYNC mode. This is usually not a problem. Peer window is typically used for HA and HADR on pureScale is usually used for DR.
+      </li>
+      <li>
+       The topology of the primary and the standby must be synchronized. Both databases must be pureScale systems and have same number of members (except for the short time when a member is being added on the primary).
+       <ul>
+        <li>
+         Add member operation on the primary will be replayed on the standby. However, you need to follow a certain procedure to prepare the standby for replaying the add member operation. See "
+         <a href="https://www.ibm.com/docs/en/db2/11.5?topic=dptch-adding-members-high-availability-disaster-recovery-hadr-setup">
+          add member
+         </a>
+         " in Info Center.
+        </li>
+        <li>
+         Drop member operation on the primary will require reinitialization of the standby. See "
+         <a href="https://www.ibm.com/docs/en/db2/11.5?topic=dptch-removing-members-from-high-availability-disaster-recovery-hadr-setup">
+          drop member
+         </a>
+         " in Info Center.
+        </li>
+       </ul>
+      </li>
+      <li>
+       You cannot have more than one HADR standby database.
+      </li>
+      <li>
+       The reads on standby feature is not supported.
+      </li>
+      <li>
+       You cannot use the integrated cluster manager, IBM® Tivoli® System Automation for Multiplatforms (SA MP), to manage automated failover to a standby database. SA MP manages high availability within the local cluster only.
+      </li>
+      <li>
+       Network address translation (NAT) between the primary and standby sites is not supported.
+      </li>
+     </ul>
+     <p dir="ltr">
+      For general restrictions applicable to both pureScale and non pureScale, see
+      <a href="https://www.ibm.com/docs/en/db2/11.5?topic=support-restrictions">
+        Restrictions for high availability disaster recovery (HADR)
+      </a>
+      in Info Center.
+     </p>
+     <h1 dir="ltr">
+      <a name="Setting_up_HADR_on_pureScale">
+       Setting up HADR on pureScale
+      </a>
+     </h1>
+     <p dir="ltr">
+      The procedure of setting HADR on pureScale is largely the same as on non pureScale systems. You create the standby database, configure HADR parameters on primary and standby, then run the "start HADR" command.
+      <br/>
+      <br/>
+      For a sample scenario, see "
+      <a href="https://www.ibm.com/docs/en/db2/11.5?topic=environments-scenario-deploying-hadr-in-db2-purescale-environment">
+       Scenario: Deploying HADR in a DB2 pureScale environment
+      </a>
+      " in Info Center. As of Dec. 2013, there is a documentation error on the Info Center page. The "member" clause is missing in the "db2 update db cfg" statement for member level parameters. The command should be "
+      <span style="font-family:'courier new' , 'courier' , monospace">
+       update db cfg for hadr_db
+       <strong>
+        member
+       </strong>
+       &lt;x&gt; using".
+      </span>
+      This defect is being fixed.
+     </p>
+     <h2 dir="ltr">
+      <a name="Creating_Standby_Database">
+       Creating Standby Database
+      </a>
+     </h2>
+     <p dir="ltr">
+      As in non pureScale environment, two methods are supported:
+     </p>
+     <ul dir="ltr">
+      <li>
+       Backup and restore: Take an offline or online backup of the primary database and restore it on the standby instance.
+      </li>
+      <li>
+       Split mirror: Create a split mirror of the primary database on the standby instance, then run "db2inidb ... as standby".
+      </li>
+     </ul>
+     <h2 dir="ltr">
+      <a name="Configuring_HADR_on_Primary_and_Standby">
+       Configuring HADR on Primary and Standby
+      </a>
+     </h2>
+     <p dir="ltr">
+      With the exception of hadr_local_host and hadr_local_svc, all HADR database configuration parameters are cluster scope (a single value is accepted and applied at cluster level).
+     </p>
+     <p dir="ltr">
+      Wherever a host address is expected (in hadr_local_host, hadr_remote_host, and hadr_target_list), either a host name, or a numerical IP address is accepted. For numerical IPv6 address, see the relevant parameter in Info Center for accepted format.
+     </p>
+     <p dir="ltr">
+      Wherever a port number is expected (in hadr_local_svc, hadr_remote_svc, and hadr_target_list), either a service name, or a numerical port number is accepted.
+     </p>
+     <p dir="ltr">
+      This page only lists the minimal set of parameters you need to update to set up HADR. Parameters (such as hadr_timeout) with reasonable default are not listed. See
+      <a href="hadrConfig.html">
+       HADR config
+      </a>
+      for other HADR parameters.
+     </p>
+     <h3 dir="ltr">
+      <a name="hadr_local_host_and_hadr_local_svc">
+       hadr_local_host and hadr_local_svc
+      </a>
+     </h3>
+     <p dir="ltr">
+      These two parameters define the TCP address on which a database listens for incoming connection requests. In pureScale, they are per member scope. Example:
+      <br/>
+      <br/>
+      <span style="font-family:'courier new' , 'courier' , monospace">
+       db2 "update db cfg for hadr_db member 0 using hadr_local_host host0.ibm.com hadr_local_svc 4000"
+      </span>
+      <br/>
+      <br/>
+      Unless the members share a physical host (allowed, but not a practical real world setup), an "update db cfg ... member &lt;x&gt; using hadr_local_host &lt;hostX&gt;" statement is needed for each member. For hadr_local_svc, a common port is recommended, so a single "update db cfg for hadr_db using hadr_local_svc &lt;commonPort&gt;" statement will cover all members.
+     </p>
+     <p dir="ltr">
+      Each member listens on its local address. There must not be duplicate addresses. In the case of members sharing a host, you must use different port number for the members.
+     </p>
+     <h3 dir="ltr">
+      <a name="hadr_target_list">
+       hadr_target_list
+      </a>
+     </h3>
+     <p dir="ltr">
+      This parameter lists remote databases' addresses. It defines what databases are allowed to connect as standbys when the local database is a primary. A pureScale database is represented in the list as
+      <span style="font-family:'courier new' , 'courier' , monospace">
+       "{host0:port0|host1:port1|host2:port2}"
+      </span>
+      , where "{...}" encloses members in the same cluster, and the
+      <span style="font-family:'courier new' , 'courier' , monospace">
+       "|"
+      </span>
+      (vertical bar) character delimits members. Each host:port pair identifies a member by its address. The member address comes from the hadr_local_host and hadr_local_svc configuration on the remote database. DB2 compares addresses after resolving host name to IP address and service name to port number. So the text in hadr_target_list need not match the text in hadr_local_host and hadr_local_svc on the remote database.
+     </p>
+     <p dir="ltr">
+      hadr_target_list is used to bootstrap primary-standby communication. Both primary and standby attempts to contact the remote database using addresses in  hadr_target_list. Once a database reaches a listed remote member, it will retrieve the full member list of the remote database. Listing all members of a remote database in hadr_target_list is not required, but recommended when the number of memebers is small (such as 4). For large clusters, list the members that are most likely to be online if not all members are listed. If none of the listed members are online, primary and standby cannot connect to each other. As long as one member from a cluster is listed, the cluster is considered listed and will be accepted as a standby. If a listed member address does not actually belong to the remote cluster, it is ignored.
+     </p>
+     <p dir="ltr">
+      hadr_target_list accepts a string up to 2048 bytes long. Assuming 50 characters for each address, it can hold about 40 member addresses.
+     </p>
+     <p dir="ltr">
+      Example of a 3 member listing:
+      <br/>
+      <br/>
+      <span style="font-family:'courier new' , 'courier' , monospace">
+       db2 "update db cfg for hadr_db using hadr_target_list {host0.ibm.com:4000|host1.ibm.com:4000|host2.ibm.com:4000}"
+      </span>
+      <br/>
+      <br/>
+      In hadr_target_list, multiple standbys are listed as "
+      <span style="font-family:'courier new' , 'courier' , monospace">
+       standby1|standby2|standby3
+      </span>
+      ". The "|" character is used to delimit members within a cluster and to delimit multiple standbys. When "|" is within a "{ }" enclosure, it is a member delimiter, otherwise, it is a standby (database) delimiter. "{ }"  enclosure around members of a database is mandatory on pureScale, even if only one address is listed for a cluster. In non pureScale environment, "{ }" is optional.
+     </p>
+     <p dir="ltr">
+      In a future release where multiple standby is supported on pureScale, hadr_target_list can be
+      <span style="font-family:'courier new' , 'courier' , monospace">
+       "{hostA0.ibm.com:4000|hostA1.ibm.com:4000|hostA2.ibm.com:4000}|{hostB0.ibm.com:4000|hostB1.ibm.com:4000|hostB2.ibm.com:4000}"
+      </span>
+      , where two clusters (hostA* and hostB*) are listed.
+      <br/>
+      <br/>
+      For more info on hadr_target_list, see
+      <a href="https://www.ibm.com/docs/en/db2/11.5?topic=parameters-hadr-target-list-hadr-target-list">
+        HADR target list database configuration parameter
+      </a>
+      in Info Center.
+     </p>
+     <h3 dir="ltr">
+      <a name="hadr_syncmode">
+       hadr_syncmode
+      </a>
+     </h3>
+     <p dir="ltr">
+      In pureScale, only ASYNC or SUPERASYNC modes are supported. As in non pureScale environment (when hadr_target_list is set), hadr_syncmode specifies the syncmode of the primary - principal_standby pair when the local database is the primary. For example, hadr_syncmode is set to ASYNC on database A and SUPERASYNC on database B. When A is the primary, the pair uses ASYNC mode. When B is the primary, the pair uses SUPERASYNC mode.
+      <br/>
+      <br/>
+      Note: hadr_syncmode defaults to NEARSYNC in non pureScale environment and ASYNC in pureScale environment.
+      <br/>
+      <br/>
+      For more info, see
+      <a href="hadrSyncMode.html">
+       HADR sync mode
+      </a>
+     </p>
+     <h3 dir="ltr">
+      <a name="Auto_configuration_of_hadr_remote_host__hadr_remote_svc_and_hadr_remote_inst">
+       Auto configuration of hadr_remote_host, hadr_remote_svc and hadr_remote_inst
+      </a>
+     </h3>
+     <p dir="ltr">
+      Note: A logical NULL value of database configuration parameter is displayed as empty string (zero length string) in "db2 get db cfg" command output. To explicitly set a parameter as NULL, use the "db2 update db cfg for &lt;dbName&gt; using &lt;parameterName&gt; NULL" command. "NULL" must be spelled in upper case, otherwise, it is interpreted as literal string "null".
+      <br/>
+      <br/>
+      While these parameters are under auto config control in pureScale and non pureScale environment (when hadr_target_list is set), there are some differences:
+      <br/>
+      <br/>
+      - In pureScale, hadr_remote_host, hadr_remote_svc, and hadr_remote_inst are allowed to be NULL on HADR startup. They will be auto configured after HADR starts.
+      <br/>
+      - In non pureScale environment, they are all required to be not NULL on startup and it is recommended that users set them to the correct values (what auto config would set them to), because these values are used by integrated cluster manager, which may start using the values before they are auto configured. In pureScale, integrated cluster manager does not manage HADR, so these parameters are allowed to be NULL. In any case, auto config will correct any incorrect values after HADR startup.
+     </p>
+     <p dir="ltr">
+      - In non pureScale environment, the remote database's host and port are set in hadr_remote_host and hadr_remote_svc, respectively.
+      <br/>
+      - In pureScale environment, in order to represent multiple members of a remote database, the remote database's member list is set in hadr_remote_host, using hadr_target_list format, while hadr_remote_svc is always set to NULL.
+      <br/>
+      <br/>
+      <strong>
+       hadr_remote_host
+      </strong>
+      <br/>
+      This parameter is under auto config control. You can leave it as NULL on pureScale. On primary, it will be auto set to the principal standby's member list. On the standby, it will be set to the primary's member list. Since only one standby (the principal standby) is supported in pureScale, whatever listed in hadr_target_list is the one and only remote database. Thus auto config will simply copy the string from hadr_target_list into hadr_remote_host.
+      <br/>
+      <br/>
+      <strong>
+       hadr_remote_svc
+      </strong>
+      <br/>
+      hadr_remote_svc is under auto config control. In pureScale, DB2 always sets it to NULL.
+      <br/>
+      <br/>
+      <strong>
+       hadr_remote_inst
+      </strong>
+      <br/>
+      This parameter is under auto config control. You can leave it as NULL on pureScale. On primary, it will be auto set to the principal standby's instance name. On the standby, it will be set to the primary's instance name.
+     </p>
+     <h2 dir="ltr">
+      <a name="Starting_HADR">
+       Starting HADR
+      </a>
+     </h2>
+     <p dir="ltr">
+      Note: Starting in DB2 V10.1, starting HADR on the primary while the database is already online will pick up the latest HADR configuration. This means that you can set up HADR with no outage on the primary. See also
+      <a href="hadrConfig.html#Refreshing_HADR_configuration">
+       Refreshing HADR configuration
+      </a>
+      <br/>
+      <br/>
+      First, decide which member is the preferred replay member on each (primary and standby) database. Then as in non pureScale, run the "start hadr" command to start HADR.
+      <br/>
+      <br/>
+      - Run the 'db2 start hadr on db &lt;db&gt; as standby' command on the standby's preferred replay member. Log receive and replay will be started on the preferred member. Database remains inactive on other members.
+      <br/>
+      <br/>
+      - Run the 'db2 start hadr on db &lt;db&gt; as primary' command on the primary's preferred replay member. If database is offline when the command is issued, it is activated only on the member where the command is issued. If database is online when the command is issued, all members remain online and the issuing member is brought online if it was offline.
+      <br/>
+      <br/>
+      As in non pureScale, standby should be started first. To prevent split brain, a primary cannot be started if it cannot find its standby, unless the "start hadr ... as primary
+      <strong>
+       by force
+      </strong>
+      " command is used. In pureScale, any primary member making contact to the standby satisfies the "finding" standby requirement. The requirement applies only to starting HADR on cluster lever. Once HADR is started, member start and restart does not require connection to standby, even when no other member has connection to the standby.
+     </p>
+     <p dir="ltr">
+      After starting, the HADR pair will connect to each other. Each stream will independently go through state transition. For definition of HADR states, see
+      <a href="https://www.ibm.com/docs/en/db2/11.5?topic=databases-hadr-database-states">
+       Db2 high availability disaster recovery (HADR) database states
+      </a>
+      in Info Center. You should monitor HADR to verify that state transition proceeds as designed.
+     </p>
+     <p dir="ltr">
+      The start HADR command change database role from standard to primary and standby. The change is persistent. You can activate/deactivate the primary and standby database using the usual "activate/deactivate db command". See also
+      <a href="hadrCommands.html#HADR_database_startup_shutdown__a_">
+       HADR database startup/shutdown
+      </a>
+      . The role will not change on deactivation/reactivation. The 'start standby first" requirement described above remains after the initial HADR setup.
+     </p>
+     <p dir="ltr">
+      Managing HADR is easy. There are only 3 HADR commands. See
+      <a href="hadrCommands.html">
+       Start/stop/takeover HADR commands
+      </a>
+     </p>
+     <h1 dir="ltr">
+      <a name="Monitoring_HADR">
+       Monitoring HADR
+      </a>
+     </h1>
+     <p dir="ltr">
+      Only the db2pd command and MON_GET_HADR table function return HADR info on pureScale. Deprecated interfaces such as database snapshot does not return any HADR information on pureScale. For general HADR monitoring, see
+      <a href="hadrMonitoring.html">
+       HADR monitoring
+      </a>
+      <br/>
+      <br/>
+      In monitoring output, LOG_STREAM_ID is the log stream's id, which is usually the same as the owning member's member id. PRIMARY_MEMBER and STANDBY_MEMBER fields indicate the primary and standby member processing the log stream (source and destination of log shipping). STANDBY_MEMBER field will be the same for all streams. It indicates the current replay member on the standby.
+     </p>
+     <p dir="ltr">
+      The db2pd command and the MON_GET_HADR table function return essentially the same information, but because reads on standby is not supported in a DB2 pureScale environment, you can only use the db2pd command to monitor from a standby. As well, the db2pd command is preferred during takeover because there could be a time window during which neither the primary nor the standby allows client connections.
+     </p>
+     <p dir="ltr">
+      For assisted remote catchup streams, the assisted member will report the stream as in DISCONNECTED state; the assisting member will report the stream as in REMOTE_CATCHUP state, with the ASSISTED_REMOTE_CATCHUP flag set in the HADR_FLAGS field. The assisting member's report will show LOG_STREAM_ID and PRIMARY_MEMBER mismatch. For example, you may see log stream id 1 and primary member 2, indicating that member 2 is assisting member 1.
+      <br/>
+      <br/>
+      The "db2pd -hadr" command returns a section for each stream the local member is processing. On the primary, it returns the stream the member owns and any stream the member is assisting via assisted remote catchup. Thus an assisted remote catchup stream is reported by the assisted and assisting member. To see all streams on the primary, add -allmembers option to db2pd. On the standby, all streams are returned when the command is issued on the replay member; on a non-replay member, db2pd will report that the database is not active on that member and return no data.
+      <br/>
+      <br/>
+      In a DB2 pureScale environment, the MON_GET_HADR table function returns a row for each log stream. Its argument specifies what streams are returned. The argument can be
+      <br/>
+      - A member number for that member's stream and any stream it is assisting via assisted remote catchup.
+      <br/>
+      - The special value -1 or NULL  for the local member's stream (the member where the query connects to)
+      <br/>
+      - The special value -2 for all members. An assisted remote catchup stream only shows up once in the output, under assisting member's listing.
+      <br/>
+      <br/>
+      For more info, see
+      <a href="https://www.ibm.com/docs/en/db2/11.5?topic=outage-high-availability-disaster-recovery-hadr-monitoring">
+        High availability disaster recovery (HADR) monitoring
+      </a>
+      in Info Center.
+     </p>
+     <h1 dir="ltr">
+      <a name="Takeover">
+       Takeover
+      </a>
+     </h1>
+     <p dir="ltr">
+      The standby database can become a primary using the takeover command. The takeover command is only allowed on the standby. It can be issued on any standby member, including non-replay members. Both forced and non forced takeover are supported. The takeover behavior is largely the same as in non pureScale environment.
+      <br/>
+      <br/>
+      For general info on takeover, see
+      <a href="hadrTakeover.html">
+       HADR takeover
+      </a>
+      . For pureScale specifics, see
+      <a href="https://www.ibm.com/docs/en/db2/11.5?topic=environments-hadr-takeover-operations-in-db2-purescale-environment">
+        HADR takeover operations in a Db2 pureScale environment
+      </a>
+      in Info Center.
+     </p>
+     <p dir="ltr">
+      Takeover eligibility is based on the streams' HADR state. For definition of the states, see
+      <a href="https://www.ibm.com/docs/en/db2/11.5?topic=databases-hadr-database-states">
+        Db2 high availability disaster recovery (HADR) database states
+      </a>
+      in Info Center.
+     </p>
+     <h2 dir="ltr">
+      <a name="Non_forced_Takeover__role_switch_">
+       Non forced Takeover (role switch)
+      </a>
+     </h2>
+     <p dir="ltr">
+      The syntax for non forced takeover is "db2 takeover hadr on db &lt;dbName&gt;". With this command, the primary and standby switch roles. It guarantees no data loss (new primary has all data from old primary). This command can only be issued on the standby.
+     </p>
+     <p dir="ltr">
+      Role switch is allowed on pureScale only when each log stream satisfies the following condition:
+     </p>
+     <ul dir="ltr">
+      <li>
+       Not in member crash recovery (MCR) pending or in-progress state.
+       <br/>
+       AND
+      </li>
+      <li>
+       Meets one of the following condition:
+       <ul>
+        <li>
+         In peer state (state can never be peer if hadr_syncmode is superAsync)
+        </li>
+        <li>
+         In remote catchup state and hadr_syncmode is superAsync
+        </li>
+        <li>
+         In assisted remote catchup (regardless of hadr_syncmode)
+        </li>
+       </ul>
+      </li>
+     </ul>
+     <p dir="ltr">
+      The same condition also applies to non pureScale environment, which is treated like a single stream system. Non pureScale systems never do MCR or assisted remote catchup, thus these two conditions have no effect in non pureScale environment.
+     </p>
+     <p dir="ltr">
+      Allowing assisted remote catchup streams allows role switch even if there is network problem between some primary members and the standby, or some primary members are inactive. User should check primary-standby log gap on remote catchup and assisted remote catchup log streams before issuing takeover command. Large gap can cause long takeover because takeover needs to ship and replay all logs in the gap.
+     </p>
+     <p dir="ltr">
+      Role switch is not allowed if any primary member is in member crash recovery (MCR) pending or in-progress state. Because pureScale clusters are designed to start and finish MCR quickly, MCR pending or in-progress state should be short. Encountering MCR pending or in-progress state during takeover should be rare. Should this happen, user can simply retry takeover after MCR completes on the primary.
+      <br/>
+      <br/>
+      If the primary database is performing group crash recovery (GCR), then the streams cannot be in the required states for role switch, therefore the takeover command will fail.
+      <br/>
+      <br/>
+      During role switch, on the old primary, a member that has direct connection to standby is chosen as the replay member, with preference to the preferred replay member (the preferred member will not be chosen if it has no direct connection to the standby). Log receive and replay is then started on the chosen member. Database is deactivated on all other members.
+      <br/>
+      <br/>
+      During role switch, on the old standby, the replay member is converted to primary role and stays active. Other members remain inactive. Thus only a single member is active on the new primary initially. Other members can be activated via "activate db" command or client connection.
+     </p>
+     <h2 dir="ltr">
+      <a name="Forced_Takeover__failover_">
+       Forced Takeover (failover)
+      </a>
+     </h2>
+     <p dir="ltr">
+      The syntax for forced takeover is "db2 takeover hadr on db &lt;dbName&gt;
+      <strong>
+       by force
+      </strong>
+      ". With this command, the standby becomes the new primary. The primary  remains in primary role. This command is usually used in failover scenario, after the primary fails. The command can only be issued on the standby. It can succeed even if the primary is down or unreachable. The primary is disabled if the standby can reach it, otherwise, nothing is done to the old primary. There can be data loss (some data on old primary is not replicated to new primary). To avoid split brain, user should securely shut down or fence off old primary before issuing a forced takeover on the standby.
+     </p>
+     <p dir="ltr">
+      Forced takeover is allowed only when each stream meets one of the following condition:
+     </p>
+     <ul dir="ltr">
+      <li>
+       In remote catchup pending state
+      </li>
+      <li>
+       In remote catchup state
+      </li>
+      <li>
+       In assisted remote catchup
+      </li>
+      <li>
+       In peer state
+      </li>
+      <li>
+       In disconnected peer state.
+      </li>
+     </ul>
+     <p dir="ltr">
+      This applies to both pureScale and non pureScale environment. The only disallowed state is local catchup.
+     </p>
+     <p dir="ltr">
+      Forced takeover is allowed when log archive retrieval is in progress on the standby (stream state is remote catchup pending). DB2 will stop log retrieval first, then perform the usual takeover procedure.
+     </p>
+     <p dir="ltr">
+      For forced takeover, the standby will send a poison pill to the old primary if it has a connection to any of the old primary's member. The poison pill will disable the old primary to avoid split brain, but leave it in primary role. The old standby's replay member will change into an active primary member. Other old standby members remain inactive.
+     </p>
+     <h3 dir="ltr">
+      <a name="Primary_Reintegration">
+       Primary Reintegration
+      </a>
+     </h3>
+     <p dir="ltr">
+      Reintegrating the old primary as the new standby after a failover is supported in pureScale environment. Reintegration will succeed only if the old primary's log streams have not diverged from the new primary's.
+      <br/>
+      <br/>
+      Same as in non pureScale environment, reintegration is done via the "start hadr ... as standby" command. The command can be issued on any old primary member. Because this command also designates the processing member as the preferred member, issue it only on the intended preferred replay member.
+      <br/>
+      <br/>
+      Prior to issuing the "start hadr ... as standby" command, database must be offline on all old primary's members. The CF need not be shutdown and restarted. Any remaining CF data structure for this database will be auto cleaned upon reintegration.
+      <strong>
+       Do NOT use the "deactivate database" command
+      </strong>
+      on the old primary to shut it down on all members for reintegration, because deactivation creates a hard checkpoint that makes the old primary's log streams incompatible to the new primary's. Kill any remaining old primary member instead.
+      <br/>
+      <br/>
+      Because it may be necessary to kill an old primary database, it is recommended that only one HADR database be created in a DB2 instance, so that the kill will not impact other databases.
+     </p>
+     <h2 dir="ltr">
+      <a name="Client_Reroute">
+       Client Reroute
+      </a>
+     </h2>
+     <p dir="ltr">
+      Clients can be auto rerouted to the new primary after a takeover. See
+      <a href="clientReroute.html#PureScale_Systems">
+       client reroute
+      </a>
+      for more info.
+     </p>
+     <p dir="ltr">
+     </p>
+     <p dir="ltr">
+      See
+      <a href="https://community.ibm.com/community/user/hybriddatamanagement/viewdocument/configure-parameters-for-ibm-data-s?CommunityKey=b5b60ace-5eb2-4444-a961-d9edb6f39bd8">
+        Configure parameters for IBM Data Server Driver for JDBC and SQLJ against HADR for DB2 pureScale
+      </a>
+      for setting up client reroute for Java client against HADR database on pureScale.
+     </p>
+     <p dir="ltr">
+     </p>
+     <h1 dir="ltr">
+      <a name="Topology_Change">
+       Topology Change
+      </a>
+     </h1>
+     <p dir="ltr">
+      Topology change (add/drop member) requires special attention in HADR environment. See
+      <a href="https://www.ibm.com/docs/en/db2/11.5?topic=environments-db2-purescale-topology-changes-hadr">
+        Db2 pureScale topology changes and high availability disaster recovery (HADR)
+      </a>
+      in Info Center for more info.
+     </p>
+     <h1 dir="ltr">
+      <a name="Spooling">
+       Spooling
+      </a>
+     </h1>
+     <p dir="ltr">
+      Spooling is supported on pureScale. The hadr_spool_limit is a cluster level parameter. The limit is applied on a per stream basis (each stream can spool up to this limit).
+      <br/>
+      <br/>
+      hadr_spool_limit defaults to AUTOMATIC starting V10.5. Internally, AUTOMATIC is interpreted as amount of log data in logprimary + logsecond log files. The STANDBY_SPOOL_LIMIT monitor field returns the computed spool size in unit of pages.
+      <br/>
+      <br/>
+      The default applies to both pureScale and non pureScale environment. For non pureScale environment, this is a change of behavior from releases prior to V10.5, where the default was 0 (spooling disabled). The rationale is:
+     </p>
+     <ul dir="ltr">
+      <li>
+       Spooling has negelegible impact on standby replay performance.
+      </li>
+      <li>
+       Spooling significantly reduces HADR impact on primary workload.
+       <ul>
+        <li>
+         The spool absorbs primary load spikes. It is a better choice than memory buffer (controlled by registry variable DB2_HADR_BUF_SIZE), because it is larger and cheaper.
+        </li>
+        <li>
+         For pureScale, spool has the additional function to absorb uneven log shipping speed across log streams. A slow stream can block other streams because log merge (required by log replay) needs data from all streams. Spooling allows a fast stream to get ahead of a slow stream for up to spool size.
+        </li>
+       </ul>
+      </li>
+     </ul>
+     <p dir="ltr">
+      See also
+      <a href="hadrConfig.html#hadr_spool_limit___HADR_spool_limit">
+       hadr_spool_limit
+      </a>
+     </p>
+     <h1 dir="ltr">
+      <a name="Delayed_replay">
+       Delayed replay
+      </a>
+     </h1>
+     <p dir="ltr">
+      Delayed replay is supported on pureScale. See also
+      <a href="https://www.ibm.com/docs/en/db2/11.5?topic=solution-hadr-delayed-replay">
+       delayed replay
+      </a>
+     </p>
+     <h1 dir="ltr">
+      <a name="Rolling_Update">
+       Rolling Update
+      </a>
+     </h1>
+     <p dir="ltr">
+      HADR rolling update can be used for DB2 fix pack, or operating system / hardware upgrade. The primary and standby databases are updated in a rolling fashion. Update is applied on a database only when it is in standby role. A role switch is performed to change the primary database into standby role, so that it can be updated. There is always a database to serve the clients as primary. There is no down time during the update. See
+      <a href="https://www.ibm.com/docs/en/db2/11.5?topic=maintenance-performing-rolling-updates-in-hadr-environment">
+       Rolling update on single standby systems
+      </a>
+      and
+      <a href="https://www.ibm.com/docs/en/db2/11.5?topic=databases-rolling-updates-multiple-hadr-standby">
+       Rolling update on multiple standby systems
+      </a>
+      in Info Center.
+      <br/>
+      <br/>
+      On a pureScale system, users can perform rolling update across the members and CFs. The procedure ensures that at least one CF and at least one member stays online, so that the cluster stays online to serve clients. See
+      <a href="https://www.ibm.com/docs/en/db2/11.5?topic=packs-applying-fix-in-db2-purescale-environments">
+       pureScale rolling update
+      </a>
+      in Info Center. For HADR primary and standby databases, a special procedure must be used for DB2 fix pack update. See
+      <a href="https://www.ibm.com/docs/en/db2/11.5?topic=afpidpe-installing-online-fix-pack-updates-higher-code-level-in-hadr-environment">
+       pureScale rolling update on HADR databases
+      </a>
+      . The HADR procedure only uses pureScale roling update capability to update the primary and standby. No HADR capability such as role switch is used. The key is to update the standby first, so that primary and standby can keep connected (HADR requires standby to be on newer fix pack).
+     </p>
+     <p dir="ltr">
+      If pureScale rolling update does not involve changing DB2 version, the procedure is more flexible. As long as you keep at least one CF and at least one member online, a procedure will work. See
+      <a href="https://www.ibm.com/docs/en/db2/11.5?topic=environment-performing-maintenance-db2-purescale-host">
+       Performing maintenance on a member host
+      </a>
+      . For HADR pureScale systems, you just need to update both primary and standby (in either order). No special procedure is needed.
+     </p>
+     <p dir="ltr">
+      Neither HADR nor pureScale rolling update supports update across DB2 major release boundary. For example, you can update from V10.1 fp1 to fp2, but not from V10.1 to V10.5. This limitation results from operational incompatibility across major releases. Because Q Replication does not require the source and target databases to be on the same major release, it can be used to create a replica of the database to perform rolling update using a procedure similar to HADR rolling update. But this method needs more hardware and admin resource.
+     </p>
+     <p dir="ltr">
+      On HADR pureScale systems, you have the choice of using HADR rolling update, or pureScale rolling update. The following table is a comparison to help you make the decision.
+     </p>
+     <table border="1" dir="ltr" style="width:100%">
+      <tbody>
+       <tr>
+        <td>
+        </td>
+        <td style="text-align:center">
+         HADR rolling update
+        </td>
+        <td style="text-align:center">
+         pureScale rolling update
+        </td>
+       </tr>
+       <tr>
+        <td>
+         Update with no down time
+        </td>
+        <td style="text-align:center">
+         Yes
+        </td>
+        <td style="text-align:center">
+         Yes
+        </td>
+       </tr>
+       <tr>
+        <td>
+         Update across major release
+        </td>
+        <td style="text-align:center">
+         No
+        </td>
+        <td style="text-align:center">
+         No
+        </td>
+       </tr>
+       <tr>
+        <td>
+         Allow bringing down whole cluster
+        </td>
+        <td style="text-align:center">
+         Yes. Primary and standby databases are brought down in a rolling fashion.
+        </td>
+        <td style="text-align:center">
+         No. Critical resources such as shared storage device must stay up to keep the cluster online
+        </td>
+       </tr>
+       <tr>
+        <td>
+         Impact to system capacity
+        </td>
+        <td style="text-align:center">
+         No impact to capacity with same primary/standby hardware.
+         <br/>
+         Reduced capacity when primary is on a site with weaker hardware.
+         <br/>
+         Reads on standby is not available when a standby is being updated.
+        </td>
+        <td style="text-align:center">
+         Reduced cluster capacity when a member is being updated.
+        </td>
+       </tr>
+       <tr>
+        <td>
+         Impact to HA protection provided by pureScale
+        </td>
+        <td style="text-align:center">
+         <br/>
+         Full HA protection remains on the pureScale cluster in primary role
+        </td>
+        <td style="text-align:center">
+         Reduced HA protection when one CF is being updated. Member update has less impact.
+        </td>
+       </tr>
+       <tr>
+        <td>
+         Impact to HA and DR protection provided by HADR
+        </td>
+        <td style="text-align:center">
+         On single standby systems, HA+DR protection is lost when the standby is being updated. On multiple standby systems, reduced protection when one standby is being updated.
+        </td>
+        <td style="text-align:center">
+         <p>
+          Very brief interruption. The level commit step on primary or standby will break primary-standby connection momentarily (for a few seconds).
+         </p>
+        </td>
+       </tr>
+       <tr>
+        <td>
+         Client reroute required
+        </td>
+        <td style="text-align:center">
+         Yes. Clients need to be rerouted when primary role moves to another database. This can be a problem if clients have slow network connection to the new primary (for example: primary and standby are geographically distant and clients cannot be moved together with the primary role).
+        </td>
+        <td style="text-align:center">
+         No. Clients always connect to the same cluster.
+        </td>
+       </tr>
+      </tbody>
+     </table>
+     <p dir="ltr">
+     </p>
+    </div>
+   </div>
+   <!-- /#page-content-wrapper -->
   </div>
   <!-- /#wrapper -->
-
   <!-- Bootstrap core JavaScript -->
-  <script src="vendor/jquery/jquery.min.js"></script>
-  <script src="vendor/bootstrap/js/bootstrap.bundle.min.js"></script>
-
+  <script src="vendor/jquery/jquery.min.js">
+  </script>
+  <script src="vendor/bootstrap/js/bootstrap.bundle.min.js">
+  </script>
   <!-- Menu Toggle Script -->
   <script>
-    $("#menu-toggle").click(function(e) {
+   $("#menu-toggle").click(function(e) {
       e.preventDefault();
       $("#wrapper").toggleClass("toggled");
     });
   </script>
-
-</body>
-
+ </body>
 </html>

@@ -1,136 +1,288 @@
 <!DOCTYPE html>
 <html lang="en">
-
-<head>
-
-  <meta charset="utf-8">
-  <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
-  <meta name="description" content="">
-  <meta name="author" content="">
-
-  <title>Db2 HADR Wiki</title>
-
+ <head>
+  <meta charset="utf-8"/>
+  <meta content="width=device-width, initial-scale=1, shrink-to-fit=no" name="viewport"/>
+  <meta content="" name="description"/>
+  <meta content="" name="author"/>
+  <title>
+   Db2 HADR Wiki
+  </title>
   <!-- Bootstrap core CSS -->
-  <link href="vendor/bootstrap/css/bootstrap.min.css" rel="stylesheet">
-
+  <link href="vendor/bootstrap/css/bootstrap.min.css" rel="stylesheet"/>
   <!-- Custom styles for this template -->
-  <link href="css/simple-sidebar.css" rel="stylesheet">
-
-</head>
-
-<body>
-
+  <link href="css/simple-sidebar.css" rel="stylesheet"/>
+ </head>
+ <body>
   <div class="d-flex" id="wrapper">
-
-    <!-- Sidebar -->
-    <div class="bg-light border-right" id="sidebar-wrapper">
-      <div class="sidebar-heading">Menu</div>
-      <div class="list-group list-group-flush">
-        <a href="hadrBenefits.html" class="list-group-item list-group-item-action bg-light">HADR Benefits</a>
-        <a href="featureHistory.html" class="list-group-item list-group-item-action bg-light">Feature History</a>
-        <a href="hadrTutorial.html" class="list-group-item list-group-item-action bg-light">HADR Tutorial</a>
-        <a href="tcpTuning.html" class="list-group-item list-group-item-action bg-light">TCP Tuning</a>
-        <a href="perfTuning.html" class="list-group-item list-group-item-action bg-light">Perf Tuning</a>
-        <a href="hadrSimulator.html" class="list-group-item list-group-item-action bg-light">HADR Simulator</a>
-        <a href="simulatorOptions.html" class="list-group-item list-group-item-action bg-light">HADR Simulator Options</a>
-        <a href="simulatorOutput.html" class="list-group-item list-group-item-action bg-light">HADR Simulator Output</a>
-        <a href="simulatorParams.html" class="list-group-item list-group-item-action bg-light">HADR Simulator Params</a>
-        <a href="db2logscan.html" class="list-group-item list-group-item-action bg-light">db2logscan</a>
-        <a href="hadrConfig.html" class="list-group-item list-group-item-action bg-light">HADR Config</a>
-        <a href="hadrSyncMode.html" class="list-group-item list-group-item-action bg-light">HADR Sync Mode</a>
-        <a href="hadrTakeover.html" class="list-group-item list-group-item-action bg-light">HADR Takeover</a>
-        <a href="hadrMonitoring.html" class="list-group-item list-group-item-action bg-light"><strong>> HADR Monitoring</strong></a>
-        <a href="hadrCommands.html" class="list-group-item list-group-item-action bg-light">HADR Commands</a>
-        <a href="hadrLogShipping.html" class="list-group-item list-group-item-action bg-light">HADR Log Shipping</a>
-        <a href="hadrPerf.html" class="list-group-item list-group-item-action bg-light">HADR Perf</a>
-        <a href="diagConnect.html" class="list-group-item list-group-item-action bg-light">Diag Connect</a>
-        <a href="db2diag.html" class="list-group-item list-group-item-action bg-light">db2diag.log</a>
-        <a href="clusterManagers.html" class="list-group-item list-group-item-action bg-light">Cluster Managers</a>
-        <a href="clientReroute.html" class="list-group-item list-group-item-action bg-light">Client Reroute</a>
-        <a href="hadrPureScale.html" class="list-group-item list-group-item-action bg-light">HADR on PureScale</a>
-        <a href="faq.html" class="list-group-item list-group-item-action bg-light">FAQ</a>
-        <a href="db2fmtlog.html" class="list-group-item list-group-item-action bg-light">db2fmtlog replayonlywindow</a>
-      </div>
+   <!-- Sidebar -->
+   <div class="bg-light border-right" id="sidebar-wrapper">
+    <div class="sidebar-heading">
+     Menu
     </div>
-    <!-- /#sidebar-wrapper -->
-
-    <!-- Page Content -->
-    <div id="page-content-wrapper">
-
-      <nav class="navbar navbar-expand-lg navbar-light bg-light border-bottom">
-        <button class="btn btn-primary" id="menu-toggle">Toggle Menu</button>
-
-        <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarSupportedContent" aria-controls="navbarSupportedContent" aria-expanded="false" aria-label="Toggle navigation">
-          <span class="navbar-toggler-icon"></span>
-        </button>
-
-        <div class="collapse navbar-collapse" id="navbarSupportedContent">
-          <ul class="navbar-nav ml-auto mt-2 mt-lg-0">
-            <li class="nav-item">
-              <a class="nav-link" href="index.html">Home</a>
-            </li>
-            <li class="nav-item">
-              <a class="nav-link" href="contact.html">Contact</a>
-            </li>
-            <li class="nav-item">
-              <a class="nav-link" href="contribute.html">Contribute</a>
-            </li>
-          </ul>
-        </div>
-      </nav>
-
-      <div class="container-fluid">
-        <p><span style="font-size:24px">Monitoring HADR</span></p>
-
-        <p><strong>Table of Contents</strong></p>
-
-        <ul>
-        	<li><a href="#HADR_monitoring_interfaces">HADR monitoring interfaces</a>
-
-        	<ul>
-        		<li><a href="#db2pd__hadr">db2pd -hadr</a></li>
-        		<li><a href="#MON_GET_HADR_table_function">MON_GET_HADR table function</a></li>
-        		<li><a href="#Database_Snapshot">Database Snapshot</a></li>
-        	</ul>
-        	</li>
-        	<li><a href="#Fields_to_watch_out_in_HADR_monitoring">Fields to watch out in HADR monitoring</a>
-        	<ul>
-        		<li><a href="#Role_and_State">Role and State</a></li>
-        		<li><a href="#Impact_to_Primary_database_logging">Impact to Primary database logging</a></li>
-        		<li><a href="#Log_Gaps">Log Gaps</a></li>
-        		<li><a href="#Standby_receive_blocked__Standby_receive_buffer_and_spool_usage">Standby receive blocked, Standby receive buffer and spool usage</a></li>
-        	</ul>
-        	</li>
-        	<li><a href="#Standby_tablespace_status">Standby tablespace status</a></li>
-        	<li><a href="#HADR_monitoring_tips">HADR monitoring tips</a>
-        	<ul>
-        		<li><a href="#Monitoring_the_standby_database">Monitoring the standby database</a></li>
-        		<li><a href="#Reporting_multiple_standbys">Reporting multiple standbys</a></li>
-        		<li><a href="#HADR_pair_view">HADR pair view</a></li>
-        		<li><a href="#Information_about_remote_database">Information about remote database</a></li>
-        		<li><a href="#Unit_of_time_duration">Unit of time duration</a></li>
-        		<li><a href="#Monitoring%20workload">Monitoring&nbsp;workload</a></li>
-        		<li><a href="#Monitoring_HADR_takeover">Monitoring HADR takeover</a></li>
-        	</ul>
-        	</li>
-        	<li><a href="#HADR_Info_in_db2diag_log">HADR Info in db2diag.log</a></li>
-        </ul>
-        <strong>&nbsp;&nbsp;</strong>
-
-        <h1><a name="HADR_monitoring_interfaces">HADR monitoring interfaces</a></h1>
-
-        <p>DB2 V10.1 has enhanced HADR monitoring. See <a href="http://pic.dhe.ibm.com/infocenter/db2luw/v10r1/topic/com.ibm.db2.luw.admin.ha.doc/doc/c0020950.html">DB2 V10.1 Info Center</a><br />
-        For HADR monitoring in V97, see <a href="http://publib.boulder.ibm.com/infocenter/db2luw/v9r7/topic/com.ibm.db2.luw.admin.ha.doc/doc/c0020950.html">DB2 V97 Info Center</a></p>
-
-        <p>SQL based monitoring such as table functions and administrative views work on standby only when<a href="http://pic.dhe.ibm.com/infocenter/db2luw/v10r5/topic/com.ibm.db2.luw.admin.ha.doc/doc/c0054257.html">&nbsp;Reads&nbsp;on&nbsp;Standby</a> is enabled. db2pd and the "db2 get snapshot for database" command always work on the standby.</p>
-
-        <h2><a name="db2pd__hadr">db2pd -hadr</a></h2>
-
-        <p>"db2pd -hadr" option returns HADR info for a database. It is light weight, requiring no SQL connection. But it can only be issued on the database host machine (it attaches to DB2 server shared memory).<br />
-        <br />
-        In <strong>DB2 V10.1 and later</strong>, the output is like</p>
-
-        <pre>
+    <div class="list-group list-group-flush">
+     <a class="list-group-item list-group-item-action bg-light" href="hadrBenefits.html">
+      HADR Benefits
+     </a>
+     <a class="list-group-item list-group-item-action bg-light" href="featureHistory.html">
+      Feature History
+     </a>
+     <a class="list-group-item list-group-item-action bg-light" href="hadrTutorial.html">
+      HADR Tutorial
+     </a>
+     <a class="list-group-item list-group-item-action bg-light" href="tcpTuning.html">
+      TCP Tuning
+     </a>
+     <a class="list-group-item list-group-item-action bg-light" href="perfTuning.html">
+      Perf Tuning
+     </a>
+     <a class="list-group-item list-group-item-action bg-light" href="hadrSimulator.html">
+      HADR Simulator
+     </a>
+     <a class="list-group-item list-group-item-action bg-light" href="simulatorOptions.html">
+      HADR Simulator Options
+     </a>
+     <a class="list-group-item list-group-item-action bg-light" href="simulatorOutput.html">
+      HADR Simulator Output
+     </a>
+     <a class="list-group-item list-group-item-action bg-light" href="simulatorParams.html">
+      HADR Simulator Params
+     </a>
+     <a class="list-group-item list-group-item-action bg-light" href="db2logscan.html">
+      db2logscan
+     </a>
+     <a class="list-group-item list-group-item-action bg-light" href="hadrConfig.html">
+      HADR Config
+     </a>
+     <a class="list-group-item list-group-item-action bg-light" href="hadrSyncMode.html">
+      HADR Sync Mode
+     </a>
+     <a class="list-group-item list-group-item-action bg-light" href="hadrTakeover.html">
+      HADR Takeover
+     </a>
+     <a class="list-group-item list-group-item-action bg-light" href="hadrMonitoring.html">
+      <strong>
+       &gt; HADR Monitoring
+      </strong>
+     </a>
+     <a class="list-group-item list-group-item-action bg-light" href="hadrCommands.html">
+      HADR Commands
+     </a>
+     <a class="list-group-item list-group-item-action bg-light" href="hadrLogShipping.html">
+      HADR Log Shipping
+     </a>
+     <a class="list-group-item list-group-item-action bg-light" href="hadrPerf.html">
+      HADR Perf
+     </a>
+     <a class="list-group-item list-group-item-action bg-light" href="diagConnect.html">
+      Diag Connect
+     </a>
+     <a class="list-group-item list-group-item-action bg-light" href="db2diag.html">
+      db2diag.log
+     </a>
+     <a class="list-group-item list-group-item-action bg-light" href="clusterManagers.html">
+      Cluster Managers
+     </a>
+     <a class="list-group-item list-group-item-action bg-light" href="clientReroute.html">
+      Client Reroute
+     </a>
+     <a class="list-group-item list-group-item-action bg-light" href="hadrPureScale.html">
+      HADR on PureScale
+     </a>
+     <a class="list-group-item list-group-item-action bg-light" href="faq.html">
+      FAQ
+     </a>
+     <a class="list-group-item list-group-item-action bg-light" href="db2fmtlog.html">
+      db2fmtlog replayonlywindow
+     </a>
+    </div>
+   </div>
+   <!-- /#sidebar-wrapper -->
+   <!-- Page Content -->
+   <div id="page-content-wrapper">
+    <nav class="navbar navbar-expand-lg navbar-light bg-light border-bottom">
+     <button class="btn btn-primary" id="menu-toggle">
+      Toggle Menu
+     </button>
+     <button aria-controls="navbarSupportedContent" aria-expanded="false" aria-label="Toggle navigation" class="navbar-toggler" data-target="#navbarSupportedContent" data-toggle="collapse" type="button">
+      <span class="navbar-toggler-icon">
+      </span>
+     </button>
+     <div class="collapse navbar-collapse" id="navbarSupportedContent">
+      <ul class="navbar-nav ml-auto mt-2 mt-lg-0">
+       <li class="nav-item">
+        <a class="nav-link" href="index.html">
+         Home
+        </a>
+       </li>
+       <li class="nav-item">
+        <a class="nav-link" href="contact.html">
+         Contact
+        </a>
+       </li>
+       <li class="nav-item">
+        <a class="nav-link" href="contribute.html">
+         Contribute
+        </a>
+       </li>
+      </ul>
+     </div>
+    </nav>
+    <div class="container-fluid">
+     <p>
+      <span style="font-size:24px">
+       Monitoring HADR
+      </span>
+     </p>
+     <p>
+      <strong>
+       Table of Contents
+      </strong>
+     </p>
+     <ul>
+      <li>
+       <a href="#HADR_monitoring_interfaces">
+        HADR monitoring interfaces
+       </a>
+       <ul>
+        <li>
+         <a href="#db2pd__hadr">
+          db2pd -hadr
+         </a>
+        </li>
+        <li>
+         <a href="#MON_GET_HADR_table_function">
+          MON_GET_HADR table function
+         </a>
+        </li>
+        <li>
+         <a href="#Database_Snapshot">
+          Database Snapshot
+         </a>
+        </li>
+       </ul>
+      </li>
+      <li>
+       <a href="#Fields_to_watch_out_in_HADR_monitoring">
+        Fields to watch out in HADR monitoring
+       </a>
+       <ul>
+        <li>
+         <a href="#Role_and_State">
+          Role and State
+         </a>
+        </li>
+        <li>
+         <a href="#Impact_to_Primary_database_logging">
+          Impact to Primary database logging
+         </a>
+        </li>
+        <li>
+         <a href="#Log_Gaps">
+          Log Gaps
+         </a>
+        </li>
+        <li>
+         <a href="#Standby_receive_blocked__Standby_receive_buffer_and_spool_usage">
+          Standby receive blocked, Standby receive buffer and spool usage
+         </a>
+        </li>
+       </ul>
+      </li>
+      <li>
+       <a href="#Standby_tablespace_status">
+        Standby tablespace status
+       </a>
+      </li>
+      <li>
+       <a href="#HADR_monitoring_tips">
+        HADR monitoring tips
+       </a>
+       <ul>
+        <li>
+         <a href="#Monitoring_the_standby_database">
+          Monitoring the standby database
+         </a>
+        </li>
+        <li>
+         <a href="#Reporting_multiple_standbys">
+          Reporting multiple standbys
+         </a>
+        </li>
+        <li>
+         <a href="#HADR_pair_view">
+          HADR pair view
+         </a>
+        </li>
+        <li>
+         <a href="#Information_about_remote_database">
+          Information about remote database
+         </a>
+        </li>
+        <li>
+         <a href="#Unit_of_time_duration">
+          Unit of time duration
+         </a>
+        </li>
+        <li>
+         <a href="#Monitoring%20workload">
+          Monitoring workload
+         </a>
+        </li>
+        <li>
+         <a href="#Monitoring_HADR_takeover">
+          Monitoring HADR takeover
+         </a>
+        </li>
+       </ul>
+      </li>
+      <li>
+       <a href="#HADR_Info_in_db2diag_log">
+        HADR Info in db2diag.log
+       </a>
+      </li>
+     </ul>
+     <strong>
+     </strong>
+     <h1>
+      <a name="HADR_monitoring_interfaces">
+       HADR monitoring interfaces
+      </a>
+     </h1>
+     <p>
+      DB2 V10.1 has enhanced HADR monitoring. See
+      <a href="https://www.ibm.com/docs/en/db2/10.1.0?topic=outage-high-availability-disaster-recovery-hadr-monitoring">
+       DB2 V10.1 Info Center
+      </a>
+      <br/>
+      For HADR monitoring in V97, see
+      <a href="https://www.ibm.com/docs/en/db2/9.7?topic=management-monitoring-hadr-databases">
+       DB2 V97 Info Center
+      </a>
+     </p>
+     <p>
+      SQL based monitoring such as table functions and administrative views work on standby only when
+      <a href="https://www.ibm.com/docs/en/db2/11.5?topic=feature-enabling-reads-standby">
+       Reads on Standby
+      </a>
+      is enabled. db2pd and the "db2 get snapshot for database" command always work on the standby.
+     </p>
+     <h2>
+      <a name="db2pd__hadr">
+       db2pd -hadr
+      </a>
+     </h2>
+     <p>
+      "db2pd -hadr" option returns HADR info for a database. It is light weight, requiring no SQL connection. But it can only be issued on the database host machine (it attaches to DB2 server shared memory).
+      <br/>
+      <br/>
+      In
+      <strong>
+       DB2 V10.1 and later
+      </strong>
+      , the output is like
+     </p>
+     <pre>
         Database Member 0 -- Database HADRDB -- Active -- Up 0 days 00:23:17 -- Date 06/08/2011 13:57:23
 
                                       HADR_ROLE = PRIMARY
@@ -171,17 +323,24 @@
                            PEER_WINDOW(seconds) = 0
                        READS_ON_STANDBY_ENABLED = Y
               STANDBY_REPLAY_ONLY_WINDOW_ACTIVE = N</pre>
-
-        <p><br />
-        The V10.1 format is similar to "db2 get database snapshot" output. V10.1 also added a number of fields for better monitoring. The new fields include LOG_HADR_WAIT_CUR, LOG_HADR_WAIT_ACCUMULATED, and LOG_HADR_WAIT_COUNT.<br />
-        <br />
-        Fields not relevant to current status may be omitted in db2pd output. For example, standby replay only window fields are not shown when reads on standby is disabled; Takeover app remaining fields are included only when takeover is in progress.<br />
-        <br />
-        Timestamps are printed in local time zone. The integer in parenthesis is the internal representation, typically the number of seconds since Jan.1.1970. This number is included for easy time arithmetic. Subsecond info is only shown in the formated timestamp.</p>
-
-        <p>In <strong>DB2 V97 and earlier</strong> releases, the output is like:</p>
-
-        <pre>
+     <p>
+      <br/>
+      The V10.1 format is similar to "db2 get database snapshot" output. V10.1 also added a number of fields for better monitoring. The new fields include LOG_HADR_WAIT_CUR, LOG_HADR_WAIT_ACCUMULATED, and LOG_HADR_WAIT_COUNT.
+      <br/>
+      <br/>
+      Fields not relevant to current status may be omitted in db2pd output. For example, standby replay only window fields are not shown when reads on standby is disabled; Takeover app remaining fields are included only when takeover is in progress.
+      <br/>
+      <br/>
+      Timestamps are printed in local time zone. The integer in parenthesis is the internal representation, typically the number of seconds since Jan.1.1970. This number is included for easy time arithmetic. Subsecond info is only shown in the formated timestamp.
+     </p>
+     <p>
+      In
+      <strong>
+       DB2 V97 and earlier
+      </strong>
+      releases, the output is like:
+     </p>
+     <pre>
         Database Partition 0 -- Database HADRDB -- Active -- Up 0 days 00:19:25
 
         HADR Information:
@@ -202,179 +361,399 @@
 
         StandByFile  StandByPg  StandByLSN
         S0000832.LOG 3          0x0000000001CA3A77</pre>
-        The old format is harder to parse.
-
-        <h2><a name="MON_GET_HADR_table_function">MON_GET_HADR table function</a></h2>
-
-        <p><a href="http://pic.dhe.ibm.com/infocenter/db2luw/v10r1/topic/com.ibm.db2.luw.sql.rtn.doc/doc/r0059275.html">MON_GET_HADR</a> table function is available starting DB2 V10.1. It provides the same information as "db2pd -hadr". It is heaviler weight because it requires SQL connection. But it can be accessed from any client and it is more friendly to database admin tools. Monitor queries can be issued to the standby database only when reads on standby is enabled.</p>
-
-        <h2><a name="Database_Snapshot">Database Snapshot</a></h2>
-
-        <p>HADR info can also be accessed through database snapshot interface. But monitoring HADR through this interface is deprecated as of DB2 V10.1. HADR info may be removed from this interface in a future release. This interface includes:</p>
-
-        <ul>
-        	<li>The GET SNAPSHOT FOR DATABASE command</li>
-        	<li>The db2GetSnapshot API</li>
-        	<li>The SNAPHADR administrative view</li>
-        	<li>The SNAP_GET_HADR table function</li>
-        	<li>Other snapshot administrative views and table functions</li>
-        </ul>
-
-        <p>For multiple standby, the deprecated snapshot interface will only return information about the principle standby when issued to the primary, while db2pd and MON_GET_HADR table function returns info about all standbys.</p>
-
-        <h1><a name="Fields_to_watch_out_in_HADR_monitoring">Fields to watch out in HADR monitoring</a></h1>
-
-        <p>For description of all fields, see <a href="http://pic.dhe.ibm.com/infocenter/db2luw/v10r5/topic/com.ibm.db2.luw.sql.rtn.doc/doc/r0059275.html">MON_GET_HADR</a> in DB2 Info Center.</p>
-
-        <p>For more on performance topics, such as congestion, log write time and HADR overhead, see <a href="hadrPerf.html">HADR performance tuning and diagnostics</a></p>
-
-        <h2><a name="Role_and_State">Role and State</a></h2>
-
-        <p><strong>HADR_ROLE</strong>: Is this database primary or standby? If the database is offline, its role can still be shown through the "HADR database role" field from "db2 get db cfg for &lt;dbname&gt;" output.<br />
-        <br />
-        <strong>HADR_STATE</strong>: PEER is good. You are fully protected. If state does not enter peer for extended time, investigate the cause (most likely remote catch up speed is slower than primary log generation rate). Note that superAsync mode never enters peer, so you monitor log gap instead.<br />
-        <br />
-        <strong>HADR_CONNECT_STATUS</strong>: CONNECTED is good. DISCONNECTED is bad. Investigate why primary and standby cannot connect to each other. This field can also show CONGESTED, meaning a database cannot send out data to its partner. CONGESTED is also bad. It is most likely to be seen on the primary side. It's less likely to be seen on the standby side because there isn't much data to send to the primary (usually just ack and heartbeat).</p>
-
-        <p><strong>HADR_CONNECT_STATUS_TIME</strong> shows the start time of the current HADR_CONNECT_STATUS.</p>
-
-        <ul>
-        	<li>If HADR_CONNECT_STATUS is CONNECTED, HADR_CONNECT_STATUS_TIME shows connection establishment time.</li>
-        	<li>If HADR_CONNECT_STATUS is DISCONNECTED, HADR_CONNECT_STATUS_TIME shows connection loss time.</li>
-        	<li>If HADR_CONNECT_STATUS is CONGESTED, HADR_CONNECT_STATUS_TIME shows congestion start time.</li>
-        </ul>
-
-        <h2><a name="Impact_to_Primary_database_logging">Impact to Primary database logging</a></h2>
-
-        <p>The LOG_HADR_WAIT_* fields are available starting DB2 V10.1. In older releases you will have to monitor from application side. For example, you can monitor application commit time. While the&nbsp;LOG_HADR_WAIT_* fields isolates the HADR cost in log writing,&nbsp; application side commit time is the overall cost of commit from database.</p>
-
-        <p><strong>LOG_HADR_WAIT_CUR</strong>: How long the primary logger has been blocked waiting on log replication?<br />
-        A small number (less than a few millisecond) is acceptable. Longer wait shows performance problem. You can sample this field over a period of time (such as take a reading every minute over one day) to find out the distribution of logger wait. If this number keep growing in real time (for example, it is 10 seconds longer on a reading taken 10 seconds later), then the logger is completely blocked (really bad).<br />
-        <br />
-        <strong>LOG_HADR_WAIT_RECENT_AVG</strong>: Recent average (over last a few seconds) of logger HADR wait time. This field is not available in MON_GET_HADR table function because the table function is intended to be more an API than user interface. Tools could compute their own average using LOG_HADR_WAIT_ACCUMULATED and LOG_HADR_WAIT_COUNT for arbitrary time interval.<br />
-        <br />
-        <strong>LOG_HADR_WAIT_ACCUMULATED </strong>and <strong>LOG_HADR_WAIT_COUNT</strong>: Accumulated logger HADR wait time and number of waits (each log flush (ie. log write) in peer state triggers a wait). Monitoring tools can compute average wait time for arbitrary time interval using these fields.</p>
-
-        <h2><a name="Log_Gaps">Log Gaps</a></h2>
-
-        <p><strong>HADR_LOG_GAP</strong>: This is the running average of (PRIMARY_LOG_POS - STANDBY_LOG_POS). It tells you how far the standby is behind the primary. This number is especially important in superAsync mode, which never enters peer state. HA/DR protection decreases as the gap grows. In local and remote catchup states, you should see decreasing gap and the pair will eventually enter peer state (assuming non superAsync mode). If the gap is increasing or stays high, it means that standby or network cannot keep up with the primary. In peer state, the gap should stay within a small range, because standby is basically one log flush behind primary.<br />
-        <br />
-        <strong>STANDBY_RECV_REPLAY_GAP</strong>: This is the running average of (STANDBY_LOG_POS - STANDBY_REPLAY_POS). It shows the amount of received, but not yet replayed log data on the standby. With large STANDBY_SPOOL_LIMIT or STANDBY_RECV_BUF_SIZE, the gap can be large. During a takeover, standby needs to complete replay of logs in the gap. So larger gap will result in slower takeover (forced and non forced).</p>
-
-        <p>Note: In DB2 V97 and earlier releases, only a single STANDBY_LOG_POS is reported. It is derived from replay position. Because log spooling is not supported in these releases, log receive and replay positions are usually not too far from each other. In V10.1 and later, log receive position and replay position are reported separately. A large gap is possible when spooling is enabled.</p>
-
-        <h2><a name="Standby_receive_blocked__Standby_receive_buffer_and_spool_usage">Standby receive blocked, Standby receive buffer and spool usage</a></h2>
-
-        <p><strong>STANDBY_RECV_BUF_PERCENT</strong> (in V97 and earlier releases, this field is only available from "db2pd -hadr" command issued on the standby) reports standby log receive buffer usage. The buffer size can be configured by registry variable <a href="hadrConfig.html#DB2_HADR_BUF_SIZE___HADR_log_receive_buffer_size">DB2_HADR_BUF_SIZE</a>. If <a href="hadrConfig.html#hadr_spool_limit___HADR_spool_limit">spooling&nbsp;</a>is disabled (or not supported, as is the case on DB2 V97 and earlier), receive buffer full (100% used) will cause standby log receive to be blocked and primary log writing and transactions will eventually be blocked. As replay progresses, part of the buffer will be released and log receive will resume. If spooling is enabled, 100% buffer use does not indicate a bad condition. HADR will release the buffer for new incoming data if it needs to, even if log data in the buffer has not been replayed.</p>
-
-        <p><strong>STANDBY_SPOOL_PERCENT</strong> (available on V10.5 and later) reports spool space used, as a percentage of configured limit hadr_spool_limit. NULL will be returned if the limit is -1 (unlimited). On earlier releases (or for the unlimited spooling case), you can compute spool space used using other monitor fields (result is in unit of pages):<br />
-        <span style="font-family:'arial' , 'helvetica' , sans-serif">(STANDBY_LOG_POS - STANDBY_REPLAY_LOG_POS) / 4096 - (STANDBY_RECV_BUF_SIZE * STANDBY_RECV_BUF_PERCENT)</span></p>
-
-        <p><strong>STANDBY_RECV_BLOCKED</strong> flag (available on V10.5 and later) from the HADR_FLAGS field directly indicates that the standby log receiving is blocked. Primary log send and transactions will eventually be blocked if the condition persists. There are multiple scenarios of&nbsp; this condition:</p>
-
-        <ul>
-        	<li>When log spooling is disabled (or not supported), standby receive buffer is full (STANDBY_RECV_BUF_PERCENT is 100%).</li>
-        	<li>When log spooling is enabled, spooling has reached configured spool limit (STANDBY_SPOOL_PERCENT is 100%).</li>
-        	<li>The standby logging device is full (STANDBY_LOG_DEVICE_FULL flag from HADR_FLAGS field is set), regardless of whether spooling is enabled or not.</li>
-        </ul>
-
-        <p><strong>STANDBY_LOG_DEVICE_FULL</strong> flag (available on V10.5 and later) from HADR_FLAGS reports that standby log device is full. The STANDBY_RECV_BLOCKED flag will also be turned on when log device is full. The device full flag allows you to identify the cause of the blocked receiving.</p>
-
-        <p>In earlier releases, where the STANDBY_RECV_BLOCKED flag is not available, you will have to derive this condition using other fields:</p>
-
-        <ul>
-        	<li>If you are on V97 or earlier, or on V10.1 with spooling disabled (database config parameter hadr_spool_limit is 0), STANDBY_RECV_BUF_PERCENT reaching 100% indicates that standby log receive is blocked.</li>
-        	<li>If you are on V10.1 with spooling enabled, first calculate spool space used (see STANDBY_SPOOL_PERCENT section above).<br />
-        	<span style="font-family:'arial' , 'helvetica' , sans-serif">If spool space used is reaching hadr_spool_limit or standby logging device capacity (when spool limit is -1 (unlimited)), spooling is close to limit. Once it reaches the limit, standby log receive will be blocked.</span></li>
-        	<li>On V10.1 and earlier, there is no monitoring fields to report standby logging device full. You will need to use OS commands to monitor the device. When device is full, log receive is blocked even if log receive buffer is not full, because DB2 need to write received log data to disks for crash recovery purpose.</li>
-        </ul>
-
-        <h1><a name="Standby_tablespace_status">Standby tablespace status</a></h1>
-
-        <p>Standby tablespace status is not reported via HADR monitoring interface. But it is just as important for HADR monitoring. Use "db2pd -tablespaces" command to monitor standby tablespace status. Replay errors on the standby (such as device full, failed load) can bring a tablespace into abnormal state. Pay attention to any non zero "state". See <a href="http://pic.dhe.ibm.com/infocenter/db2luw/v10r1/topic/com.ibm.db2.luw.admin.mon.doc/doc/r0007533.html">http://pic.dhe.ibm.com/infocenter/db2luw/v10r1/topic/com.ibm.db2.luw.admin.mon.doc/doc/r0007533.html</a> for definition of all the states. Replay will skip tablespaces in error state. Should a failover happen, such "bad" tablespaces won't be available for applications.<br />
-        <br />
-        If the failed tablespaces are important, reinitialize the standby to make them "good" again.</p>
-
-        <h1><a name="HADR_monitoring_tips">HADR monitoring tips</a></h1>
-
-        <h2><a name="Monitoring_the_standby_database">Monitoring the standby database</a></h2>
-
-        <p>SQL based monitoring such as table functions and administrative views work on standby only when<a href="http://pic.dhe.ibm.com/infocenter/db2luw/v10r5/topic/com.ibm.db2.luw.admin.ha.doc/doc/c0054257.html">&nbsp;Reads&nbsp;on&nbsp;Standby</a> is enabled. db2pd and the "db2 get snapshot for database" command always work on the standby.</p>
-
-        <h2><a name="Reporting_multiple_standbys">Reporting multiple standbys</a></h2>
-
-        <p>Each standby only knows about the primary. It has no knowledge of other standbys. Monitoring command and query issued to the standby will report only the standby itself and the primary, as a usual HADR pair. No info about other standbys will be reported.<br />
-        <br />
-        The primary is aware of all standbys. When issued on the primary ,"db2pd -hadr" and MON_GET_HADR table function will report all standbys. If a configured standby (listed in primary's hadr_target_list) is not connected, it is still displayed, as a reminder that multiple standbys are configured. The snapshot interface (deprecated) will only report the principal standby.</p>
-
-        <h2><a name="HADR_pair_view">HADR pair view</a></h2>
-
-        <p>Certain monitor fields are applicable to primary or standby only. For example, PEER_WAIT_LIMIT is applicable only to primary, STANDBY_RECV_BUF_SIZE, STANDBY_SPOOL_LIMIT, READS_ON_STANDBY_ENABLED are applicable only to standby. When this kind of information is reported, it is data from the database currently in this role (which may be the remote database), rather than the local database. For example, PEER_WAIT_LIMIT reported by a standby is the value configured on the primary, not the standby's local configuration. The standby's configuration will be used only when the standby turns into a primary.</p>
-
-        <h2><a name="Information_about_remote_database">Information about remote database</a></h2>
-
-        <p>Primary and standby exchange monitoring information via heartbeat messages, which is sent periodically. Information about the remote database can be slightly out of date, up to a heartbeat interval. Heartbeat interval itself is reported via the HEARTBEAT_INTERVAL field. If a database has never connected to its partner database since activation, info about remote database will be returned as SQL NULL to indicate "unknown".</p>
-
-        <h2><a name="Unit_of_time_duration">Unit of time duration</a></h2>
-
-        <p>Per monitor table function convention, all MON_GET_HADR time duration fields use millisecond as unit. For those fields reflecting a config parameter (such as HADR_TIMEOUT, HADR_PEER_WINDOW) whose unit in config is second, the number returned by MON_GET_HADR table function will be different from the number used in "db2 get/update db cfg" command, the number returned by SYSIBMADM.DBCFG admin view or SYSPROC.DB_GET_CFG() table function. For example, for a 60 second HADR_TIMEOUT value, MON_GET_HADR will return 60000, while the config oriented interfaces will return 60. To convert the millisecond number to second, use column_name/1000 in your query.<br />
-        <br />
-        "db2pd -hadr" returns seconds for parameters configured using seconds. Furthermore, the unit itself is printed in output to avoid confusion.</p>
-
-        <h2><a id="Monitoring workload" name="Monitoring workload"><span style="font-family:'arial' , 'helvetica' , sans-serif"><span style="font-style:normal"><span style="letter-spacing:normal"><span style="text-transform:none"><span style="white-space:normal"><span style="word-spacing:0px"><span style="background-color:#ffffff">Monitoring workload</span></span></span></span></span></span></span></a></h2>
-        <span style="font-size:12px"><span style="font-family:'arial' , 'helvetica' , sans-serif"><span style="font-style:normal"><span style="font-weight:400"><span style="letter-spacing:normal"><span style="text-transform:none"><span style="white-space:normal"><span style="word-spacing:0px"><span style="background-color:#ffffff"><span style="line-height:16.05px">It's important be aware of the open transactions and avoid long running transactions in the workload to prevent long takeover time. The “db2pd -transaction” command displays the transactions in progress. The following is an example output of “db2pd -transaction” taken on a HADR standby database:</span></span></span></span></span></span></span></span></span></span>
-
-        <pre>
+     The old format is harder to parse.
+     <h2>
+      <a name="MON_GET_HADR_table_function">
+       MON_GET_HADR table function
+      </a>
+     </h2>
+     <p>
+      <a href="https://www.ibm.com/docs/en/db2/11.5?topic=mpf-mon-get-hadr-get-high-availability-disaster-recovery-hadr-monitoring-information">
+       MON_GET_HADR
+      </a>
+      table function is available starting DB2 V10.1. It provides the same information as "db2pd -hadr". It is heaviler weight because it requires SQL connection. But it can be accessed from any client and it is more friendly to database admin tools. Monitor queries can be issued to the standby database only when reads on standby is enabled.
+     </p>
+     <h2>
+      <a name="Database_Snapshot">
+       Database Snapshot
+      </a>
+     </h2>
+     <p>
+      HADR info can also be accessed through database snapshot interface. But monitoring HADR through this interface is deprecated as of DB2 V10.1. HADR info may be removed from this interface in a future release. This interface includes:
+     </p>
+     <ul>
+      <li>
+       The GET SNAPSHOT FOR DATABASE command
+      </li>
+      <li>
+       The db2GetSnapshot API
+      </li>
+      <li>
+       The SNAPHADR administrative view
+      </li>
+      <li>
+       The SNAP_GET_HADR table function
+      </li>
+      <li>
+       Other snapshot administrative views and table functions
+      </li>
+     </ul>
+     <p>
+      For multiple standby, the deprecated snapshot interface will only return information about the principle standby when issued to the primary, while db2pd and MON_GET_HADR table function returns info about all standbys.
+     </p>
+     <h1>
+      <a name="Fields_to_watch_out_in_HADR_monitoring">
+       Fields to watch out in HADR monitoring
+      </a>
+     </h1>
+     <p>
+      For description of all fields, see
+      <a href="https://www.ibm.com/docs/en/db2/11.5?topic=mpf-mon-get-hadr-get-high-availability-disaster-recovery-hadr-monitoring-information">
+       MON_GET_HADR
+      </a>
+      in DB2 Info Center.
+     </p>
+     <p>
+      For more on performance topics, such as congestion, log write time and HADR overhead, see
+      <a href="hadrPerf.html">
+       HADR performance tuning and diagnostics
+      </a>
+     </p>
+     <h2>
+      <a name="Role_and_State">
+       Role and State
+      </a>
+     </h2>
+     <p>
+      <strong>
+       HADR_ROLE
+      </strong>
+      : Is this database primary or standby? If the database is offline, its role can still be shown through the "HADR database role" field from "db2 get db cfg for &lt;dbname&gt;" output.
+      <br/>
+      <br/>
+      <strong>
+       HADR_STATE
+      </strong>
+      : PEER is good. You are fully protected. If state does not enter peer for extended time, investigate the cause (most likely remote catch up speed is slower than primary log generation rate). Note that superAsync mode never enters peer, so you monitor log gap instead.
+      <br/>
+      <br/>
+      <strong>
+       HADR_CONNECT_STATUS
+      </strong>
+      : CONNECTED is good. DISCONNECTED is bad. Investigate why primary and standby cannot connect to each other. This field can also show CONGESTED, meaning a database cannot send out data to its partner. CONGESTED is also bad. It is most likely to be seen on the primary side. It's less likely to be seen on the standby side because there isn't much data to send to the primary (usually just ack and heartbeat).
+     </p>
+     <p>
+      <strong>
+       HADR_CONNECT_STATUS_TIME
+      </strong>
+      shows the start time of the current HADR_CONNECT_STATUS.
+     </p>
+     <ul>
+      <li>
+       If HADR_CONNECT_STATUS is CONNECTED, HADR_CONNECT_STATUS_TIME shows connection establishment time.
+      </li>
+      <li>
+       If HADR_CONNECT_STATUS is DISCONNECTED, HADR_CONNECT_STATUS_TIME shows connection loss time.
+      </li>
+      <li>
+       If HADR_CONNECT_STATUS is CONGESTED, HADR_CONNECT_STATUS_TIME shows congestion start time.
+      </li>
+     </ul>
+     <h2>
+      <a name="Impact_to_Primary_database_logging">
+       Impact to Primary database logging
+      </a>
+     </h2>
+     <p>
+      The LOG_HADR_WAIT_* fields are available starting DB2 V10.1. In older releases you will have to monitor from application side. For example, you can monitor application commit time. While the LOG_HADR_WAIT_* fields isolates the HADR cost in log writing,  application side commit time is the overall cost of commit from database.
+     </p>
+     <p>
+      <strong>
+       LOG_HADR_WAIT_CUR
+      </strong>
+      : How long the primary logger has been blocked waiting on log replication?
+      <br/>
+      A small number (less than a few millisecond) is acceptable. Longer wait shows performance problem. You can sample this field over a period of time (such as take a reading every minute over one day) to find out the distribution of logger wait. If this number keep growing in real time (for example, it is 10 seconds longer on a reading taken 10 seconds later), then the logger is completely blocked (really bad).
+      <br/>
+      <br/>
+      <strong>
+       LOG_HADR_WAIT_RECENT_AVG
+      </strong>
+      : Recent average (over last a few seconds) of logger HADR wait time. This field is not available in MON_GET_HADR table function because the table function is intended to be more an API than user interface. Tools could compute their own average using LOG_HADR_WAIT_ACCUMULATED and LOG_HADR_WAIT_COUNT for arbitrary time interval.
+      <br/>
+      <br/>
+      <strong>
+       LOG_HADR_WAIT_ACCUMULATED
+      </strong>
+      and
+      <strong>
+       LOG_HADR_WAIT_COUNT
+      </strong>
+      : Accumulated logger HADR wait time and number of waits (each log flush (ie. log write) in peer state triggers a wait). Monitoring tools can compute average wait time for arbitrary time interval using these fields.
+     </p>
+     <h2>
+      <a name="Log_Gaps">
+       Log Gaps
+      </a>
+     </h2>
+     <p>
+      <strong>
+       HADR_LOG_GAP
+      </strong>
+      : This is the running average of (PRIMARY_LOG_POS - STANDBY_LOG_POS). It tells you how far the standby is behind the primary. This number is especially important in superAsync mode, which never enters peer state. HA/DR protection decreases as the gap grows. In local and remote catchup states, you should see decreasing gap and the pair will eventually enter peer state (assuming non superAsync mode). If the gap is increasing or stays high, it means that standby or network cannot keep up with the primary. In peer state, the gap should stay within a small range, because standby is basically one log flush behind primary.
+      <br/>
+      <br/>
+      <strong>
+       STANDBY_RECV_REPLAY_GAP
+      </strong>
+      : This is the running average of (STANDBY_LOG_POS - STANDBY_REPLAY_POS). It shows the amount of received, but not yet replayed log data on the standby. With large STANDBY_SPOOL_LIMIT or STANDBY_RECV_BUF_SIZE, the gap can be large. During a takeover, standby needs to complete replay of logs in the gap. So larger gap will result in slower takeover (forced and non forced).
+     </p>
+     <p>
+      Note: In DB2 V97 and earlier releases, only a single STANDBY_LOG_POS is reported. It is derived from replay position. Because log spooling is not supported in these releases, log receive and replay positions are usually not too far from each other. In V10.1 and later, log receive position and replay position are reported separately. A large gap is possible when spooling is enabled.
+     </p>
+     <h2>
+      <a name="Standby_receive_blocked__Standby_receive_buffer_and_spool_usage">
+       Standby receive blocked, Standby receive buffer and spool usage
+      </a>
+     </h2>
+     <p>
+      <strong>
+       STANDBY_RECV_BUF_PERCENT
+      </strong>
+      (in V97 and earlier releases, this field is only available from "db2pd -hadr" command issued on the standby) reports standby log receive buffer usage. The buffer size can be configured by registry variable
+      <a href="hadrConfig.html#DB2_HADR_BUF_SIZE___HADR_log_receive_buffer_size">
+       DB2_HADR_BUF_SIZE
+      </a>
+      . If
+      <a href="hadrConfig.html#hadr_spool_limit___HADR_spool_limit">
+       spooling
+      </a>
+      is disabled (or not supported, as is the case on DB2 V97 and earlier), receive buffer full (100% used) will cause standby log receive to be blocked and primary log writing and transactions will eventually be blocked. As replay progresses, part of the buffer will be released and log receive will resume. If spooling is enabled, 100% buffer use does not indicate a bad condition. HADR will release the buffer for new incoming data if it needs to, even if log data in the buffer has not been replayed.
+     </p>
+     <p>
+      <strong>
+       STANDBY_SPOOL_PERCENT
+      </strong>
+      (available on V10.5 and later) reports spool space used, as a percentage of configured limit hadr_spool_limit. NULL will be returned if the limit is -1 (unlimited). On earlier releases (or for the unlimited spooling case), you can compute spool space used using other monitor fields (result is in unit of pages):
+      <br/>
+      <span style="font-family:'arial' , 'helvetica' , sans-serif">
+       (STANDBY_LOG_POS - STANDBY_REPLAY_LOG_POS) / 4096 - (STANDBY_RECV_BUF_SIZE * STANDBY_RECV_BUF_PERCENT)
+      </span>
+     </p>
+     <p>
+      <strong>
+       STANDBY_RECV_BLOCKED
+      </strong>
+      flag (available on V10.5 and later) from the HADR_FLAGS field directly indicates that the standby log receiving is blocked. Primary log send and transactions will eventually be blocked if the condition persists. There are multiple scenarios of  this condition:
+     </p>
+     <ul>
+      <li>
+       When log spooling is disabled (or not supported), standby receive buffer is full (STANDBY_RECV_BUF_PERCENT is 100%).
+      </li>
+      <li>
+       When log spooling is enabled, spooling has reached configured spool limit (STANDBY_SPOOL_PERCENT is 100%).
+      </li>
+      <li>
+       The standby logging device is full (STANDBY_LOG_DEVICE_FULL flag from HADR_FLAGS field is set), regardless of whether spooling is enabled or not.
+      </li>
+     </ul>
+     <p>
+      <strong>
+       STANDBY_LOG_DEVICE_FULL
+      </strong>
+      flag (available on V10.5 and later) from HADR_FLAGS reports that standby log device is full. The STANDBY_RECV_BLOCKED flag will also be turned on when log device is full. The device full flag allows you to identify the cause of the blocked receiving.
+     </p>
+     <p>
+      In earlier releases, where the STANDBY_RECV_BLOCKED flag is not available, you will have to derive this condition using other fields:
+     </p>
+     <ul>
+      <li>
+       If you are on V97 or earlier, or on V10.1 with spooling disabled (database config parameter hadr_spool_limit is 0), STANDBY_RECV_BUF_PERCENT reaching 100% indicates that standby log receive is blocked.
+      </li>
+      <li>
+       If you are on V10.1 with spooling enabled, first calculate spool space used (see STANDBY_SPOOL_PERCENT section above).
+       <br/>
+       <span style="font-family:'arial' , 'helvetica' , sans-serif">
+        If spool space used is reaching hadr_spool_limit or standby logging device capacity (when spool limit is -1 (unlimited)), spooling is close to limit. Once it reaches the limit, standby log receive will be blocked.
+       </span>
+      </li>
+      <li>
+       On V10.1 and earlier, there is no monitoring fields to report standby logging device full. You will need to use OS commands to monitor the device. When device is full, log receive is blocked even if log receive buffer is not full, because DB2 need to write received log data to disks for crash recovery purpose.
+      </li>
+     </ul>
+     <h1>
+      <a name="Standby_tablespace_status">
+       Standby tablespace status
+      </a>
+     </h1>
+     <p>
+      Standby tablespace status is not reported via HADR monitoring interface. But it is just as important for HADR monitoring. Use "db2pd -tablespaces" command to monitor standby tablespace status. Replay errors on the standby (such as device full, failed load) can bring a tablespace into abnormal state. Pay attention to any non zero "state". See
+      <a href="https://www.ibm.com/docs/en/db2/11.5?topic=databases-hadr-database-states">
+        Db2 high availability disaster recovery (HADR) database states
+      </a>
+      for definition of all the states. Replay will skip tablespaces in error state. Should a failover happen, such "bad" tablespaces won't be available for applications.
+      <br/>
+      <br/>
+      If the failed tablespaces are important, reinitialize the standby to make them "good" again.
+     </p>
+     <h1>
+      <a name="HADR_monitoring_tips">
+       HADR monitoring tips
+      </a>
+     </h1>
+     <h2>
+      <a name="Monitoring_the_standby_database">
+       Monitoring the standby database
+      </a>
+     </h2>
+     <p>
+      SQL based monitoring such as table functions and administrative views work on standby only when
+      <a href="https://www.ibm.com/docs/en/db2/11.5?topic=feature-enabling-reads-standby">
+       Reads on Standby
+      </a>
+      is enabled. db2pd and the "db2 get snapshot for database" command always work on the standby.
+     </p>
+     <h2>
+      <a name="Reporting_multiple_standbys">
+       Reporting multiple standbys
+      </a>
+     </h2>
+     <p>
+      Each standby only knows about the primary. It has no knowledge of other standbys. Monitoring command and query issued to the standby will report only the standby itself and the primary, as a usual HADR pair. No info about other standbys will be reported.
+      <br/>
+      <br/>
+      The primary is aware of all standbys. When issued on the primary ,"db2pd -hadr" and MON_GET_HADR table function will report all standbys. If a configured standby (listed in primary's hadr_target_list) is not connected, it is still displayed, as a reminder that multiple standbys are configured. The snapshot interface (deprecated) will only report the principal standby.
+     </p>
+     <h2>
+      <a name="HADR_pair_view">
+       HADR pair view
+      </a>
+     </h2>
+     <p>
+      Certain monitor fields are applicable to primary or standby only. For example, PEER_WAIT_LIMIT is applicable only to primary, STANDBY_RECV_BUF_SIZE, STANDBY_SPOOL_LIMIT, READS_ON_STANDBY_ENABLED are applicable only to standby. When this kind of information is reported, it is data from the database currently in this role (which may be the remote database), rather than the local database. For example, PEER_WAIT_LIMIT reported by a standby is the value configured on the primary, not the standby's local configuration. The standby's configuration will be used only when the standby turns into a primary.
+     </p>
+     <h2>
+      <a name="Information_about_remote_database">
+       Information about remote database
+      </a>
+     </h2>
+     <p>
+      Primary and standby exchange monitoring information via heartbeat messages, which is sent periodically. Information about the remote database can be slightly out of date, up to a heartbeat interval. Heartbeat interval itself is reported via the HEARTBEAT_INTERVAL field. If a database has never connected to its partner database since activation, info about remote database will be returned as SQL NULL to indicate "unknown".
+     </p>
+     <h2>
+      <a name="Unit_of_time_duration">
+       Unit of time duration
+      </a>
+     </h2>
+     <p>
+      Per monitor table function convention, all MON_GET_HADR time duration fields use millisecond as unit. For those fields reflecting a config parameter (such as HADR_TIMEOUT, HADR_PEER_WINDOW) whose unit in config is second, the number returned by MON_GET_HADR table function will be different from the number used in "db2 get/update db cfg" command, the number returned by SYSIBMADM.DBCFG admin view or SYSPROC.DB_GET_CFG() table function. For example, for a 60 second HADR_TIMEOUT value, MON_GET_HADR will return 60000, while the config oriented interfaces will return 60. To convert the millisecond number to second, use column_name/1000 in your query.
+      <br/>
+      <br/>
+      "db2pd -hadr" returns seconds for parameters configured using seconds. Furthermore, the unit itself is printed in output to avoid confusion.
+     </p>
+     <h2>
+      <a id="Monitoring workload" name="Monitoring workload">
+       <span style="font-family:'arial' , 'helvetica' , sans-serif">
+        <span style="font-style:normal">
+         <span style="letter-spacing:normal">
+          <span style="text-transform:none">
+           <span style="white-space:normal">
+            <span style="word-spacing:0px">
+             <span style="background-color:#ffffff">
+              Monitoring workload
+             </span>
+            </span>
+           </span>
+          </span>
+         </span>
+        </span>
+       </span>
+      </a>
+     </h2>
+     <span style="font-size:12px">
+      <span style="font-family:'arial' , 'helvetica' , sans-serif">
+       <span style="font-style:normal">
+        <span style="font-weight:400">
+         <span style="letter-spacing:normal">
+          <span style="text-transform:none">
+           <span style="white-space:normal">
+            <span style="word-spacing:0px">
+             <span style="background-color:#ffffff">
+              <span style="line-height:16.05px">
+               It's important be aware of the open transactions and avoid long running transactions in the workload to prevent long takeover time. The “db2pd -transaction” command displays the transactions in progress. The following is an example output of “db2pd -transaction” taken on a HADR standby database:
+              </span>
+             </span>
+            </span>
+           </span>
+          </span>
+         </span>
+        </span>
+       </span>
+      </span>
+     </span>
+     <pre>
         <span style="font-size:12px"><span style="font-family:'roboto' , sans-serif"><span style="font-style:normal"><span style="font-weight:400"><span style="letter-spacing:normal"><span style="text-transform:none"><span style="white-space:normal"><span style="word-spacing:0px"><span style="background-color:#ffffff"><span style="font-family:'courier new' , 'courier' , monospace">Transactions:</span></span></span></span></span></span></span></span></span>
 
-        <span style="font-style:normal"><span style="font-weight:400"><span style="letter-spacing:normal"><span style="text-transform:none"><span style="white-space:normal"><span style="word-spacing:0px"><span style="background-color:#ffffff"><span style="font-family:'courier new' , 'courier' , monospace">Address&nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp;AppHandl&nbsp; &nbsp;[nod-index]&nbsp; &nbsp; TranHdl&nbsp; &nbsp; Locks&nbsp; &nbsp; State&nbsp; &nbsp; Tflag
-        0x00007F409D103280&nbsp; 14&nbsp; &nbsp; &nbsp;&nbsp; &nbsp; [000-00014]&nbsp; &nbsp; 4&nbsp; &nbsp; &nbsp; &nbsp; &nbsp; 0&nbsp; &nbsp; &nbsp; &nbsp; READ&nbsp; &nbsp; &nbsp;0x00000000
-        0x00007F409D109380&nbsp; 0&nbsp; &nbsp; &nbsp; &nbsp; &nbsp; [000-00000]&nbsp; &nbsp; 6&nbsp; &nbsp; &nbsp; &nbsp; &nbsp; 0&nbsp; &nbsp; &nbsp; &nbsp; WRITE&nbsp; &nbsp; 0x00000000
+        <span style="font-style:normal"><span style="font-weight:400"><span style="letter-spacing:normal"><span style="text-transform:none"><span style="white-space:normal"><span style="word-spacing:0px"><span style="background-color:#ffffff"><span style="font-family:'courier new' , 'courier' , monospace">Address             AppHandl   [nod-index]    TranHdl    Locks    State    Tflag
+        0x00007F409D103280  14         [000-00014]    4          0        READ     0x00000000
+        0x00007F409D109380  0          [000-00000]    6          0        WRITE    0x00000000
 
-        Tflag2&nbsp; &nbsp; &nbsp; &nbsp; Firstlsn&nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; Lastlsn&nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp;Firstlso&nbsp; &nbsp; Lastlso
-        0x00000000&nbsp; &nbsp; 0x0000000000000000&nbsp; &nbsp; 0x0000000000000000&nbsp; &nbsp; 0&nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp;0
-        0x00000000&nbsp; &nbsp; 0x00000000000772A8&nbsp; &nbsp; 0x0000000000077437&nbsp; &nbsp; 61762921&nbsp; &nbsp; 61796038
+        Tflag2        Firstlsn              Lastlsn               Firstlso    Lastlso
+        0x00000000    0x0000000000000000    0x0000000000000000    0           0
+        0x00000000    0x00000000000772A8    0x0000000000077437    61762921    61796038
 
 
 
-        LogSpace&nbsp; &nbsp; SpaceReserved&nbsp; &nbsp; TID&nbsp;&nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; AxRegCnt&nbsp; &nbsp; GXID
-        0&nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp;0&nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; 0x000000000100&nbsp; &nbsp; 1&nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp;0
+        LogSpace    SpaceReserved    TID               AxRegCnt    GXID
+        0           0                0x000000000100    1           0
 
-        0&nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp;0&nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; 0x00000000022E&nbsp; &nbsp; 0&nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp;0</span></span></span></span></span></span></span></span></span>
+        0           0                0x00000000022E    0           0</span></span></span></span></span></span></span></span></span>
 
-        <span style="font-family:'arial' , 'helvetica' , sans-serif"><span style="font-size:12px"><span style="font-style:normal"><span style="font-weight:400"><span style="letter-spacing:normal"><span style="text-transform:none"><span style="white-space:normal"><span style="word-spacing:0px"><span style="background-color:#ffffff"><span style="line-height:16.05px">The example shows that there is one write transaction that is going on. The transaction starts at LSN 0x0772A8 and is currently at 0x077437. This transaction is still relatively small and would not take too long to undo. However, if the difference between LastLsn and FirstLsn becomes too big, then it may take considerable time to undo the transaction when takeover happens. It’s recommended&nbsp;to optimize the workload to avoid long-running transactions, so that it would take reasonable time for HADR standby to complete takeover in case of fatal failure on primary.</span></span></span></span></span></span></span></span></span></span></pre>
-
-        <h2><a name="Monitoring_HADR_takeover">Monitoring HADR takeover</a></h2>
-
-        <p>"db2pd -hadr" is the recommended monitoring method during takeover. During a takeover, there may be a time window when clients cannot connect to either primary or standby, so SQL based methods such as table function won't work.<br />
-        <br />
-        For more info, see "How to monitor takeover" section in <a href="hadrTakeover.html">HADR takeover</a></p>
-
-        <h1><a name="HADR_Info_in_db2diag_log">HADR Info in db2diag.log</a></h1>
-
-        <p dir="ltr">Db2diag.log is an important DB2 diagnostic tool. It records history of events in DB2. See <a href="db2diag.html">db2diag.log</a> for details.</p>
-        </div>
-
-        <p dir="ltr">&nbsp;</p>
-      </div>
+        <span style="font-family:'arial' , 'helvetica' , sans-serif"><span style="font-size:12px"><span style="font-style:normal"><span style="font-weight:400"><span style="letter-spacing:normal"><span style="text-transform:none"><span style="white-space:normal"><span style="word-spacing:0px"><span style="background-color:#ffffff"><span style="line-height:16.05px">The example shows that there is one write transaction that is going on. The transaction starts at LSN 0x0772A8 and is currently at 0x077437. This transaction is still relatively small and would not take too long to undo. However, if the difference between LastLsn and FirstLsn becomes too big, then it may take considerable time to undo the transaction when takeover happens. It’s recommended to optimize the workload to avoid long-running transactions, so that it would take reasonable time for HADR standby to complete takeover in case of fatal failure on primary.</span></span></span></span></span></span></span></span></span></span></pre>
+     <h2>
+      <a name="Monitoring_HADR_takeover">
+       Monitoring HADR takeover
+      </a>
+     </h2>
+     <p>
+      "db2pd -hadr" is the recommended monitoring method during takeover. During a takeover, there may be a time window when clients cannot connect to either primary or standby, so SQL based methods such as table function won't work.
+      <br/>
+      <br/>
+      For more info, see "How to monitor takeover" section in
+      <a href="hadrTakeover.html">
+       HADR takeover
+      </a>
+     </p>
+     <h1>
+      <a name="HADR_Info_in_db2diag_log">
+       HADR Info in db2diag.log
+      </a>
+     </h1>
+     <p dir="ltr">
+      Db2diag.log is an important DB2 diagnostic tool. It records history of events in DB2. See
+      <a href="db2diag.html">
+       db2diag.log
+      </a>
+      for details.
+     </p>
     </div>
-    <!-- /#page-content-wrapper -->
-
+    <p dir="ltr">
+    </p>
+   </div>
   </div>
+  <!-- /#page-content-wrapper -->
   <!-- /#wrapper -->
-
   <!-- Bootstrap core JavaScript -->
-  <script src="vendor/jquery/jquery.min.js"></script>
-  <script src="vendor/bootstrap/js/bootstrap.bundle.min.js"></script>
-
+  <script src="vendor/jquery/jquery.min.js">
+  </script>
+  <script src="vendor/bootstrap/js/bootstrap.bundle.min.js">
+  </script>
   <!-- Menu Toggle Script -->
   <script>
-    $("#menu-toggle").click(function(e) {
+   $("#menu-toggle").click(function(e) {
       e.preventDefault();
       $("#wrapper").toggleClass("toggled");
     });
   </script>
-
-</body>
-
+ </body>
 </html>
