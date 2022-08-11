@@ -191,7 +191,7 @@
       </li>
       <li>
        <a href="#Standby_tablespace_status">
-        Standby tablespace status
+        Monitoring and identifying erroneous table spaces on the standby
        </a>
       </li>
       <li>
@@ -583,15 +583,19 @@
      </ul>
      <h1>
       <a name="Standby_tablespace_status">
-       Standby tablespace status
+       Monitoring and identifying erroneous table spaces on the standby
       </a>
      </h1>
      <p>
-      Standby tablespace status is not reported via HADR monitoring interface. But it is just as important for HADR monitoring. Use "db2pd -tablespaces" command to monitor standby tablespace status. Replay errors on the standby (such as device full, failed load) can bring a tablespace into abnormal state. Pay attention to any non zero "state". See
-      <a href="https://www.ibm.com/docs/en/db2/11.5?topic=databases-hadr-database-states">
-        Db2 high availability disaster recovery (HADR) database states
+      Starting in v11.1.1.1 and v10.5 Fix Pack 9, when one or more tablespaces is in an invalid or error state on the Standby database, the HADR_FLAGS field will display the value 'STANDBY_TABLESPACE_ERROR'. For details, see: 
+      <a href="https://www.ibm.com/support/pages/monitoring-and-identifying-tablespaces-invalid-or-error-state-or-tables-inoperative-state-hadr-standby-database">
+        Monitoring and identifying tablespaces in invalid or error state, or tables in Inoperative state on the HADR Standby database
       </a>
-      for definition of all the states. Replay will skip tablespaces in error state. Should a failover happen, such "bad" tablespaces won't be available for applications.
+      User can recover bad tablespace on standby, following the instructions in: 
+      <a href="https://www.ibm.com/docs/en/db2/11.5?topic=databases-recovering-table-space-errors-hadr-standby-database">
+        Recovering table space errors on an HADR standby database
+      </a>
+      
       <br/>
       <br/>
       If the failed tablespaces are important, reinitialize the standby to make them "good" again.
