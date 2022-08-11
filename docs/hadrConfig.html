@@ -272,6 +272,11 @@
          </a>
         </li>
         <li>
+         <a href="#DB2_FAIL_RECOVERY_ON_TABLESPACE_ERROR___Fail_Standby_on_Tablespace_error">
+          DB2_FAIL_RECOVERY_ON_TABLESPACE_ERROR - Fail Standby on Tablespace Error
+         </a>
+        </li>
+        <li>
          <a href="#AUTORESTART">
           autorestart
          </a>
@@ -860,6 +865,20 @@
       <a href="https://www.ibm.com/docs/en/db2/11.5?topic=parameters-autorestart-auto-restart-enable">
         autorestart - Auto restart enable configuration parameter
       </a>
+     </p>
+     <h2 dir="ltr">
+      <a name="DB2_FAIL_RECOVERY_ON_TABLESPACE_ERROR___Fail_Standby_on_Tablespace_error">
+       DB2_FAIL_RECOVERY_ON_TABLESPACE_ERROR - Fail Standby on Tablespace Error
+      </a>
+     </h2>
+     <p dir="ltr">
+       In an HADR environment, by default, when a standby database has a table space in an invalid or error state, the replay of transactions on this table space stops. On other valid table spaces, the replay of transactions will continue. 
+       It's possible to specify a different behavior, by setting the DB2_FAIL_RECOVERY_ON_TABLESPACE_ERROR registry variable to ROLLFORWARD. With this setting, the standby database will shut down when encountering a table space which is invalid or in error. 
+       See 
+       <a href="https://www.ibm.com/docs/en/db2/11.5?topic=hadr-database-configuration#c0011761__fail_recovery">
+         DB2_FAIL_RECOVERY_ON_TABLESPACE_ERROR registry variable
+       </a>
+       for more information.
      </p>
     </div>
    </div>
