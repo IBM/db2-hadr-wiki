@@ -1355,13 +1355,10 @@
       </a>
      </h3>
      <p dir="ltr">
-      Standby uses parallel replay. A replay master thread dispatches log records to multiple worker threads for parallel replay. Number of total threads (workers + master) defaults to number of physical CPUs on the host machine.
+      Standby uses parallel replay. A replay master thread dispatches log records to multiple worker threads for parallel replay. Number of total threads (workers + master) defaults to min(number of physical CPU on host, 17).
       <br/>
       <br/>
-      When there are a large number of CPUs, the default may be too high, creating contention among the threads on shared data structures. Generally, parallel replay scales well up to 8 threads. With 16 and 32 threads, it may or may not be much better than 8, depending on hardware and replay workload (some log records require serialization point that pauses parallel replay). Above 32 threads, generally you see no gain or negative gain.
-      <br/>
-      <br/>
-      To check the number of threads used, look for lines like this in db2diag.log:
+      To check the number of threads used, look for message like this in db2diag.log:
       <br/>
       <span style="font-family:'courier new' , 'courier' , monospace">
        Using parallel recovery with 8 agents 3 QSets 21 queues and 0 chunks
@@ -1371,49 +1368,55 @@
       The above line shows 8 threads (workers + master), on an 8 CPU machine.
       <br/>
       <br/>
-      To tune down the number of threads, use DB2 registry variable DB2BPVARS:
+      The following can be used to change the number of threads.
       <br/>
+      <br/>
+      On version 11.5.8 or later, use the DB2_RECOVERY_SETTINGS register variable:
       <br/>
       <span style="font-family:'courier new' , 'courier' , monospace">
-       db2set DB2BPVARS=&lt;path to buffer pool config file&gt;
+       db2set db2set DB2_RECOVERY_SETTINGS=NUM_AGENT=5
+      </span>
+      <br/>
+      <br/>
+      Prior to version 11.5.8, use DB2 registry variable DB2BPVARS:
+      <br/>
+      <span style="font-family:'courier new' , 'courier' , monospace">
+       db2set DB2BPVARS=<path to buffer pool config file>
       </span>
       <br/>
       <br/>
       In the config file, put this line (Parallel RECovery NUM AGENTS):
       <br/>
-      <br/>
       <span style="font-family:'courier new' , 'courier' , monospace">
-       PREC_NUM_AGENTS=&lt;number of threads&gt;
+       PREC_NUM_AGENTS=<number of threads>
       </span>
       <br/>
       <br/>
       Example:
       <br/>
-      <br/>
       <span style="font-family:'courier new' , 'courier' , monospace">
        db2set DB2BPVARS=/tmp/DB2BPVARS
-       <br/>
-       echo PREC_NUM_AGENTS=5 &gt; /tmp/DB2BPVARS
-       <br/>
+      <br/>
+       echo PREC_NUM_AGENTS=5 > /tmp/DB2BPVARS
+      <br/>
        db2stop force
-       <br/>
+      <br/>
        db2start
-       <br/>
+      <br/>
        db2 activate db myDb
-       <br/>
-       <br/>
-       grep "parallel recovery" $HOME/sqllib/db2dump/db2diag.log
-       <br/>
+      </span>
+      <br/>
+      <br/>
+      The example above tunes down number of threads from 8 to 5 on an 8 CPU machine. The following message would be in db2diag.log:
+      <br/>
+      <span style="font-family:'courier new' , 'courier' , monospace">
        Using parallel recovery with 5 agents 3 QSets 12 queues and 0 chunks
       </span>
       <br/>
       <br/>
-      The example above tunes down number of threads from 8 to 5 on an 8 CPU machine.
+      You may need to experiment with a few numbers to find out the best one. Note that a larger number might allow better concurrency but might also increase the overhead required to manage a larger number of agents and queues.
      </p>
      <p dir="ltr">
-      You may need to experiment with a few numbers to find out the best one.
-      <br/>
-      <br/>
       <strong>
        Physical vs. Virtual CPU
       </strong>
