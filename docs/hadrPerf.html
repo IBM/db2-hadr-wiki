@@ -1361,54 +1361,10 @@
       <br/>
       The above line shows 8 threads (workers + master), on an 8 CPU machine.
       <br/>
-      <br/>
-      The following can be used to change the number of threads.
-      <br/>
-      <br/>
-      On version 11.5.8 or later, use the DB2_RECOVERY_SETTINGS register variable:
-      <br/>
-      <span style="font-family:'courier new' , 'courier' , monospace">
-       db2set db2set DB2_RECOVERY_SETTINGS=NUM_AGENT=5
-      </span>
-      <br/>
-      <br/>
-      Prior to version 11.5.8, use DB2 registry variable DB2BPVARS:
-      <br/>
-      <span style="font-family:'courier new' , 'courier' , monospace">
-       db2set DB2BPVARS=&lt;path to buffer pool config file&gt;
-      </span>
-      <br/>
-      <br/>
-      In the config file, put this line (Parallel RECovery NUM AGENTS):
-      <br/>
-      <span style="font-family:'courier new' , 'courier' , monospace">
-       PREC_NUM_AGENTS=&lt;number of threads&gt;
-      </span>
-      <br/>
-      <br/>
-      Example:
-      <br/>
-      <span style="font-family:'courier new' , 'courier' , monospace">
-       db2set DB2BPVARS=/tmp/DB2BPVARS
-      <br/>
-       echo PREC_NUM_AGENTS=5 > /tmp/DB2BPVARS
-      <br/>
-       db2stop force
-      <br/>
-       db2start
-      <br/>
-       db2 activate db myDb
-      </span>
-      <br/>
-      <br/>
-      The example above tunes down number of threads from 8 to 5 on an 8 CPU machine. The following message would be in db2diag.log:
-      <br/>
-      <span style="font-family:'courier new' , 'courier' , monospace">
-       Using parallel recovery with 5 agents 3 QSets 12 queues and 0 chunks
-      </span>
-      <br/>
-      <br/>
-      You may need to experiment with a few numbers to find out the best one. Note that a larger number might allow better concurrency but might also increase the overhead required to manage a larger number of agents and queues.
+      Users can optimize the HADR standby replay performance by following the 
+      <a href="https://www.ibm.com/docs/en/db2/11.5?topic=recover-optimizing-recovery-performance">
+       optimizing recovery performance
+      </a> topic on Knowledge Centre. 
      </p>
      <p dir="ltr">
       <strong>
