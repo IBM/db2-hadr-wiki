@@ -534,7 +534,7 @@
       <strong>
        STANDBY_SPOOL_PERCENT
       </strong>
-      (available on V10.5 and later) reports spool space used, as a percentage of configured limit hadr_spool_limit. A percentage of the free space in the file system will be returned if the limit is -1 (unlimited). The actual formula is: X * 100 / (X + Y) where X is the current spool amount, Y is the current free space. On earlier releases (or for the unlimited spooling case), you can compute spool space used using other monitor fields (result is in unit of pages):
+      (available on V10.5 and later) reports spool space used, as a percentage of configured limit hadr_spool_limit. If the spool limit is 0 (spooling disabled), NULL is returned. If the spool limit is -1 (unlimited spooling), a percentage of the free space in the file system is returned. You can compute spool space used using other monitor fields (result is in unit of pages):
       <br/>
       <span style="font-family:'arial' , 'helvetica' , sans-serif">
        (STANDBY_LOG_POS - STANDBY_REPLAY_LOG_POS) / 4096 - (STANDBY_RECV_BUF_SIZE * STANDBY_RECV_BUF_PERCENT)
