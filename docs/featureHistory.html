@@ -100,6 +100,20 @@
                 </li>
                 <li>
                   <a href="#New%20in%20v11.5">New in v11.5</a>
+                  <ul>
+                    <li>
+                      <a href="#New%20in%20v11.5.8">New in v11.5.8</a>
+                    </li>
+                    <li>
+                      <a href="#New%20in%20v11.5.7">New in v11.5.7</a>
+                    </li>
+                    <li>
+                      <a href="#New%20in%20v11.5.6">New in v11.5.6</a>
+                    </li>
+                    <li>
+                      <a href="#New%20in%20v11.5%20GA">New in v11.5 GA</a>
+                    </li>
+                  </ul>
                 </li>
                 <li>
                   <a href="#New%20in%20v11.1">New in v11.1</a>
@@ -281,6 +295,61 @@
           <h2 dir="ltr">
             <a id="New in v11.5" name="New in v11.5">New in v11.5</a>
           </h2>
+          <h3 dir="ltr">
+            <a id="New in v11.5.8" name="New in v11.5.8">New in v11.5.8</a>
+          </h3>
+          <ul dir="ltr">
+            <li>
+              New registry variables <a href="https://www.ibm.com/docs/en/SSEPGG_11.5.0/com.ibm.db2.luw.admin.regvars.doc/doc/r0005665.html#r0005665__DB2_RECOVERY_SETTINGS">DB2_RECOVERY_SETTINGS</a>
+              and <a href="https://www.ibm.com/docs/en/SSEPGG_11.5.0/com.ibm.db2.luw.admin.regvars.doc/doc/r0005665.html#r0005665__DB2_DPS_LFR_PAGES_PER_IO">DB2_DPS_LFR_PAGES_PER_IO</a>
+              can be used to improve the log
+              replay performance for crash recovery, database rollforward and HADR standby. See
+              <a href="https://www.ibm.com/docs/en/SSEPGG_11.5.0/com.ibm.db2.luw.admin.ha.doc/doc/c0006141.html#c0006141__parallel_recovery">Configuration
+              parameters that can impact log replay performance</a>. Improvements to the log replay logic, in particular
+              in reducing the negative impact caused by using more agents to perform the recovery.
+            </li>
+          </ul>
+          <h3 dir="ltr">
+            <a id="New in v11.5.7" name="New in v11.5.7">New in v11.5.7</a>
+          </h3>
+          <ul dir="ltr">
+            <li>
+              Automated HADR failover with Pacemaker is now supported on RHEL 8.2 on PPCLE and SLES 15 SP3 on PPCLE.
+            </li>
+            <li>
+              Improved primary HADR hang detection for Tivoli SA MP HADR deployments. If connections to the primary
+              database are unresponsive, the cluster manager will initiate a failover to the standby.
+            </li>
+          </ul>
+          <h3 dir="ltr">
+            <a id="New in v11.5.6" name="New in v11.5.6">New in v11.5.6</a>
+          </h3>
+          <ul dir="ltr">
+            <li>
+              Multiple heartbeat rings support has been added. Users can now utilize more than one network adapter to
+              create multiple heartbeat rings to enhance network resiliency of the cluster. For background, benefits,
+              and detailed setup instructions, refer to <a href="https://www.ibm.com/support/pages/node/6441417">Improving cluster network heartbeating resiliency for Db2 HADR
+              with Pacemaker</a>.
+            </li>
+            <li>
+              Improved diagnostics for automated failover to HADR standby on Linux® for on-premises and
+              non-containerized cloud deployments with Pacemaker
+            </li>
+            <li>
+              Corosync and Pacemaker diagnostics now use a timestamp format with millisecond precision, by default,
+              improving traceability of sub second interactions between the Db2 engine and cluster manager.
+            </li>
+            <li>
+              There is a better solution to implement HADR in NAT environments. This method does not require the
+              setting of the DB2_HADR_NO_IP_CHECK register variable. This method allows HADR with multiple standby
+              databases to work in some NAT environments where previously is not possible via the use of
+              DB2_HADR_NO_IP_CHECK register variable. For more information, see <a href="https://www.ibm.com/docs/en/SSEPGG_11.5.0/com.ibm.db2.luw.admin.ha.doc/doc/c0054092.html">HADR and Network Address Translation
+              (NAT) support</a>.
+            </li>
+          </ul>
+          <h3 dir="ltr">
+            <a id="New in v11.5 GA" name="New in v11.5 GA">New in v11.5 GA</a>
+          </h3>
           <ul dir="ltr">
             <li>
               HADR Reads on Standby new default behaviour – the availability of the standby database to perform SQL
